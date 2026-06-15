@@ -96,10 +96,13 @@ a:hover{color:var(--oxblood-deep);border-color:var(--oxblood);}
 
 .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.8rem 0 .4rem;}
 .btn{
+  display:inline-block;
   font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
   padding:.72rem 1.15rem;border:1px solid var(--oxblood);color:var(--oxblood);background:transparent;
   border-radius:0;cursor:pointer;transition:background .15s,color .15s;
+  margin:.3rem .4rem;
 }
+.cta-row .btn{margin:0;}
 .btn:hover{background:var(--oxblood);color:var(--parchment);border-color:var(--oxblood);}
 .btn-primary{background:var(--oxblood);color:var(--parchment);}
 .btn-primary:hover{background:var(--oxblood-deep);}
