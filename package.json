@@ -1,0 +1,12 @@
+{
+  "name": "scarcinality-site",
+  "version": "1.0.0",
+  "description": "Scarcinality: a theory of which shortage is real. Static site and blog.",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

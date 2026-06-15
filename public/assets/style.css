@@ -1,0 +1,185 @@
+/* Scarcinality · shared styles
+   Identity continued from the treatise: EB Garamond reading face, oxblood accent,
+   parchment ground. Utility/ledger voice in IBM Plex Mono. */
+
+:root{
+  --parchment:#f6f2e9;
+  --parchment-deep:#efe9db;
+  --ink:#211d18;
+  --ink-soft:#5c5247;
+  --ink-faint:#8a8073;
+  --oxblood:#8a3324;
+  --oxblood-deep:#6f281c;
+  --rule:#ddd3c2;
+  --rule-soft:#e7ddcd;
+  /* quadrant palette, reused from the phase plane */
+  --q-tranquility:#3f6b3a;
+  --q-overheating:#7a5a18;
+  --q-deflation:#2f5670;
+  --q-stagflation:#8a3324;
+  --serif:"EB Garamond", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure:38rem;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--parchment);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:1.18rem;
+  line-height:1.65;
+  font-feature-settings:"liga" 1,"onum" 1,"kern" 1;
+  text-rendering:optimizeLegibility;
+}
+img,svg{max-width:100%;height:auto;}
+
+a{color:var(--oxblood);text-decoration:none;border-bottom:1px solid var(--rule);transition:color .15s,border-color .15s;}
+a:hover{color:var(--oxblood-deep);border-color:var(--oxblood);}
+
+/* ---------- header ---------- */
+.site-header{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;
+  flex-wrap:wrap;
+  padding:1.4rem clamp(1.1rem,5vw,3rem);
+  border-bottom:1px solid var(--rule);
+  background:var(--parchment);
+  position:sticky;top:0;z-index:50;
+}
+.brand{
+  font-family:var(--serif);font-size:1.5rem;font-weight:600;letter-spacing:.3px;
+  color:var(--ink);border:none;
+}
+.brand:hover{color:var(--oxblood);}
+.site-nav{display:flex;gap:1.3rem;flex-wrap:wrap;}
+.site-nav a{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);border:none;padding-bottom:2px;border-bottom:1px solid transparent;
+}
+.site-nav a:hover,.site-nav a[aria-current="page"]{color:var(--oxblood);border-bottom-color:var(--oxblood);}
+
+/* ---------- layout shells ---------- */
+.wrap{max-width:64rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.1rem,5vw,3rem);}
+.prose{max-width:var(--measure);margin-left:auto;margin-right:auto;}
+.prose p,.prose ul,.prose ol{margin:0 0 1.05rem 0;}
+.prose h2{font-size:1.7rem;font-weight:600;line-height:1.2;margin:2.4rem 0 .6rem;color:var(--oxblood);}
+.prose h3{font-size:1.28rem;font-weight:600;margin:1.8rem 0 .4rem;}
+.prose blockquote{
+  margin:1.6rem 0;padding:.2rem 0 .2rem 1.4rem;border-left:2px solid var(--oxblood);
+  font-style:italic;color:var(--ink-soft);
+}
+
+/* ---------- eyebrow + dividers ---------- */
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 .8rem;display:flex;align-items:center;gap:.6rem;
+}
+.eyebrow .seq{color:var(--oxblood);}
+.descent-rule{border:none;text-align:center;margin:3rem auto;max-width:var(--measure);}
+.descent-rule::before{
+  content:"";display:block;height:1px;background:var(--rule);margin:0 auto .55rem;
+}
+.descent-rule::after{content:"\25BE";color:var(--oxblood);font-size:.8rem;opacity:.7;}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(2.4rem,7vw,5rem) clamp(1.1rem,5vw,3rem) 1.5rem;border-bottom:1px solid var(--rule);}
+.hero-inner{max-width:64rem;margin:0 auto;}
+.hero h1{
+  font-size:clamp(3rem,9vw,5.4rem);line-height:.98;font-weight:600;margin:.2rem 0 .6rem;
+  letter-spacing:-.5px;
+}
+.hero .thesis{font-style:italic;font-size:clamp(1.3rem,3.5vw,1.7rem);color:var(--ink-soft);margin:0 0 1.6rem;max-width:36rem;}
+.hero .lead{max-width:var(--measure);font-size:1.22rem;}
+.hero .lead .term{font-style:italic;}
+
+.cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.8rem 0 .4rem;}
+.btn{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.72rem 1.15rem;border:1px solid var(--oxblood);color:var(--oxblood);background:transparent;
+  border-radius:0;cursor:pointer;transition:background .15s,color .15s;
+}
+.btn:hover{background:var(--oxblood);color:var(--parchment);border-color:var(--oxblood);}
+.btn-primary{background:var(--oxblood);color:var(--parchment);}
+.btn-primary:hover{background:var(--oxblood-deep);}
+
+/* ---------- signature figure ---------- */
+.signature{max-width:64rem;margin:2.4rem auto 0;text-align:center;}
+.signature img{border:1px solid var(--rule);background:#fff0;padding:.4rem;}
+.figcap{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--ink-faint);margin-top:.7rem;}
+
+/* ---------- home section cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:1.5rem;}
+.card{background:var(--parchment);padding:1.6rem 1.5rem;}
+.card h3{margin:.2rem 0 .5rem;font-size:1.25rem;}
+.card p{margin:0 0 .9rem;font-size:1.05rem;color:var(--ink-soft);}
+.card .more{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:none;}
+
+/* ---------- index lists (theory / dispatches) ---------- */
+.entry{border-top:1px solid var(--rule);padding:1.5rem 0;display:grid;grid-template-columns:3.2rem 1fr;gap:1.2rem;}
+.entry:last-child{border-bottom:1px solid var(--rule);}
+.entry .num{font-family:var(--mono);font-size:.95rem;color:var(--oxblood);padding-top:.25rem;}
+.entry h3{margin:0 0 .3rem;font-size:1.45rem;font-weight:600;}
+.entry h3 a{border:none;color:var(--ink);}
+.entry h3 a:hover{color:var(--oxblood);}
+.entry .dek{margin:0 0 .35rem;color:var(--ink-soft);font-size:1.08rem;}
+.entry .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);}
+.tag-draft{color:var(--ink-faint);}
+.tag-live{color:var(--oxblood);}
+
+/* quadrant chips */
+.chip{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;border:1px solid currentColor;margin-right:.4rem;}
+.c-tranquility{color:var(--q-tranquility);}
+.c-overheating{color:var(--q-overheating);}
+.c-deflation{color:var(--q-deflation);}
+.c-stagflation{color:var(--q-stagflation);}
+
+/* ---------- ledger table ---------- */
+.ledger{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:1rem;}
+.ledger th,.ledger td{text-align:left;padding:.7rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top;}
+.ledger th{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;}
+.ledger td.claim{font-style:italic;}
+.ledger .status{font-family:var(--mono);font-size:.74rem;white-space:nowrap;}
+
+/* ---------- post meta ---------- */
+.post-head{max-width:var(--measure);margin:0 auto 1.4rem;}
+.post-head h1{font-size:clamp(2.1rem,5.5vw,3.1rem);line-height:1.05;font-weight:600;margin:.4rem 0 .5rem;}
+.post-head .dek{font-style:italic;font-size:1.3rem;color:var(--ink-soft);margin:0;}
+.post-meta{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+
+/* ---------- glossary ---------- */
+.glossary dt{font-weight:600;font-size:1.25rem;margin-top:1.4rem;color:var(--oxblood);}
+.glossary dd{margin:.25rem 0 0;color:var(--ink);}
+
+/* ---------- treatise page ---------- */
+.treatise-body{max-width:var(--measure);margin:0 auto;}
+.treatise-body h1{font-size:clamp(2.6rem,7vw,4rem);font-weight:600;text-align:center;margin:.5rem 0 .2rem;}
+.treatise-body h3{text-align:center;font-style:italic;font-weight:500;color:var(--ink-soft);border:none;}
+.treatise-body h2{font-size:1.55rem;color:var(--oxblood);margin:2.4rem 0 .5rem;}
+.treatise-body hr{border:none;text-align:center;margin:2.2rem 0;}
+.treatise-body hr::after{content:"\2042";color:var(--ink-faint);font-size:1.2rem;}
+.treatise-body figure{margin:2rem 0;text-align:center;}
+.treatise-body figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);margin-top:.6rem;}
+.treatise-body em{font-style:italic;}
+
+/* ---------- footer ---------- */
+.site-footer{border-top:1px solid var(--rule);padding:2.2rem clamp(1.1rem,5vw,3rem);margin-top:2rem;}
+.site-footer .inner{max-width:64rem;margin:0 auto;}
+.site-footer p{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--ink-faint);margin:.2rem 0;}
+.site-footer .tagline{color:var(--ink-soft);}
+
+/* ---------- utilities ---------- */
+.mono{font-family:var(--mono);}
+.small{font-size:.85em;}
+.center{text-align:center;}
+.note{font-size:.95rem;color:var(--ink-soft);border-left:2px solid var(--rule);padding-left:1rem;margin:1.4rem 0;}
+
+/* ---------- a11y + responsive ---------- */
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--oxblood);outline-offset:3px;}
+@media (max-width:560px){
+  body{font-size:1.1rem;}
+  .entry{grid-template-columns:2.4rem 1fr;gap:.8rem;}
+  .site-header{position:static;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
