@@ -70,6 +70,10 @@ Always follow the exact record shown in the Railway dashboard, since it is gener
 
 Each page is a standalone HTML file that copies the same header and footer. To add a theory post or a dispatch, duplicate `theory-01.html`, change the `<title>`, `<h1>`, meta description, and body, then link it from `theory.html` or `dispatches.html`. Keep the house style: no em dashes.
 
+## The author photo
+
+The About page (`/about`) shows a "JP" monogram by default. To use a real headshot, drop a square image at `public/assets/author.jpg` and it will appear automatically, replacing the monogram. No code change needed.
+
 ## Notes
 
 - The dispatches make conditional, dated predictions and track them in the standing ledger. Update that table as data moves, rather than rewriting history.

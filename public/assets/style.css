@@ -183,3 +183,14 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--oxblood);outline-offs
   .site-header{position:static;}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+/* ---------- author page ---------- */
+.author-head{display:flex;gap:1.8rem;align-items:center;flex-wrap:wrap;margin-bottom:1.4rem;}
+.author-photo img,.author-photo .monogram{width:132px;height:132px;border-radius:50%;object-fit:cover;border:1px solid var(--rule);display:block;}
+.author-photo .monogram{display:flex;align-items:center;justify-content:center;background:var(--parchment-deep);color:var(--oxblood);font-family:var(--serif);font-size:2.7rem;font-weight:600;letter-spacing:1px;}
+.author-id h1{margin:.1rem 0 .25rem;font-size:2.3rem;line-height:1.05;}
+.author-id .role{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;margin:0;}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:1.5rem 0;}
+.facts .fact{background:var(--parchment);padding:1rem 1.1rem;}
+.facts .fact .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:.3rem;}
+.facts .fact .v{font-size:1.05rem;line-height:1.35;}
