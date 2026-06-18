@@ -43,6 +43,7 @@
       <a class="btn" href="/treatise">Read the treatise</a>
       <a class="btn" href="/dispatches">Read the dispatches</a>
     </div>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share Scarcinality';b.classList.remove('copied');},2000)})">Share Scarcinality</button>
   </div>
   <figure class="signature">
     <img src="/assets/phaseplane.svg" alt="The scarcinal phase plane: inflation plotted against unemployment, divided into four quadrants labeled tranquility, overheating, debt-deflation, and stagflation.">

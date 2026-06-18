@@ -178,6 +178,17 @@ a:hover{color:var(--oxblood-deep);border-color:var(--oxblood);}
 .center{text-align:center;}
 .note{font-size:.95rem;color:var(--ink-soft);border-left:2px solid var(--rule);padding-left:1rem;margin:1.4rem 0;}
 
+/* ---------- share button ---------- */
+.share-btn{
+  display:inline-flex;align-items:center;gap:.45em;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);background:none;border:1px solid var(--rule);
+  padding:.38rem .8rem;cursor:pointer;transition:color .15s,border-color .15s;
+  margin-top:1rem;
+}
+.share-btn:hover{color:var(--oxblood);border-color:var(--oxblood);}
+.share-btn.copied{color:var(--oxblood);border-color:var(--oxblood);}
+
 /* ---------- a11y + responsive ---------- */
 a:focus-visible,.btn:focus-visible{outline:2px solid var(--oxblood);outline-offset:3px;}
 @media (max-width:560px){
