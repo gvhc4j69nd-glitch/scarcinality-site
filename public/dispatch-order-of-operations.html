@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Order of Operations · Scarcinality</title>
+<meta name="description" content="A dispatch turning the universal-care roadmap into scarcinality: a sequence designed so that money stays the binding scarcity and the remedy never spills into a real one.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Order of Operations · Scarcinality">
+<meta property="og:description" content="A dispatch turning the universal-care roadmap into scarcinality: a sequence designed so that money stays the binding scarcity and the remedy never spills into a real one.">
+<meta property="og:url" content="https://scarcinality.com/dispatch-order-of-operations">
+<meta property="og:image" content="https://scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Order of Operations · Scarcinality">
+<meta name="twitter:description" content="A dispatch turning the universal-care roadmap into scarcinality: a sequence designed so that money stays the binding scarcity and the remedy never spills into a real one.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/phaseplane.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  /* Dispatch-specific styles not in the shared stylesheet */
+  .stamp{
+    max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+    background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+    font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);
+  }
+  .prose h2{
+    font-family:var(--mono);font-weight:600;font-size:.82rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);
+    margin:2.6rem 0 .4rem;
+  }
+  .prose h2 .ph{color:var(--ink-soft);}
+  .lead::first-letter{
+    font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+    color:var(--oxblood);font-weight:600;
+  }
+  .pull{
+    max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+    border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;
+  }
+  figure.plane{max-width:var(--measure);margin:1.6rem 0 .4rem;}
+  figure.plane svg{width:100%;height:auto;display:block;}
+  figure.plane figcaption{
+    font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);
+    margin-top:.6rem;line-height:1.5;
+  }
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.78rem;}
+  table.ledger th,table.ledger td{
+    text-align:left;vertical-align:top;padding:.6rem .7rem;border-bottom:1px solid var(--rule);
+  }
+  table.ledger thead th{
+    color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;font-size:.68rem;
+    border-bottom:1.5px solid var(--oxblood);
+  }
+  table.ledger td.reading{font-family:var(--serif);font-size:.96rem;line-height:1.4;min-width:18rem;}
+  table.ledger td.falsifier{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .pill{
+    display:inline-block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:.18em .55em;border:1px solid var(--oxblood);color:var(--oxblood);border-radius:2px;white-space:nowrap;
+  }
+  td.asof{color:var(--ink-soft);white-space:nowrap;}
+  td.num{color:var(--oxblood);font-weight:600;}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch · as of 17 June 2026</p>
+    <h1>The Order of Operations</h1>
+    <p class="dek">A roadmap to universal care, sequenced so that money stays the binding scarcity and the remedy never spills into a real one. The companion to the counterfeit-shortage reading: not whether to act, but in what order.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp mono">A conditional reading through scarcinality, built on Fisher, Keynes, and Minsky. This is a direction, not a forecast, and it is falsifiable. The standing ledger below is a public scorecard. It assumes the prior dispatch, that the shortage of care is counterfeit and the master scarcity is money.</p>
+
+  <article class="prose">
+
+    <p class="lead">If the shortage of care is counterfeit, the question stops being whether to dissolve it and becomes the more interesting one: in what order. Scarcinality is, at root, a claim about ordering. It says the scarcities binding an economy are ranked rather than flat. A roadmap is the same claim turned toward action, a ranking of which counterfeit scarcity to dissolve first, second, and last, chosen so the repair never tips the system out of the regime where money is the thing that binds.</p>
+
+    <p>That last clause is the whole discipline. The counterfeit-shortage reading is licensed only in the lower-left of the plane, where money binds and the labor market has slack. A repair done too fast, or compressed into a tight economy, pushes the system up and to the right, where care becomes a real shortage and the same monetary push arrives as medical price inflation rather than as more care. So the sequence is not administrative tidiness. It is how you stay inside the quadrant that makes the remedy work. Four phases, in order.</p>
+
+    <h2><span class="ph">Phase 0.</span> Sever the household overhang first</h2>
+    <p>The tightest grip is on the household balance sheet, so it goes first. A hard out-of-pocket ceiling near two thousand dollars, sliding to zero at low incomes, placed over every existing plan at once, with balance billing banned, medical debt struck from credit files, and enrollment made automatic. This is the descent reversed at the level where it bites hardest. In Fisher and Minsky terms it is a deleveraging of the household sector, the removal of the largest source of involuntary household debt. It needs no new architecture, which is why it can move first and fast, and it retires the hardest goal, the end of medical bankruptcy, before anything structural is touched. Nothing real has to be built. A gate simply stops being a gate.</p>
+
+    <h2><span class="ph">Phase 1.</span> Build the floor on rails that exist</h2>
+    <p>Do not manufacture a new scarcity of administrative capacity by standing up a system from nothing. The Medicare chassis, its billing rails, its provider network, its rate-setting, already exists, and the cheapest counterfeit to avoid is the one you would create by ignoring it. A universal floor auto-enrolls the uninsured, folds in Medicaid to end the eligibility churn, and lowers the age in steps, sixty-five to sixty to fifty-five. The stepping is not caution for its own sake. It is the phase-plane discipline made concrete: release demand in waves into available slack, never in a single surge into a tight economy.</p>
+
+    <h2><span class="ph">Phase 2.</span> Reroute the money, federally</h2>
+    <p>By now the floor is visible and working, which is the moment to move the financing, because the contribution can be seen for what it is: a premium relabeled, not a burden added. Employer premiums convert to a payroll contribution, the employer tax exclusion is recovered, and the existing public dollars are pooled. The money does not appear. It changes address. This is the master-scarcity claim rendered as a budget line, and it must be federal, because the two obstacles that sink any state attempt, the preemption that shields self-insured employers and the impossibility of folding in Medicare without Congress, both dissolve only at the national level.</p>
+
+    <p class="pull">Sequencing is scarcinality applied to time. You dissolve the counterfeit scarcities in the order of their grip, and you never let the repair cross into a real one.</p>
+
+    <h2><span class="ph">Phase 3.</span> Draw the line between counterfeit and real</h2>
+    <p>The last phase is a definition, and it is the framework's own distinction. Necessary care was a counterfeit shortage, and the floor dissolves it. But speed, private rooms, broader choice, and cosmetic procedures are not counterfeit scarcities. They are real preferences for things that are genuinely optional, and a market for them is legitimate precisely because it is no longer a gate in front of necessary care. So private insurance survives, demoted, in three honest roles, complementary, supplementary, and extras, and earns a second living administering the public benefit at capped margins. The payers are not abolished. They are moved off the road and into the shop.</p>
+
+    <h2>The corridor on the plane</h2>
+    <figure class="plane">
+      <svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase plane showing the rollout held inside the money-binds, slack corridor">
+        <rect x="60" y="190" width="200" height="120" fill="#6E1F1B" opacity="0.06"/>
+        <line x1="60" y1="40" x2="60" y2="310" stroke="#23201B" stroke-width="1.4"/>
+        <line x1="60" y1="190" x2="470" y2="190" stroke="#23201B" stroke-width="1.4"/>
+        <line x1="260" y1="40" x2="260" y2="310" stroke="#6E1F1B" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="44" y="52" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A453C" text-anchor="end">tight</text>
+        <text x="44" y="305" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A453C" text-anchor="end">slack</text>
+        <text x="68" y="30" font-family="IBM Plex Mono, monospace" font-size="11" fill="#23201B">labor market</text>
+        <text x="120" y="333" font-family="IBM Plex Mono, monospace" font-size="11" fill="#23201B" text-anchor="middle">money binds</text>
+        <text x="120" y="347" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4A453C" text-anchor="middle">(counterfeit shortage)</text>
+        <text x="385" y="333" font-family="IBM Plex Mono, monospace" font-size="11" fill="#23201B" text-anchor="middle">capacity binds</text>
+        <text x="385" y="347" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4A453C" text-anchor="middle">(real shortage)</text>
+        <!-- controlled rollout path, hugging the lower-left -->
+        <polyline points="108,272 140,266 176,260 212,252" fill="none" stroke="#6E1F1B" stroke-width="1.6"/>
+        <circle cx="108" cy="272" r="5.5" fill="#6E1F1B"/><text x="100" y="290" font-family="IBM Plex Mono, monospace" font-size="10" fill="#23201B">P0</text>
+        <circle cx="140" cy="266" r="5.5" fill="#6E1F1B"/><text x="133" y="284" font-family="IBM Plex Mono, monospace" font-size="10" fill="#23201B">P1</text>
+        <circle cx="176" cy="260" r="5.5" fill="#6E1F1B"/><text x="169" y="278" font-family="IBM Plex Mono, monospace" font-size="10" fill="#23201B">P2</text>
+        <circle cx="212" cy="252" r="5.5" fill="#6E1F1B"/><text x="205" y="270" font-family="IBM Plex Mono, monospace" font-size="10" fill="#23201B">P3</text>
+        <!-- the failure mode: compression drives up and right -->
+        <line x1="212" y1="252" x2="300" y2="150" stroke="#8A2C26" stroke-width="1.1" stroke-dasharray="3 3"/>
+        <polygon points="300,150 292,152 297,159" fill="#8A2C26"/>
+        <text x="306" y="140" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8A2C26">compress the</text>
+        <text x="306" y="152" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8A2C26">schedule and</text>
+        <text x="306" y="164" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8A2C26">the rank flips</text>
+      </svg>
+      <figcaption>The phased path is held inside the lower-left corridor, where money binds and slack absorbs new demand. The dashed vertical is the boundary into real scarcity. Compressing the four phases into a short window, or into a tight labor market, drives the path up and to the right, where the remedy turns into medical price inflation. The order is how you stay in the corridor.</figcaption>
+    </figure>
+
+    <hr class="descent-rule">
+
+    <h2>Standing ledger</h2>
+    <p>Each line is a conditional claim this roadmap commits to, with the observation that would falsify it. Status updates as evidence arrives. These are statements about direction and order, not forecasts of magnitude.</p>
+  </article>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead>
+        <tr><th>#</th><th>The reading</th><th>What would falsify it</th><th>Status</th><th>As of</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">01</td>
+          <td class="reading">Order matters. A household out-of-pocket cap, imposed first and alone, produces measurable relief in medical bankruptcy and precautionary balances before any structural change.</td>
+          <td class="falsifier">Bankruptcy and precautionary-saving measures do not move on a cap and billing reform alone.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">17 Jun 2026</td>
+        </tr>
+        <tr>
+          <td class="num">02</td>
+          <td class="reading">The existing chassis is cheaper. Building the floor on Medicare's rails costs materially less than standing up a new system.</td>
+          <td class="falsifier">A greenfield build matches or beats the chassis on cost and time to stand up.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">17 Jun 2026</td>
+        </tr>
+        <tr>
+          <td class="num">03</td>
+          <td class="reading">Pace governs prices. Lowering eligibility in steps into slack avoids inflation; the same expansion compressed into a tight market raises medical prices instead of care.</td>
+          <td class="falsifier">Rollout speed shows no difference in inflation pass-through across slack and tight regimes.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">17 Jun 2026</td>
+        </tr>
+        <tr>
+          <td class="num">04</td>
+          <td class="reading">The financing reroutes, not adds. Once administrative savings and the recovered exclusion are counted, employer and household contributions land below current private spend.</td>
+          <td class="falsifier">Contributions exceed current premiums and out-of-pocket after savings are applied.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">17 Jun 2026</td>
+        </tr>
+        <tr>
+          <td class="num">05</td>
+          <td class="reading">Federal is necessary. Any state-level attempt stalls on ERISA preemption and the inability to capture Medicare.</td>
+          <td class="falsifier">A state implements comprehensive universal care without federal action.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">17 Jun 2026</td>
+        </tr>
+        <tr>
+          <td class="num">06</td>
+          <td class="reading">The line holds. A regulated, elective-only private tier persists without cannibalizing the public floor.</td>
+          <td class="falsifier">Where a private tier is permitted, it erodes the universal floor through duplicative drift.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">17 Jun 2026</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+    <p style="margin-top:2.2rem;">The fragmentation that makes the system hard to fix is the reason the order is the strategy. Sever the overhang, build on what exists, reroute the money in daylight, then draw the line between the care that was never truly scarce and the extras that always were optional. Done in that sequence, each step earns the credibility the next one needs, and the path stays in the corridor where money is the master scarcity. As of this date the reading stands. The plane will say when it stops.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+  </div>
+</footer>
+</body>
+</html>
