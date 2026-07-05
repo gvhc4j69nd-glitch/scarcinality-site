@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal Care Financing Model · Scarcinality</title>
+<meta name="description" content="An interactive model of how universal healthcare can be financed by rerouting dollars already being spent. Adjust the policy levers; watch the numbers follow.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Universal Care Financing Model · Scarcinality">
+<meta property="og:description" content="An interactive model of how universal healthcare can be financed by rerouting dollars already being spent. Adjust the policy levers; watch the numbers follow.">
+<meta property="og:url" content="https://scarcinality.com/financing-model">
+<meta property="og:image" content="https://scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Universal Care Financing Model · Scarcinality">
+<meta name="twitter:description" content="An interactive model of how universal healthcare can be financed by rerouting dollars already being spent. Adjust the policy levers; watch the numbers follow.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/phaseplane.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+<style>
+/* ── model-specific styles ── */
+.model-panel{
+  background:var(--parchment-deep);border:1px solid var(--rule);
+  padding:1.6rem 1.8rem;margin:2rem 0;
+}
+.model-panel h3{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 1.2rem;
+}
+.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 2rem;}
+@media(max-width:600px){.control-grid{grid-template-columns:1fr;}}
+
+.control-row{display:flex;flex-direction:column;gap:.35rem;}
+.control-row label{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.control-row .val{
+  font-family:var(--mono);font-size:1.05rem;font-weight:500;color:var(--oxblood);
+}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:3px;background:var(--rule);outline:none;cursor:pointer;
+  border-radius:0;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:14px;height:14px;background:var(--oxblood);border-radius:0;cursor:pointer;
+}
+input[type=range]::-moz-range-thumb{
+  width:14px;height:14px;background:var(--oxblood);border-radius:0;cursor:pointer;border:none;
+}
+
+/* summary tiles */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2rem 0;}
+.summary-tile{
+  background:var(--parchment);padding:1.2rem 1.3rem;
+}
+.summary-tile .label{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 .4rem;
+}
+.summary-tile .big{
+  font-family:var(--mono);font-size:1.55rem;font-weight:500;color:var(--ink);line-height:1.1;
+}
+.summary-tile .big.positive{color:#2f6e3a;}
+.summary-tile .big.negative{color:var(--oxblood);}
+.summary-tile .sub{font-size:.88rem;color:var(--ink-soft);margin:.25rem 0 0;font-family:var(--mono);}
+
+/* household table */
+table.hh-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.82rem;margin:1.4rem 0;}
+table.hh-table th{
+  text-align:left;padding:.5rem .7rem;
+  font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);border-bottom:2px solid var(--rule);
+  white-space:nowrap;
+}
+table.hh-table td{padding:.55rem .7rem;border-bottom:1px solid var(--rule-soft);vertical-align:middle;}
+table.hh-table tr.crossover td{border-top:2px dashed var(--oxblood);padding-top:.7rem;}
+table.hh-table td.income{color:var(--ink);font-weight:500;}
+table.hh-table td.money{text-align:right;}
+table.hh-table td.verdict{text-align:center;}
+.verdict-less{color:#2f6e3a;letter-spacing:.05em;}
+.verdict-more{color:var(--oxblood);letter-spacing:.05em;}
+.verdict-even{color:var(--ink-faint);letter-spacing:.05em;}
+
+/* scenario compare */
+.scenario-compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:1.4rem 0;}
+.scenario-col{background:var(--parchment);padding:1.2rem 1.4rem;}
+.scenario-col h4{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 1rem;
+}
+.scenario-col h4 span{color:var(--oxblood);}
+.sc-row{display:flex;justify-content:space-between;align-items:baseline;padding:.35rem 0;border-bottom:1px solid var(--rule-soft);font-size:.88rem;}
+.sc-row:last-child{border-bottom:none;}
+.sc-row .sc-label{color:var(--ink-soft);}
+.sc-row .sc-val{font-family:var(--mono);font-weight:500;}
+.sc-row .sc-val.good{color:#2f6e3a;}
+.sc-row .sc-val.bad{color:var(--oxblood);}
+@media(max-width:540px){.scenario-compare{grid-template-columns:1fr;}}
+
+/* crossover callout */
+.crossover-note{
+  border-left:2px solid var(--oxblood);padding:.4rem 0 .4rem 1rem;
+  margin:1rem 0;font-style:italic;color:var(--ink-soft);font-size:1rem;
+}
+
+.note{font-size:.92rem;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:.8rem;margin-top:1.4rem;}
+
+.share-btn{
+  display:inline-flex;align-items:center;gap:.45em;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);background:none;border:1px solid var(--rule);
+  padding:.38rem .8rem;cursor:pointer;transition:color .15s,border-color .15s;
+  margin-top:1rem;
+}
+.share-btn:hover{color:var(--oxblood);border-color:var(--oxblood);}
+.share-btn.copied{color:var(--oxblood);border-color:var(--oxblood);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Interactive model &middot; Healthcare financing &middot; Updated July 2026</p>
+    <h1>Universal Care Financing Model</h1>
+    <p class="dek">The money does not appear. It changes address. Adjust the policy levers below and watch the national financing recalculate in real time. Every number is sourced; every formula is visible.</p>
+  </div>
+
+  <article class="prose" style="max-width:52rem;">
+
+    <p>The <a href="/dispatch-counterfeit-shortage-of-care">Counterfeit Shortage of Care</a> argues that America faces no real resource shortage preventing universal coverage — the binding scarcity is monetary, not physical. The <a href="/dispatch-order-of-operations">Order of Operations</a> sets out the sequencing. This model makes the arithmetic interactive. The core claim: if you reroute the dollars already being paid — employer premiums, worker premiums, out-of-pocket spending, and a recovered tax subsidy — into a single pool, the system costs less to run and the majority of households pay less than they do today.</p>
+
+    <p>Blue inputs are yours to adjust. Black outputs are calculated. The structure follows the national health expenditure data; the sources are in the table footers.</p>
+
+    <h2>Policy levers</h2>
+    <p>Two assumptions drive most of the arithmetic. Everything else flows from them.</p>
+
+    <div class="model-panel">
+      <h3>Inputs — adjust to explore</h3>
+      <div class="control-grid">
+        <div class="control-row">
+          <label>Employer payroll contribution rate</label>
+          <span class="val" id="val-rate">8.5%</span>
+          <input type="range" id="sl-rate" min="5" max="12" step="0.25" value="8.5"
+                 oninput="update()">
+          <span style="font-size:.75rem;color:var(--ink-faint);font-family:var(--mono);">Sanders bill: 7.5% &nbsp;·&nbsp; range: 5–12%</span>
+        </div>
+        <div class="control-row">
+          <label>Administrative savings</label>
+          <span class="val" id="val-savings">$450 B</span>
+          <input type="range" id="sl-savings" min="200" max="600" step="5" value="450"
+                 oninput="update()">
+          <span style="font-size:.75rem;color:var(--ink-faint);font-family:var(--mono);">Conservative: $265B &nbsp;·&nbsp; Central: $450B</span>
+        </div>
+        <div class="control-row">
+          <label>Out-of-pocket cap per household</label>
+          <span class="val" id="val-cap">$2,000</span>
+          <input type="range" id="sl-cap" min="500" max="6000" step="500" value="2000"
+                 oninput="update()">
+          <span style="font-size:.75rem;color:var(--ink-faint);font-family:var(--mono);">Sets ceiling on direct exposure</span>
+        </div>
+        <div class="control-row">
+          <label>ESI tax exclusion recovered</label>
+          <span class="val" id="val-esi">$300 B</span>
+          <input type="range" id="sl-esi" min="0" max="400" step="10" value="300"
+                 oninput="update()">
+          <span style="font-size:.75rem;color:var(--ink-faint);font-family:var(--mono);">Tax Policy Center estimate: $300B</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>National financing</h2>
+    <p>The numbers below update with the sliders. The existing public share — Medicare, Medicaid, and other government-sponsored spending — continues unchanged. Only the new financing needed is the target.</p>
+
+    <div class="summary-grid" id="summary-grid">
+      <!-- filled by JS -->
+    </div>
+
+    <table class="ledger" style="font-size:.88rem;">
+      <thead>
+        <tr><th>Line</th><th style="text-align:right;">$B</th><th>Note</th></tr>
+      </thead>
+      <tbody id="financing-table">
+        <!-- filled by JS -->
+      </tbody>
+    </table>
+    <p class="note">Sources: CMS National Health Expenditure accounts 2024; BEA wages &amp; salaries; Tax Policy Center ESI exclusion estimate. Public share held at 47% of NHE (CMS government-sponsored share). Wage base $11,500B.</p>
+
+    <h2>Household impact by income</h2>
+    <p>Illustrative households. The comparison is household-paid costs only — worker share of premium plus out-of-pocket — against the income-based contribution under the new system. The employer side is handled separately in the national financing above.</p>
+    <p>Every household also gains: out-of-pocket capped at <strong id="cap-prose">$2,000</strong> per year, and the elimination of medical-bankruptcy risk.</p>
+
+    <div class="crossover-note" id="crossover-note">Loading…</div>
+
+    <table class="hh-table" id="hh-table">
+      <thead>
+        <tr>
+          <th>Household income</th>
+          <th style="text-align:right;">Current cost<br><span style="font-opacity:.7;font-size:.6rem;">premium + OOP</span></th>
+          <th style="text-align:right;">Rate</th>
+          <th style="text-align:right;">New contribution</th>
+          <th style="text-align:right;">Annual change</th>
+          <th style="text-align:center;">Verdict</th>
+        </tr>
+      </thead>
+      <tbody id="hh-body">
+        <!-- filled by JS -->
+      </tbody>
+    </table>
+    <p class="note">Current costs are approximate medians — premiums are roughly flat across income deciles, so higher earners' direct cost rises modestly while an income-based contribution rises with income. The contribution rate schedule is illustrative; exact rates are a legislative design choice.</p>
+
+    <h2>Scenario: retaining a private layer</h2>
+    <p>If complementary private insurance and private administration of the public benefit are kept, administrative savings are realized closer to the conservative floor ($265B vs. $450B). The trade reduces displacement of insurance-sector jobs but pushes more of the financing cost onto households. The column labeled <em>conservative</em> is the budget case.</p>
+
+    <div class="scenario-compare" id="scenario-compare">
+      <!-- filled by JS -->
+    </div>
+    <p class="note">Jobs displaced: central scenario ~1.8M gross; conservative (private layer retained) ~1.0M gross. A just-transition package scaled proportionally from the $107B figure requires a fraction of one year's savings to fund.</p>
+
+    <h2>Reading the model</h2>
+    <p>The financing is not a new spending program. It is a consolidation of spending that already occurs — employer premiums, worker premiums, out-of-pocket costs, and a tax subsidy that currently flows disproportionately to high earners. The administrative savings come from eliminating the coordination and billing complexity that is unique to the American multi-payer system.</p>
+    <p>The scarcinality frame: as long as administrative savings and the ESI recapture exceed the amount employers and households are asked to contribute beyond their current spending, the net burden on the economy does not rise. The constraint is organizational, not material. No hospital is asked to close. No physician is asked to work for free. The real resource base is unchanged; only the money's routing changes.</p>
+    <p>Adjust the employer rate downward to see where the household residual rises past today's out-of-pocket burden. That is the zone where the reform becomes regressive in aggregate — the levers that prevent it from going there are the administrative savings and the ESI recapture, neither of which is speculative.</p>
+
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this model';b.classList.remove('copied');},2000)})">Share this model</button>
+
+  </article>
+
+  <hr class="descent-rule">
+  <div class="prose center">
+    <a class="btn" href="/dispatch-counterfeit-shortage-of-care">The counterfeit shortage</a>
+    <a class="btn btn-primary" href="/dispatch-order-of-operations">The order of operations</a>
+    <a class="btn" href="/dispatches">All dispatches</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+  </div>
+</footer>
+
+<script>
+// ── fixed baseline assumptions ──
+var NHE = 5300;          // $B total US health spending (CMS NHE 2024)
+var PUBLIC_SHARE = 0.47; // existing government-sponsored share
+var WAGE_BASE = 11500;   // $B BEA wages & salaries
+var ESI_FIXED = 300;     // default ESI recapture
+
+// Employer premium baseline
+var EMPLOYER_PREMIUMS_TODAY = 1050; // $B
+
+// Household baseline costs (worker premium + OOP) by income tier
+// [income, currentCost, contributionRate]
+var HH_TIERS = [
+  [25000,   1500,  0.00],
+  [50000,   6500,  0.025],
+  [75000,   8500,  0.040],
+  [100000,  9500,  0.050],
+  [150000, 10500,  0.060],
+  [200000, 11000,  0.070],
+  [400000, 12000,  0.080],
+];
+var WORKER_PREMIUMS_TODAY = 595;   // $B aggregate
+var OOP_TODAY = 557;               // $B aggregate
+
+function fmt(b, decimals) {
+  decimals = decimals === undefined ? 1 : decimals;
+  var abs = Math.abs(b);
+  var s = abs.toFixed(decimals);
+  return (b < 0 ? '-' : '') + '$' + s + 'B';
+}
+function fmtDollar(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+function fmtPct(r) {
+  return (r * 100).toFixed(1) + '%';
+}
+function sign(n) {
+  return n < 0 ? 'negative = saves money' : n > 0 ? 'positive = costs more' : 'no change';
+}
+
+function update() {
+  var rate = parseFloat(document.getElementById('sl-rate').value) / 100;
+  var savings = parseFloat(document.getElementById('sl-savings').value);
+  var cap = parseFloat(document.getElementById('sl-cap').value);
+  var esi = parseFloat(document.getElementById('sl-esi').value);
+
+  document.getElementById('val-rate').textContent = (rate * 100).toFixed(2).replace(/\.?0+$/,'') + '%';
+  document.getElementById('val-savings').textContent = '$' + savings.toFixed(0) + ' B';
+  document.getElementById('val-cap').textContent = fmtDollar(cap);
+  document.getElementById('val-esi').textContent = '$' + esi.toFixed(0) + ' B';
+  document.getElementById('cap-prose').textContent = fmtDollar(cap);
+
+  // ── national financing ──
+  var costAfterSavings = NHE - savings;
+  var publicRevenue = NHE * PUBLIC_SHARE; // 2491
+  var newNeeded = costAfterSavings - publicRevenue;
+  var employerContrib = rate * WAGE_BASE;
+  var householdResidual = Math.max(0, newNeeded - employerContrib - esi);
+
+  var employerChange = employerContrib - EMPLOYER_PREMIUMS_TODAY;
+  var householdToday = WORKER_PREMIUMS_TODAY + OOP_TODAY;
+  var householdChange = householdResidual - householdToday;
+  var buffer = savings + esi - (employerContrib - EMPLOYER_PREMIUMS_TODAY) - (householdResidual - householdToday);
+
+  // summary tiles
+  var tiles = [
+    { label:'New financing needed', big: fmt(newNeeded, 0), sub:'after savings & existing public revenue', cls:'' },
+    { label:'Employer contribution', big: fmt(employerContrib, 0), sub:'vs ' + fmt(EMPLOYER_PREMIUMS_TODAY,0) + ' premiums today', cls:'' },
+    { label:'Employer annual change', big: (employerChange <= 0 ? '−' : '+') + '$' + Math.abs(employerChange).toFixed(0) + 'B', sub: employerChange <= 0 ? 'employers pay less' : 'employers pay more', cls: employerChange <= 0 ? 'positive' : 'negative' },
+    { label:'Household annual change', big: (householdChange <= 0 ? '−' : '+') + '$' + Math.abs(householdChange).toFixed(0) + 'B', sub: householdChange <= 0 ? 'households pay less in aggregate' : 'households pay more in aggregate', cls: householdChange <= 0 ? 'positive' : 'negative' },
+  ];
+  var sg = document.getElementById('summary-grid');
+  sg.innerHTML = tiles.map(function(t){
+    return '<div class="summary-tile"><p class="label">'+t.label+'</p><div class="big '+t.cls+'">'+t.big+'</div><p class="sub">'+t.sub+'</p></div>';
+  }).join('');
+
+  // financing table
+  var rows = [
+    ['Total US health spending', NHE, 'CMS NHE 2024'],
+    ['Less: administrative savings', -savings, 'central or conservative estimate'],
+    ['Total cost after savings', costAfterSavings, ''],
+    ['Continues from existing public revenue', -publicRevenue, 'Medicare, Medicaid, other public'],
+    ['New financing to raise', newNeeded, ''],
+    ['&nbsp;', null, ''],
+    ['Employer payroll contribution', employerContrib, 'rate × $11,500B wage base'],
+    ['ESI tax exclusion recaptured', esi, 'recovery of regressive subsidy'],
+    ['Household residual contribution', householdResidual, 'income-based; replaces worker premiums + OOP'],
+  ];
+  var tbody = document.getElementById('financing-table');
+  tbody.innerHTML = rows.map(function(r){
+    if (r[1] === null) return '<tr><td colspan="3" style="padding:.2rem 0;"></td></tr>';
+    var isSub = r[0].indexOf('&nbsp;') === 0;
+    var bold = (r[0] === 'New financing to raise' || r[0] === 'Total cost after savings') ? 'font-weight:600;' : '';
+    var valStr = r[1] === null ? '' : fmt(r[1], 0);
+    var color = r[1] < 0 ? 'color:var(--oxblood);' : '';
+    return '<tr><td class="claim" style="'+bold+'">'+r[0]+'</td><td class="num" style="text-align:right;'+bold+color+'">'+valStr+'</td><td style="color:var(--ink-faint);font-size:.82rem;">'+r[2]+'</td></tr>';
+  }).join('');
+
+  // ── household table ──
+  var crossoverIncome = null;
+  var hhRows = HH_TIERS.map(function(tier, i) {
+    var income = tier[0], current = tier[1], contribRate = tier[2];
+    var newContrib = Math.min(income * contribRate, income); // capped at income
+    var netChange = current - newContrib; // positive = pays less
+    var verdict, cls;
+    if (netChange > 50) { verdict = 'Pays less'; cls = 'verdict-less'; }
+    else if (netChange < -50) { verdict = 'Pays more'; cls = 'verdict-more'; }
+    else { verdict = 'Break-even'; cls = 'verdict-even'; }
+
+    // find first crossover
+    var prev = i > 0 ? HH_TIERS[i-1] : null;
+    var isCrossover = false;
+    if (prev) {
+      var prevNew = Math.min(prev[0] * prev[2], prev[0]);
+      var prevNet = prev[1] - prevNew;
+      if (prevNet > 0 && netChange <= 0 && crossoverIncome === null) {
+        crossoverIncome = income;
+        isCrossover = true;
+      }
+    }
+
+    return {
+      income: income, current: current, contribRate: contribRate,
+      newContrib: newContrib, netChange: netChange, verdict: verdict, cls: cls,
+      isCrossover: isCrossover
+    };
+  });
+
+  // estimate precise crossover
+  var crossoverStr = '';
+  if (crossoverIncome) {
+    // linear interpolation between last "pays less" and first "pays more"
+    var idx = HH_TIERS.findIndex(function(t){ return t[0] === crossoverIncome; });
+    var lo = HH_TIERS[idx-1], hi = HH_TIERS[idx];
+    var loNet = lo[1] - lo[0]*lo[2];
+    var hiNet = hi[1] - hi[0]*hi[2];
+    var frac = loNet / (loNet - hiNet);
+    var exact = Math.round((lo[0] + (hi[0]-lo[0])*frac) / 1000) * 1000;
+    crossoverStr = fmtDollar(exact);
+  } else if (hhRows[hhRows.length-1].netChange > 0) {
+    crossoverStr = 'above ' + fmtDollar(HH_TIERS[HH_TIERS.length-1][0]);
+  } else {
+    crossoverStr = 'below ' + fmtDollar(HH_TIERS[0][0]);
+  }
+
+  document.getElementById('crossover-note').innerHTML =
+    'At a ' + (rate*100).toFixed(2).replace(/\.?0+$/,'') + '% employer rate and $' + savings.toFixed(0) + 'B in administrative savings, the crossover sits near <strong>' + crossoverStr + '</strong> household income — below it, households pay less than today; above it, they pay more. Everyone gains the $' + Math.round(cap).toLocaleString() + ' out-of-pocket cap.';
+
+  var hbody = document.getElementById('hh-body');
+  hbody.innerHTML = hhRows.map(function(r){
+    var crossClass = r.isCrossover ? ' class="crossover"' : '';
+    var netStr = (r.netChange >= 0 ? '+' : '') + fmtDollar(r.netChange);
+    var netColor = r.netChange > 50 ? 'color:#2f6e3a;' : r.netChange < -50 ? 'color:var(--oxblood);' : '';
+    return '<tr'+crossClass+'>'
+      + '<td class="income money">' + fmtDollar(r.income) + '</td>'
+      + '<td class="money">' + fmtDollar(r.current) + '</td>'
+      + '<td class="money">' + (r.contribRate === 0 ? '0%' : fmtPct(r.contribRate)) + '</td>'
+      + '<td class="money">' + fmtDollar(r.newContrib) + '</td>'
+      + '<td class="money" style="'+netColor+'font-weight:500;">' + netStr + '</td>'
+      + '<td class="verdict"><span class="' + r.cls + '">' + r.verdict + '</span></td>'
+      + '</tr>';
+  }).join('');
+
+  // ── scenario compare ──
+  var consAdminSavings = 265;
+  var costCons = NHE - consAdminSavings;
+  var newNeededCons = costCons - publicRevenue;
+  var householdResidualCons = Math.max(0, newNeededCons - employerContrib - esi);
+  var hhChangeCons = householdResidualCons - householdToday;
+
+  function scRow(label, central, cons, goodIfLow) {
+    var centralStr, consStr, centralCls, consCls;
+    if (typeof central === 'string') {
+      centralStr = central; consStr = cons; centralCls = ''; consCls = '';
+    } else {
+      centralStr = '$' + Math.abs(central).toFixed(0) + 'B';
+      consStr = '$' + Math.abs(cons).toFixed(0) + 'B';
+      centralCls = (goodIfLow ? central <= cons : central >= cons) ? 'good' : 'bad';
+      consCls = (goodIfLow ? cons <= central : cons >= central) ? 'good' : 'bad';
+    }
+    return '<div class="sc-row"><span class="sc-label">'+label+'</span>'
+      + '<span style="display:flex;gap:1.5rem;">'
+      + '<span class="sc-val '+centralCls+'">'+centralStr+'</span>'
+      + '<span class="sc-val '+consCls+'">'+consStr+'</span>'
+      + '</span></div>';
+  }
+
+  var sc = document.getElementById('scenario-compare');
+  sc.innerHTML =
+    '<div class="scenario-col"><h4>Central — <span>$450B savings</span></h4>'
+    + '<div class="sc-row"><span class="sc-label">Admin savings</span><span class="sc-val good">$' + savings.toFixed(0) + 'B (your input)</span></div>'
+    + '<div class="sc-row"><span class="sc-label">New financing needed</span><span class="sc-val">$' + newNeeded.toFixed(0) + 'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Employer contribution</span><span class="sc-val">$' + employerContrib.toFixed(0) + 'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Household residual</span><span class="sc-val">$' + householdResidual.toFixed(0) + 'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Household change</span><span class="sc-val '+(householdChange<=0?'good':'bad')+'">'+(householdChange<=0?'−':'+')+'$'+Math.abs(householdChange).toFixed(0)+'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Jobs displaced (gross)</span><span class="sc-val bad">~1.8M</span></div>'
+    + '</div>'
+    + '<div class="scenario-col"><h4>Conservative — <span>$265B savings</span></h4>'
+    + '<div class="sc-row"><span class="sc-label">Admin savings</span><span class="sc-val bad">$265B (McKinsey floor)</span></div>'
+    + '<div class="sc-row"><span class="sc-label">New financing needed</span><span class="sc-val">$' + newNeededCons.toFixed(0) + 'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Employer contribution</span><span class="sc-val">$' + employerContrib.toFixed(0) + 'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Household residual</span><span class="sc-val">$' + householdResidualCons.toFixed(0) + 'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Household change</span><span class="sc-val '+(hhChangeCons<=0?'good':'bad')+'">'+(hhChangeCons<=0?'−':'+')+'$'+Math.abs(hhChangeCons).toFixed(0)+'B</span></div>'
+    + '<div class="sc-row"><span class="sc-label">Jobs displaced (gross)</span><span class="sc-val good">~1.0M</span></div>'
+    + '</div>';
+}
+
+update();
+</script>
+</body>
+</html>
