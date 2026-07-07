@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#f0e8d8"/>
+
+  <!-- State shapes (simplified US map, oil-brown choropleth) -->
+  <!-- Non-producing states - very light -->
+  <!-- Pacific NW -->
+  <rect x="60" y="60" width="55" height="55" rx="2" fill="#e8dfd0" opacity=".9"/>
+  <rect x="120" y="80" width="50" height="50" rx="2" fill="#e5dace" opacity=".9"/>
+  <!-- Great Plains light -->
+  <rect x="310" y="85" width="45" height="42" rx="2" fill="#d9cfc0" opacity=".9"/>
+  <rect x="360" y="85" width="45" height="42" rx="2" fill="#d4c9b8" opacity=".9"/>
+  <!-- Northeast minimal -->
+  <rect x="630" y="90" width="35" height="35" rx="2" fill="#e0d6c5" opacity=".9"/>
+  <rect x="670" y="90" width="35" height="35" rx="2" fill="#ddd3c2" opacity=".9"/>
+  <rect x="650" y="130" width="60" height="40" rx="2" fill="#ddd3c2" opacity=".9"/>
+
+  <!-- Midwest moderate -->
+  <rect x="460" y="130" width="48" height="42" rx="2" fill="#c8b89a" opacity=".9"/>
+  <rect x="510" y="130" width="48" height="42" rx="2" fill="#bfab8a" opacity=".9"/>
+  <rect x="560" y="130" width="48" height="42" rx="2" fill="#c2ae8e" opacity=".9"/>
+  <rect x="610" y="130" width="45" height="42" rx="2" fill="#c8b89a" opacity=".9"/>
+
+  <!-- ND - high -->
+  <rect x="310" y="130" width="50" height="48" rx="2" fill="#8a6040" opacity=".9"/>
+  <!-- SD light -->
+  <rect x="310" y="182" width="50" height="45" rx="2" fill="#d0c2ae" opacity=".9"/>
+  <!-- NE light -->
+  <rect x="360" y="200" width="50" height="40" rx="2" fill="#cfc1ac" opacity=".9"/>
+  <!-- KS light -->
+  <rect x="360" y="240" width="55" height="40" rx="2" fill="#c8b89a" opacity=".9"/>
+
+  <!-- MT moderate -->
+  <rect x="170" y="60" width="70" height="58" rx="2" fill="#a07850" opacity=".9"/>
+  <!-- WY moderate -->
+  <rect x="170" y="122" width="65" height="55" rx="2" fill="#9a7048" opacity=".9"/>
+  <!-- CO moderate -->
+  <rect x="240" y="180" width="65" height="55" rx="2" fill="#8a5830" opacity=".9"/>
+  <!-- UT light -->
+  <rect x="170" y="182" width="65" height="55" rx="2" fill="#b08860" opacity=".9"/>
+  <!-- NV light -->
+  <rect x="100" y="130" width="65" height="60" rx="2" fill="#d0c0a8" opacity=".9"/>
+  <!-- CA moderate -->
+  <rect x="60" y="120" width="65" height="90" rx="2" fill="#a07848" opacity=".9"/>
+
+  <!-- OK - higher -->
+  <rect x="370" y="280" width="75" height="45" rx="2" fill="#7a4820" opacity=".9"/>
+  <!-- NM - high -->
+  <rect x="240" y="238" width="65" height="65" rx="2" fill="#7a4018" opacity=".9"/>
+  <!-- AZ light -->
+  <rect x="170" y="242" width="65" height="60" rx="2" fill="#d0c0a8" opacity=".9"/>
+
+  <!-- TX - darkest -->
+  <rect x="310" y="310" width="140" height="100" rx="2" fill="#3d1f0a" opacity=".95"/>
+
+  <!-- LA moderate -->
+  <rect x="460" y="310" width="55" height="50" rx="2" fill="#a07848" opacity=".9"/>
+  <!-- MS light -->
+  <rect x="520" y="290" width="45" height="55" rx="2" fill="#c8b89a" opacity=".9"/>
+  <!-- AL light -->
+  <rect x="568" y="290" width="42" height="55" rx="2" fill="#cfc1ac" opacity=".9"/>
+
+  <!-- Appalachia / PA / WV / OH moderate -->
+  <rect x="610" y="175" width="45" height="40" rx="2" fill="#b89870" opacity=".9"/>
+  <rect x="658" y="175" width="42" height="40" rx="2" fill="#c0a07a" opacity=".9"/>
+  <rect x="610" y="218" width="45" height="40" rx="2" fill="#b89870" opacity=".9"/>
+
+  <!-- AK - moderate (inset) -->
+  <rect x="80" y="340" width="80" height="65" rx="2" fill="#9a7050" opacity=".9"/>
+
+  <!-- HI placeholder -->
+  <rect x="200" y="390" width="60" height="30" rx="2" fill="#e0d6c5" opacity=".7"/>
+
+  <!-- Legend strip -->
+  <defs>
+    <linearGradient id="oilGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#f0e8d8"/>
+      <stop offset="100%" stop-color="#3d1f0a"/>
+    </linearGradient>
+  </defs>
+  <rect x="580" y="390" width="160" height="10" rx="2" fill="url(#oilGrad)"/>
+  <text x="580" y="420" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#5c5247">Low</text>
+  <text x="696" y="420" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#3d1f0a">TX 2.1B bbl</text>
+
+  <!-- Label TX -->
+  <text x="373" y="368" font-family="'IBM Plex Mono', monospace" font-size="14" font-weight="500" fill="#f0e8d8">TEXAS</text>
+  <text x="373" y="385" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#c89060">2.08B bbl</text>
+
+  <!-- Title -->
+  <text x="580" y="360" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#8a8073" text-anchor="end">NM</text>
+  <text x="580" y="375" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#7a4018" text-anchor="end">740M bbl</text>
+</svg>
