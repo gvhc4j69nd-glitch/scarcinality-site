@@ -389,7 +389,7 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
 
 // Commodity → NASS query parameters
 const COMMODITY_CONFIG = {
-  'CORN':      { label:'Corn',       unit:'BU',    short_desc:'CORN - PRODUCTION, MEASURED IN BU' },
+  'CORN':      { label:'Corn',       unit:'BU',    short_desc:'CORN, GRAIN - PRODUCTION, MEASURED IN BU' },
   'SOYBEANS':  { label:'Soybeans',   unit:'BU',    short_desc:'SOYBEANS - PRODUCTION, MEASURED IN BU' },
   'WHEAT':     { label:'Wheat',      unit:'BU',    short_desc:'WHEAT - PRODUCTION, MEASURED IN BU' },
   'COTTON':    { label:'Cotton',     unit:'BALES', short_desc:'COTTON - PRODUCTION, MEASURED IN 480 LB BALES' },
@@ -402,7 +402,7 @@ const COMMODITY_CONFIG = {
   'SUNFLOWER': { label:'Sunflower',  unit:'LB',    short_desc:'SUNFLOWER - PRODUCTION, MEASURED IN LB' },
   'TOBACCO':   { label:'Tobacco',    unit:'LB',    short_desc:'TOBACCO - PRODUCTION, MEASURED IN LB' },
   'PEANUTS':   { label:'Peanuts',    unit:'LB',    short_desc:'PEANUTS - PRODUCTION, MEASURED IN LB' },
-  'SUGARCANE': { label:'Sugarcane',  unit:'TONS',  short_desc:'SUGARCANE - PRODUCTION, MEASURED IN TONS' },
+  'SUGARCANE': { label:'Sugarcane',  unit:'TONS',  short_desc:'SUGARCANE, SUGAR & SEED - PRODUCTION, MEASURED IN TONS' },
   'APPLES':    { label:'Apples',     unit:'LB',    short_desc:'APPLES - PRODUCTION, MEASURED IN LB' },
 };
 
@@ -450,6 +450,8 @@ async function loadCrop(commodity, year) {
     const params = new URLSearchParams({
       short_desc: cfg.short_desc,
       agg_level_desc: 'STATE',
+      source_desc: 'SURVEY',
+      domain_desc: 'TOTAL',
       year
     });
     const res = await fetch(`/api/nass?${params}`);
