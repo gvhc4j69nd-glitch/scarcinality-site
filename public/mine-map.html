@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mine Production Map · Scarcinality</title>
+<meta name="description" content="An interactive map of active US mines by commodity and state, drawn from MSHA mine registry data.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Mine Production Map · Scarcinality">
+<meta property="og:description" content="Active US mines by commodity and state from MSHA data.">
+<meta property="og:url" content="https://scarcinality.com/mine-map">
+<meta property="og:image" content="https://scarcinality.com/assets/curiosity-mine-map.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mine Production Map · Scarcinality">
+<meta name="twitter:description" content="Active US mines by commodity and state from MSHA data.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/curiosity-mine-map.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+<style>
+:root {
+  --parchment:      #f6f2e9;
+  --parchment-deep: #efe9db;
+  --parchment-mid:  #e8e0ce;
+  --ink:            #211d18;
+  --ink-soft:       #5c5247;
+  --ink-faint:      #8a8073;
+  --oxblood:        #8a3324;
+  --oxblood-deep:   #6f281c;
+  --rule:           #ddd3c2;
+  --rule-soft:      #e7ddcd;
+  --steel:          #2b4a6f;
+  --steel-mid:      #3d6494;
+  --steel-light:    #8aaac8;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono:  "IBM Plex Mono", ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: var(--serif); background: var(--parchment); color: var(--ink); }
+
+.site-header {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1.4rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.brand { font-size: 1.45rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+.site-nav { display: flex; gap: clamp(.6rem,2vw,1.6rem); flex-wrap: wrap; }
+.site-nav a { font-family: var(--mono); font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; }
+.site-nav a:hover, .site-nav a[aria-current] { color: var(--oxblood); }
+
+/* ── Map layout ── */
+.map-wrap {
+  display: flex; flex-direction: column;
+  height: calc(100vh - 57px);
+  min-height: 500px;
+}
+.sub-header {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .5rem 1rem;
+  background: var(--parchment-deep);
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.sub-icon { width: 18px; height: 18px; background: var(--steel); flex-shrink: 0; }
+.sub-title { font-size: 1rem; font-weight: 600; flex: 1; }
+.sub-source { font-family: var(--mono); font-size: .63rem; color: var(--ink-faint); }
+
+.layout { display: flex; flex: 1; overflow: hidden; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 200px; flex-shrink: 0;
+  background: var(--parchment-deep);
+  border-right: 1px solid var(--rule);
+  overflow-y: auto; overflow-x: hidden;
+}
+.sidebar-scroll { padding: .8rem .7rem; display: flex; flex-direction: column; gap: .75rem; }
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--rule); }
+
+.control-group { display: flex; flex-direction: column; gap: .35rem; }
+.control-label {
+  font-family: var(--mono); font-size: .65rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
+}
+.control-select {
+  font-family: var(--mono); font-size: .75rem;
+  border: 1px solid var(--rule); background: var(--parchment);
+  color: var(--ink); padding: .35rem .4rem; outline: none;
+  appearance: none; width: 100%; cursor: pointer;
+}
+.control-select:focus { border-color: var(--steel); }
+
+.stat-card {
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .6rem .65rem; display: flex; flex-direction: column; gap: 0;
+}
+.stat-head { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); padding-bottom: .4rem; margin-bottom: .4rem; border-bottom: 1px solid var(--rule-soft); }
+.stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: .2rem 0; border-bottom: 1px solid var(--rule-soft); }
+.stat-row:last-child { border-bottom: none; }
+.stat-key { font-family: var(--mono); font-size: .68rem; color: var(--ink-faint); }
+.stat-val { font-family: var(--mono); font-size: .72rem; font-weight: 500; color: var(--ink); }
+.stat-val.hi { color: var(--steel); }
+
+.rank-head { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .3rem; }
+.rank-list { display: flex; flex-direction: column; gap: 1px; }
+.rank-item {
+  display: flex; align-items: center; gap: .4rem;
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .25rem .4rem; font-family: var(--mono); font-size: .68rem;
+}
+.rank-num { color: var(--ink-faint); min-width: .8rem; }
+.rank-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.rank-name { flex: 1; color: var(--ink-soft); }
+.rank-val { color: var(--ink); font-weight: 500; }
+
+/* ── Map area ── */
+.map-area { flex: 1; position: relative; overflow: hidden; background: var(--parchment); }
+#map-svg { width: 100%; height: 100%; }
+.state-path { stroke: var(--rule); stroke-width: .5; cursor: pointer; transition: stroke .1s; }
+.state-path:hover { stroke: var(--steel); stroke-width: 1.5; }
+.state-path.no-data { fill: var(--parchment-mid); }
+
+.tooltip {
+  position: absolute; pointer-events: none;
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .5rem .65rem; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  font-family: var(--serif); display: none; max-width: 180px;
+}
+.tip-state { font-size: 1rem; font-weight: 600; margin-bottom: .3rem; }
+.tip-row { font-family: var(--mono); font-size: .68rem; color: var(--ink-soft); display: flex; justify-content: space-between; gap: 1rem; }
+.tip-val { color: var(--ink); font-weight: 500; }
+
+/* ── Legend ── */
+.legend-bar {
+  position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .5rem .8rem; display: flex; flex-direction: column; gap: .3rem; align-items: stretch;
+  min-width: 220px;
+}
+.legend-gradient { height: 8px; border: 1px solid var(--rule); }
+.legend-labels { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .62rem; color: var(--ink-faint); }
+
+/* ── Empty / loading ── */
+.empty-state {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .8rem; pointer-events: none;
+}
+.empty-icon { font-size: 2.2rem; opacity: .25; }
+.empty-label { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); }
+.spinner {
+  width: 24px; height: 24px; border: 2px solid var(--rule);
+  border-top-color: var(--steel); border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.note-strip {
+  position: absolute; bottom: 0; right: 0;
+  font-family: var(--mono); font-size: .6rem; color: var(--ink-faint);
+  padding: .25rem .5rem; background: var(--parchment); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-wrap">
+  <div class="sub-header">
+    <div class="sub-icon"></div>
+    <span class="sub-title">Mine Count Map</span>
+    <span class="sub-source">MSHA · arlweb.msha.gov</span>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-scroll">
+
+        <div class="control-group">
+          <div class="control-label">Commodity</div>
+          <select id="commodity-select" class="control-select">
+            <optgroup label="Metals">
+              <option value="gold">Gold</option>
+              <option value="copper">Copper</option>
+              <option value="iron">Iron</option>
+              <option value="silver">Silver</option>
+              <option value="lead_zinc">Lead &amp; Zinc</option>
+              <option value="molybdenum">Molybdenum</option>
+            </optgroup>
+            <optgroup label="Energy">
+              <option value="coal">Coal (all types)</option>
+            </optgroup>
+            <optgroup label="Industrial">
+              <option value="sand_gravel">Sand &amp; Gravel</option>
+              <option value="limestone">Limestone</option>
+              <option value="granite">Granite</option>
+              <option value="bentonite">Bentonite</option>
+              <option value="potash">Potash</option>
+              <option value="trona">Trona</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="stat-card" id="stat-card" style="display:none">
+          <div class="stat-head">Overview</div>
+          <div class="stat-row"><span class="stat-key">Total mines</span><span class="stat-val" id="st-total">—</span></div>
+          <div class="stat-row"><span class="stat-key">States with mines</span><span class="stat-val" id="st-states">—</span></div>
+          <div class="stat-row"><span class="stat-key">Top state</span><span class="stat-val hi" id="st-hi">—</span></div>
+        </div>
+
+        <div id="rank-section" style="display:none">
+          <div class="rank-head">Top States</div>
+          <div class="rank-list" id="rank-list"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="map-area" id="map-area">
+      <svg id="map-svg"></svg>
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">⛏</div>
+        <div class="empty-label">Select a commodity to load the map</div>
+      </div>
+      <div class="tooltip" id="tooltip"></div>
+      <div class="legend-bar" id="legend-bar" style="display:none">
+        <canvas class="legend-gradient" id="legend-canvas" height="8"></canvas>
+        <div class="legend-labels">
+          <span>Fewer mines</span>
+          <span id="legend-max"></span>
+          <span>More mines</span>
+        </div>
+      </div>
+      <div class="note-strip">Data: MSHA Mine Registry · Active &amp; licensed mines · 2026</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const COLOR_LIGHT = '#eae4d5';
+const COLOR_DARK  = '#2b4a6f';
+
+const COMMODITY_LABELS = {
+  gold: 'Gold', copper: 'Copper', iron: 'Iron Ore', silver: 'Silver',
+  lead_zinc: 'Lead & Zinc', molybdenum: 'Molybdenum',
+  coal: 'Coal', sand_gravel: 'Sand & Gravel', limestone: 'Limestone',
+  granite: 'Granite', bentonite: 'Bentonite', potash: 'Potash', trona: 'Trona'
+};
+
+// State abbrev → FIPS
+const STATE_FIPS = {
+  AL:'01',AK:'02',AZ:'04',AR:'05',CA:'06',CO:'08',CT:'09',DE:'10',
+  FL:'12',GA:'13',HI:'15',ID:'16',IL:'17',IN:'18',IA:'19',KS:'20',
+  KY:'21',LA:'22',ME:'23',MD:'24',MA:'25',MI:'26',MN:'27',MS:'28',
+  MO:'29',MT:'30',NE:'31',NV:'32',NH:'33',NJ:'34',NM:'35',NY:'36',
+  NC:'37',ND:'38',OH:'39',OK:'40',OR:'41',PA:'42',RI:'44',SC:'45',
+  SD:'46',TN:'47',TX:'48',UT:'49',VT:'50',VA:'51',WA:'53',WV:'54',
+  WI:'55',WY:'56',DC:'11'
+};
+const FIPS_STATE = Object.fromEntries(Object.entries(STATE_FIPS).map(([a,f])=>[f,a]));
+
+const STATE_NAMES = {
+  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',
+  CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',
+  HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',
+  KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',
+  MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',
+  NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',
+  NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',
+  OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',
+  SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',
+  VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',DC:'D.C.'
+};
+
+let mineData = null;
+let usGeo = null;
+let mineMap = {};
+let maxVal = 0;
+let colorScale;
+
+const colorScaleFn = (v) => {
+  if (v === undefined || v === null) return '#e8e0ce';
+  if (maxVal === 0) return COLOR_LIGHT;
+  return d3.interpolateRgb(COLOR_LIGHT, COLOR_DARK)(Math.sqrt(v / maxVal));
+};
+
+function drawLegend() {
+  const canvas = document.getElementById('legend-canvas');
+  canvas.width = canvas.offsetWidth || 220;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  for (let i = 0; i < w; i++) {
+    ctx.fillStyle = d3.interpolateRgb(COLOR_LIGHT, COLOR_DARK)(Math.sqrt(i / w));
+    ctx.fillRect(i, 0, 1, 8);
+  }
+  document.getElementById('legend-max').textContent = maxVal + ' mines';
+  document.getElementById('legend-bar').style.display = '';
+}
+
+function paintMap() {
+  d3.selectAll('.state-path')
+    .attr('fill', d => {
+      const fips = d.id.toString().padStart(2, '0');
+      const abbr = FIPS_STATE[fips];
+      const v = mineMap[abbr];
+      return v ? colorScaleFn(v) : '#e8e0ce';
+    })
+    .classed('no-data', d => {
+      const fips = d.id.toString().padStart(2, '0');
+      const abbr = FIPS_STATE[fips];
+      return !mineMap[abbr];
+    });
+}
+
+function updateSidebar(commodity) {
+  const label = COMMODITY_LABELS[commodity] || commodity;
+  const entries = Object.entries(mineMap).sort((a,b) => b[1]-a[1]);
+  const total = entries.reduce((s,[,v]) => s+v, 0);
+  const stateCount = entries.length;
+  const topState = entries[0] ? STATE_NAMES[entries[0][0]] || entries[0][0] : '—';
+
+  document.getElementById('st-total').textContent = total.toLocaleString();
+  document.getElementById('st-states').textContent = stateCount;
+  document.getElementById('st-hi').textContent = topState;
+  document.getElementById('stat-card').style.display = '';
+
+  const top8 = entries.slice(0, 8);
+  const list = document.getElementById('rank-list');
+  list.innerHTML = '';
+  top8.forEach(([abbr, cnt], i) => {
+    const frac = maxVal > 0 ? Math.sqrt(cnt / maxVal) : 0;
+    const color = d3.interpolateRgb(COLOR_LIGHT, COLOR_DARK)(frac);
+    const item = document.createElement('div');
+    item.className = 'rank-item';
+    item.innerHTML = `<span class="rank-num">${i+1}</span><span class="rank-dot" style="background:${color}"></span><span class="rank-name">${STATE_NAMES[abbr] || abbr}</span><span class="rank-val">${cnt}</span>`;
+    list.appendChild(item);
+  });
+  document.getElementById('rank-section').style.display = '';
+}
+
+function loadCommodity(commodity) {
+  if (!mineData) return;
+  const raw = mineData[commodity] || {};
+  mineMap = raw;
+  maxVal = Math.max(...Object.values(raw), 0);
+  if (maxVal === 0) {
+    document.getElementById('empty-state').style.display = '';
+    document.getElementById('empty-state').querySelector('.empty-label').textContent = 'No mine data for this commodity.';
+    return;
+  }
+  document.getElementById('empty-state').style.display = 'none';
+  paintMap();
+  updateSidebar(commodity);
+  drawLegend();
+}
+
+function renderMap() {
+  const svg = d3.select('#map-svg');
+  svg.selectAll('*').remove();
+  const el = document.getElementById('map-area');
+  const w = el.clientWidth, h = el.clientHeight;
+  const projection = d3.geoAlbersUsa().fitSize([w, h], topojson.feature(usGeo, usGeo.objects.states));
+  const path = d3.geoPath().projection(projection);
+  const tooltip = document.getElementById('tooltip');
+
+  svg.selectAll('.state-path')
+    .data(topojson.feature(usGeo, usGeo.objects.states).features)
+    .join('path')
+    .attr('class', 'state-path')
+    .attr('d', path)
+    .attr('fill', '#e8e0ce')
+    .on('mousemove', (event, d) => {
+      const fips = d.id.toString().padStart(2,'0');
+      const abbr = FIPS_STATE[fips];
+      const name = STATE_NAMES[abbr] || abbr || 'Unknown';
+      const val = mineMap[abbr];
+      const pct = maxVal > 0 && val ? ((val / Object.values(mineMap).reduce((s,v)=>s+v,0))*100).toFixed(1) : null;
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `<div class="tip-state">${name}</div>
+        <div class="tip-row"><span>Active mines</span><span class="tip-val">${val !== undefined ? val : '—'}</span></div>
+        ${pct ? `<div class="tip-row"><span>Share of US</span><span class="tip-val">${pct}%</span></div>` : ''}`;
+      const rect = el.getBoundingClientRect();
+      let x = event.clientX - rect.left + 12;
+      let y = event.clientY - rect.top - 10;
+      if (x + 190 > w) x -= 200;
+      tooltip.style.left = x + 'px';
+      tooltip.style.top  = y + 'px';
+    })
+    .on('mouseleave', () => { tooltip.style.display = 'none'; });
+}
+
+// Load data
+Promise.all([
+  d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json'),
+  d3.json('/assets/mine-data.json')
+]).then(([geo, data]) => {
+  usGeo = geo;
+  mineData = data;
+  renderMap();
+  // Auto-load gold
+  document.getElementById('commodity-select').value = 'gold';
+  loadCommodity('gold');
+});
+
+document.getElementById('commodity-select').addEventListener('change', e => {
+  if (e.target.value) loadCommodity(e.target.value);
+});
+
+window.addEventListener('resize', () => {
+  if (usGeo) { renderMap(); if (maxVal) { paintMap(); drawLegend(); } }
+});
+</script>
+</body>
+</html>
