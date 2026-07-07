@@ -119,35 +119,6 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 .sidebar-scroll::-webkit-scrollbar { width: 3px; }
 .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--rule); }
 
-/* API key box */
-.key-box {
-  background: var(--parchment); border: 1px solid var(--rule);
-  padding: .8rem .9rem; display: flex; flex-direction: column; gap: .5rem;
-}
-.key-box.hidden { display: none; }
-.key-box p {
-  font-family: var(--mono); font-size: .68rem; color: var(--ink-soft); line-height: 1.45;
-}
-.key-box a { color: var(--oxblood); }
-.key-row { display: flex; gap: .4rem; }
-.key-input {
-  flex: 1; font-family: var(--mono); font-size: .72rem;
-  border: 1px solid var(--rule); background: var(--parchment-deep);
-  padding: .35rem .5rem; color: var(--ink); outline: none;
-}
-.key-input:focus { border-color: var(--oxblood); }
-.key-btn {
-  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em;
-  background: var(--green-deep); color: var(--parchment);
-  border: none; padding: .35rem .6rem; cursor: pointer;
-}
-.key-btn:hover { background: var(--green-mid); }
-.key-set {
-  font-family: var(--mono); font-size: .68rem; color: var(--ink-faint);
-  display: flex; justify-content: space-between; align-items: center;
-}
-.key-set.hidden { display: none; }
-.key-clear { color: var(--oxblood); cursor: pointer; background: none; border: none; font-family: var(--mono); font-size: .68rem; }
 
 .control-group { display: flex; flex-direction: column; gap: .35rem; }
 .control-label {
@@ -320,20 +291,6 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
     <div class="sidebar">
       <div class="sidebar-scroll">
 
-        <!-- API key entry -->
-        <div class="key-box" id="key-box">
-          <p>Requires a free USDA NASS API key.<br>
-             Get one instantly at <a href="https://quickstats.nass.usda.gov/api" target="_blank" rel="noopener">quickstats.nass.usda.gov/api</a>.</p>
-          <div class="key-row">
-            <input class="key-input" id="key-input" type="password" placeholder="Paste key here…" autocomplete="off">
-            <button class="key-btn" id="key-save">Save</button>
-          </div>
-        </div>
-        <div class="key-set hidden" id="key-set">
-          <span>API key set</span>
-          <button class="key-clear" id="key-clear">Change</button>
-        </div>
-
         <div class="control-group">
           <div class="control-label">Commodity</div>
           <select id="commodity-select">
@@ -408,7 +365,7 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
         <div id="empty">
           <div class="empty-icon">🌾</div>
           <div class="empty-text">Select a crop to view the map</div>
-          <div class="empty-sub" id="empty-sub">Enter your USDA NASS API key in the sidebar, then choose a commodity and year.</div>
+          <div class="empty-sub" id="empty-sub">Choose a commodity and year to load the map.</div>
         </div>
 
         <div id="error-banner"></div>
@@ -429,7 +386,6 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
 </div>
 
 <script>
-const NASS_API = 'https://quickstats.nass.usda.gov/api/api_GET/';
 
 // Commodity → NASS query parameters
 const COMMODITY_CONFIG = {
@@ -482,35 +438,8 @@ function cropColor(val) {
   return colorScale(Math.sqrt(val / maxVal));
 }
 
-// ── API key management ──
-function getKey() { return localStorage.getItem('nass_api_key') || ''; }
-function saveKey(k) { localStorage.setItem('nass_api_key', k); updateKeyUI(); }
-function clearKey() { localStorage.removeItem('nass_api_key'); updateKeyUI(); }
-function updateKeyUI() {
-  const k = getKey();
-  document.getElementById('key-box').classList.toggle('hidden', !!k);
-  document.getElementById('key-set').classList.toggle('hidden', !k);
-  if (!k) {
-    document.getElementById('empty-sub').textContent = 'Enter your USDA NASS API key in the sidebar, then choose a commodity and year.';
-  } else {
-    document.getElementById('empty-sub').textContent = 'Data: USDA NASS Quick Stats via quickstats.nass.usda.gov';
-  }
-}
-
-document.getElementById('key-save').addEventListener('click', () => {
-  const v = document.getElementById('key-input').value.trim();
-  if (v) { saveKey(v); document.getElementById('key-input').value = ''; }
-});
-document.getElementById('key-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('key-save').click();
-});
-document.getElementById('key-clear').addEventListener('click', clearKey);
-
 // ── Fetch NASS data ──
 async function loadCrop(commodity, year) {
-  const key = getKey();
-  if (!key) { showError('Paste your USDA NASS API key in the sidebar first.'); return; }
-
   const cfg = COMMODITY_CONFIG[commodity];
   if (!cfg) return;
 
@@ -519,13 +448,11 @@ async function loadCrop(commodity, year) {
 
   try {
     const params = new URLSearchParams({
-      key,
       short_desc: cfg.short_desc,
       agg_level_desc: 'STATE',
-      year,
-      format: 'JSON'
+      year
     });
-    const res = await fetch(`${NASS_API}?${params}`);
+    const res = await fetch(`/api/nass?${params}`);
     const json = await res.json();
 
     if (json.error) throw new Error(json.error[0] || 'API error');

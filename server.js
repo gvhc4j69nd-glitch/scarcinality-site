@@ -3,8 +3,11 @@
 // and binds to the port Railway provides.
 
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
+
+const NASS_KEY = process.env.NASS_API_KEY || "";
 
 const ROOT = path.join(__dirname, "public");
 const PORT = process.env.PORT || 3000;
@@ -30,6 +33,23 @@ function send(res, status, body, type) {
 
 const server = http.createServer((req, res) => {
   try {
+    // Proxy NASS API requests to keep the key server-side
+    if (req.url.startsWith("/api/nass?")) {
+      const qs = req.url.slice("/api/nass?".length);
+      const params = new URLSearchParams(qs);
+      params.set("key", NASS_KEY);
+      params.set("format", "JSON");
+      const nassUrl = "https://quickstats.nass.usda.gov/api/api_GET/?" + params.toString();
+      https.get(nassUrl, (pr) => {
+        res.writeHead(pr.statusCode, {
+          "Content-Type": "application/json; charset=utf-8",
+          "Access-Control-Allow-Origin": "*"
+        });
+        pr.pipe(res);
+      }).on("error", () => send(res, 502, "Upstream error"));
+      return;
+    }
+
     let urlPath = decodeURIComponent(req.url.split("?")[0]);
     if (urlPath === "/") urlPath = "/index.html";
     if (urlPath.length > 1 && urlPath.endsWith("/")) urlPath = urlPath.slice(0, -1);
