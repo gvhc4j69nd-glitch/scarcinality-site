@@ -269,9 +269,15 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
 .mobile-stat-val { font-family: var(--mono); font-size: .82rem; font-weight: 500; color: var(--ink); }
 .mobile-stat-val.hi { color: var(--green-deep); }
 
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem .9rem; border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
 @media (max-width: 580px) {
-  .site-header { padding: .9rem 1rem; }
-  .site-nav { display: none; }
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
   .map-header { padding: .55rem .9rem; gap: .6rem; }
   .map-header h1 { font-size: 1rem; }
   .map-header .subtitle { display: none; }
@@ -323,6 +329,14 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
     <div class="subtitle">US production by state · USDA NASS Quick Stats</div>
   </div>
   <div class="source-badge">USDA · quickstats.nass.usda.gov</div>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map" aria-current="page">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
 </div>
 
 <div id="map-app">

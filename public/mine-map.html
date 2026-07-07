@@ -197,9 +197,15 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 .mobile-stat-val { font-family: var(--mono); font-size: .82rem; font-weight: 500; color: var(--ink); }
 .mobile-stat-val.hi { color: var(--steel); }
 
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem .9rem; border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
 @media (max-width: 580px) {
-  .site-header { padding: .9rem 1rem; }
-  .site-nav { display: none; }
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
   .sub-header { padding: .45rem .8rem; }
   .sub-title { font-size: .9rem; }
   .sub-source { display: none; }
@@ -245,6 +251,14 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
     <div class="sub-icon"></div>
     <span class="sub-title">Mine Count Map</span>
     <span class="sub-source">MSHA · arlweb.msha.gov</span>
+  </div>
+
+  <div class="curio-switch">
+    <a href="/disease-map">Disease</a>
+    <a href="/crop-map">Crops</a>
+    <a href="/mine-map" aria-current="page">Mining</a>
+    <a href="/oil-map">Oil</a>
+    <a href="/fiscal-map">Federal Budget</a>
   </div>
 
   <div class="layout">

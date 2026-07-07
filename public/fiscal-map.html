@@ -168,9 +168,16 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 
 /* Mobile stats */
 .mobile-stats { display: none; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem .9rem; border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
 @media (max-width: 580px) {
-  .site-header { padding: .9rem 1rem; }
-  .site-nav { display: none; }
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
   .map-header { padding: .55rem .9rem; gap: .6rem; }
   .map-header h1 { font-size: 1rem; }
   .subtitle { display: none; }
@@ -218,6 +225,14 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
     <span class="subtitle">by political lean</span>
   </h1>
   <span class="source-badge">USASpending · BEA · MIT Election Lab</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map" aria-current="page">Federal Budget</a>
 </div>
 
 <div id="map-app">
