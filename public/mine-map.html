@@ -177,6 +177,53 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
   font-family: var(--mono); font-size: .6rem; color: var(--ink-faint);
   padding: .25rem .5rem; background: var(--parchment); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
 }
+
+/* ── Mobile ── */
+.mobile-stats {
+  display: none;
+  border-top: 1px solid var(--rule);
+  background: var(--parchment-deep);
+}
+.mobile-stats-scroll {
+  display: flex; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.mobile-stats-scroll::-webkit-scrollbar { display: none; }
+.mobile-stat {
+  flex-shrink: 0; padding: .6rem .9rem;
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; gap: .15rem;
+}
+.mobile-stat-key { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+.mobile-stat-val { font-family: var(--mono); font-size: .82rem; font-weight: 500; color: var(--ink); }
+.mobile-stat-val.hi { color: var(--steel); }
+
+@media (max-width: 680px) {
+  .site-header { padding: .9rem 1rem; }
+  .site-nav { display: none; }
+  .sub-header { padding: .45rem .8rem; }
+  .sub-title { font-size: .9rem; }
+  .sub-source { display: none; }
+
+  html, body { height: auto; }
+  .map-wrap { height: auto; min-height: 0; }
+  .layout { flex-direction: column; overflow: visible; }
+
+  .sidebar {
+    width: 100%; border-right: none; border-bottom: 1px solid var(--rule);
+    overflow-y: visible; overflow-x: visible;
+  }
+  .sidebar-scroll {
+    flex-direction: row; flex-wrap: wrap; padding: .5rem .7rem;
+    gap: .5rem;
+  }
+  .control-group { flex: 1; min-width: 140px; gap: .2rem; }
+  .stat-card, #rank-section { display: none !important; }
+
+  .map-area { height: 55vmax; min-height: 280px; max-height: 480px; flex: none; }
+  .legend-bar { min-width: 0; width: calc(100% - 2rem); left: 1rem; transform: none; }
+
+  .mobile-stats { display: block; }
+}
 </style>
 </head>
 <body>
@@ -260,6 +307,13 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
         </div>
       </div>
       <div class="note-strip">Data: MSHA Mine Registry · Active &amp; licensed mines · 2026</div>
+    </div>
+  </div>
+  <div class="mobile-stats" id="mobile-stats">
+    <div class="mobile-stats-scroll">
+      <div class="mobile-stat"><span class="mobile-stat-key">Total mines</span><span class="mobile-stat-val" id="m-total">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">States</span><span class="mobile-stat-val" id="m-states">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Top state</span><span class="mobile-stat-val hi" id="m-hi">—</span></div>
     </div>
   </div>
 </div>
@@ -350,6 +404,9 @@ function updateSidebar(commodity) {
   document.getElementById('st-total').textContent = total.toLocaleString();
   document.getElementById('st-states').textContent = stateCount;
   document.getElementById('st-hi').textContent = topState;
+  document.getElementById('m-total').textContent = total.toLocaleString();
+  document.getElementById('m-states').textContent = stateCount;
+  document.getElementById('m-hi').textContent = topState;
   document.getElementById('stat-card').style.display = '';
 
   const top8 = entries.slice(0, 8);

@@ -251,12 +251,54 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
 #error-banner.show { display: block; }
 
 /* ── Mobile ── */
-.mobile-note {
-  display: none; padding: .6rem 1.2rem;
-  background: var(--parchment-deep); border-bottom: 1px solid var(--rule);
-  font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); text-align: center;
+.mobile-stats {
+  display: none;
+  border-top: 1px solid var(--rule);
+  background: var(--parchment-deep);
 }
-@media(max-width:640px) { .mobile-note { display: block; } .sidebar { display: none; } }
+.mobile-stats-scroll {
+  display: flex; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.mobile-stats-scroll::-webkit-scrollbar { display: none; }
+.mobile-stat {
+  flex-shrink: 0; padding: .6rem .9rem;
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; gap: .15rem;
+}
+.mobile-stat-key { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+.mobile-stat-val { font-family: var(--mono); font-size: .82rem; font-weight: 500; color: var(--ink); }
+.mobile-stat-val.hi { color: var(--green-deep); }
+
+@media (max-width: 680px) {
+  .site-header { padding: .9rem 1rem; }
+  .site-nav { display: none; }
+  .map-header { padding: .55rem .9rem; gap: .6rem; }
+  .map-header h1 { font-size: 1rem; }
+  .map-header .subtitle { display: none; }
+  .source-badge { display: none; }
+
+  html, body { height: auto; }
+  #map-app { height: auto; min-height: 0; }
+  .layout { flex-direction: column; overflow: visible; }
+
+  .sidebar {
+    width: 100%; border-right: none; border-bottom: 1px solid var(--rule);
+    overflow: visible; flex-shrink: 0;
+  }
+  .sidebar-scroll {
+    flex-direction: row; flex-wrap: wrap; padding: .5rem .7rem;
+    gap: .5rem; overflow: visible;
+  }
+  .control-group { flex: 1; min-width: 140px; gap: .2rem; }
+  .stats-card, .hotspot-section, .rank-section-label, #rank-list-wrap { display: none !important; }
+
+  .map-area { height: 55vmax; min-height: 280px; max-height: 480px; flex: none; position: relative; }
+  #map-container { position: absolute; inset: 0; }
+
+  #legend { flex-wrap: wrap; gap: .5rem; padding: .5rem .7rem; }
+
+  .mobile-stats { display: block; }
+}
 </style>
 </head>
 <body>
@@ -282,8 +324,6 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
   </div>
   <div class="source-badge">USDA · quickstats.nass.usda.gov</div>
 </div>
-
-<p class="mobile-note">Use a wider screen to interact with the sidebar controls.</p>
 
 <div id="map-app">
   <div class="layout">
@@ -382,6 +422,14 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
       </div>
     </div>
 
+  </div>
+  <div class="mobile-stats" id="mobile-stats">
+    <div class="mobile-stats-scroll">
+      <div class="mobile-stat"><span class="mobile-stat-key">Total output</span><span class="mobile-stat-val" id="m-total">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">States</span><span class="mobile-stat-val" id="m-states">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Top producer</span><span class="mobile-stat-val hi" id="m-hi">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Smallest</span><span class="mobile-stat-val" id="m-lo">—</span></div>
+    </div>
   </div>
 </div>
 
@@ -560,6 +608,10 @@ function updateSidebar(cfg) {
   document.getElementById('st-states').textContent = nonzero.length + ' states';
   document.getElementById('st-hi').textContent     = hi ? `${hi.name}` : '—';
   document.getElementById('st-lo').textContent     = lo ? `${lo.name}` : '—';
+  document.getElementById('m-total').textContent   = fmtVal(totalVal, cfg.unit);
+  document.getElementById('m-states').textContent  = nonzero.length + ' states';
+  document.getElementById('m-hi').textContent      = hi ? hi.name : '—';
+  document.getElementById('m-lo').textContent      = lo ? lo.name : '—';
   document.getElementById('stats-card').classList.add('visible');
 
   const top = nonzero.slice(0, 7);
