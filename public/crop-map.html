@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crop Production Map · Scarcinality</title>
+<meta name="description" content="An interactive map of US crop production by state and year, drawn from USDA NASS Quick Stats. Select a commodity and year; the map recolors by output.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Crop Production Map · Scarcinality">
+<meta property="og:description" content="US crop production by state and year from USDA NASS Quick Stats.">
+<meta property="og:url" content="https://scarcinality.com/crop-map">
+<meta property="og:image" content="https://scarcinality.com/assets/curiosity-crop-map.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crop Production Map · Scarcinality">
+<meta name="twitter:description" content="US crop production by state and year from USDA NASS Quick Stats.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/curiosity-crop-map.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+<style>
+:root {
+  --parchment:      #f6f2e9;
+  --parchment-deep: #efe9db;
+  --parchment-mid:  #e8e0ce;
+  --ink:            #211d18;
+  --ink-soft:       #5c5247;
+  --ink-faint:      #8a8073;
+  --oxblood:        #8a3324;
+  --oxblood-deep:   #6f281c;
+  --rule:           #ddd3c2;
+  --rule-soft:      #e7ddcd;
+  --green-deep:     #2d5a1b;
+  --green-mid:      #4a7c2e;
+  --green-light:    #a8c88a;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono:  "IBM Plex Mono", ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: var(--serif); background: var(--parchment); color: var(--ink); }
+
+/* ── Site nav ── */
+.site-header {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1.4rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+  position: sticky; top: 0; z-index: 60;
+}
+.brand {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  color: var(--ink); text-decoration: none; border: none;
+}
+.brand:hover { color: var(--oxblood); }
+.site-nav { display: flex; gap: 1.3rem; flex-wrap: wrap; }
+.site-nav a {
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-soft); text-decoration: none; padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.site-nav a:hover, .site-nav a[aria-current="page"] {
+  color: var(--oxblood); border-bottom-color: var(--oxblood);
+}
+
+/* ── Sub-header ── */
+.map-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .9rem clamp(1.1rem,5vw,3rem);
+  background: var(--parchment-deep);
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.map-header-icon {
+  width: 28px; height: 28px;
+  background: var(--green-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.map-header h1 {
+  font-family: var(--serif); font-size: 1.18rem; font-weight: 600; color: var(--ink); line-height: 1;
+}
+.map-header .subtitle {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-faint); margin-top: .2rem;
+}
+.source-badge {
+  margin-left: auto;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-faint);
+  padding: .28rem .7rem; border: 1px solid var(--rule); background: var(--parchment); white-space: nowrap;
+}
+
+/* ── App shell ── */
+#map-app { display: flex; flex-direction: column; height: calc(100vh - 73px - 52px); }
+.layout { display: flex; flex: 1; overflow: hidden; }
+
+/* ── Sidebar ── */
+.sidebar {
+  flex-shrink: 0; width: 250px;
+  background: var(--parchment-deep);
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.sidebar-scroll {
+  flex: 1; overflow-y: auto; padding: 1.1rem 1rem;
+  display: flex; flex-direction: column; gap: 1.1rem;
+}
+.sidebar-scroll::-webkit-scrollbar { width: 3px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: var(--rule); }
+
+/* API key box */
+.key-box {
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .8rem .9rem; display: flex; flex-direction: column; gap: .5rem;
+}
+.key-box.hidden { display: none; }
+.key-box p {
+  font-family: var(--mono); font-size: .68rem; color: var(--ink-soft); line-height: 1.45;
+}
+.key-box a { color: var(--oxblood); }
+.key-row { display: flex; gap: .4rem; }
+.key-input {
+  flex: 1; font-family: var(--mono); font-size: .72rem;
+  border: 1px solid var(--rule); background: var(--parchment-deep);
+  padding: .35rem .5rem; color: var(--ink); outline: none;
+}
+.key-input:focus { border-color: var(--oxblood); }
+.key-btn {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em;
+  background: var(--green-deep); color: var(--parchment);
+  border: none; padding: .35rem .6rem; cursor: pointer;
+}
+.key-btn:hover { background: var(--green-mid); }
+.key-set {
+  font-family: var(--mono); font-size: .68rem; color: var(--ink-faint);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.key-set.hidden { display: none; }
+.key-clear { color: var(--oxblood); cursor: pointer; background: none; border: none; font-family: var(--mono); font-size: .68rem; }
+
+.control-group { display: flex; flex-direction: column; gap: .35rem; }
+.control-label {
+  font-family: var(--mono); font-size: .65rem; font-weight: 500;
+  color: var(--ink-faint); text-transform: uppercase; letter-spacing: .12em;
+}
+
+select {
+  width: 100%; background: var(--parchment); color: var(--ink);
+  border: 1px solid var(--rule);
+  padding: .55rem 1.8rem .55rem .65rem;
+  font-family: var(--mono); font-size: .78rem;
+  cursor: pointer; outline: none;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238a8073'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .65rem center;
+  transition: border-color .15s;
+}
+select:hover { border-color: var(--ink-faint); }
+select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,36,.1); }
+
+/* stats card */
+.stats-card {
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .85rem .9rem; display: none;
+}
+.stats-card.visible { display: block; }
+.card-title {
+  font-family: var(--mono); font-size: .65rem; font-weight: 500;
+  color: var(--ink-faint); text-transform: uppercase; letter-spacing: .12em; margin-bottom: .7rem;
+}
+.stat-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: .3rem 0; font-family: var(--mono); font-size: .75rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-key { color: var(--ink-faint); }
+.stat-val { font-weight: 500; color: var(--ink); }
+.stat-val.hi { color: var(--green-deep); }
+.stat-val.lo { color: var(--ink-soft); }
+
+/* top producers list */
+.producers-section { display: none; }
+.producers-section.visible { display: flex; flex-direction: column; gap: 5px; }
+.producer-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: .42rem .6rem;
+  background: var(--parchment); border: 1px solid var(--rule);
+  font-family: var(--mono); font-size: .73rem;
+  transition: border-color .12s;
+}
+.producer-item:hover { border-color: var(--green-mid); }
+.rank { font-size: .65rem; color: var(--ink-faint); width: 12px; text-align: center; flex-shrink: 0; }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.pr-name { flex: 1; color: var(--ink-soft); }
+.pr-val { font-weight: 500; color: var(--ink); }
+
+/* ── Map area ── */
+.map-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+#map-container { flex: 1; position: relative; overflow: hidden; background: var(--parchment); }
+#map { width: 100%; height: 100%; display: block; }
+.state {
+  stroke: var(--rule); stroke-width: .7; cursor: pointer; transition: stroke .12s, stroke-width .12s;
+}
+.state:hover { stroke: var(--green-deep); stroke-width: 1.5; }
+.state.no-data { fill: var(--parchment-mid); }
+
+/* ── Tooltip ── */
+#tooltip {
+  position: absolute; pointer-events: none;
+  background: var(--parchment); border: 1px solid var(--rule);
+  padding: .75rem .95rem;
+  font-family: var(--mono); font-size: .75rem;
+  min-width: 160px; opacity: 0; transition: opacity .1s; z-index: 200;
+  box-shadow: 0 4px 16px rgba(33,29,24,.12);
+}
+#tooltip.show { opacity: 1; }
+.tt-state { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; }
+.tt-row { display: flex; justify-content: space-between; gap: 1rem; font-size: .72rem; color: var(--ink-faint); padding: .15rem 0; }
+.tt-row span { font-weight: 500; color: var(--ink); }
+.tt-bar-wrap { margin-top: .5rem; height: 3px; background: var(--rule); overflow: hidden; }
+.tt-bar { height: 100%; transition: width .3s; }
+
+/* ── Legend ── */
+#legend {
+  flex-shrink: 0; display: none; align-items: center; gap: .9rem;
+  padding: .65rem 1.2rem;
+  background: var(--parchment-deep); border-top: 1px solid var(--rule);
+}
+#legend.visible { display: flex; }
+.legend-label { font-family: var(--mono); font-size: .68rem; color: var(--ink-faint); white-space: nowrap; }
+#legend-canvas { flex: 1; max-width: 260px; height: 9px; border: 1px solid var(--rule-soft); }
+.legend-ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .62rem; color: var(--ink-faint); width: 100%; max-width: 260px; margin-top: 2px; }
+.legend-unit { margin-left: auto; font-family: var(--mono); font-size: .68rem; color: var(--ink-faint); }
+
+/* ── Loading ── */
+#loading {
+  position: absolute; inset: 0; background: rgba(246,242,233,.75);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem;
+  z-index: 100; opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+#loading.show { opacity: 1; pointer-events: all; }
+.spinner {
+  width: 28px; height: 28px; border: 2px solid var(--rule);
+  border-top-color: var(--green-deep); border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.loading-text { font-family: var(--mono); font-size: .75rem; color: var(--ink-faint); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Empty state ── */
+#empty {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .7rem; pointer-events: none;
+}
+#empty.hidden { display: none; }
+.empty-icon { font-size: 38px; opacity: .25; }
+.empty-text { font-family: var(--serif); font-size: 1.05rem; color: var(--ink-soft); }
+.empty-sub  { font-family: var(--mono); font-size: .68rem; color: var(--ink-faint); text-align: center; max-width: 280px; line-height: 1.5; }
+
+/* ── Error banner ── */
+#error-banner {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  background: var(--parchment); border: 1px solid var(--oxblood); color: var(--oxblood);
+  padding: .6rem 1.1rem; font-family: var(--mono); font-size: .75rem;
+  z-index: 300; display: none; max-width: 400px; text-align: center; line-height: 1.4;
+}
+#error-banner.show { display: block; }
+
+/* ── Mobile ── */
+.mobile-note {
+  display: none; padding: .6rem 1.2rem;
+  background: var(--parchment-deep); border-bottom: 1px solid var(--rule);
+  font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); text-align: center;
+}
+@media(max-width:640px) { .mobile-note { display: block; } .sidebar { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <div class="map-header-icon">🌾</div>
+  <div>
+    <h1>Crop Production Map</h1>
+    <div class="subtitle">US production by state · USDA NASS Quick Stats</div>
+  </div>
+  <div class="source-badge">USDA · quickstats.nass.usda.gov</div>
+</div>
+
+<p class="mobile-note">Use a wider screen to interact with the sidebar controls.</p>
+
+<div id="map-app">
+  <div class="layout">
+
+    <div class="sidebar">
+      <div class="sidebar-scroll">
+
+        <!-- API key entry -->
+        <div class="key-box" id="key-box">
+          <p>Requires a free USDA NASS API key.<br>
+             Get one instantly at <a href="https://quickstats.nass.usda.gov/api" target="_blank" rel="noopener">quickstats.nass.usda.gov/api</a>.</p>
+          <div class="key-row">
+            <input class="key-input" id="key-input" type="password" placeholder="Paste key here…" autocomplete="off">
+            <button class="key-btn" id="key-save">Save</button>
+          </div>
+        </div>
+        <div class="key-set hidden" id="key-set">
+          <span>API key set</span>
+          <button class="key-clear" id="key-clear">Change</button>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">Commodity</div>
+          <select id="commodity-select">
+            <option value="">— Select a crop —</option>
+            <option value="CORN">Corn</option>
+            <option value="SOYBEANS">Soybeans</option>
+            <option value="WHEAT">Wheat (all)</option>
+            <option value="COTTON">Cotton</option>
+            <option value="HAY">Hay (all)</option>
+            <option value="SORGHUM">Sorghum</option>
+            <option value="BARLEY">Barley</option>
+            <option value="OATS">Oats</option>
+            <option value="RICE">Rice</option>
+            <option value="POTATOES">Potatoes</option>
+            <option value="SUNFLOWER">Sunflower</option>
+            <option value="TOBACCO">Tobacco</option>
+            <option value="PEANUTS">Peanuts</option>
+            <option value="SUGARCANE">Sugarcane</option>
+            <option value="APPLES">Apples</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">Year</div>
+          <select id="year-select">
+            <option value="2023">2023</option>
+            <option value="2022" selected>2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2015">2015</option>
+            <option value="2010">2010</option>
+            <option value="2005">2005</option>
+            <option value="2000">2000</option>
+          </select>
+        </div>
+
+        <div class="stats-card" id="stats-card">
+          <div class="card-title">Overview</div>
+          <div class="stat-row"><span class="stat-key">Total output</span><span class="stat-val" id="st-total">—</span></div>
+          <div class="stat-row"><span class="stat-key">Unit</span><span class="stat-val" id="st-unit">—</span></div>
+          <div class="stat-row"><span class="stat-key">States reporting</span><span class="stat-val" id="st-states">—</span></div>
+          <div class="stat-row"><span class="stat-key">Top producer</span><span class="stat-val hi" id="st-hi">—</span></div>
+          <div class="stat-row"><span class="stat-key">Smallest (non-zero)</span><span class="stat-val lo" id="st-lo">—</span></div>
+        </div>
+
+        <div class="producers-section" id="producers-section">
+          <div class="control-label">Top Producers</div>
+          <div id="producers-list"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="map-area">
+      <div id="map-container">
+        <svg id="map"></svg>
+
+        <div id="tooltip">
+          <div class="tt-state" id="tt-name"></div>
+          <div class="tt-row">Output <span id="tt-val"></span></div>
+          <div class="tt-row">Share of total <span id="tt-pct"></span></div>
+          <div class="tt-bar-wrap"><div class="tt-bar" id="tt-bar"></div></div>
+        </div>
+
+        <div id="loading">
+          <div class="spinner"></div>
+          <div class="loading-text">Fetching USDA data…</div>
+        </div>
+
+        <div id="empty">
+          <div class="empty-icon">🌾</div>
+          <div class="empty-text">Select a crop to view the map</div>
+          <div class="empty-sub" id="empty-sub">Enter your USDA NASS API key in the sidebar, then choose a commodity and year.</div>
+        </div>
+
+        <div id="error-banner"></div>
+      </div>
+
+      <div id="legend">
+        <span class="legend-label">0</span>
+        <div style="display:flex;flex-direction:column;gap:0;flex:1;max-width:260px;">
+          <canvas id="legend-canvas" height="9"></canvas>
+          <div class="legend-ticks" id="legend-ticks"></div>
+        </div>
+        <span class="legend-label" id="legend-max-label">Max</span>
+        <div class="legend-unit" id="legend-unit"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const NASS_API = 'https://quickstats.nass.usda.gov/api/api_GET/';
+
+// Commodity → NASS query parameters
+const COMMODITY_CONFIG = {
+  'CORN':      { label:'Corn',       unit:'BU',    short_desc:'CORN - PRODUCTION, MEASURED IN BU' },
+  'SOYBEANS':  { label:'Soybeans',   unit:'BU',    short_desc:'SOYBEANS - PRODUCTION, MEASURED IN BU' },
+  'WHEAT':     { label:'Wheat',      unit:'BU',    short_desc:'WHEAT - PRODUCTION, MEASURED IN BU' },
+  'COTTON':    { label:'Cotton',     unit:'BALES', short_desc:'COTTON - PRODUCTION, MEASURED IN 480 LB BALES' },
+  'HAY':       { label:'Hay',        unit:'TONS',  short_desc:'HAY - PRODUCTION, MEASURED IN TONS' },
+  'SORGHUM':   { label:'Sorghum',    unit:'BU',    short_desc:'SORGHUM, GRAIN - PRODUCTION, MEASURED IN BU' },
+  'BARLEY':    { label:'Barley',     unit:'BU',    short_desc:'BARLEY - PRODUCTION, MEASURED IN BU' },
+  'OATS':      { label:'Oats',       unit:'BU',    short_desc:'OATS - PRODUCTION, MEASURED IN BU' },
+  'RICE':      { label:'Rice',       unit:'CWT',   short_desc:'RICE - PRODUCTION, MEASURED IN CWT' },
+  'POTATOES':  { label:'Potatoes',   unit:'CWT',   short_desc:'POTATOES - PRODUCTION, MEASURED IN CWT' },
+  'SUNFLOWER': { label:'Sunflower',  unit:'LB',    short_desc:'SUNFLOWER - PRODUCTION, MEASURED IN LB' },
+  'TOBACCO':   { label:'Tobacco',    unit:'LB',    short_desc:'TOBACCO - PRODUCTION, MEASURED IN LB' },
+  'PEANUTS':   { label:'Peanuts',    unit:'LB',    short_desc:'PEANUTS - PRODUCTION, MEASURED IN LB' },
+  'SUGARCANE': { label:'Sugarcane',  unit:'TONS',  short_desc:'SUGARCANE - PRODUCTION, MEASURED IN TONS' },
+  'APPLES':    { label:'Apples',     unit:'LB',    short_desc:'APPLES - PRODUCTION, MEASURED IN LB' },
+};
+
+// NASS state name → FIPS
+const FIPS_BY_STATE = {
+  'ALABAMA':'01','ALASKA':'02','ARIZONA':'04','ARKANSAS':'05',
+  'CALIFORNIA':'06','COLORADO':'08','CONNECTICUT':'09','DELAWARE':'10',
+  'FLORIDA':'12','GEORGIA':'13','HAWAII':'15','IDAHO':'16',
+  'ILLINOIS':'17','INDIANA':'18','IOWA':'19','KANSAS':'20',
+  'KENTUCKY':'21','LOUISIANA':'22','MAINE':'23','MARYLAND':'24',
+  'MASSACHUSETTS':'25','MICHIGAN':'26','MINNESOTA':'27','MISSISSIPPI':'28',
+  'MISSOURI':'29','MONTANA':'30','NEBRASKA':'31','NEVADA':'32',
+  'NEW HAMPSHIRE':'33','NEW JERSEY':'34','NEW MEXICO':'35','NEW YORK':'36',
+  'NORTH CAROLINA':'37','NORTH DAKOTA':'38','OHIO':'39','OKLAHOMA':'40',
+  'OREGON':'41','PENNSYLVANIA':'42','RHODE ISLAND':'44','SOUTH CAROLINA':'45',
+  'SOUTH DAKOTA':'46','TENNESSEE':'47','TEXAS':'48','UTAH':'49',
+  'VERMONT':'50','VIRGINIA':'51','WASHINGTON':'53','WEST VIRGINIA':'54',
+  'WISCONSIN':'55','WYOMING':'56'
+};
+const NAME_BY_FIPS = Object.fromEntries(
+  Object.entries(FIPS_BY_STATE).map(([name, fips]) => [fips, name.charAt(0)+name.slice(1).toLowerCase().replace(/ ([a-z])/g, (_, c) => ' '+c.toUpperCase())])
+);
+
+let usGeo = null, productionMap = {}, maxVal = 0, totalVal = 0, currentUnit = '';
+
+// Parchment→forest-green sequential scale
+const colorScale = d3.scaleSequential()
+  .interpolator(d3.interpolateRgb('#eee8d8', '#2d5a1b'));
+
+function cropColor(val) {
+  if (val === undefined || val === null) return '#e8e0ce';
+  if (maxVal === 0) return '#eee8d8';
+  return colorScale(Math.sqrt(val / maxVal));
+}
+
+// ── API key management ──
+function getKey() { return localStorage.getItem('nass_api_key') || ''; }
+function saveKey(k) { localStorage.setItem('nass_api_key', k); updateKeyUI(); }
+function clearKey() { localStorage.removeItem('nass_api_key'); updateKeyUI(); }
+function updateKeyUI() {
+  const k = getKey();
+  document.getElementById('key-box').classList.toggle('hidden', !!k);
+  document.getElementById('key-set').classList.toggle('hidden', !k);
+  if (!k) {
+    document.getElementById('empty-sub').textContent = 'Enter your USDA NASS API key in the sidebar, then choose a commodity and year.';
+  } else {
+    document.getElementById('empty-sub').textContent = 'Data: USDA NASS Quick Stats via quickstats.nass.usda.gov';
+  }
+}
+
+document.getElementById('key-save').addEventListener('click', () => {
+  const v = document.getElementById('key-input').value.trim();
+  if (v) { saveKey(v); document.getElementById('key-input').value = ''; }
+});
+document.getElementById('key-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('key-save').click();
+});
+document.getElementById('key-clear').addEventListener('click', clearKey);
+
+// ── Fetch NASS data ──
+async function loadCrop(commodity, year) {
+  const key = getKey();
+  if (!key) { showError('Paste your USDA NASS API key in the sidebar first.'); return; }
+
+  const cfg = COMMODITY_CONFIG[commodity];
+  if (!cfg) return;
+
+  setLoading(true); hideError();
+  document.getElementById('empty').classList.add('hidden');
+
+  try {
+    const params = new URLSearchParams({
+      key,
+      short_desc: cfg.short_desc,
+      agg_level_desc: 'STATE',
+      year,
+      format: 'JSON'
+    });
+    const res = await fetch(`${NASS_API}?${params}`);
+    const json = await res.json();
+
+    if (json.error) throw new Error(json.error[0] || 'API error');
+
+    const rows = json.data || [];
+    const raw = {};
+    rows.forEach(r => {
+      const stateName = (r.state_name || '').trim().toUpperCase();
+      const fips = FIPS_BY_STATE[stateName];
+      if (!fips) return;
+      const v = parseFloat((r.Value || '').replace(/,/g, ''));
+      if (!isNaN(v) && v > 0) raw[fips] = (raw[fips] || 0) + v;
+    });
+
+    if (Object.keys(raw).length === 0) {
+      showError(`No production data found for ${cfg.label} in ${year}. Try a different year or commodity.`);
+      setLoading(false);
+      return;
+    }
+
+    productionMap = raw;
+    maxVal = d3.max(Object.values(raw)) || 0;
+    totalVal = d3.sum(Object.values(raw));
+    currentUnit = cfg.unit;
+
+    paintMap(); updateSidebar(cfg); drawLegend(cfg);
+  } catch(e) {
+    showError(`Failed to load data: ${e.message}`);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// ── Map rendering ──
+function renderMap() {
+  const container = document.getElementById('map-container');
+  const W = container.clientWidth, H = container.clientHeight;
+  const svg = d3.select('#map').attr('width', W).attr('height', H);
+  svg.selectAll('*').remove();
+  const proj = d3.geoAlbersUsa().fitSize([W, H - 20], usGeo);
+  const pathFn = d3.geoPath().projection(proj);
+  svg.append('g').selectAll('path').data(usGeo.features).join('path')
+    .attr('class','state no-data')
+    .attr('d', pathFn)
+    .attr('data-fips', d => String(d.id).padStart(2,'0'))
+    .on('mouseover', onHover).on('mousemove', onMove).on('mouseout', onOut);
+}
+
+function paintMap() {
+  d3.selectAll('.state').each(function(d) {
+    const fips = String(d.id).padStart(2,'0');
+    const val = productionMap[fips];
+    const noData = val === undefined;
+    d3.select(this).classed('no-data', noData)
+      .attr('fill', noData ? '#e8e0ce' : cropColor(val));
+  });
+}
+
+function fmtVal(v, unit) {
+  if (v === undefined) return 'No data';
+  if (v >= 1e9) return (v/1e9).toFixed(2) + 'B ' + unit;
+  if (v >= 1e6) return (v/1e6).toFixed(2) + 'M ' + unit;
+  if (v >= 1e3) return (v/1e3).toFixed(1) + 'K ' + unit;
+  return v.toLocaleString() + ' ' + unit;
+}
+
+// ── Tooltip ──
+function onHover(event, d) {
+  const fips = String(d.id).padStart(2,'0');
+  const name = NAME_BY_FIPS[fips] || 'Unknown';
+  const val = productionMap[fips];
+  document.getElementById('tt-name').textContent = name;
+  document.getElementById('tt-val').textContent = fmtVal(val, currentUnit);
+  document.getElementById('tt-pct').textContent = (val !== undefined && totalVal > 0)
+    ? ((val / totalVal) * 100).toFixed(1) + '%' : '—';
+  const pct = (val !== undefined && maxVal > 0) ? (Math.sqrt(val/maxVal)*100).toFixed(1)+'%' : '0%';
+  const bar = document.getElementById('tt-bar');
+  bar.style.width = pct;
+  bar.style.background = val !== undefined ? cropColor(val) : '#ddd3c2';
+  document.getElementById('tooltip').classList.add('show');
+}
+function onMove(event) {
+  const tt = document.getElementById('tooltip');
+  const rect = document.getElementById('map-container').getBoundingClientRect();
+  let x = event.clientX - rect.left + 14, y = event.clientY - rect.top - 14;
+  if (x + 175 > rect.width)  x = event.clientX - rect.left - 175;
+  if (y + 95  > rect.height) y = event.clientY - rect.top  - 95;
+  tt.style.left = x+'px'; tt.style.top = y+'px';
+}
+function onOut() { document.getElementById('tooltip').classList.remove('show'); }
+
+// ── Sidebar stats ──
+function updateSidebar(cfg) {
+  const entries = Object.entries(productionMap)
+    .map(([fips, val]) => ({ fips, val, name: NAME_BY_FIPS[fips] || fips }))
+    .sort((a, b) => b.val - a.val);
+
+  const nonzero = entries.filter(e => e.val > 0);
+  const hi = nonzero[0], lo = nonzero[nonzero.length - 1];
+
+  document.getElementById('st-total').textContent  = fmtVal(totalVal, cfg.unit);
+  document.getElementById('st-unit').textContent   = cfg.unit;
+  document.getElementById('st-states').textContent = nonzero.length + ' states';
+  document.getElementById('st-hi').textContent     = hi ? `${hi.name}` : '—';
+  document.getElementById('st-lo').textContent     = lo ? `${lo.name}` : '—';
+  document.getElementById('stats-card').classList.add('visible');
+
+  const top = nonzero.slice(0, 7);
+  document.getElementById('producers-list').innerHTML = top.map((e, i) => `
+    <div class="producer-item">
+      <span class="rank">${i+1}</span>
+      <div class="dot" style="background:${cropColor(e.val)}"></div>
+      <span class="pr-name">${e.name}</span>
+      <span class="pr-val">${fmtVal(e.val, cfg.unit)}</span>
+    </div>`).join('');
+  document.getElementById('producers-section').classList.toggle('visible', top.length > 0);
+}
+
+// ── Legend ──
+function drawLegend(cfg) {
+  document.getElementById('legend').classList.add('visible');
+  const canvas = document.getElementById('legend-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 260; canvas.width = W;
+  const grad = ctx.createLinearGradient(0,0,W,0);
+  for (let i=0; i<=20; i++) {
+    const t = i/20;
+    grad.addColorStop(t, colorScale(Math.sqrt(t)));
+  }
+  ctx.clearRect(0,0,W,canvas.height);
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,canvas.height);
+  document.getElementById('legend-max-label').textContent = fmtVal(maxVal, '');
+  document.getElementById('legend-unit').textContent = 'in ' + cfg.unit;
+  document.getElementById('legend-ticks').innerHTML =
+    [0,.25,.5,.75,1].map(t => `<span>${fmtVal(Math.round(maxVal*t*t), '')}</span>`).join('');
+}
+
+// ── UI helpers ──
+function setLoading(show) { document.getElementById('loading').classList.toggle('show', show); }
+function showError(msg) {
+  const el = document.getElementById('error-banner');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 7000);
+}
+function hideError() { document.getElementById('error-banner').classList.remove('show'); }
+
+// ── Event listeners ──
+document.getElementById('commodity-select').addEventListener('change', function() {
+  const year = document.getElementById('year-select').value;
+  if (this.value) loadCrop(this.value, year);
+  else document.getElementById('empty').classList.remove('hidden');
+});
+document.getElementById('year-select').addEventListener('change', function() {
+  const c = document.getElementById('commodity-select').value;
+  if (c) loadCrop(c, this.value);
+});
+window.addEventListener('resize', () => {
+  if (usGeo) requestAnimationFrame(() => { renderMap(); if (Object.keys(productionMap).length) paintMap(); });
+});
+
+// ── Bootstrap ──
+async function init() {
+  updateKeyUI();
+  usGeo = topojson.feature(
+    await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json'),
+    (await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => { usGeo = us; return us; })).objects.states
+  );
+  renderMap();
+}
+
+// cleaner bootstrap
+d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => {
+  usGeo = topojson.feature(us, us.objects.states);
+  renderMap();
+  updateKeyUI();
+});
+</script>
+</body>
+</html>

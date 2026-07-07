@@ -1,0 +1,125 @@
+<svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" fill="#f6f2e9"/>
+
+  <!-- sidebar -->
+  <rect x="0" y="0" width="168" height="360" fill="#efe9db"/>
+  <rect x="168" y="0" width="1" height="360" fill="#ddd3c2"/>
+
+  <!-- sidebar labels -->
+  <text x="16" y="28" font-size="8.5" fill="#8a8073" letter-spacing="1.4" font-family="monospace">COMMODITY</text>
+  <rect x="16" y="35" width="136" height="22" fill="#f6f2e9" stroke="#ddd3c2" stroke-width="1"/>
+  <text x="24" y="51" font-size="10.5" fill="#211d18" font-family="monospace">Corn</text>
+
+  <text x="16" y="76" font-size="8.5" fill="#8a8073" letter-spacing="1.4" font-family="monospace">YEAR</text>
+  <rect x="16" y="83" width="136" height="22" fill="#f6f2e9" stroke="#ddd3c2" stroke-width="1"/>
+  <text x="24" y="99" font-size="10.5" fill="#211d18" font-family="monospace">2022</text>
+
+  <!-- stats card -->
+  <rect x="12" y="118" width="144" height="120" fill="#f6f2e9" stroke="#ddd3c2" stroke-width="1"/>
+  <text x="20" y="134" font-size="8" fill="#8a8073" letter-spacing="1.2" font-family="monospace">OVERVIEW</text>
+  <line x1="20" y1="140" x2="148" y2="140" stroke="#e7ddcd" stroke-width="1"/>
+  <text x="20" y="155" font-size="9" fill="#8a8073" font-family="monospace">Total output</text>
+  <text x="148" y="155" font-size="9" fill="#211d18" font-weight="bold" text-anchor="end" font-family="monospace">13.74B BU</text>
+  <line x1="20" y1="161" x2="148" y2="161" stroke="#e7ddcd" stroke-width="0.7"/>
+  <text x="20" y="176" font-size="9" fill="#8a8073" font-family="monospace">States reporting</text>
+  <text x="148" y="176" font-size="9" fill="#211d18" font-weight="bold" text-anchor="end" font-family="monospace">38 states</text>
+  <line x1="20" y1="182" x2="148" y2="182" stroke="#e7ddcd" stroke-width="0.7"/>
+  <text x="20" y="197" font-size="9" fill="#8a8073" font-family="monospace">Top producer</text>
+  <text x="148" y="197" font-size="9" fill="#2d5a1b" font-weight="bold" text-anchor="end" font-family="monospace">Iowa</text>
+  <line x1="20" y1="203" x2="148" y2="203" stroke="#e7ddcd" stroke-width="0.7"/>
+  <text x="20" y="218" font-size="9" fill="#8a8073" font-family="monospace">Smallest</text>
+  <text x="148" y="218" font-size="9" fill="#5c5247" font-weight="bold" text-anchor="end" font-family="monospace">Wyoming</text>
+
+  <!-- top producers list -->
+  <text x="16" y="252" font-size="8.5" fill="#8a8073" letter-spacing="1.2" font-family="monospace">TOP PRODUCERS</text>
+
+  <rect x="12" y="258" width="144" height="18" fill="#f6f2e9" stroke="#ddd3c2" stroke-width="0.7"/>
+  <text x="22" y="271" font-size="8.5" fill="#8a8073" font-family="monospace">1</text>
+  <circle cx="32" cy="267" r="4" fill="#2d5a1b"/>
+  <text x="40" y="271" font-size="8.5" fill="#5c5247" font-family="monospace">Iowa</text>
+  <text x="154" y="271" font-size="8.5" fill="#211d18" font-weight="bold" text-anchor="end" font-family="monospace">2.29B BU</text>
+
+  <rect x="12" y="279" width="144" height="18" fill="#f6f2e9" stroke="#ddd3c2" stroke-width="0.7"/>
+  <text x="22" y="292" font-size="8.5" fill="#8a8073" font-family="monospace">2</text>
+  <circle cx="32" cy="288" r="4" fill="#3a7022"/>
+  <text x="40" y="292" font-size="8.5" fill="#5c5247" font-family="monospace">Illinois</text>
+  <text x="154" y="292" font-size="8.5" fill="#211d18" font-weight="bold" text-anchor="end" font-family="monospace">2.11B BU</text>
+
+  <rect x="12" y="300" width="144" height="18" fill="#f6f2e9" stroke="#ddd3c2" stroke-width="0.7"/>
+  <text x="22" y="313" font-size="8.5" fill="#8a8073" font-family="monospace">3</text>
+  <circle cx="32" cy="309" r="4" fill="#4a7c2e"/>
+  <text x="40" y="313" font-size="8.5" fill="#5c5247" font-family="monospace">Nebraska</text>
+  <text x="154" y="313" font-size="8.5" fill="#211d18" font-weight="bold" text-anchor="end" font-family="monospace">1.89B BU</text>
+
+  <!-- sub-header -->
+  <rect x="169" y="0" width="471" height="26" fill="#efe9db"/>
+  <rect x="169" y="26" width="471" height="1" fill="#ddd3c2"/>
+  <rect x="175" y="5" width="16" height="16" fill="#2d5a1b"/>
+  <text x="198" y="17" font-size="10" fill="#211d18" font-family="Georgia,serif" font-weight="600">Crop Production Map</text>
+  <text x="628" y="17" font-size="7.5" fill="#8a8073" font-family="monospace" text-anchor="end">USDA · quickstats.nass.usda.gov</text>
+
+  <!-- map blobs: corn belt heavy in midwest, parchment→forest-green -->
+  <g transform="translate(192,32)">
+    <!-- Pacific NW - low -->
+    <ellipse cx="42"  cy="52"  rx="28" ry="24" fill="#d8e8c8"/>
+    <ellipse cx="76"  cy="60"  rx="22" ry="20" fill="#c8dab8"/>
+    <ellipse cx="60"  cy="88"  rx="18" ry="15" fill="#ccdaba"/>
+    <!-- CA - low/mid -->
+    <ellipse cx="30"  cy="118" rx="16" ry="30" fill="#b8cea8"/>
+    <!-- Mountain - very low -->
+    <ellipse cx="108" cy="65"  rx="20" ry="18" fill="#e8eed8"/>
+    <ellipse cx="132" cy="85"  rx="18" ry="20" fill="#e0ead0"/>
+    <ellipse cx="108" cy="106" rx="17" ry="15" fill="#dce8c8"/>
+    <!-- SW - very low -->
+    <ellipse cx="82"  cy="130" rx="20" ry="16" fill="#eef2e4"/>
+    <!-- Plains - mid green -->
+    <ellipse cx="162" cy="60"  rx="20" ry="18" fill="#a0c888"/>
+    <ellipse cx="186" cy="76"  rx="18" ry="16" fill="#8aba74"/>
+    <ellipse cx="164" cy="96"  rx="18" ry="14" fill="#78ac62"/>
+    <!-- CORN BELT - dark green (Iowa, Illinois, Indiana, Ohio) -->
+    <ellipse cx="218" cy="55"  rx="22" ry="18" fill="#3a7022"/><!-- Minnesota -->
+    <ellipse cx="240" cy="74"  rx="20" ry="18" fill="#2d5a1b"/><!-- Iowa - darkest -->
+    <ellipse cx="262" cy="58"  rx="18" ry="16" fill="#336618"/><!-- Wisconsin -->
+    <ellipse cx="216" cy="96"  rx="18" ry="14" fill="#3a7022"/><!-- Illinois -->
+    <ellipse cx="238" cy="96"  rx="16" ry="14" fill="#3a7022"/><!-- Indiana -->
+    <ellipse cx="258" cy="92"  rx="14" ry="14" fill="#4a7c2e"/><!-- Ohio -->
+    <!-- South - low/mid -->
+    <ellipse cx="200" cy="132" rx="24" ry="16" fill="#7aaa60"/><!-- Missouri/KS -->
+    <ellipse cx="226" cy="148" rx="18" ry="14" fill="#a0c888"/>
+    <ellipse cx="174" cy="148" rx="20" ry="20" fill="#90b878"/><!-- TX -->
+    <!-- NE - low -->
+    <ellipse cx="286" cy="44"  rx="20" ry="16" fill="#c8dab8"/>
+    <ellipse cx="308" cy="60"  rx="16" ry="14" fill="#b8cea8"/>
+    <!-- SE Coast - very low -->
+    <ellipse cx="268" cy="118" rx="18" ry="16" fill="#ccdaba"/>
+    <ellipse cx="264" cy="160" rx="12" ry="20" fill="#dce8c8"/>
+    <!-- Nebraska -->
+    <ellipse cx="182" cy="80"  rx="18" ry="14" fill="#4a7c2e"/>
+  </g>
+
+  <!-- grid lines -->
+  <line x1="169" y1="130" x2="630" y2="130" stroke="#ddd3c2" stroke-width="0.5" opacity="0.5"/>
+  <line x1="169" y1="170" x2="630" y2="170" stroke="#ddd3c2" stroke-width="0.5" opacity="0.5"/>
+  <line x1="265" y1="27"  x2="265" y2="248" stroke="#ddd3c2" stroke-width="0.5" opacity="0.5"/>
+  <line x1="375" y1="27"  x2="375" y2="248" stroke="#ddd3c2" stroke-width="0.5" opacity="0.5"/>
+  <line x1="475" y1="27"  x2="475" y2="248" stroke="#ddd3c2" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- legend -->
+  <line x1="169" y1="262" x2="630" y2="262" stroke="#ddd3c2" stroke-width="1"/>
+  <defs>
+    <linearGradient id="cropGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#eee8d8"/>
+      <stop offset="30%"  stop-color="#c8dab8"/>
+      <stop offset="60%"  stop-color="#78ac62"/>
+      <stop offset="80%"  stop-color="#4a7c2e"/>
+      <stop offset="100%" stop-color="#2d5a1b"/>
+    </linearGradient>
+  </defs>
+  <text x="175" y="280" font-size="8.5" fill="#8a8073" font-family="monospace">0</text>
+  <rect x="192" y="270" width="280" height="10" fill="url(#cropGrad)" stroke="#ddd3c2" stroke-width="0.7"/>
+  <text x="478" y="280" font-size="8.5" fill="#8a8073" font-family="monospace">2.29B BU</text>
+  <text x="192" y="300" font-size="8" fill="#8a8073" font-family="monospace">Fewer</text>
+  <text x="472" y="300" font-size="8" fill="#8a8073" font-family="monospace" text-anchor="end">More</text>
+  <text x="520" y="300" font-size="8" fill="#8a8073" font-family="monospace">in BU</text>
+  <text x="618" y="344" font-size="8" fill="#8a8073" font-family="monospace" text-anchor="end">USDA · NASS</text>
+</svg>
