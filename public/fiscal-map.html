@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Federal Donor &amp; Consumer States · Scarcinality</title>
+<meta name="description" content="Which US states pay more in federal taxes than they receive in federal spending — and how that aligns with political lean, 2008–2023.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Federal Donor &amp; Consumer States · Scarcinality">
+<meta property="og:description" content="Which states subsidize federal spending, which receive more than they pay, and how it maps to red vs. blue.">
+<meta property="og:url" content="https://scarcinality.com/fiscal-map">
+<meta property="og:image" content="https://scarcinality.com/assets/curiosity-fiscal-map.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+<style>
+:root {
+  --parchment:      #f6f2e9;
+  --parchment-deep: #efe9db;
+  --parchment-mid:  #e8e0ce;
+  --ink:            #211d18;
+  --ink-soft:       #5c5247;
+  --ink-faint:      #8a8073;
+  --oxblood:        #8a3324;
+  --rule:           #ddd3c2;
+  --rule-soft:      #e7ddcd;
+  /* Political × fiscal colors */
+  --c-red-consumer:  #8b2a2a;   /* deep rust — votes R, receives more than pays */
+  --c-red-donor:     #e8a0a0;   /* pale rose — votes R, pays more than receives */
+  --c-blue-consumer: #9ac4e0;   /* pale sky — votes D, receives more than pays */
+  --c-blue-donor:    #1a5276;   /* deep navy — votes D, pays more than receives */
+  --c-purple-consumer: #a57ec8; /* medium violet — swing, receives more */
+  --c-purple-donor:    #4a235a; /* deep purple — swing, pays more */
+  --c-neutral:       #e0dbd0;   /* near-balanced */
+  --serif: "EB Garamond", Georgia, serif;
+  --mono:  "IBM Plex Mono", ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: var(--serif); background: var(--parchment); color: var(--ink); }
+
+.site-header {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1.4rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.site-header .brand { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+.site-nav { display: flex; gap: 1.8rem; flex-wrap: wrap; }
+.site-nav a { font-family: var(--mono); font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); text-decoration: none; }
+.site-nav a:hover, .site-nav a[aria-current] { color: var(--ink); }
+
+.map-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .6rem clamp(1rem,4vw,2.5rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment-deep);
+}
+.map-header h1 { font-size: 1.15rem; font-weight: 600; display: flex; align-items: center; gap: .6rem; }
+.map-header .swatch { width: 18px; height: 18px; background: linear-gradient(135deg, #8b2a2a 50%, #1a5276 50%); flex-shrink: 0; }
+.subtitle { font-size: .85rem; color: var(--ink-soft); font-style: italic; }
+.source-badge { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--ink-faint); white-space: nowrap; }
+
+#map-app { height: calc(100vh - 110px); display: flex; flex-direction: column; }
+.layout { display: flex; flex: 1; overflow: hidden; }
+
+/* Sidebar */
+.sidebar {
+  width: 220px; flex-shrink: 0;
+  border-right: 1px solid var(--rule);
+  background: var(--parchment-deep);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-scroll { flex: 1; overflow-y: auto; padding: .9rem; display: flex; flex-direction: column; gap: .9rem; }
+
+.control-group label {
+  display: block;
+  font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: .3rem;
+}
+.control-group select {
+  width: 100%; padding: .3rem .5rem; font-family: var(--serif); font-size: .9rem;
+  background: var(--parchment); border: 1px solid var(--rule); border-radius: 2px; color: var(--ink);
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238a8073'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .5rem center; padding-right: 1.5rem;
+}
+
+.stats-card {
+  background: var(--parchment); border: 1px solid var(--rule-soft); border-radius: 3px;
+  padding: .75rem .8rem; display: flex; flex-direction: column; gap: .35rem;
+}
+.stats-card-title {
+  font-family: var(--mono); font-size: .58rem; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: .1rem;
+}
+.stat-row { display: flex; justify-content: space-between; align-items: baseline; gap: .3rem; }
+.stat-label { font-size: .85rem; color: var(--ink-soft); }
+.stat-val { font-family: var(--mono); font-size: .78rem; font-weight: 500; color: var(--ink); text-align: right; }
+.stat-val.donor { color: var(--c-blue-donor); }
+.stat-val.consumer { color: var(--c-red-consumer); }
+.stat-val.hi { font-weight: 600; }
+
+/* Legend */
+.legend-section { padding: .6rem .9rem; border-top: 1px solid var(--rule-soft); font-size: .8rem; }
+.legend-section h3 { font-family: var(--mono); font-size: .58rem; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .5rem; }
+.legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem; }
+.legend-item { display: flex; align-items: center; gap: .35rem; font-size: .78rem; color: var(--ink-soft); }
+.legend-swatch { width: 14px; height: 14px; border-radius: 2px; flex-shrink: 0; }
+
+/* Party breakdown */
+.party-section { padding: .6rem .9rem; border-top: 1px solid var(--rule-soft); }
+.party-section h3 { font-family: var(--mono); font-size: .58rem; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .5rem; }
+.party-bar { margin-bottom: .5rem; }
+.party-bar-label { font-size: .8rem; color: var(--ink-soft); margin-bottom: .2rem; display: flex; justify-content: space-between; }
+.party-bar-track { height: 6px; background: var(--parchment-mid); border-radius: 3px; overflow: hidden; display: flex; }
+.party-bar-fill { height: 100%; border-radius: 3px 0 0 3px; transition: width .4s; }
+
+/* Detail panel */
+.detail-card {
+  background: var(--parchment); border: 1px solid var(--rule-soft); border-radius: 3px;
+  padding: .75rem .8rem; display: flex; flex-direction: column; gap: .3rem; display: none;
+}
+.detail-card.visible { display: flex; }
+.detail-name { font-size: 1rem; font-weight: 600; }
+.detail-badge { display: inline-flex; align-items: center; gap: .3rem; font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+.detail-divider { height: 1px; background: var(--rule-soft); margin: .3rem 0; }
+.program-list { display: flex; flex-direction: column; gap: .2rem; }
+.prog-row { display: flex; justify-content: space-between; font-size: .8rem; }
+.prog-label { color: var(--ink-soft); }
+.prog-val { font-family: var(--mono); font-size: .73rem; color: var(--ink); }
+
+/* Map */
+.map-area { flex: 1; position: relative; background: var(--parchment); }
+#map-container { position: absolute; inset: 0; }
+
+/* Legend bar at bottom */
+#legend {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center; gap: 1rem; padding: .5rem 1rem;
+  background: rgba(246,242,233,.88); border-top: 1px solid var(--rule-soft);
+  flex-wrap: wrap; font-size: .78rem;
+}
+.leg-note { font-size: .7rem; color: var(--ink-faint); font-style: italic; flex: 1; min-width: 200px; text-align: right; }
+
+/* Tooltip */
+#tooltip {
+  position: fixed; pointer-events: none; z-index: 100;
+  background: var(--parchment); border: 1px solid var(--rule); border-radius: 3px;
+  padding: .55rem .7rem; font-size: .82rem;
+  box-shadow: 0 2px 8px rgba(33,29,24,.1);
+  opacity: 0; transition: opacity .15s;
+  max-width: 220px;
+}
+#tooltip.visible { opacity: 1; }
+#tooltip strong { display: block; font-size: .95rem; margin-bottom: .2rem; }
+#tooltip .tt-row { display: flex; justify-content: space-between; gap: 1rem; }
+#tooltip .tt-label { color: var(--ink-soft); }
+#tooltip .tt-val { font-family: var(--mono); font-size: .73rem; }
+
+/* Mobile stats */
+.mobile-stats { display: none; }
+@media (max-width: 580px) {
+  .site-header { padding: .9rem 1rem; }
+  .site-nav { display: none; }
+  .map-header { padding: .55rem .9rem; gap: .6rem; }
+  .map-header h1 { font-size: 1rem; }
+  .subtitle { display: none; }
+  .source-badge { display: none; }
+  html, body { height: auto; }
+  #map-app { height: auto; min-height: 0; }
+  .layout { flex-direction: column; overflow: visible; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--rule); overflow: visible; flex-shrink: 0; }
+  .sidebar-scroll { flex-direction: row; flex-wrap: wrap; padding: .5rem .7rem; gap: .5rem; overflow: visible; }
+  .control-group { flex: 1; min-width: 140px; gap: .2rem; }
+  .stats-card, .detail-card, .legend-section, .party-section { display: none !important; }
+  .map-area { height: 55vmax; min-height: 280px; max-height: 480px; flex: none; }
+  #map-container { position: absolute; inset: 0; }
+  .map-area { position: relative; }
+  #legend { flex-wrap: wrap; gap: .4rem; padding: .4rem .7rem; }
+  .leg-note { display: none; }
+  .mobile-stats { display: block; background: var(--parchment-deep); border-top: 1px solid var(--rule); }
+  .mobile-stats-scroll { display: flex; overflow-x: auto; padding: .6rem .8rem; gap: 1.2rem; -webkit-overflow-scrolling: touch; }
+  .mobile-stat { display: flex; flex-direction: column; gap: .1rem; min-width: 100px; }
+  .mobile-stat-key { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
+  .mobile-stat-val { font-size: 1rem; font-weight: 600; color: var(--ink); }
+  .mobile-stat-val.donor { color: var(--c-blue-donor); }
+  .mobile-stat-val.consumer { color: var(--c-red-consumer); }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>
+    <span class="swatch" aria-hidden="true"></span>
+    Federal Donor &amp; Consumer States
+    <span class="subtitle">by political lean</span>
+  </h1>
+  <span class="source-badge">USASpending · BEA · MIT Election Lab</span>
+</div>
+
+<div id="map-app">
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-scroll">
+        <div class="control-group">
+          <label for="year-select">Fiscal year</label>
+          <select id="year-select"></select>
+        </div>
+
+        <div class="stats-card" id="stat-card" style="display:none">
+          <div class="stats-card-title">National overview</div>
+          <div class="stat-row"><span class="stat-label">Donor states</span><span class="stat-val donor hi" id="st-donors">—</span></div>
+          <div class="stat-row"><span class="stat-label">Consumer states</span><span class="stat-val consumer hi" id="st-consumers">—</span></div>
+          <div class="stat-row"><span class="stat-label">Largest donor</span><span class="stat-val" id="st-top-donor">—</span></div>
+          <div class="stat-row"><span class="stat-label">Largest consumer</span><span class="stat-val" id="st-top-consumer">—</span></div>
+        </div>
+
+        <div class="party-section" id="party-section" style="display:none">
+          <h3>Red state donors vs. consumers</h3>
+          <div class="party-bar" id="red-bar">
+            <div class="party-bar-label">
+              <span id="red-donor-ct">—</span> donors
+              <span id="red-consumer-ct">—</span> consumers
+            </div>
+            <div class="party-bar-track">
+              <div class="party-bar-fill" id="red-donor-fill" style="background:var(--c-red-donor);width:50%"></div>
+              <div class="party-bar-fill" id="red-consumer-fill" style="background:var(--c-red-consumer);width:50%;border-radius:0 3px 3px 0"></div>
+            </div>
+          </div>
+          <h3 style="margin-top:.5rem">Blue state donors vs. consumers</h3>
+          <div class="party-bar" id="blue-bar">
+            <div class="party-bar-label">
+              <span id="blue-donor-ct">—</span> donors
+              <span id="blue-consumer-ct">—</span> consumers
+            </div>
+            <div class="party-bar-track">
+              <div class="party-bar-fill" id="blue-donor-fill" style="background:var(--c-blue-donor);width:50%"></div>
+              <div class="party-bar-fill" id="blue-consumer-fill" style="background:var(--c-blue-consumer);width:50%;border-radius:0 3px 3px 0"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="detail-card">
+          <div class="detail-name" id="d-name">—</div>
+          <div class="detail-badge" id="d-badge"></div>
+          <div class="detail-divider"></div>
+          <div class="program-list">
+            <div class="prog-row"><span class="prog-label">Federal taxes paid</span><span class="prog-val" id="d-taxes">—</span></div>
+            <div class="prog-row"><span class="prog-label">Federal spending rec'd</span><span class="prog-val" id="d-spending">—</span></div>
+            <div class="prog-row"><span class="prog-label">Net balance</span><span class="prog-val" id="d-net">—</span></div>
+            <div class="detail-divider"></div>
+            <div class="prog-row"><span class="prog-label">Per capita balance</span><span class="prog-val" id="d-net-pc">—</span></div>
+            <div class="prog-row"><span class="prog-label">Grants (Medicaid, ed…)</span><span class="prog-val" id="d-grants">—</span></div>
+            <div class="prog-row"><span class="prog-label">Direct pmts (SS, Medicare)</span><span class="prog-val" id="d-direct">—</span></div>
+            <div class="prog-row"><span class="prog-label">Contracts (defense…)</span><span class="prog-val" id="d-contracts">—</span></div>
+          </div>
+        </div>
+
+        <div class="legend-section">
+          <h3>Color key</h3>
+          <div class="legend-grid">
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--c-blue-donor)"></div><span>Blue donor</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--c-blue-consumer)"></div><span>Blue consumer</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--c-red-donor)"></div><span>Red donor</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--c-red-consumer)"></div><span>Red consumer</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--c-purple-donor)"></div><span>Swing donor</span></div>
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--c-purple-consumer)"></div><span>Swing consumer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-area" id="map-area">
+      <div id="map-container"></div>
+      <div id="legend">
+        <div class="legend-item" style="gap:.4rem"><div class="legend-swatch" style="background:var(--c-blue-donor)"></div><span style="font-size:.75rem">Blue donor</span></div>
+        <div class="legend-item" style="gap:.4rem"><div class="legend-swatch" style="background:var(--c-blue-consumer)"></div><span style="font-size:.75rem">Blue consumer</span></div>
+        <div class="legend-item" style="gap:.4rem"><div class="legend-swatch" style="background:var(--c-red-donor)"></div><span style="font-size:.75rem">Red donor</span></div>
+        <div class="legend-item" style="gap:.4rem"><div class="legend-swatch" style="background:var(--c-red-consumer)"></div><span style="font-size:.75rem">Red consumer</span></div>
+        <div class="legend-item" style="gap:.4rem"><div class="legend-swatch" style="background:var(--c-purple-donor)"></div><span style="font-size:.75rem">Swing donor</span></div>
+        <div class="legend-item" style="gap:.4rem"><div class="legend-swatch" style="background:var(--c-purple-consumer)"></div><span style="font-size:.75rem">Swing consumer</span></div>
+        <span class="leg-note">Political lean = nearest past presidential election (±5pt margin = swing). Taxes estimated from BEA state income data; spending from USASpending.gov.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile stats strip (outside layout) -->
+  <div class="mobile-stats" id="mobile-stats" style="display:none">
+    <div class="mobile-stats-scroll">
+      <div class="mobile-stat"><span class="mobile-stat-key">Donor states</span><span class="mobile-stat-val donor" id="m-donors">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Consumer states</span><span class="mobile-stat-val consumer" id="m-consumers">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Red consumers</span><span class="mobile-stat-val" id="m-red-consumer">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Blue donors</span><span class="mobile-stat-val" id="m-blue-donor">—</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+const STATE_NAMES = {
+  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',
+  CO:'Colorado',CT:'Connecticut',DC:'D.C.',DE:'Delaware',FL:'Florida',
+  GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',
+  IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',
+  MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',
+  MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',
+  NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',
+  NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',
+  OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',
+  SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',
+  VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'
+};
+
+const STATE_FIPS = {
+  AL:'01',AK:'02',AZ:'04',AR:'05',CA:'06',CO:'08',CT:'09',DC:'11',DE:'10',
+  FL:'12',GA:'13',HI:'15',ID:'16',IL:'17',IN:'18',IA:'19',KS:'20',
+  KY:'21',LA:'22',ME:'23',MD:'24',MA:'25',MI:'26',MN:'27',MS:'28',
+  MO:'29',MT:'30',NE:'31',NV:'32',NH:'33',NJ:'34',NM:'35',NY:'36',
+  NC:'37',ND:'38',OH:'39',OK:'40',OR:'41',PA:'42',RI:'44',SC:'45',
+  SD:'46',TN:'47',TX:'48',UT:'49',VT:'50',VA:'51',WA:'53',WV:'54',
+  WI:'55',WY:'56'
+};
+const FIPS_STATE = Object.fromEntries(Object.entries(STATE_FIPS).map(([a,f])=>[f,a]));
+
+const COLOR_MAP = {
+  'red-consumer':    '#8b2a2a',
+  'red-donor':       '#e8a0a0',
+  'blue-consumer':   '#9ac4e0',
+  'blue-donor':      '#1a5276',
+  'purple-consumer': '#a57ec8',
+  'purple-donor':    '#4a235a',
+  'unknown':         '#d0c8b8'
+};
+
+function colorFor(d) {
+  if (!d || d.lean === undefined || d.net === undefined) return COLOR_MAP.unknown;
+  const side = d.net > 0 ? 'consumer' : 'donor';
+  const l = d.lean || 'unknown';
+  return COLOR_MAP[`${l}-${side}`] || COLOR_MAP.unknown;
+}
+
+function fmt(n) {
+  if (n == null) return '—';
+  const abs = Math.abs(n);
+  if (abs >= 1e12) return (n/1e12).toFixed(2) + 'T';
+  if (abs >= 1e9)  return (n/1e9).toFixed(1) + 'B';
+  if (abs >= 1e6)  return (n/1e6).toFixed(0) + 'M';
+  return n.toLocaleString();
+}
+
+function fmtPc(n) {
+  if (n == null) return '—';
+  const s = n < 0 ? '-' : '+';
+  return s + '$' + Math.abs(n).toLocaleString();
+}
+
+let usGeo = null, fiscalData = null;
+let currentYear = '2022', currentData = {};
+
+function stateColor(abbr) {
+  const d = currentData[abbr];
+  return colorFor(d);
+}
+
+function renderMap() {
+  const container = document.getElementById('map-container');
+  const w = container.clientWidth, h = container.clientHeight;
+  if (!w || !h || !usGeo) return;
+
+  d3.select('#map-container').selectAll('*').remove();
+  const svg = d3.select('#map-container').append('svg')
+    .attr('width', w).attr('height', h);
+
+  const proj = d3.geoAlbersUsa().fitSize([w, h], topojson.feature(usGeo, usGeo.objects.states));
+  const path = d3.geoPath().projection(proj);
+
+  svg.selectAll('.state-path')
+    .data(topojson.feature(usGeo, usGeo.objects.states).features)
+    .join('path')
+    .attr('class', 'state-path')
+    .attr('d', path)
+    .attr('fill', d => stateColor(FIPS_STATE[d.id.toString().padStart(2,'0')]))
+    .attr('stroke', '#f6f2e9')
+    .attr('stroke-width', 0.8)
+    .style('cursor', 'pointer')
+    .on('mousemove', (event, d) => {
+      const abbr = FIPS_STATE[d.id.toString().padStart(2,'0')];
+      const sd = currentData[abbr];
+      const tt = document.getElementById('tooltip');
+      if (!abbr) { tt.classList.remove('visible'); return; }
+      const name = STATE_NAMES[abbr] || abbr;
+      const leanLabel = sd ? ({ red:'Republican', blue:'Democratic', purple:'Swing' }[sd.lean] || '') : '';
+      const status = sd ? (sd.net > 0 ? 'Consumer' : 'Donor') : '';
+      tt.innerHTML = `<strong>${name}</strong>
+        <div class="tt-row"><span class="tt-label">Political lean</span><span class="tt-val">${leanLabel}</span></div>
+        <div class="tt-row"><span class="tt-label">Fiscal status</span><span class="tt-val">${status}</span></div>
+        <div class="tt-row"><span class="tt-label">Federal taxes paid</span><span class="tt-val">${sd ? fmt(sd.taxes) : '—'}</span></div>
+        <div class="tt-row"><span class="tt-label">Federal spending</span><span class="tt-val">${sd ? fmt(sd.spending) : '—'}</span></div>
+        <div class="tt-row"><span class="tt-label">Net per capita</span><span class="tt-val">${sd ? fmtPc(sd.net_pc) : '—'}</span></div>`;
+      tt.classList.add('visible');
+      const x = event.clientX + 14, y = event.clientY + 14;
+      const rect = tt.getBoundingClientRect();
+      tt.style.left = (x + rect.width > window.innerWidth ? x - rect.width - 28 : x) + 'px';
+      tt.style.top = (y + rect.height > window.innerHeight ? y - rect.height - 28 : y) + 'px';
+    })
+    .on('mouseleave', () => document.getElementById('tooltip').classList.remove('visible'))
+    .on('click', (event, d) => {
+      const abbr = FIPS_STATE[d.id.toString().padStart(2,'0')];
+      if (abbr) showDetail(abbr);
+    });
+
+  svg.append('path')
+    .datum(topojson.mesh(usGeo, usGeo.objects.states, (a,b) => a !== b))
+    .attr('fill', 'none')
+    .attr('stroke', '#f6f2e9')
+    .attr('stroke-width', 0.5)
+    .attr('d', path);
+}
+
+function paintMap() {
+  d3.selectAll('.state-path')
+    .transition().duration(400)
+    .attr('fill', d => stateColor(FIPS_STATE[d.id.toString().padStart(2,'0')]));
+}
+
+function updateSidebar(year) {
+  const entries = Object.entries(currentData);
+  const donors = entries.filter(([,v]) => v.net < 0).sort((a,b) => a[1].net_pc - b[1].net_pc);
+  const consumers = entries.filter(([,v]) => v.net > 0).sort((a,b) => b[1].net_pc - a[1].net_pc);
+
+  const redDonors = donors.filter(([,v]) => v.lean === 'red').length;
+  const blueDonors = donors.filter(([,v]) => v.lean === 'blue').length;
+  const redConsumers = consumers.filter(([,v]) => v.lean === 'red').length;
+  const blueConsumers = consumers.filter(([,v]) => v.lean === 'blue').length;
+
+  document.getElementById('st-donors').textContent = donors.length;
+  document.getElementById('st-consumers').textContent = consumers.length;
+  document.getElementById('st-top-donor').textContent = donors[0] ? STATE_NAMES[donors[0][0]] || donors[0][0] : '—';
+  document.getElementById('st-top-consumer').textContent = consumers[0] ? STATE_NAMES[consumers[0][0]] || consumers[0][0] : '—';
+  document.getElementById('stat-card').style.display = '';
+
+  // Party bars
+  const redTotal = redDonors + redConsumers || 1;
+  const blueTotal = blueDonors + blueConsumers || 1;
+  document.getElementById('red-donor-ct').textContent = redDonors;
+  document.getElementById('red-consumer-ct').textContent = redConsumers;
+  document.getElementById('blue-donor-ct').textContent = blueDonors;
+  document.getElementById('blue-consumer-ct').textContent = blueConsumers;
+  document.getElementById('red-donor-fill').style.width = (redDonors/redTotal*100) + '%';
+  document.getElementById('red-consumer-fill').style.width = (redConsumers/redTotal*100) + '%';
+  document.getElementById('blue-donor-fill').style.width = (blueDonors/blueTotal*100) + '%';
+  document.getElementById('blue-consumer-fill').style.width = (blueConsumers/blueTotal*100) + '%';
+  document.getElementById('party-section').style.display = '';
+
+  // Mobile stats
+  document.getElementById('m-donors').textContent = donors.length;
+  document.getElementById('m-consumers').textContent = consumers.length;
+  document.getElementById('m-red-consumer').textContent = redConsumers + ' of ' + (redDonors + redConsumers);
+  document.getElementById('m-blue-donor').textContent = blueDonors + ' of ' + (blueDonors + blueConsumers);
+  document.getElementById('mobile-stats').style.display = '';
+}
+
+function showDetail(abbr) {
+  const d = currentData[abbr];
+  if (!d) return;
+  const leanLabel = { red:'Republican', blue:'Democratic', purple:'Swing' }[d.lean] || '';
+  const status = d.net > 0 ? 'Consumer ▲' : 'Donor ▼';
+  const statusColor = d.net > 0 ? 'var(--c-red-consumer)' : 'var(--c-blue-donor)';
+  document.getElementById('d-name').textContent = STATE_NAMES[abbr] || abbr;
+  document.getElementById('d-badge').innerHTML = `<span style="color:${statusColor}">${status}</span> &nbsp;·&nbsp; ${leanLabel}`;
+  document.getElementById('d-taxes').textContent = fmt(d.taxes);
+  document.getElementById('d-spending').textContent = fmt(d.spending);
+  document.getElementById('d-net').textContent = (d.net > 0 ? '+' : '') + fmt(d.net);
+  document.getElementById('d-net-pc').textContent = fmtPc(d.net_pc) + '/person';
+  document.getElementById('d-grants').textContent = fmt(d.grants);
+  document.getElementById('d-direct').textContent = fmt(d.direct);
+  document.getElementById('d-contracts').textContent = fmt(d.contracts);
+  document.getElementById('detail-card').classList.add('visible');
+}
+
+function loadYear(year) {
+  currentYear = year;
+  currentData = fiscalData[year] || {};
+  if (usGeo) paintMap();
+  updateSidebar(year);
+}
+
+function buildYearSelect(years) {
+  const sel = document.getElementById('year-select');
+  sel.innerHTML = '';
+  [...years].reverse().forEach(yr => {
+    const o = document.createElement('option');
+    o.value = yr; o.textContent = 'FY' + yr;
+    if (yr === '2022') o.selected = true;
+    sel.appendChild(o);
+  });
+}
+
+Promise.all([
+  d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json'),
+  d3.json('/assets/fiscal-data.json')
+]).then(([geo, data]) => {
+  usGeo = geo;
+  fiscalData = data;
+  const years = Object.keys(data).sort();
+  buildYearSelect(years);
+  // Set currentData BEFORE renderMap so initial fill is correct
+  const defaultYear = years[years.length - 2] || years[years.length - 1] || '2022';
+  currentYear = defaultYear;
+  currentData = fiscalData[defaultYear] || {};
+  renderMap();
+  updateSidebar(defaultYear);
+}).catch(e => {
+  document.getElementById('map-container').innerHTML = '<p style="padding:2rem;color:#8a3324">Failed to load data: ' + e.message + '</p>';
+});
+
+document.getElementById('year-select').addEventListener('change', e => loadYear(e.target.value));
+window.addEventListener('resize', () => { if (usGeo) { renderMap(); if (Object.keys(currentData).length) paintMap(); } });
+</script>
+</body>
+</html>
