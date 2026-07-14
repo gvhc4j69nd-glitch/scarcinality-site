@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Counterfeiter's Gauge · Scarcinality</title>
+<meta name="description" content="Introducing the Credit Counterfeit Index: a single number that says when tight money is manufacturing scarcity that is not physically real. Definition, five years of history, the 2023 breach, and where the gauge points today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Self-contained edition of the scarcinality identity. To fold into the deployed
+     site, delete this block and add <link rel="stylesheet" href="/assets/style.css">. */
+  :root{
+    --parchment:#F4F1EA; --parchment-2:#ECE7DA; --ink:#23201B; --ink-soft:#4A453C;
+    --oxblood:#6E1F1B; --oxblood-soft:#8A2C26; --rule:#C9BFA8; --measure:39rem;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--parchment);color:var(--ink);
+    font-family:"EB Garamond",Georgia,serif;font-size:21px;line-height:1.66;-webkit-font-smoothing:antialiased;}
+  a{color:var(--oxblood);text-decoration:none;border-bottom:1px solid rgba(110,31,27,.32);}
+  a:hover{border-bottom-color:var(--oxblood);}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;}
+  .site-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;
+    max-width:64rem;margin:0 auto;padding:1.5rem 1.5rem 1.1rem;border-bottom:1px solid var(--rule);}
+  .brand{font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.82rem;color:var(--ink);border:none;}
+  .site-nav{display:flex;flex-wrap:wrap;gap:1.1rem;font-family:"IBM Plex Mono",monospace;
+    font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;}
+  .site-nav a{color:var(--ink-soft);border:none;padding-bottom:2px;}
+  .site-nav a:hover{color:var(--oxblood);}
+  .site-nav a[aria-current="page"]{color:var(--oxblood);border-bottom:2px solid var(--oxblood);}
+  .wrap{max-width:64rem;margin:0 auto;padding:0 1.5rem 4rem;}
+  .post-head{padding:2.6rem 0 1.6rem;border-bottom:1px solid var(--rule);max-width:var(--measure);}
+  .post-meta{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--oxblood);margin:0 0 1rem;}
+  h1{font-weight:600;font-size:clamp(2.1rem,5.2vw,3.1rem);line-height:1.08;margin:0 0 1rem;letter-spacing:-.01em;}
+  .dek{font-size:1.22rem;font-style:italic;color:var(--ink-soft);margin:0;max-width:35rem;}
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;background:var(--parchment-2);
+    border-left:3px solid var(--oxblood);font-family:"IBM Plex Mono",monospace;font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose{max-width:var(--measure);margin:0;}
+  .prose h2{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.82rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .prose p{margin:1rem 0;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;color:var(--oxblood);font-weight:600;}
+  .descent-rule{border:none;height:1px;background:var(--rule);margin:2.4rem 0;max-width:var(--measure);}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;border-left:3px solid var(--oxblood);
+    font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .formula{max-width:var(--measure);margin:1.2rem 0;padding:.9rem 1.05rem;background:var(--parchment-2);
+    font-family:"IBM Plex Mono",monospace;font-size:.86rem;line-height:1.6;color:var(--ink);}
+  figure.gauge{max-width:44rem;margin:1.6rem 0 .4rem;}
+  figure.gauge svg{width:100%;height:auto;display:block;background:var(--parchment);}
+  figure.gauge figcaption{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-soft);margin-top:.6rem;line-height:1.5;}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;font-size:.78rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.6rem .7rem;border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;font-size:.68rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.reading{font-family:"EB Garamond",serif;font-size:.96rem;line-height:1.4;min-width:18rem;}
+  table.ledger td.falsifier{font-family:"EB Garamond",serif;font-style:italic;color:var(--ink-soft);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .pill{display:inline-block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:.18em .55em;
+    border:1px solid var(--oxblood);color:var(--oxblood);border-radius:2px;white-space:nowrap;}
+  td.asof{color:var(--ink-soft);white-space:nowrap;}
+  td.num{color:var(--oxblood);font-weight:600;}
+  .site-footer{border-top:1px solid var(--rule);margin-top:3rem;}
+  .site-footer .inner{max-width:64rem;margin:0 auto;padding:1.6rem 1.5rem 2.4rem;}
+  .tagline{font-style:italic;font-size:1.05rem;margin:0 0 .3rem;}
+  .site-footer p{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-soft);margin:.2rem 0;letter-spacing:.02em;}
+  @media (max-width:640px){ body{font-size:19px;} .dek{font-size:1.1rem;} }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch · Instrument · as of 13 July 2026</p>
+    <h1>The Counterfeiter's Gauge</h1>
+    <p class="dek">The framework asks which shortage is real. This dispatch turns the question into a number: the Credit Counterfeit Index, updated quarterly, with a threshold, a history, and a standing call it can be wrong about.</p>
+  </div>
+
+  <p class="stamp mono">An instrument of the framework, built on Fisher, Keynes, and Minsky. The gauge below reads live from the site's data file and updates each quarter. Inputs are quarterly approximations from public sources; the Real Bind series is a published judgment. Conditional, falsifiable, not investment advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">Every dispatch so far has answered the framework's question, which shortage is real, one case at a time. Health care: counterfeit. Hormuz: real. But a framework that only speaks in essays can dodge its own verdicts. An instrument cannot. So this dispatch builds one: a single quarterly number that says when credit has become the counterfeiter, meaning when the ordering of money is manufacturing scarcity that does not physically exist. It has a definition, a threshold, five years of history including one clean breach, and a needle that points somewhere right now.</p>
+
+    <h2>The definition</h2>
+    <p>Counterfeiting is not tight money. Tight money during a genuine physical shortage is the system responding to reality, as it did during the supply-chain era and again during the oil shock. Counterfeiting is tight money while the shelves are full: a monetary bind pressing on an economy with idle capacity, freezing transactions that are physically possible. So the index is a difference of two binds.</p>
+
+    <div class="formula">CCI &nbsp;=&nbsp; MONETARY BIND &nbsp;\u2212&nbsp; REAL BIND<br><br>
+    MONETARY BIND = mean z-score of four inputs:<br>
+    &nbsp;&nbsp;\u00b7 high-yield credit spread (the price of credit risk)<br>
+    &nbsp;&nbsp;\u00b7 net share of banks tightening business lending standards<br>
+    &nbsp;&nbsp;\u00b7 real policy rate (fed funds minus core inflation)<br>
+    &nbsp;&nbsp;\u00b7 real money growth, inverted (starvation when negative)<br><br>
+    REAL BIND = intensity of genuine physical scarcity<br>
+    &nbsp;&nbsp;(supply-chain pressure, energy or transit disruption, true labor shortage)<br><br>
+    TIPPING POINT: &nbsp;CCI \u2265 +1.0 sustained for a quarter</div>
+
+    <p>The subtraction is the framework's signature move. The four monetary inputs are ordinary; what makes the gauge scarcinality's is that monetary tightness only counts as counterfeiting when there is no real bind to justify it. One full standard deviation of unjustified monetary restriction, held for a quarter, is the tipping point: the level at which the money ordering starts stopping trades the physical world would happily clear.</p>
+
+    <h2>The gauge</h2>
+    <figure class="gauge">
+      <svg id="cci-chart" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Credit Counterfeit Index chart, 2021 to present"></svg>
+      <figcaption id="cci-caption">Loading the gauge from the quarterly data file\u2026</figcaption>
+    </figure>
+
+    <h2>What five years show</h2>
+    <p>The history divides into four regimes, and the gauge separates them cleanly. Through 2021 and early 2022 the index sat deeply negative: the supply-chain shortage was real, money was loose, and whatever was scarce, it was not credit's doing. Through 2022 the monetary bind rose as the real one healed, the two lines crossing as the hiking cycle outran the recovery of the ports.</p>
+    <p>Then the breach. In the second and third quarters of 2023 the index crossed and held above the tipping point, and the counterfeits arrived on schedule. Existing-home sales collapsed toward their lowest level since 1995 while the physical housing stock per person was unchanged: owners locked into three percent mortgages would not list against seven, so the inventory shortage was manufactured entirely by the money ordering. Three banks failed in a system whose total deposits were ample. Business lending contracted, small-firm borrowing costs pushed past nine percent, and factory surveys sat below the boom-bust line for sixteen straight months while the capacity stood idle. And the tell, the framework's favorite kind of evidence: every one of these shortages resolved through rate cuts in 2024, not through building anything. Nothing real was added. The money was reordered, and the scarcity dissolved, which is what counterfeit means.</p>
+
+    <p class="pull">A shortage that rate cuts can abolish was never a shortage of things. The 2023 breach is the cleanest demonstration the framework owns.</p>
+
+    <h2>Where the needle points now</h2>
+    <p>Today the index reads well below the threshold, near minus one, and for the right reason: the war made the recent bind real, not monetary, and the gauge said so by falling as the oil shock hit. But the vector is the story. The central bank has hikes penciled while core inflation crests; lending standards are already tightening modestly before any hike lands; and the real bind is fading as the strait clears and oil settles. A rising monetary bind against a falling real one is exactly the geometry that carried the index from minus one and a half to breach in the twelve months of 2022, and the current setup rhymes: tightening into rising labor slack because of an energy shock that is already passing.</p>
+    <p>The standing call, stated so it can fail: if the penciled hikes land while the oil pipeline clears, the gauge approaches the tipping point through late 2026 and plausibly breaches by mid-2027, and the counterfeits to watch for rhyme with 2023: housing refreezing, small-business credit denial, and stress in whichever balance sheets repriced fastest, this cycle most plausibly the data-center debt stack the loan-officer surveys have already begun asking about.</p>
+
+    <hr class="descent-rule">
+
+    <h2>Standing ledger</h2>
+    <p>Each line is a conditional claim the instrument commits to, with the observation that would falsify it. Status updates quarterly with the gauge.</p>
+  </article>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead>
+        <tr><th>#</th><th>The reading</th><th>What would falsify it</th><th>Status</th><th>As of</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">G1</td>
+          <td class="reading">The gauge discriminates. Breaches coincide with counterfeit scarcities (transactions freezing amid physical plenty); real-shortage episodes read negative.</td>
+          <td class="falsifier">A sustained breach with no counterfeit symptoms, or a deep negative reading during a plainly monetary freeze.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">13 Jul 2026</td>
+        </tr>
+        <tr>
+          <td class="num">G2</td>
+          <td class="reading">The 2023 breach was counterfeit. Its shortages (housing lock-in, bank funding, business credit) resolved through monetary reordering, not real supply.</td>
+          <td class="falsifier">Evidence that the 2023-24 normalization required real additions rather than rate relief.</td>
+          <td><span class="pill">Open, supported</span></td>
+          <td class="asof">13 Jul 2026</td>
+        </tr>
+        <tr>
+          <td class="num">G3</td>
+          <td class="reading">The approach call. If the penciled hikes land as the energy shock fades, CCI rises toward the tipping point through late 2026 and plausibly breaches by mid-2027.</td>
+          <td class="falsifier">Hikes land, oil normalizes, and the index stays flat or falls; or no hikes and the index breaches anyway.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">13 Jul 2026</td>
+        </tr>
+        <tr>
+          <td class="num">G4</td>
+          <td class="reading">The symptoms repeat. A future breach produces the 2023 family of counterfeits: housing freeze, small-firm credit denial, fastest-repriced balance sheets under stress.</td>
+          <td class="falsifier">A breach whose damage pattern shares nothing with the counterfeit family.</td>
+          <td><span class="pill">Open</span></td>
+          <td class="asof">13 Jul 2026</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+    <p style="margin-top:2.2rem;">The instrument does not predict the Fed, the strait, or the price of oil. It does one narrow thing: it says, each quarter, whether the binding scarcity is money pretending to be things. Right now it is not. The needle sits low because the recent bind was real. But it is pointed at the line, and the whole reason to publish a gauge instead of an essay is that when it crosses, or fails to, everyone will be able to see it. The number will say.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts, and not investment advice.</p>
+  </div>
+</footer>
+
+<script>
+/* Renders the CCI chart from /data/cci.json so the dispatch stays current
+   whenever the quarterly updater refreshes the data file. */
+(function () {
+  var svg = document.getElementById("cci-chart");
+  var cap = document.getElementById("cci-caption");
+  fetch("/data/cci.json").then(function (r) { return r.json(); }).then(draw)
+    .catch(function () { cap.textContent = "Gauge data unavailable."; });
+
+  function draw(data) {
+    var qs = data.quarters, thr = data.meta.threshold;
+    var W = 720, H = 360, L = 46, R = 12, T = 18, B = 56;
+    var iw = W - L - R, ih = H - T - B;
+    var vals = qs.map(function (q) { return q.cci; }).concat(qs.map(function(q){return q.mb;})).concat([thr]);
+    var min = Math.min.apply(null, vals) - 0.3, max = Math.max.apply(null, vals) + 0.3;
+    function X(i) { return L + (i / (qs.length - 1)) * iw; }
+    function Y(v) { return T + ih - ((v - min) / (max - min)) * ih; }
+    var ns = "http://www.w3.org/2000/svg";
+    function mk(tag, at, txt) {
+      var e = document.createElementNS(ns, tag);
+      for (var k in at) e.setAttribute(k, at[k]);
+      if (txt) e.textContent = txt;
+      svg.appendChild(e); return e;
+    }
+    /* breach band */
+    mk("rect",{x:L,y:T,width:iw,height:Math.max(Y(thr)-T,0),fill:"#6E1F1B","fill-opacity":"0.07"});
+    /* axes + zero + threshold */
+    mk("line",{x1:L,y1:Y(0),x2:L+iw,y2:Y(0),stroke:"#C9BFA8","stroke-width":1});
+    mk("line",{x1:L,y1:Y(thr),x2:L+iw,y2:Y(thr),stroke:"#6E1F1B","stroke-width":1.4,"stroke-dasharray":"6 4"});
+    mk("text",{x:L+4,y:Y(thr)-6,"font-size":11,fill:"#6E1F1B","font-family":"IBM Plex Mono, monospace"},"tipping point  +"+thr.toFixed(1)+"  \u00b7  credit becomes the counterfeiter");
+    /* y labels */
+    for (var v = Math.ceil(min); v <= Math.floor(max); v++) {
+      mk("text",{x:L-8,y:Y(v)+4,"text-anchor":"end","font-size":10,fill:"#4A453C","font-family":"IBM Plex Mono, monospace"},(v>0?"+":"")+v);
+      mk("line",{x1:L-4,y1:Y(v),x2:L,y2:Y(v),stroke:"#C9BFA8"});
+    }
+    /* MB line (dotted context) */
+    var mb = qs.map(function (q,i){return X(i)+","+Y(q.mb);}).join(" ");
+    mk("polyline",{points:mb,fill:"none",stroke:"#4A453C","stroke-width":1,"stroke-dasharray":"2 3"});
+    /* CCI: solid actual, dashed projected */
+    var lastA = -1; qs.forEach(function(q,i){ if(!q.projected) lastA=i; });
+    var sol="",dsh="";
+    qs.forEach(function(q,i){
+      var p=X(i)+","+Y(q.cci);
+      if(i<=lastA) sol+=(sol?" ":"")+p;
+      if(i>=lastA) dsh+=(dsh?" ":"")+p;
+    });
+    mk("polyline",{points:sol,fill:"none",stroke:"#6E1F1B","stroke-width":2.4});
+    mk("polyline",{points:dsh,fill:"none",stroke:"#8A2C26","stroke-width":1.8,"stroke-dasharray":"5 4"});
+    /* breach fill markers + dots */
+    qs.forEach(function(q,i){
+      if(!q.projected) mk("circle",{cx:X(i),cy:Y(q.cci),r:2.6,fill:"#6E1F1B"});
+      if(q.cci>=thr) mk("circle",{cx:X(i),cy:Y(q.cci),r:5,fill:"none",stroke:"#6E1F1B","stroke-width":1.2});
+    });
+    /* now marker */
+    mk("circle",{cx:X(lastA),cy:Y(qs[lastA].cci),r:4.4,fill:"#6E1F1B"});
+    mk("text",{x:X(lastA),y:Y(qs[lastA].cci)+20,"text-anchor":"middle","font-size":10.5,fill:"#23201B","font-family":"IBM Plex Mono, monospace"},"now "+qs[lastA].cci.toFixed(2));
+    /* x labels: every 2nd quarter */
+    qs.forEach(function(q,i){
+      if(i%2===0||i===qs.length-1){
+        mk("text",{x:X(i),y:H-B+18,"text-anchor":"middle","font-size":9,fill:"#4A453C","font-family":"IBM Plex Mono, monospace",transform:"rotate(-38 "+X(i)+" "+(H-B+18)+")"},q.q.replace("20",""));
+      }
+    });
+    /* legend */
+    mk("text",{x:L,y:H-8,"font-size":10,fill:"#4A453C","font-family":"IBM Plex Mono, monospace"},"solid: CCI  \u00b7  dashed red: projected  \u00b7  dotted grey: monetary bind alone  \u00b7  circles: breach quarters");
+    var latest = qs[lastA];
+    cap.textContent = "As of "+data.meta.as_of+": CCI "+latest.cci.toFixed(2)+" ("+latest.q+"), "+(thr-latest.cci).toFixed(2)+" below the tipping point. The 2023 breach quarters are circled. Reads live from /data/cci.json; updated quarterly.";
+  }
+})();
+</script>
+</body>
+</html>
