@@ -41,6 +41,7 @@
     <a href="/curiosities">Curiosities</a>
     <a href="/about">About</a>
   </nav>
+  <a id="cci-header-badge" class="cci-header-badge" href="/dispatch-counterfeiters-gauge" aria-label="Credit Counterfeit Index"></a>
 </header>
 
 <section class="hero">
@@ -93,9 +94,6 @@
 
   <hr class="descent-rule">
 
-  <div id="cci-widget"></div>
-  <script src="/assets/cci-widget.js"></script>
-
   <div class="prose center">
     <p class="note" style="border:none;text-align:center;color:var(--ink-soft);font-style:italic;">The dispatches make conditional predictions and track them in public. A framework that tells you what it expects should be seen sticking its neck out.</p>
     <a class="btn" href="/cornerstone">Begin: which shortage is real?</a>
@@ -108,5 +106,30 @@
     <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
   </div>
 </footer>
+<script>
+(function(){
+  var el = document.getElementById('cci-header-badge');
+  if (!el) return;
+  fetch('/data/cci.json').then(function(r){return r.json();}).then(function(data){
+    var actual = data.quarters.filter(function(q){return !q.projected;});
+    var latest = actual[actual.length-1];
+    var prev   = actual[actual.length-2];
+    var thr    = data.meta.threshold;
+    var delta  = latest.cci - prev.cci;
+    var dirWord, dirCls;
+    if (latest.cci >= thr)      { dirWord = 'breach';     dirCls = 'breach'; }
+    else if (delta >  0.05)     { dirWord = 'rising';     dirCls = 'warn';   }
+    else if (delta < -0.05)     { dirWord = 'retreating'; dirCls = 'clear';  }
+    else                        { dirWord = 'holding';    dirCls = 'clear';  }
+    var sign = latest.cci >= 0 ? '+' : '';
+    el.innerHTML =
+      '<span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);">CCI </span>' +
+      '<span class="cci-val">' + sign + latest.cci.toFixed(2) + '</span>' +
+      '<span class="cci-dir ' + dirCls + '">' + dirWord + '</span>';
+  }).catch(function(){
+    el.innerHTML = '<span class="cci-val">CCI</span>';
+  });
+})();
+</script>
 </body>
 </html>
