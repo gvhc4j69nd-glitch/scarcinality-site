@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rig Count &amp; Brent Crude · Scarcinality</title>
+<meta name="description" content="Ten years of US rotary rig count and Brent crude spot price on one chart. The lag between price and drilling tells the story of shale economics and OPEC+ strategy.">
+<meta property="og:title" content="Rig Count &amp; Brent Crude · Scarcinality">
+<meta property="og:description" content="Ten years of US rotary rig count and Brent crude spot price on one chart.">
+<meta property="og:url" content="https://scarcinality.com/rig-brent-chart">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --brent-color: #6E1F1B;
+  --rig-color:   #2B4A6B;
+  --annot-color: #4A453C;
+}
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; display: flex; align-items: center; gap: .6rem; }
+.map-header .swatch-brent { width: 14px; height: 14px; background: var(--brent-color); flex-shrink: 0; }
+.map-header .swatch-rig   { width: 14px; height: 14px; background: var(--rig-color);   flex-shrink: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.chart-wrap {
+  max-width: 72rem; margin: 0 auto;
+  padding: 2rem clamp(1.1rem,5vw,3rem) 3rem;
+}
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
+.chart-container { position: relative; width: 100%; }
+#rig-brent-svg { width: 100%; height: auto; display: block; }
+
+.legend { display: flex; gap: 2rem; flex-wrap: wrap; margin: .8rem 0 1.6rem; }
+.legend-item { display: flex; align-items: center; gap: .5rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); }
+.legend-line { width: 24px; height: 2px; flex-shrink: 0; }
+
+.prose-note { max-width: 52rem; font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep, #ECE7DA);
+  border: 1px solid var(--rule); border-left: 3px solid var(--rule);
+  padding: .55rem .75rem; font-family: var(--mono); font-size: .7rem;
+  line-height: 1.55; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.1);
+}
+.tooltip-box .tt-period { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .2rem; }
+.tooltip-box .tt-brent { color: var(--brent-color); font-weight: 600; }
+.tooltip-box .tt-rig   { color: var(--rig-color);   font-weight: 600; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .source-badge { display: none; }
+  .map-header h1 { font-size: .95rem; }
+  #rig-brent-svg { height: 280px; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>
+    <span class="swatch-brent" aria-hidden="true"></span>
+    <span class="swatch-rig" aria-hidden="true"></span>
+    Rig Count &amp; Brent Crude
+  </h1>
+  <span class="source-badge">EIA · Baker Hughes · 2015–2025</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart" aria-current="page">Rigs &amp; Brent</a>
+</div>
+
+<div class="chart-wrap">
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-line" style="background:var(--brent-color);"></div>
+      Brent crude ($/barrel) — left axis
+    </div>
+    <div class="legend-item">
+      <div class="legend-line" style="background:var(--rig-color);"></div>
+      US rig count (oil + gas) — right axis
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <svg id="rig-brent-svg" viewBox="0 0 900 420" role="img" aria-label="Dual-axis chart of US rig count and Brent crude price, 2015 to 2025"></svg>
+    <div class="tooltip-box" id="tooltip">
+      <div class="tt-period" id="tt-period"></div>
+      <div class="tt-brent" id="tt-brent"></div>
+      <div class="tt-rig"   id="tt-rig"></div>
+    </div>
+  </div>
+
+  <div class="prose-note">
+    <strong>Reading the chart.</strong> Brent (oxblood) and the US rig count (navy) track each other with a lag — drillers respond to price but capital cycles take six to twelve months to move. The 2015–16 collapse shows the lag clearly: rigs peaked in late 2014 and kept falling for eighteen months after Brent bottomed. The COVID crash in April 2020 was simultaneous — both fell together because demand destroyed price and financing in the same week. The 2022 Ukraine shock lifted Brent sharply while rigs rose only gradually, reflecting shale operators' new discipline of returning cash rather than chasing barrels. The divergence since 2023 — price softening while rigs hold — is the current open question. Sources: EIA (Brent spot, $/barrel); Baker Hughes North America Rotary Rig Count (US total, oil + gas, monthly average).
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+(function () {
+  var svg = document.getElementById("rig-brent-svg");
+  var tip = document.getElementById("tooltip");
+
+  // Annotations: [period, label, side]
+  var ANNOTS = [
+    { p: "2016-01", label: "OPEC oversupply\nprice war" },
+    { p: "2018-10", label: "US shale\npeak cycle" },
+    { p: "2020-04", label: "COVID\ndemand crash" },
+    { p: "2022-03", label: "Ukraine\nshock" },
+  ];
+
+  fetch("/data/rig-brent.json")
+    .then(function (r) { return r.json(); })
+    .then(draw)
+    .catch(function (e) { svg.setAttribute("aria-label", "Chart data unavailable"); });
+
+  function draw(data) {
+    var rows = data.rows;
+    var W = 900, H = 420, L = 56, R = 56, T = 30, B = 54;
+    var iw = W - L - R, ih = H - T - B;
+
+    var ns = "http://www.w3.org/2000/svg";
+    function el(tag, attrs, txt) {
+      var e = document.createElementNS(ns, tag);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      if (txt !== undefined) e.textContent = txt;
+      svg.appendChild(e); return e;
+    }
+
+    // Scales
+    var periods = rows.map(function (r) { return r.period; });
+    var brentVals = rows.map(function (r) { return r.brent; });
+    var rigVals   = rows.map(function (r) { return r.rigs; });
+
+    var bMin = 0, bMax = Math.ceil(Math.max.apply(null, brentVals) / 20) * 20;
+    var rMin = 0, rMax = Math.ceil(Math.max.apply(null, rigVals) / 200) * 200;
+
+    function X(i)  { return L + (i / (rows.length - 1)) * iw; }
+    function YB(v) { return T + ih - (v - bMin) / (bMax - bMin) * ih; }
+    function YR(v) { return T + ih - (v - rMin) / (rMax - rMin) * ih; }
+
+    // Grid lines (brent scale)
+    var bStep = bMax <= 80 ? 20 : 20;
+    for (var bv = 0; bv <= bMax; bv += bStep) {
+      var gy = YB(bv);
+      el("line", { x1: L, y1: gy, x2: L + iw, y2: gy, stroke: "#C9BFA8", "stroke-width": 0.5 });
+      el("text", { x: L - 6, y: gy + 4, "text-anchor": "end", "font-size": 10, fill: "#6E1F1B", "font-family": "IBM Plex Mono, monospace" }, "$" + bv);
+    }
+
+    // Right axis (rig count)
+    var rStep = rMax <= 1000 ? 200 : 400;
+    for (var rv = 0; rv <= rMax; rv += rStep) {
+      var ry = YR(rv);
+      el("text", { x: W - R + 6, y: ry + 4, "text-anchor": "start", "font-size": 10, fill: "#2B4A6B", "font-family": "IBM Plex Mono, monospace" }, rv);
+    }
+
+    // X axis labels — every 6 months
+    rows.forEach(function (r, i) {
+      var m = r.period.slice(5);
+      if (m === "01" || m === "07") {
+        var lbl = m === "01" ? r.period.slice(0, 4) : "";
+        var tx = X(i);
+        el("line", { x1: tx, y1: T + ih, x2: tx, y2: T + ih + 5, stroke: "#C9BFA8", "stroke-width": 0.8 });
+        if (lbl) el("text", { x: tx, y: T + ih + 18, "text-anchor": "middle", "font-size": 10, fill: "#4A453C", "font-family": "IBM Plex Mono, monospace" }, lbl);
+      }
+    });
+
+    // Zero baseline
+    el("line", { x1: L, y1: T + ih, x2: L + iw, y2: T + ih, stroke: "#C9BFA8", "stroke-width": 1 });
+
+    // Annotation verticals
+    ANNOTS.forEach(function (a) {
+      var idx = periods.indexOf(a.p);
+      if (idx < 0) return;
+      var ax = X(idx);
+      el("line", { x1: ax, y1: T, x2: ax, y2: T + ih, stroke: "#C9BFA8", "stroke-width": 0.8, "stroke-dasharray": "4 3" });
+      var lines = a.label.split("\n");
+      var ay = T + 12;
+      lines.forEach(function (ln, li) {
+        el("text", { x: ax + 4, y: ay + li * 13, "font-size": 9, fill: "#4A453C", "font-family": "IBM Plex Mono, monospace" }, ln);
+      });
+    });
+
+    // Brent line
+    var bPts = rows.map(function (r, i) { return X(i).toFixed(1) + "," + YB(r.brent).toFixed(1); }).join(" ");
+    el("polyline", { points: bPts, fill: "none", stroke: "#6E1F1B", "stroke-width": 2, "stroke-linejoin": "round" });
+
+    // Rig count line
+    var rPts = rows.map(function (r, i) { return X(i).toFixed(1) + "," + YR(r.rigs).toFixed(1); }).join(" ");
+    el("polyline", { points: rPts, fill: "none", stroke: "#2B4A6B", "stroke-width": 2, "stroke-linejoin": "round", "stroke-dasharray": "5 3" });
+
+    // Axis labels
+    el("text", { x: L - 44, y: T + ih / 2, "text-anchor": "middle", "font-size": 10, fill: "#6E1F1B", "font-family": "IBM Plex Mono, monospace",
+      transform: "rotate(-90 " + (L - 44) + " " + (T + ih / 2) + ")" }, "Brent ($/bbl)");
+    el("text", { x: W - R + 44, y: T + ih / 2, "text-anchor": "middle", "font-size": 10, fill: "#2B4A6B", "font-family": "IBM Plex Mono, monospace",
+      transform: "rotate(90 " + (W - R + 44) + " " + (T + ih / 2) + ")" }, "Rig count");
+
+    // Hit areas for tooltip
+    rows.forEach(function (r, i) {
+      var hx = X(i);
+      var hr = el("rect", { x: hx - iw / rows.length / 2, y: T, width: iw / rows.length, height: ih,
+        fill: "transparent", style: "cursor:crosshair" });
+      hr.addEventListener("mousemove", function (e) {
+        var rect = svg.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width * W;
+        var py = (e.clientY - rect.top)  / rect.height * H;
+        document.getElementById("tt-period").textContent = r.period;
+        document.getElementById("tt-brent").textContent  = "Brent  $" + r.brent.toFixed(2) + " / barrel";
+        document.getElementById("tt-rig").textContent    = "Rigs   " + r.rigs + " active";
+        tip.style.display = "block";
+        // position relative to chart-container
+        var cc = tip.parentElement.getBoundingClientRect();
+        var tx = e.clientX - cc.left + 12;
+        var ty = e.clientY - cc.top  - 10;
+        if (tx + 200 > cc.width) tx = e.clientX - cc.left - 170;
+        tip.style.left = tx + "px";
+        tip.style.top  = ty + "px";
+      });
+      hr.addEventListener("mouseleave", function () { tip.style.display = "none"; });
+    });
+  }
+})();
+</script>
+</body>
+</html>

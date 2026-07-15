@@ -1,0 +1,639 @@
+{
+  "meta": {
+    "brent_source": "EIA API: Europe Brent Spot Price FOB ($/barrel)",
+    "rig_source": "Baker Hughes North America Rotary Rig Count (US total, oil + gas)",
+    "as_of": "2026-07-15"
+  },
+  "rows": [
+    {
+      "period": "2015-01",
+      "brent": 47.76,
+      "rigs": 1633
+    },
+    {
+      "period": "2015-02",
+      "brent": 58.1,
+      "rigs": 1536
+    },
+    {
+      "period": "2015-03",
+      "brent": 55.89,
+      "rigs": 1397
+    },
+    {
+      "period": "2015-04",
+      "brent": 59.52,
+      "rigs": 1216
+    },
+    {
+      "period": "2015-05",
+      "brent": 64.08,
+      "rigs": 1064
+    },
+    {
+      "period": "2015-06",
+      "brent": 61.48,
+      "rigs": 906
+    },
+    {
+      "period": "2015-07",
+      "brent": 56.56,
+      "rigs": 874
+    },
+    {
+      "period": "2015-08",
+      "brent": 46.52,
+      "rigs": 885
+    },
+    {
+      "period": "2015-09",
+      "brent": 47.62,
+      "rigs": 826
+    },
+    {
+      "period": "2015-10",
+      "brent": 48.43,
+      "rigs": 790
+    },
+    {
+      "period": "2015-11",
+      "brent": 44.27,
+      "rigs": 772
+    },
+    {
+      "period": "2015-12",
+      "brent": 38.01,
+      "rigs": 709
+    },
+    {
+      "period": "2016-01",
+      "brent": 30.7,
+      "rigs": 664
+    },
+    {
+      "period": "2016-02",
+      "brent": 32.18,
+      "rigs": 587
+    },
+    {
+      "period": "2016-03",
+      "brent": 38.21,
+      "rigs": 480
+    },
+    {
+      "period": "2016-04",
+      "brent": 41.58,
+      "rigs": 437
+    },
+    {
+      "period": "2016-05",
+      "brent": 46.74,
+      "rigs": 408
+    },
+    {
+      "period": "2016-06",
+      "brent": 48.25,
+      "rigs": 421
+    },
+    {
+      "period": "2016-07",
+      "brent": 44.95,
+      "rigs": 449
+    },
+    {
+      "period": "2016-08",
+      "brent": 45.84,
+      "rigs": 485
+    },
+    {
+      "period": "2016-09",
+      "brent": 46.57,
+      "rigs": 511
+    },
+    {
+      "period": "2016-10",
+      "brent": 49.52,
+      "rigs": 544
+    },
+    {
+      "period": "2016-11",
+      "brent": 44.73,
+      "rigs": 597
+    },
+    {
+      "period": "2016-12",
+      "brent": 53.31,
+      "rigs": 637
+    },
+    {
+      "period": "2017-01",
+      "brent": 54.58,
+      "rigs": 659
+    },
+    {
+      "period": "2017-02",
+      "brent": 54.87,
+      "rigs": 720
+    },
+    {
+      "period": "2017-03",
+      "brent": 51.59,
+      "rigs": 789
+    },
+    {
+      "period": "2017-04",
+      "brent": 52.31,
+      "rigs": 856
+    },
+    {
+      "period": "2017-05",
+      "brent": 50.33,
+      "rigs": 897
+    },
+    {
+      "period": "2017-06",
+      "brent": 46.37,
+      "rigs": 942
+    },
+    {
+      "period": "2017-07",
+      "brent": 48.48,
+      "rigs": 950
+    },
+    {
+      "period": "2017-08",
+      "brent": 51.7,
+      "rigs": 950
+    },
+    {
+      "period": "2017-09",
+      "brent": 56.15,
+      "rigs": 933
+    },
+    {
+      "period": "2017-10",
+      "brent": 57.51,
+      "rigs": 912
+    },
+    {
+      "period": "2017-11",
+      "brent": 62.71,
+      "rigs": 908
+    },
+    {
+      "period": "2017-12",
+      "brent": 64.37,
+      "rigs": 930
+    },
+    {
+      "period": "2018-01",
+      "brent": 69.08,
+      "rigs": 947
+    },
+    {
+      "period": "2018-02",
+      "brent": 65.32,
+      "rigs": 981
+    },
+    {
+      "period": "2018-03",
+      "brent": 66.02,
+      "rigs": 1006
+    },
+    {
+      "period": "2018-04",
+      "brent": 72.11,
+      "rigs": 1013
+    },
+    {
+      "period": "2018-05",
+      "brent": 76.98,
+      "rigs": 1046
+    },
+    {
+      "period": "2018-06",
+      "brent": 74.41,
+      "rigs": 1058
+    },
+    {
+      "period": "2018-07",
+      "brent": 74.25,
+      "rigs": 1048
+    },
+    {
+      "period": "2018-08",
+      "brent": 72.53,
+      "rigs": 1049
+    },
+    {
+      "period": "2018-09",
+      "brent": 78.89,
+      "rigs": 1054
+    },
+    {
+      "period": "2018-10",
+      "brent": 81.03,
+      "rigs": 1067
+    },
+    {
+      "period": "2018-11",
+      "brent": 64.75,
+      "rigs": 1082
+    },
+    {
+      "period": "2018-12",
+      "brent": 57.36,
+      "rigs": 1075
+    },
+    {
+      "period": "2019-01",
+      "brent": 59.41,
+      "rigs": 1047
+    },
+    {
+      "period": "2019-02",
+      "brent": 63.96,
+      "rigs": 1031
+    },
+    {
+      "period": "2019-03",
+      "brent": 66.14,
+      "rigs": 1022
+    },
+    {
+      "period": "2019-04",
+      "brent": 71.23,
+      "rigs": 988
+    },
+    {
+      "period": "2019-05",
+      "brent": 71.32,
+      "rigs": 982
+    },
+    {
+      "period": "2019-06",
+      "brent": 64.22,
+      "rigs": 971
+    },
+    {
+      "period": "2019-07",
+      "brent": 63.92,
+      "rigs": 955
+    },
+    {
+      "period": "2019-08",
+      "brent": 59.04,
+      "rigs": 927
+    },
+    {
+      "period": "2019-09",
+      "brent": 62.83,
+      "rigs": 857
+    },
+    {
+      "period": "2019-10",
+      "brent": 59.71,
+      "rigs": 826
+    },
+    {
+      "period": "2019-11",
+      "brent": 63.21,
+      "rigs": 802
+    },
+    {
+      "period": "2019-12",
+      "brent": 67.31,
+      "rigs": 805
+    },
+    {
+      "period": "2020-01",
+      "brent": 63.65,
+      "rigs": 795
+    },
+    {
+      "period": "2020-02",
+      "brent": 55.66,
+      "rigs": 790
+    },
+    {
+      "period": "2020-03",
+      "brent": 32.01,
+      "rigs": 696
+    },
+    {
+      "period": "2020-04",
+      "brent": 18.38,
+      "rigs": 476
+    },
+    {
+      "period": "2020-05",
+      "brent": 29.38,
+      "rigs": 339
+    },
+    {
+      "period": "2020-06",
+      "brent": 40.27,
+      "rigs": 277
+    },
+    {
+      "period": "2020-07",
+      "brent": 43.24,
+      "rigs": 254
+    },
+    {
+      "period": "2020-08",
+      "brent": 44.74,
+      "rigs": 244
+    },
+    {
+      "period": "2020-09",
+      "brent": 40.91,
+      "rigs": 255
+    },
+    {
+      "period": "2020-10",
+      "brent": 40.19,
+      "rigs": 283
+    },
+    {
+      "period": "2020-11",
+      "brent": 42.69,
+      "rigs": 318
+    },
+    {
+      "period": "2020-12",
+      "brent": 49.99,
+      "rigs": 351
+    },
+    {
+      "period": "2021-01",
+      "brent": 54.77,
+      "rigs": 378
+    },
+    {
+      "period": "2021-02",
+      "brent": 62.28,
+      "rigs": 385
+    },
+    {
+      "period": "2021-03",
+      "brent": 65.41,
+      "rigs": 428
+    },
+    {
+      "period": "2021-04",
+      "brent": 64.81,
+      "rigs": 466
+    },
+    {
+      "period": "2021-05",
+      "brent": 68.53,
+      "rigs": 453
+    },
+    {
+      "period": "2021-06",
+      "brent": 73.16,
+      "rigs": 473
+    },
+    {
+      "period": "2021-07",
+      "brent": 75.17,
+      "rigs": 500
+    },
+    {
+      "period": "2021-08",
+      "brent": 70.61,
+      "rigs": 497
+    },
+    {
+      "period": "2021-09",
+      "brent": 74.49,
+      "rigs": 523
+    },
+    {
+      "period": "2021-10",
+      "brent": 83.54,
+      "rigs": 543
+    },
+    {
+      "period": "2021-11",
+      "brent": 81.05,
+      "rigs": 570
+    },
+    {
+      "period": "2021-12",
+      "brent": 74.17,
+      "rigs": 586
+    },
+    {
+      "period": "2022-01",
+      "brent": 86.51,
+      "rigs": 610
+    },
+    {
+      "period": "2022-02",
+      "brent": 97.13,
+      "rigs": 644
+    },
+    {
+      "period": "2022-03",
+      "brent": 117.25,
+      "rigs": 673
+    },
+    {
+      "period": "2022-04",
+      "brent": 104.58,
+      "rigs": 699
+    },
+    {
+      "period": "2022-05",
+      "brent": 113.34,
+      "rigs": 727
+    },
+    {
+      "period": "2022-06",
+      "brent": 122.71,
+      "rigs": 753
+    },
+    {
+      "period": "2022-07",
+      "brent": 111.93,
+      "rigs": 764
+    },
+    {
+      "period": "2022-08",
+      "brent": 100.45,
+      "rigs": 765
+    },
+    {
+      "period": "2022-09",
+      "brent": 89.76,
+      "rigs": 764
+    },
+    {
+      "period": "2022-10",
+      "brent": 93.33,
+      "rigs": 771
+    },
+    {
+      "period": "2022-11",
+      "brent": 91.42,
+      "rigs": 778
+    },
+    {
+      "period": "2022-12",
+      "brent": 80.92,
+      "rigs": 781
+    },
+    {
+      "period": "2023-01",
+      "brent": 82.5,
+      "rigs": 764
+    },
+    {
+      "period": "2023-02",
+      "brent": 82.59,
+      "rigs": 755
+    },
+    {
+      "period": "2023-03",
+      "brent": 78.43,
+      "rigs": 756
+    },
+    {
+      "period": "2023-04",
+      "brent": 84.64,
+      "rigs": 753
+    },
+    {
+      "period": "2023-05",
+      "brent": 75.47,
+      "rigs": 720
+    },
+    {
+      "period": "2023-06",
+      "brent": 74.84,
+      "rigs": 696
+    },
+    {
+      "period": "2023-07",
+      "brent": 80.11,
+      "rigs": 670
+    },
+    {
+      "period": "2023-08",
+      "brent": 86.15,
+      "rigs": 641
+    },
+    {
+      "period": "2023-09",
+      "brent": 93.72,
+      "rigs": 624
+    },
+    {
+      "period": "2023-10",
+      "brent": 90.6,
+      "rigs": 628
+    },
+    {
+      "period": "2023-11",
+      "brent": 82.94,
+      "rigs": 620
+    },
+    {
+      "period": "2023-12",
+      "brent": 77.63,
+      "rigs": 622
+    },
+    {
+      "period": "2024-01",
+      "brent": 80.12,
+      "rigs": 619
+    },
+    {
+      "period": "2024-02",
+      "brent": 83.48,
+      "rigs": 621
+    },
+    {
+      "period": "2024-03",
+      "brent": 85.41,
+      "rigs": 619
+    },
+    {
+      "period": "2024-04",
+      "brent": 89.94,
+      "rigs": 614
+    },
+    {
+      "period": "2024-05",
+      "brent": 81.75,
+      "rigs": 602
+    },
+    {
+      "period": "2024-06",
+      "brent": 82.25,
+      "rigs": 591
+    },
+    {
+      "period": "2024-07",
+      "brent": 85.15,
+      "rigs": 586
+    },
+    {
+      "period": "2024-08",
+      "brent": 80.36,
+      "rigs": 581
+    },
+    {
+      "period": "2024-09",
+      "brent": 74.02,
+      "rigs": 579
+    },
+    {
+      "period": "2024-10",
+      "brent": 75.63,
+      "rigs": 576
+    },
+    {
+      "period": "2024-11",
+      "brent": 74.35,
+      "rigs": 578
+    },
+    {
+      "period": "2024-12",
+      "brent": 73.86,
+      "rigs": 580
+    },
+    {
+      "period": "2025-01",
+      "brent": 79.27,
+      "rigs": 576
+    },
+    {
+      "period": "2025-02",
+      "brent": 75.44,
+      "rigs": 589
+    },
+    {
+      "period": "2025-03",
+      "brent": 72.73,
+      "rigs": 583
+    },
+    {
+      "period": "2025-04",
+      "brent": 68.13,
+      "rigs": 575
+    },
+    {
+      "period": "2025-05",
+      "brent": 64.45,
+      "rigs": 566
+    },
+    {
+      "period": "2025-06",
+      "brent": 71.44,
+      "rigs": 558
+    }
+  ]
+}

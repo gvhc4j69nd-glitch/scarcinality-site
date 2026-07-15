@@ -1,0 +1,28 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <!-- grid lines -->
+  <line x1="40" y1="20" x2="40" y2="165" stroke="#ddd3c2" stroke-width="0.8"/>
+  <line x1="40" y1="165" x2="290" y2="165" stroke="#ddd3c2" stroke-width="0.8"/>
+  <line x1="40" y1="55"  x2="290" y2="55"  stroke="#ddd3c2" stroke-width="0.5"/>
+  <line x1="40" y1="90"  x2="290" y2="90"  stroke="#ddd3c2" stroke-width="0.5"/>
+  <line x1="40" y1="125" x2="290" y2="125" stroke="#ddd3c2" stroke-width="0.5"/>
+  <!-- Brent crude line (oxblood) — approximated from actual data -->
+  <polyline
+    points="40,85 60,110 80,115 95,55 110,50 130,100 145,140 155,68 170,55 185,60 200,75 215,80 230,82 250,85 270,78 290,95"
+    fill="none" stroke="#8a3324" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Rig count line (navy dashed) — approximated shape -->
+  <polyline
+    points="40,28 60,35 80,50 95,80 110,105 125,118 140,115 150,110 160,100 170,90 185,82 200,75 215,70 230,72 250,74 270,76 290,78"
+    fill="none" stroke="#2B4A6B" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6 3"/>
+  <!-- axis labels -->
+  <text x="8" y="90" font-size="8" fill="#8a3324" text-anchor="middle" transform="rotate(-90 8 90)">$/bbl</text>
+  <text x="312" y="90" font-size="8" fill="#2B4A6B" text-anchor="middle" transform="rotate(90 312 90)">rigs</text>
+  <text x="40"  y="178" font-size="7" fill="#8a8073" text-anchor="middle">2015</text>
+  <text x="165" y="178" font-size="7" fill="#8a8073" text-anchor="middle">2020</text>
+  <text x="290" y="178" font-size="7" fill="#8a8073" text-anchor="middle">2025</text>
+  <!-- legend -->
+  <line x1="44" y1="190" x2="58" y2="190" stroke="#8a3324" stroke-width="2"/>
+  <text x="62" y="193" font-size="7" fill="#5c5247">Brent crude</text>
+  <line x1="130" y1="190" x2="144" y2="190" stroke="#2B4A6B" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="148" y="193" font-size="7" fill="#5c5247">Rig count</text>
+</svg>
