@@ -66,6 +66,8 @@
   .site-footer .inner{max-width:64rem;margin:0 auto;padding:1.6rem 1.5rem 2.4rem;}
   .tagline{font-style:italic;font-size:1.05rem;margin:0 0 .3rem;}
   .site-footer p{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-soft);margin:.2rem 0;letter-spacing:.02em;}
+  .share-btn{display:inline-flex;align-items:center;gap:.45em;font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);background:none;border:1px solid var(--rule);padding:.38rem .8rem;cursor:pointer;transition:color .15s,border-color .15s;margin-top:1rem;}
+  .share-btn:hover,.share-btn.copied{color:var(--oxblood);border-color:var(--oxblood);}
   @media (max-width:640px){ body{font-size:19px;} .dek{font-size:1.1rem;} }
 </style>
 </head>
@@ -86,6 +88,7 @@
     <p class="post-meta">Dispatch · Instrument · as of 15 July 2026</p>
     <h1>The Counterfeiter's Gauge</h1>
     <p class="dek">The framework asks which shortage is real. This dispatch turns the question into a number: the Credit Counterfeit Index, updated quarterly, with a threshold, twenty years of history, and a standing call it can be wrong about.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
   </div>
 
   <p class="stamp mono">An instrument of the framework, built on Fisher, Keynes, and Minsky. The gauge below reads live from the site's data file and updates each quarter. Inputs are quarterly approximations from public sources; the Real Bind series is a published judgment. Conditional, falsifiable, not investment advice.</p>
