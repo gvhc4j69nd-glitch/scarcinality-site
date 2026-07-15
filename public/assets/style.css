@@ -191,7 +191,6 @@ a:hover{color:var(--oxblood-deep);border-color:var(--oxblood);}
 
 /* ---------- CCI header badge ---------- */
 .cci-header-badge{
-  position:fixed;top:1rem;right:clamp(1.1rem,5vw,3rem);z-index:100;
   display:inline-flex;align-items:baseline;gap:.5rem;
   font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
   color:var(--ink-soft);text-decoration:none;border:none;
@@ -200,7 +199,6 @@ a:hover{color:var(--oxblood-deep);border-color:var(--oxblood);}
   background:var(--parchment-deep);
   white-space:nowrap;line-height:1.4;
   transition:color .15s;
-  box-shadow:0 1px 4px rgba(35,32,27,.08);
 }
 .cci-header-badge:hover{color:var(--ink);}
 .cci-header-badge .cci-val{font-size:.82rem;font-weight:600;color:var(--ink);letter-spacing:.02em;}
