@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "series": "Average retail price, ground beef (100% uncooked), U.S. city average, $/lb",
+    "source_2008_2023": "BLS APU0000703112 via in2013dollars.com (annual averages)",
+    "source_2024_2026": "BLS APU0000703112 direct API (monthly data, annual average computed)",
+    "as_of": "2026-07-15",
+    "notes": "2026 is a partial-year average (Jan–Jun). 2025 excludes Oct (BLS data gap, gov't funding lapse)."
+  },
+  "annual": [
+    { "year": 2008, "price": 3.04, "note": null },
+    { "year": 2009, "price": 3.10, "note": null },
+    { "year": 2010, "price": 3.18, "note": null },
+    { "year": 2011, "price": 3.46, "note": "Texas drought begins; herd liquidation starts" },
+    { "year": 2012, "price": 3.72, "note": null },
+    { "year": 2013, "price": 3.82, "note": null },
+    { "year": 2014, "price": 4.30, "note": "Cattle herd at 70-year low; real shortage peak" },
+    { "year": 2015, "price": 4.63, "note": "Price peak of drought cycle; herd rebuilding begins" },
+    { "year": 2016, "price": 4.25, "note": null },
+    { "year": 2017, "price": 4.12, "note": null },
+    { "year": 2018, "price": 4.12, "note": null },
+    { "year": 2019, "price": 4.23, "note": null },
+    { "year": 2020, "price": 4.63, "note": "COVID meatpacking shutdowns; spring retail spike to $6+, annual average masked surge" },
+    { "year": 2021, "price": 4.88, "note": null },
+    { "year": 2022, "price": 5.31, "note": "Post-COVID monetary inflation + drought-driven herd contraction" },
+    { "year": 2023, "price": 5.43, "note": null },
+    { "year": 2024, "price": 5.48, "note": "Herd at 74-year low (86.7M head Jan 2025)" },
+    { "year": 2025, "price": 6.09, "note": "Tariffs on imports; screwworm crisis cuts Mexican feeder cattle" },
+    { "year": 2026, "price": 6.78, "note": "Partial year (Jan–Jun); 14.8% YoY; USDA projects +10% for full year", "partial": true }
+  ],
+  "events": [
+    { "year": 2011, "label": "Texas drought\nherd liquidation", "type": "real" },
+    { "year": 2014, "label": "Cattle herd 70-yr low\n(real shortage peak)", "type": "real" },
+    { "year": 2020, "label": "COVID packing\nshutdowns", "type": "bottleneck" },
+    { "year": 2022, "label": "Post-COVID\ninflation", "type": "monetary" },
+    { "year": 2025, "label": "Tariffs +\nscrewworm", "type": "policy" }
+  ]
+}

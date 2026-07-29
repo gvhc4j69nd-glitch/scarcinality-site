@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground Beef Price 2008–2026 · Scarcinality</title>
+<meta name="description" content="Annual average retail ground beef price per pound, 2008–2026. Annotated with the drought cycle, COVID meatpacking shutdowns, post-COVID inflation, and tariff-era compound scarcity.">
+<meta property="og:title" content="Ground Beef Price 2008–2026 · Scarcinality">
+<meta property="og:description" content="Annual average retail ground beef price per pound, 2008–2026, annotated by scarcity type.">
+<meta property="og:url" content="https://scarcinality.com/beef-price-chart">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
+.chart-wrap { max-width: 72rem; margin: 0 auto; padding: 2rem clamp(1.1rem,5vw,3rem) 3rem; }
+.chart-container { position: relative; width: 100%; }
+#beef-svg { width: 100%; height: auto; display: block; }
+
+.legend { display: flex; gap: 1.4rem; flex-wrap: wrap; margin: .8rem 0 1.6rem; align-items: center; }
+.legend-item { display: flex; align-items: center; gap: .45rem; font-family: var(--mono); font-size: .7rem; color: var(--ink-soft); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-line { width: 22px; height: 2.5px; flex-shrink: 0; }
+
+.prose-note { max-width: 52rem; font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+.dispatch-link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--oxblood); border-bottom: 1px solid var(--oxblood); text-decoration: none; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep, #ECE7DA);
+  border: 1px solid var(--rule); border-left: 3px solid var(--oxblood);
+  padding: .55rem .75rem; font-family: var(--mono); font-size: .7rem;
+  line-height: 1.55; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.1);
+}
+.tooltip-box .tt-year { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .2rem; }
+.tooltip-box .tt-price { color: var(--oxblood); font-weight: 600; font-size: .85rem; }
+.tooltip-box .tt-note { color: var(--ink-soft); font-size: .65rem; max-width: 18rem; white-space: normal; margin-top: .2rem; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  #beef-svg { height: 280px; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>Ground Beef Price, 2008–2026</h1>
+  <span class="source-badge">BLS APU0000703112 · Annual averages · $/lb</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart" aria-current="page">Beef Price</a>
+</div>
+
+<div class="chart-wrap">
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#2f5670;"></div>
+      Real shortage (drought / herd)
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#7a5a18;"></div>
+      Bottleneck counterfeit (processing)
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--oxblood);"></div>
+      Policy / compound
+    </div>
+    <div class="legend-item">
+      <div class="legend-line" style="background:var(--oxblood);"></div>
+      Annual avg price ($/lb)
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <svg id="beef-svg" viewBox="0 0 860 400" role="img" aria-label="Annual average ground beef retail price per pound, 2008 to 2026, annotated with key scarcity events"></svg>
+    <div class="tooltip-box" id="tooltip">
+      <div class="tt-year" id="tt-year"></div>
+      <div class="tt-price" id="tt-price"></div>
+      <div class="tt-note" id="tt-note"></div>
+    </div>
+  </div>
+
+  <div class="prose-note">
+    <strong>Four layers, one price.</strong> The beef price chart does not tell a single story. The 2011–2015 rise was genuine physical scarcity: drought liquidated the cattle herd to a 70-year low, and prices rose because animals did not exist. The 2020 spike was different: cattle were abundant but meatpacking plants closed; four companies control 85% of slaughter capacity, so a pandemic disruption propagated directly to retail. The 2022–2026 compound surge stacks a real bind (herd now at 74-year low), a biological shock (New World screwworm cutting Mexican feeder cattle imports), and policy-manufactured scarcity (tariffs blocking imports that could ease the real bind). The full analysis separates these components and predicts which falls first.
+    <br><br>
+    Sources: BLS Average Retail Prices, series APU0000703112 (100% ground beef, US city average); annual averages 2008–2023 via in2013dollars.com; 2024–2026 computed from BLS monthly data. 2026 is a partial-year average (Jan–Jun). The 2020 annual average masks a spring retail spike above $6/lb in some markets.
+    <br>
+    <a class="dispatch-link" href="/dispatch-beef-price-scarcity">Read the full scarcity analysis &rsaquo;</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var DATA = [
+    { year: 2008, price: 3.04, note: null, event: null },
+    { year: 2009, price: 3.10, note: null, event: null },
+    { year: 2010, price: 3.18, note: null, event: null },
+    { year: 2011, price: 3.46, note: "Texas drought begins; herd liquidation starts", event: { label: "Texas drought\nbegan", type: "real" } },
+    { year: 2012, price: 3.72, note: null, event: null },
+    { year: 2013, price: 3.82, note: null, event: null },
+    { year: 2014, price: 4.30, note: "Cattle herd at 70-year low; real shortage peak", event: { label: "Herd 70-yr low\n(real shortage)", type: "real" } },
+    { year: 2015, price: 4.63, note: "Price peak of drought cycle; herd rebuilding begins", event: null },
+    { year: 2016, price: 4.25, note: null, event: null },
+    { year: 2017, price: 4.12, note: null, event: null },
+    { year: 2018, price: 4.12, note: null, event: null },
+    { year: 2019, price: 4.23, note: null, event: null },
+    { year: 2020, price: 4.63, note: "COVID packing shutdowns; spring retail spike above $6/lb while farm cattle prices fell 25%", event: { label: "COVID packing\nshutdowns", type: "bottleneck" } },
+    { year: 2021, price: 4.88, note: null, event: null },
+    { year: 2022, price: 5.31, note: "Post-COVID monetary inflation + drought-driven herd contraction", event: { label: "Inflation peak\n+ herd decline", type: "policy" } },
+    { year: 2023, price: 5.43, note: null, event: null },
+    { year: 2024, price: 5.48, note: "US herd falls to 74-year low (86.7M head, Jan 2025)", event: null },
+    { year: 2025, price: 6.09, note: "Tariffs on imports; screwworm cuts Mexican feeder cattle; +14.8% YoY by April", event: { label: "Tariffs +\nscrewworm", type: "policy" } },
+    { year: 2026, price: 6.78, note: "Partial year avg (Jan–Jun); USDA projects +10% for full year", event: null, partial: true },
+  ];
+
+  var TYPE_COLOR = { real: "#2f5670", bottleneck: "#7a5a18", policy: "#8a3324" };
+
+  var svg = document.getElementById("beef-svg");
+  var tip = document.getElementById("tooltip");
+  var W = 860, H = 400, L = 52, R = 24, T = 18, B = 50;
+  var iw = W - L - R, ih = H - T - B;
+  var ns = "http://www.w3.org/2000/svg";
+
+  function el(tag, attrs, txt) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt !== undefined) e.textContent = txt;
+    svg.appendChild(e); return e;
+  }
+
+  var years = DATA.map(function(d){ return d.year; });
+  var prices = DATA.map(function(d){ return d.price; });
+  var yMin = 2.5, yMax = 7.5;
+  var n = DATA.length;
+
+  function X(i) { return L + (i / (n - 1)) * iw; }
+  function Y(v) { return T + ih - (v - yMin) / (yMax - yMin) * ih; }
+
+  // Grid lines
+  for (var gv = 3; gv <= 7; gv++) {
+    var gy = Y(gv);
+    el("line", { x1: L, y1: gy, x2: L + iw, y2: gy, stroke: "#ddd3c2", "stroke-width": gv === 3 ? 1 : 0.5 });
+    el("text", { x: L - 6, y: gy + 4, "text-anchor": "end", "font-size": 10, fill: "#8a8073", "font-family": "IBM Plex Mono, monospace" }, "$" + gv);
+  }
+  // Half-dollar grid
+  [3.5, 4.5, 5.5, 6.5].forEach(function(gv) {
+    el("line", { x1: L, y1: Y(gv), x2: L + iw, y2: Y(gv), stroke: "#ddd3c2", "stroke-width": 0.3 });
+  });
+
+  // X axis labels
+  DATA.forEach(function(d, i) {
+    var tx = X(i);
+    el("line", { x1: tx, y1: T + ih, x2: tx, y2: T + ih + 5, stroke: "#ddd3c2", "stroke-width": 0.8 });
+    el("text", { x: tx, y: T + ih + 18, "text-anchor": "middle", "font-size": 9.5, fill: "#8a8073", "font-family": "IBM Plex Mono, monospace" }, d.year.toString() );
+  });
+
+  // Baseline
+  el("line", { x1: L, y1: T + ih, x2: L + iw, y2: T + ih, stroke: "#ddd3c2", "stroke-width": 1 });
+
+  // Event annotation verticals
+  DATA.forEach(function(d, i) {
+    if (!d.event) return;
+    var ax = X(i);
+    var col = TYPE_COLOR[d.event.type] || "#8a3324";
+    el("line", { x1: ax, y1: T, x2: ax, y2: T + ih, stroke: col, "stroke-width": 0.9, "stroke-dasharray": "4 3", opacity: "0.55" });
+    var lines = d.event.label.split("\n");
+    var anchorX = (i > n - 4) ? ax - 4 : ax + 4;
+    var anchor = (i > n - 4) ? "end" : "start";
+    lines.forEach(function(ln, li) {
+      el("text", { x: anchorX, y: T + 13 + li * 13, "text-anchor": anchor, "font-size": 8.5, fill: col, "font-family": "IBM Plex Mono, monospace", "font-weight": "500" }, ln);
+    });
+    // event dot on line
+    el("circle", { cx: ax, cy: Y(d.price), r: 5, fill: col, stroke: "var(--parchment)", "stroke-width": 1.5 });
+  });
+
+  // Main price line (oxblood)
+  var pts = DATA.map(function(d, i){ return X(i).toFixed(1) + "," + Y(d.price).toFixed(1); }).join(" ");
+  el("polyline", { points: pts, fill: "none", stroke: "#8a3324", "stroke-width": 2.2, "stroke-linejoin": "round" });
+
+  // 2026 partial marker
+  var lastI = n - 1;
+  el("circle", { cx: X(lastI), cy: Y(DATA[lastI].price), r: 4.5, fill: "var(--parchment)", stroke: "#8a3324", "stroke-width": 2 });
+
+  // Axis label
+  el("text", { x: L - 40, y: T + ih / 2, "text-anchor": "middle", "font-size": 9.5, fill: "#8a8073", "font-family": "IBM Plex Mono, monospace",
+    transform: "rotate(-90 " + (L - 40) + " " + (T + ih / 2) + ")" }, "$/lb (annual avg)");
+
+  // 2026 partial note
+  el("text", { x: X(lastI), y: Y(DATA[lastI].price) - 12, "text-anchor": "middle", "font-size": 8, fill: "#8a8073", "font-family": "IBM Plex Mono, monospace" }, "partial yr");
+
+  // Hit areas
+  DATA.forEach(function(d, i) {
+    var hx = X(i);
+    var hw = iw / n;
+    var hr = el("rect", { x: hx - hw / 2, y: T, width: hw, height: ih, fill: "transparent", style: "cursor:crosshair" });
+    hr.addEventListener("mousemove", function(e) {
+      document.getElementById("tt-year").textContent = d.year + (d.partial ? " (Jan–Jun avg)" : "");
+      document.getElementById("tt-price").textContent = "$" + d.price.toFixed(2) + " / lb";
+      document.getElementById("tt-note").textContent = d.note || "";
+      tip.style.display = "block";
+      var cc = tip.parentElement.getBoundingClientRect();
+      var tx = e.clientX - cc.left + 12;
+      var ty = e.clientY - cc.top - 10;
+      if (tx + 230 > cc.width) tx = e.clientX - cc.left - 220;
+      tip.style.left = tx + "px";
+      tip.style.top = ty + "px";
+    });
+    hr.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+  });
+})();
+</script>
+</body>
+</html>
