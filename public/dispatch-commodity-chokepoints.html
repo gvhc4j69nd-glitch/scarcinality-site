@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Chokepoint Premium · Scarcinality</title>
+<meta name="description" content="A cross-commodity analysis of beef, oil, natural gas, soybeans, corn, and cotton from 2008 to 2026. The families who captured the most from tariffs, immigration enforcement, and agricultural policy are not the ones who grew the crops or pulled the oil. They are the ones who own the nodes the supply must pass through.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Chokepoint Premium · Scarcinality">
+<meta property="og:description" content="A cross-commodity analysis, 2008–2026. The families who captured the most from tariffs, immigration enforcement, and agricultural policy own the nodes supply must pass through — not the fields or wells.">
+<meta property="og:url" content="https://scarcinality.com/dispatch-commodity-chokepoints">
+<meta property="og:image" content="https://scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Chokepoint Premium · Scarcinality">
+<meta name="twitter:description" content="Cross-commodity analysis 2008–2026: who captures the manufactured scarcity premium, and how.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/phaseplane.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{
+    max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+    background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+    font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);
+  }
+  .prose h2{
+    font-family:var(--mono);font-weight:600;font-size:.82rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);
+    margin:2.6rem 0 .4rem;
+  }
+  .lead::first-letter{
+    font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+    color:var(--oxblood);font-weight:600;
+  }
+  .pull{
+    max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+    border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;
+  }
+
+  /* Chart */
+  .chart-block{
+    max-width:64rem;margin:2rem 0;
+    border:1px solid var(--rule);background:var(--parchment-deep);padding:1.2rem 1.2rem 1rem;
+  }
+  .chart-block h3{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 .9rem;
+  }
+  .chart-block figcaption{
+    font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);margin-top:.7rem;line-height:1.5;
+  }
+  #commodity-svg{width:100%;height:auto;display:block;}
+
+  .legend-grid{
+    display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin:.6rem 0 .2rem;
+  }
+  .legend-item{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.65rem;color:var(--ink-soft);}
+  .l-swatch{width:20px;height:2.5px;flex-shrink:0;}
+
+  /* Ledger */
+  .ledger-wrap{max-width:68rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{
+    text-align:left;vertical-align:top;padding:.58rem .65rem;border-bottom:1px solid var(--rule);
+  }
+  table.ledger thead th{
+    color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;font-size:.66rem;
+    border-bottom:1.5px solid var(--oxblood);
+  }
+  table.ledger td.name{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:12rem;}
+  table.ledger td.reading{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:20rem;}
+  .pill{
+    display:inline-block;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:.15em .5em;border:1px solid currentColor;border-radius:2px;white-space:nowrap;margin-bottom:.15rem;
+  }
+  .pill-real     { color:#2f5670;border-color:#2f5670; }
+  .pill-policy   { color:#8a3324;border-color:#8a3324; }
+  .pill-struct   { color:#7a5a18;border-color:#7a5a18; }
+  .pill-subsidy  { color:#3f6b3a;border-color:#3f6b3a; }
+
+  /* Wealth table */
+  table.wealth{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.74rem;max-width:64rem;margin:1rem 0;}
+  table.wealth th,table.wealth td{text-align:left;padding:.55rem .65rem;border-bottom:1px solid var(--rule);}
+  table.wealth thead th{
+    color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;font-size:.64rem;
+    border-bottom:1.5px solid var(--oxblood);
+  }
+  table.wealth td.fam{font-weight:600;min-width:11rem;}
+  td.up{color:#2f5670;font-weight:600;}
+  td.big{color:#8a3324;font-weight:600;}
+
+  @media(max-width:640px){
+    #commodity-svg{height:260px;}
+    table.wealth td,table.ledger td{font-size:.68rem;padding:.4rem .45rem;}
+  }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch · Themed reading · as of 30 July 2026</p>
+    <h1>The Chokepoint Premium</h1>
+    <p class="dek">A cross-commodity analysis of beef, oil, natural gas, soybeans, corn, and cotton from 2008 to 2026. The families who captured the most from tariffs, immigration enforcement, and agricultural policy are not the ones who grew the crops or pulled the oil. They are the ones who own the nodes the supply must pass through — and who lobbied to keep the nodes narrow.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">A themed reading. Covers six major commodity markets across eighteen years, three policy regimes, and the structural mechanism by which manufactured scarcity transfers wealth to chokepoint owners. Conditional, falsifiable, not investment advice. Companion to the beef dispatch (<a href="/dispatch-beef-price-scarcity">Which Shortage Is Behind the Beef Price</a>).</p>
+
+  <article class="prose">
+
+    <p class="lead">The price of every major commodity moved up sharply between 2008 and 2026. Some moved in unison, driven by monetary expansion or war. Some diverged, driven by specific supply constraints that were real, biological, or manufactured by policy. The framework was built to read one commodity at a time. This dispatch reads all of them together, because the cross-commodity pattern reveals something the single-market view cannot: the families who captured the most from the price rises were not the producers. They were the processors, the pipelines, the trading desks — the chokepoints. And their wealth grew most precisely during the episodes of manufactured scarcity, because those are the episodes when the chokepoint premium is highest and longest-lived.</p>
+
+    <h2>The two-decade price map</h2>
+
+    <p>The chart below shows six commodities indexed to 2008 = 100 using annual average prices. The indexing strips out units and makes the relative volatility visible. The most important feature is not the peaks but the divergences — the moments when different commodities moved in opposite directions. Those divergences are the signature of scarcity that is specific rather than monetary.</p>
+
+  </article>
+
+  <div class="chart-block">
+    <h3>Major commodity prices, 2008–2026 (indexed: 2008 = 100)</h3>
+    <div class="legend-grid">
+      <div class="legend-item"><div class="l-swatch" style="background:#8a3324;"></div>Beef (ground, $/lb)</div>
+      <div class="legend-item"><div class="l-swatch" style="background:#2B4A6B;stroke-dasharray:4 2"></div>WTI crude oil ($/bbl)</div>
+      <div class="legend-item"><div class="l-swatch" style="background:#3f6b3a;"></div>Soybeans ($/bu)</div>
+      <div class="legend-item"><div class="l-swatch" style="background:#7a5a18;"></div>Corn ($/bu)</div>
+      <div class="legend-item"><div class="l-swatch" style="background:#5c5247;"></div>Nat. gas ($/MMBtu)</div>
+      <div class="legend-item"><div class="l-swatch" style="background:#6d5fa0;"></div>Cotton ($/lb)</div>
+    </div>
+    <svg id="commodity-svg" viewBox="0 0 900 380" role="img" aria-label="Indexed commodity price chart 2008 to 2026 showing beef, oil, soybeans, corn, natural gas, and cotton"></svg>
+    <figcaption>Sources: BLS (ground beef, APU0000703112); EIA (WTI, Henry Hub); USDA/CBOT (soybeans, corn); ICE (cotton). Annual averages. 2026 is partial year. Natural gas 2008 indexed from $8.86/MMBtu peak; the 2012 collapse to $2.75 reflects shale oversupply and is not visible as a price spike — it is the opposite.</figcaption>
+  </div>
+
+  <article class="prose">
+
+    <p>Three features dominate the chart. First, the 2022 synchronized spike: every commodity rose together, confirming a monetary component — the M2 expansion of 2020–2021 reached commodity markets simultaneously with the Ukraine war supply shock. When everything rises at once, the common cause is monetary. Second, natural gas alone collapsed between 2009 and 2012, a sign of the shale revolution overwhelming domestic supply — a genuine physical event specific to one market. Third, beef diverges sharply upward from 2024 onward while oil, gas, soybeans, and corn retreat or hold. Beef rising while the rest fall is the clearest possible evidence that the current beef premium is not monetary — it is structural, biological, and policy-made.</p>
+
+    <h2>The mechanism: chokepoints and the manufactured premium</h2>
+
+    <p>Across all six commodities, the wealth capture pattern is the same. The farmer, the rancher, the well-operator — the producer — captures a temporary windfall when real scarcity spikes prices. That windfall is real but unpredictable, and often reverses when supply recovers. The processor, the pipeline, the trader — the chokepoint owner — captures something different: a persistent margin on every unit that passes through their node, amplified when supply is constrained and their capacity becomes critical. Their margin widens during shortages, real or manufactured, and their structural position ensures that the volume moving through their node does not actually fall even as the price rises.</p>
+
+    <div class="pull">The farmer who grew corn in 2012 had one good year. Cargill, which bought that corn, stored it, processed it, and sold it across seventeen global markets, had a good decade.</div>
+
+    <p>The manufactured scarcity element makes this dynamic structural rather than cyclical. When government policy narrows the chokepoint — by restricting imports that would compete with domestic product, by reducing the labor available to operate the facility, by paying subsidies that flow disproportionately to the largest operators — the premium at the chokepoint becomes durable. It no longer depends on weather or geology. It depends on the continuation of the policy, which the chokepoint owners fund, lobby for, and in several cases wrote.</p>
+
+    <h2>Commodity by commodity</h2>
+
+    <p><strong>Oil and natural gas.</strong> The 2008–2014 period of $90–$100 oil was the founding event of the modern shale billionaire class. Harold Hamm of Continental Resources — who bet the Bakken shale formation in North Dakota before the technology was proven — saw his net worth rise from roughly $5 billion in 2008 to more than $18 billion by 2012. The 2016 crash to $43 oil was a genuine supply event, driven by OPEC's decision to flood the market. Hamm's wealth fell with it. What did not fall were the fortunes of Koch Industries: its pipeline network charges a fee on throughput regardless of price direction, and higher shale volumes meant more throughput at the moment of the shale boom. Koch's midstream business is structurally indifferent to the oil price; it is exposed only to volume, and American shale production doubled between 2012 and 2019.</p>
+
+    <p>Natural gas underwent the most extreme single reversal in the dataset: from $8.86 per MMBtu in 2008 to $2.75 in 2012, a 69% collapse driven by horizontal drilling unlocking the Marcellus and Haynesville shale formations faster than demand could absorb them. The families who built LNG export infrastructure in 2012–2020 — Charif Souki at Cheniere Energy foremost among them — effectively converted a stranded domestic asset into a global commodity. The 2022 Ukraine shock, which sent European buyers into the LNG market at distress prices, was the payoff: US LNG exports hit records while Henry Hub prices stayed below $7 because domestic consumers still had access to the pipeline system. The export terminal infrastructure owner captured the spread between the domestic price and the European import price, which reached $40/MMBtu at the 2022 peak. This is the framework's definition of a chokepoint premium: a structural position that captures the value between a constrained supply and a desperate buyer, without itself producing either the gas or the desperation.</p>
+
+    <p><strong>Soybeans and corn.</strong> The Trump administration's first-term trade war with China in 2018–2019 is the clearest demonstration of policy manufacturing both scarcity and its compensation. The administration imposed tariffs on Chinese goods; China retaliated with 25% tariffs on US soybeans. The soybean price fell from $10.50 to roughly $8.00 per bushel. American soybean farmers lost an estimated $12 billion in export income. The administration then paid $8.5 billion in Market Facilitation Program (MFP) payments to compensate — but the payments, structured by acres planted, flowed disproportionately to the largest farms. The top 10% of recipients received 79% of total farm subsidy payments across programs; the concentration in MFP was similar. Small soybean farmers in Missouri and Iowa absorbed the loss. Large corporate farming operations and trading companies like Cargill and Archer-Daniels-Midland, which had already redirected their logistics toward Brazilian and Argentine origins, arbitraged the differential. The 2022 Ukraine war spiked soybeans to $15.50 per bushel — the same chokepoint owners who stored, processed, and traded the 2018 surplus captured the 2022 windfall.</p>
+
+    <p><strong>Cotton.</strong> The 2010 cotton spike to $1.45 per pound — the highest level in 140 years — came from a combination of drought in Texas (the largest US cotton-producing state) and Asian demand. The structural story in cotton is less about the spike than about what sustained the price floor through immigration enforcement: cotton is among the most labor-intensive crops in American agriculture, with the harvest and field preparation work done overwhelmingly by an immigrant workforce. The 2025 immigration enforcement push suppressed agricultural labor availability across the cotton belt, reducing planted acres as growers could not staff the fields. The Resnick family (Wonderful Company), Fanjul family (sugar but diversified agricultural land), and other large mechanized operations that had already converted to less labor-intensive methods captured the relative advantage.</p>
+
+    <p><strong>Beef.</strong> Covered in full in the companion dispatch. The summary: five stacked scarcities, two of which are policy-manufactured (tariffs, immigration enforcement), one structural (four-packer concentration), one biological (screwworm), one real (herd contraction from drought). The chokepoint owners — JBS, Tyson, Cargill, National Beef — capture the premium on every unit of the constrained supply. The four-packer structure ensures that no distributed processing alternative absorbs the shock.</p>
+
+    <h2>The wealth ledger</h2>
+
+    <p>The following families and interests stand as the primary beneficiaries of the 2008–2026 commodity regime. The common thread is structural position at a processing or trading chokepoint, combined with active policy participation — through lobbying, political donations, or direct advisory roles — in the policies that manufactured or amplified the scarcity from which they profited.</p>
+
+  </article>
+
+  <div class="ledger-wrap">
+    <table class="wealth">
+      <thead>
+        <tr>
+          <th>Family / Interest</th>
+          <th>Commodity node</th>
+          <th>Est. net worth 2008</th>
+          <th>Est. net worth 2026</th>
+          <th>Primary mechanism</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fam">Cargill–MacMillan family</td>
+          <td>Grain trading &amp; processing, meat, fertilizer, financial</td>
+          <td>~$35B (combined, ~14 billionaires)</td>
+          <td class="big">~$65B (21 billionaires)</td>
+          <td>Global commodity arbitrage. Profits from price volatility in any direction; captures the spread between farm-gate and export price. Benefited from 2022 synchronized spike and from 2018-19 trade war redirection to non-US origins.</td>
+        </tr>
+        <tr>
+          <td class="fam">Koch family (Koch Industries)</td>
+          <td>Pipelines, refining, fertilizer (nitrogen), commodity trading</td>
+          <td>~$35–40B (David + Charles)</td>
+          <td class="big">~$100B (estate + Charles)</td>
+          <td>Pipeline throughput fees grow with shale volume regardless of oil price direction. Nitrogen fertilizer priced against natural gas — captures spread when gas is cheap and fertilizer prices follow. Politically active on both sides: opposes tariffs on imported inputs (anti-chokepoint), supports pipeline permitting (pro-chokepoint).</td>
+        </tr>
+        <tr>
+          <td class="fam">Batista family (JBS global; US: JBS USA, Pilgrim's Pride)</td>
+          <td>Beef and poultry processing; acquired US assets 2007–2009</td>
+          <td>Distressed acquisition cost during GFC</td>
+          <td class="big">~$86B annual US revenue; family net worth undisclosed but substantial</td>
+          <td>Bought Swift &amp; Company and Pilgrim's Pride out of bankruptcy during 2008–2009 crisis at distressed valuations, then rode the 2011–2015 real shortage and 2022 inflation cycle as the dominant US beef packer. Benefits from immigration enforcement reducing competing labor pools for non-JBS processors while their scale allows absorbing disruptions.</td>
+        </tr>
+        <tr>
+          <td class="fam">Tyson family (John Tyson, chairman)</td>
+          <td>Beef, chicken, pork processing</td>
+          <td>~$4–5B</td>
+          <td class="up">~$3–8B (volatile; public company)</td>
+          <td>Directly benefits from the four-packer concentration in beef. Beef revenue elevated by tariff protection and immigration-reduced alternative processing capacity. Note: Tyson family wealth more volatile than Cargill because public market scrutiny; declined during COVID-era plant shutdowns.</td>
+        </tr>
+        <tr>
+          <td class="fam">Harold Hamm / Continental Resources</td>
+          <td>Bakken shale oil extraction (took private 2022)</td>
+          <td>~$5B</td>
+          <td class="big">~$17–24B</td>
+          <td>Built the Bakken position when shale was unproven; captured the $100/barrel windfall of 2011–2014. Went private in 2022 buyout at the moment oil spiked to $94/barrel, concentrating the windfall within the family without public market dilution. A Trump energy advisor; benefited from administration's "energy dominance" framing that accelerated Bakken permitting.</td>
+        </tr>
+        <tr>
+          <td class="fam">Cheniere Energy founders (Charif Souki et al.)</td>
+          <td>LNG export infrastructure (Sabine Pass, Corpus Christi)</td>
+          <td>Nascent — Cheniere was nearly bankrupt in 2012</td>
+          <td class="big">Souki net worth ~$3–5B; Cheniere market cap ~$40B</td>
+          <td>Converted stranded domestic natural gas into a global export commodity by building the first US LNG export terminal. Captured the European desperation premium in 2022 (European LNG import prices reached $40/MMBtu vs. $6.45 Henry Hub). The tariff environment accelerated Asian buyers' flight to US LNG as an alternative to Russian supply.</td>
+        </tr>
+        <tr>
+          <td class="fam">Fanjul family (Domino Sugar; ASR Group)</td>
+          <td>Sugar processing; diversified agricultural land</td>
+          <td>~$3B</td>
+          <td class="big">~$8B</td>
+          <td>US sugar import quotas — in continuous operation since the 1930s — cap foreign sugar entering the US market at below-market prices, maintaining a domestic price roughly double the world price. The most durable example of policy-manufactured scarcity in American agriculture. The Fanjul family has donated to both parties for decades to maintain the quota. Cotton and beef labor reductions from immigration enforcement benefit their mechanized operations relatively.</td>
+        </tr>
+        <tr>
+          <td class="fam">Top 10% of Farm Subsidy Recipients (concentrated corporate farms and agricultural REITs)</td>
+          <td>Corn, soybean, wheat production — largest-scale operations</td>
+          <td>N/A (structural, not individual)</td>
+          <td class="big">Received 79% of $116B+ in corn subsidies since 1995; 79% of $28B in 2018-19 MFP trade war payments</td>
+          <td>Subsidy concentration amplifies scale advantage. Large operators survive price crashes (2015-2016, 2019) on government support while small operators exit, further consolidating the supply base. The 2018–2019 Market Facilitation Program paid largest farms most for losses from a trade war that was partially designed to benefit the grain trading infrastructure (Cargill, ADM) that arbitraged away from US origins.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+
+    <h2>The structural pattern</h2>
+
+    <p>The families above share four characteristics. First, they own processing, pipeline, trading, or infrastructure nodes rather than upstream production assets. Production is weather-exposed, geology-exposed, and labor-exposed. Infrastructure captures a fee on every unit passing through regardless of cause. Second, they operate at scale large enough to be the default counterparty for policy — agricultural subsidies, pipeline permits, tariff carve-outs, and trade deal structures are written in consultation with the major commercial interests in each sector, and the major commercial interests are the chokepoint owners. Third, they have benefited from both phases of the Trump trade and immigration agenda: the first term's tariffs and farm payments concentrated subsidy flows toward large operators; the second term's tariffs and immigration enforcement reduced the processing labor and import competition that might have diffused their pricing power. Fourth, their wealth grew fastest not during stable periods but during the two manufactured scarcity peaks — 2011–2015 (when real drought combined with policy underinvestment in water and land management) and 2022–2026 (when monetary expansion, the Ukraine war, and the second Trump policy stack compounded simultaneously).</p>
+
+    <p>The framework's verdict is not that the chokepoint owners are villains. Owning infrastructure that supply must pass through is a legitimate business. The question Scarcinality asks is whether the scarcity driving the premium is real or manufactured — and who benefits when a policy choice narrows the chokepoint further than physical necessity requires. A tariff that blocks beef imports when the domestic herd is at a 74-year low is not responding to a real shortage. It is amplifying one. The family that owns the slaughterhouse captures both the real premium (missing cattle) and the manufactured premium (blocked imports) simultaneously, in the same price, at the same facility. The consumer pays for both. The rancher recovers some of the real component through higher cattle prices. The manufactured component flows entirely to the chokepoint.</p>
+
+    <h2>The 2022 synchronized spike: the monetary test</h2>
+
+    <p>The 2022 synchronized spike across all commodities is the framework's most valuable diagnostic event in the eighteen-year record. Oil reached $94/barrel. Natural gas averaged $6.45/MMBtu. Soybeans hit $15.50/bushel. Corn reached $6.79/bushel. Cotton briefly touched $1.20/lb. Ground beef averaged $5.31/lb. All of these moved together in a twelve-month window. That co-movement is not coincidental: when monetary expansion reaches commodity markets, it is non-discriminating. M2 grew 26% in 2020–2021; the purchasing-power erosion arrived in commodity prices in 2022. The Ukraine war added a real supply shock on top of the monetary one, particularly for natural gas and wheat.</p>
+
+    <p>The chokepoint owners captured this synchronized spike in full. Every bushel of grain moved through Cargill's storage and processing infrastructure at an inflated margin. Every barrel of oil passed through Koch pipelines at higher volume (the shale response to $90 oil). Every pound of beef processed by the four packers carried a margin against an input price (cattle) that rose less than the output price (retail beef), because the processing node captured a disproportionate share of the price increase.</p>
+
+    <p>The 2024–2026 divergence — beef up, oil and gas down, soybeans flat — tells the post-monetary story. The monetary expansion has partially reversed (M2 contracted, then stabilized; the CCI reached +1.0 and breached in 2023). The commodities that spike without a synchronized monetary driver are the ones under specific structural or policy pressure. Beef is the clearest case. Its continued rise while oil and soybeans retreat is evidence that the beef premium is now structural and policy-generated rather than monetary — and the structural premium, by definition, accrues to the chokepoint owners who remain in place long after the monetary event passes.</p>
+
+    <h2>What the framework predicts</h2>
+
+    <p>The cross-commodity analysis yields three conditional predictions, each falsifiable within a defined time horizon.</p>
+
+    <p><strong>One:</strong> The families who benefited most from the 2018–2019 and 2025–2026 tariff regimes will be net beneficiaries even if the tariffs are eventually removed, because the tariff period allowed them to consolidate market share while small and mid-size competitors absorbed the disruption. Cargill's ability to redirect to Brazilian origins during the 2018–2019 China soybean tariffs, while smaller US trading firms could not, is the template. If tariffs reverse within two years, the major processors will have used the interval to deepen their infrastructure advantage. This is falsified only if tariff removal is accompanied by structural antitrust enforcement that opens the processing tier to new entrants.</p>
+
+    <p><strong>Two:</strong> Natural gas will be the next manufactured scarcity event in this cycle. US LNG export capacity has expanded faster than domestic demand has grown, meaning more of US gas production is now priced at the export margin. Any geopolitical disruption that sends European or Asian buyers back into the market — a resumption of Russia-Europe conflict, a Middle East transit closure — will reprice domestic gas upward while the LNG export terminal owners (Cheniere, Venture Global) capture the spread. The infrastructure is in place; it is waiting for the disruption. The Koch pipeline network will amplify the volume-driven revenue at the same time.</p>
+
+    <p><strong>Three:</strong> When the immigration enforcement policy changes — either through a formal reversal, a new guest worker program, or simply political exhaustion — beef prices will fall faster than ranchers expect and slower than consumers hope. The decline will be partial: the real shortage from herd contraction will remain. The manufactured component from labor restriction will ease. The structural component from four-packer concentration will not change unless the DOJ investigation produces structural relief. The families who own the processing nodes will continue to earn the structural premium regardless of what happens to the policy premium. Ranchers, not packers, will feel the most significant downward pressure on margins when the manufactured premium unwinds.</p>
+
+    <p>The price of every commodity is an answer to a question. The question is: which shortage is real? The framework's purpose is to separate the answer into layers — real, bottleneck, monetary, and policy — and to identify who captures each layer's premium. In 2026, the layer being captured most durably, across the most commodities, by the smallest number of families, is the policy layer. That layer is not geological. It is not biological. It is a political choice, made repeatedly, and the beneficiaries are not hard to name.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* Commodity price data, annual averages, indexed to 2008=100
+     Years: 2008-2026 (19 points; 2026 partial)
+     Beef:     3.04 3.10 3.18 3.46 3.72 3.82 4.30 4.63 4.25 4.12 4.12 4.23 4.63 4.88 5.31 5.43 5.48 6.09 6.78
+     WTI:      99.67 61.95 79.48 95.11 94.05 97.98 93.17 48.66 43.29 50.80 65.23 57.03 39.68 68.14 94.53 78.24 75.83 68.66 70.00
+     Soybeans: 12.32 10.11 10.11 13.46 14.62 14.40 12.29 10.11 9.88 9.47 9.35 8.48 10.51 13.03 15.50 13.71 10.49 9.80 10.00
+     Corn:     4.07 3.55 3.70 5.18 6.89 6.72 3.97 3.84 3.52 3.53 3.75 3.57 3.60 5.63 6.79 4.83 4.46 4.42 4.50
+     NatGas:   8.86 3.94 4.37 4.00 2.75 3.73 4.35 2.62 2.52 2.99 3.15 2.56 2.03 3.91 6.45 2.74 2.19 2.20 2.50
+     Cotton:   0.49 0.52 0.79 1.04 0.73 0.70 0.62 0.65 0.67 0.75 0.80 0.66 0.65 0.83 0.95 0.83 0.72 0.72 0.72
+  */
+  var YEARS = [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+  var RAW = {
+    beef:    [3.04,3.10,3.18,3.46,3.72,3.82,4.30,4.63,4.25,4.12,4.12,4.23,4.63,4.88,5.31,5.43,5.48,6.09,6.78],
+    oil:     [99.67,61.95,79.48,95.11,94.05,97.98,93.17,48.66,43.29,50.80,65.23,57.03,39.68,68.14,94.53,78.24,75.83,68.66,70.0],
+    soy:     [12.32,10.11,10.11,13.46,14.62,14.40,12.29,10.11,9.88,9.47,9.35,8.48,10.51,13.03,15.50,13.71,10.49,9.80,10.0],
+    corn:    [4.07,3.55,3.70,5.18,6.89,6.72,3.97,3.84,3.52,3.53,3.75,3.57,3.60,5.63,6.79,4.83,4.46,4.42,4.50],
+    gas:     [8.86,3.94,4.37,4.00,2.75,3.73,4.35,2.62,2.52,2.99,3.15,2.56,2.03,3.91,6.45,2.74,2.19,2.20,2.50],
+    cotton:  [0.49,0.52,0.79,1.04,0.73,0.70,0.62,0.65,0.67,0.75,0.80,0.66,0.65,0.83,0.95,0.83,0.72,0.72,0.72]
+  };
+
+  // Index to 2008 = 100
+  var IDX = {};
+  Object.keys(RAW).forEach(function(k) {
+    var base = RAW[k][0];
+    IDX[k] = RAW[k].map(function(v){ return v / base * 100; });
+  });
+
+  var COLORS = { beef:'#8a3324', oil:'#2B4A6B', soy:'#3f6b3a', corn:'#7a5a18', gas:'#5c5247', cotton:'#6d5fa0' };
+  var DASHES = { beef:'', oil:'5 3', soy:'', corn:'3 2', gas:'4 2', cotton:'6 2' };
+
+  var svg = document.getElementById('commodity-svg');
+  var W=900, H=380, L=46, R=16, T=24, B=46;
+  var iw=W-L-R, ih=H-T-B;
+  var ns='http://www.w3.org/2000/svg';
+  var n=YEARS.length;
+
+  function el(tag,attrs,txt){
+    var e=document.createElementNS(ns,tag);
+    for(var k in attrs) e.setAttribute(k,attrs[k]);
+    if(txt!==undefined) e.textContent=txt;
+    svg.appendChild(e); return e;
+  }
+
+  var yMin=0, yMax=200;
+
+  function X(i){ return L+(i/(n-1))*iw; }
+  function Y(v){ return T+ih-(v-yMin)/(yMax-yMin)*ih; }
+
+  // Grid
+  [50,100,150,200].forEach(function(v){
+    el('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:'#ddd3c2','stroke-width':v===100?1:0.5});
+    el('text',{x:L-4,y:Y(v)+4,'text-anchor':'end','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono,monospace'},v+'');
+  });
+
+  // Annotation: 2022 synchronized spike
+  var x2022 = X(14);
+  el('line',{x1:x2022,y1:T,x2:x2022,y2:T+ih,stroke:'#ddd3c2','stroke-width':1,'stroke-dasharray':'4 3'});
+  el('text',{x:x2022+3,y:T+14,'font-size':8,fill:'#8a8073','font-family':'IBM Plex Mono,monospace'},'2022 synchronized');
+  el('text',{x:x2022+3,y:T+24,'font-size':8,fill:'#8a8073','font-family':'IBM Plex Mono,monospace'},'spike');
+
+  // Baseline
+  el('line',{x1:L,y1:T+ih,x2:L+iw,y2:T+ih,stroke:'#ddd3c2','stroke-width':1});
+  el('line',{x1:L,y1:Y(100),x2:L+iw,y2:Y(100),stroke:'#ddd3c2','stroke-width':0.7,'stroke-dasharray':'2 4'});
+  el('text',{x:L+4,y:Y(100)-4,'font-size':8,fill:'#8a8073','font-family':'IBM Plex Mono,monospace'},'2008 baseline');
+
+  // X axis
+  YEARS.forEach(function(yr,i){
+    var tx=X(i);
+    el('line',{x1:tx,y1:T+ih,x2:tx,y2:T+ih+4,stroke:'#ddd3c2','stroke-width':0.7});
+    if(yr===2008||yr%2===0){
+      el('text',{x:tx,y:T+ih+15,'text-anchor':'middle','font-size':8.5,fill:'#8a8073','font-family':'IBM Plex Mono,monospace'},yr+'');
+    }
+  });
+
+  // Series (draw in order: gas first so beef is on top)
+  ['gas','cotton','corn','soy','oil','beef'].forEach(function(k){
+    var pts=IDX[k].map(function(v,i){ return X(i).toFixed(1)+','+Y(v).toFixed(1); }).join(' ');
+    var d=DASHES[k];
+    var attrs={points:pts,fill:'none',stroke:COLORS[k],'stroke-width':k==='beef'?2.5:1.7,'stroke-linejoin':'round'};
+    if(d) attrs['stroke-dasharray']=d;
+    el('polyline',attrs);
+    // end label
+    var lastV=IDX[k][n-1];
+    el('text',{x:X(n-1)+4,y:Y(lastV)+4,'font-size':8.5,fill:COLORS[k],'font-family':'IBM Plex Mono,monospace',
+      'font-weight':k==='beef'?'600':'400'},
+      k==='beef'?'beef':k==='oil'?'oil':k==='soy'?'soy':k==='corn'?'corn':k==='gas'?'gas':'cot');
+  });
+
+  // Y axis label
+  el('text',{x:L-36,y:T+ih/2,'text-anchor':'middle','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono,monospace',
+    transform:'rotate(-90 '+(L-36)+' '+(T+ih/2)+')'},'Index (2008 = 100)');
+})();
+</script>
+</body>
+</html>
