@@ -225,10 +225,10 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 
         <div class="stat-card" id="stat-card" style="display:none">
           <div class="stat-head">Overview</div>
-          <div class="stat-row"><span class="stat-key">US total</span><span class="stat-val" id="st-total">—</span></div>
-          <div class="stat-row"><span class="stat-key">Producing states</span><span class="stat-val" id="st-states">—</span></div>
-          <div class="stat-row"><span class="stat-key">Top state</span><span class="stat-val hi" id="st-hi">—</span></div>
-          <div class="stat-row"><span class="stat-key">TX share of US</span><span class="stat-val" id="st-tx">—</span></div>
+          <div class="stat-row"><span class="stat-key">US total</span><span class="stat-val" id="st-total">,</span></div>
+          <div class="stat-row"><span class="stat-key">Producing states</span><span class="stat-val" id="st-states">,</span></div>
+          <div class="stat-row"><span class="stat-key">Top state</span><span class="stat-val hi" id="st-hi">,</span></div>
+          <div class="stat-row"><span class="stat-key">TX share of US</span><span class="stat-val" id="st-tx">,</span></div>
         </div>
 
         <div id="rank-section" style="display:none">
@@ -256,10 +256,10 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 
   <div class="mobile-stats" id="mobile-stats">
     <div class="mobile-stats-scroll">
-      <div class="mobile-stat"><span class="mobile-stat-key">US total</span><span class="mobile-stat-val" id="m-total">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Producing states</span><span class="mobile-stat-val" id="m-states">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Top state</span><span class="mobile-stat-val hi" id="m-hi">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">TX share</span><span class="mobile-stat-val" id="m-tx">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">US total</span><span class="mobile-stat-val" id="m-total">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Producing states</span><span class="mobile-stat-val" id="m-states">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Top state</span><span class="mobile-stat-val hi" id="m-hi">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">TX share</span><span class="mobile-stat-val" id="m-tx">,</span></div>
     </div>
   </div>
 </div>
@@ -289,7 +289,7 @@ const STATE_FIPS = {
 const FIPS_STATE = Object.fromEntries(Object.entries(STATE_FIPS).map(([a,f])=>[f,a]));
 
 function fmtBbl(mbbl) {
-  if (mbbl == null) return '—';
+  if (mbbl == null) return ',';
   if (mbbl >= 1000000) return (mbbl/1000000).toFixed(2) + 'B bbl';
   if (mbbl >= 1000)    return (mbbl/1000).toFixed(0) + 'M bbl';
   return mbbl.toLocaleString() + 'k bbl';
@@ -325,8 +325,8 @@ function updateSidebar(year) {
   const entries = Object.entries(yearMap).sort((a,b)=>b[1]-a[1]);
   const total = entries.reduce((s,[,v])=>s+v,0);
   const txVal = yearMap['TX'] || 0;
-  const txPct = total ? (txVal/total*100).toFixed(1)+'%' : '—';
-  const topName = entries[0] ? (STATE_NAMES[entries[0][0]] || entries[0][0]) : '—';
+  const txPct = total ? (txVal/total*100).toFixed(1)+'%' : ',';
+  const topName = entries[0] ? (STATE_NAMES[entries[0][0]] || entries[0][0]) : ',';
 
   document.getElementById('st-total').textContent  = fmtBbl(total);
   document.getElementById('st-states').textContent = entries.length;

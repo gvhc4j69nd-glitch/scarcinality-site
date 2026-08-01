@@ -116,11 +116,11 @@
   <div class="legend">
     <div class="legend-item">
       <div class="legend-line" style="background:var(--brent-color);"></div>
-      Brent crude ($/barrel) — left axis
+      Brent crude ($/barrel), left axis
     </div>
     <div class="legend-item">
       <div class="legend-line" style="background:var(--rig-color);"></div>
-      US rig count (oil + gas) — right axis
+      US rig count (oil + gas), right axis
     </div>
   </div>
 
@@ -134,7 +134,7 @@
   </div>
 
   <div class="prose-note">
-    <strong>Reading the chart.</strong> Brent (oxblood) and the US rig count (navy) track each other with a lag — drillers respond to price but capital cycles take six to twelve months to move. The 2015–16 collapse shows the lag clearly: rigs peaked in late 2014 and kept falling for eighteen months after Brent bottomed. The COVID crash in April 2020 was simultaneous — both fell together because demand destroyed price and financing in the same week. The 2022 Ukraine shock lifted Brent sharply while rigs rose only gradually, reflecting shale operators' new discipline of returning cash rather than chasing barrels. The divergence since 2023 — price softening while rigs hold — is the current open question. Sources: EIA (Brent spot, $/barrel); Baker Hughes North America Rotary Rig Count (US total, oil + gas, monthly average).
+    <strong>Reading the chart.</strong> Brent (oxblood) and the US rig count (navy) track each other with a lag, drillers respond to price but capital cycles take six to twelve months to move. The 2015–16 collapse shows the lag clearly: rigs peaked in late 2014 and kept falling for eighteen months after Brent bottomed. The COVID crash in April 2020 was simultaneous, both fell together because demand destroyed price and financing in the same week. The 2022 Ukraine shock lifted Brent sharply while rigs rose only gradually, reflecting shale operators' new discipline of returning cash rather than chasing barrels. The divergence since 2023, price softening while rigs hold, is the current open question. Sources: EIA (Brent spot, $/barrel); Baker Hughes North America Rotary Rig Count (US total, oil + gas, monthly average).
   </div>
 </div>
 
@@ -204,7 +204,7 @@
       el("text", { x: W - R + 6, y: ry + 4, "text-anchor": "start", "font-size": 10, fill: "#2B4A6B", "font-family": "IBM Plex Mono, monospace" }, rv);
     }
 
-    // X axis labels — every 6 months
+    // X axis labels, every 6 months
     rows.forEach(function (r, i) {
       var m = r.period.slice(5);
       if (m === "01" || m === "07") {

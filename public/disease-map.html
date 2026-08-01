@@ -388,10 +388,10 @@ select:focus { border-color: var(--oxblood); outline: none; box-shadow: 0 0 0 2p
 
         <div class="stats-card" id="stats-card">
           <div class="card-title">Overview</div>
-          <div class="stat-row"><span class="stat-key">Total cases</span><span class="stat-val" id="st-total">—</span></div>
-          <div class="stat-row"><span class="stat-key">States reporting</span><span class="stat-val" id="st-states">—</span></div>
-          <div class="stat-row"><span class="stat-key">Highest state</span><span class="stat-val hi" id="st-hi">—</span></div>
-          <div class="stat-row"><span class="stat-key">Lowest (non-zero)</span><span class="stat-val lo" id="st-lo">—</span></div>
+          <div class="stat-row"><span class="stat-key">Total cases</span><span class="stat-val" id="st-total">,</span></div>
+          <div class="stat-row"><span class="stat-key">States reporting</span><span class="stat-val" id="st-states">,</span></div>
+          <div class="stat-row"><span class="stat-key">Highest state</span><span class="stat-val hi" id="st-hi">,</span></div>
+          <div class="stat-row"><span class="stat-key">Lowest (non-zero)</span><span class="stat-val lo" id="st-lo">,</span></div>
         </div>
 
         <div class="hotspot-section" id="hotspot-section">
@@ -454,10 +454,10 @@ select:focus { border-color: var(--oxblood); outline: none; box-shadow: 0 0 0 2p
   </div>
   <div class="mobile-stats" id="mobile-stats">
     <div class="mobile-stats-scroll">
-      <div class="mobile-stat"><span class="mobile-stat-key">Total cases</span><span class="mobile-stat-val" id="m-total">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">States reporting</span><span class="mobile-stat-val" id="m-states">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Highest</span><span class="mobile-stat-val hi" id="m-hi">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Lowest</span><span class="mobile-stat-val" id="m-lo">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Total cases</span><span class="mobile-stat-val" id="m-total">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">States reporting</span><span class="mobile-stat-val" id="m-states">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Highest</span><span class="mobile-stat-val hi" id="m-hi">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Lowest</span><span class="mobile-stat-val" id="m-lo">,</span></div>
     </div>
   </div>
 </div>
@@ -521,7 +521,7 @@ async function loadDiseases() {
   try {
     const data = await apiFetch({ '$select':'label','$group':'label','$order':'label','$limit':'500' });
     const sel = document.getElementById('disease-select');
-    sel.innerHTML = '<option value="">— Select a disease —</option>';
+    sel.innerHTML = '<option value="">, Select a disease,</option>';
     data.forEach(d => {
       const o = document.createElement('option');
       o.value = d.label; o.textContent = d.label;
@@ -591,7 +591,7 @@ function onHover(event, d) {
   const cases = casesMap[fips];
   document.getElementById('tt-name').textContent = name;
   document.getElementById('tt-cases').textContent = cases !== undefined ? cases.toLocaleString() : 'No data';
-  document.getElementById('tt-pct').textContent = (cases !== undefined && totalCases > 0) ? ((cases/totalCases)*100).toFixed(1)+'%' : '—';
+  document.getElementById('tt-pct').textContent = (cases !== undefined && totalCases > 0) ? ((cases/totalCases)*100).toFixed(1)+'%' : ',';
   const pct = (cases !== undefined && maxCases > 0) ? (Math.sqrt(cases/maxCases)*100).toFixed(1)+'%' : '0%';
   const bar = document.getElementById('tt-bar');
   bar.style.width = pct;
@@ -616,12 +616,12 @@ function updateSidebar() {
   const hi = reporting[0], lo = reporting[reporting.length-1];
   document.getElementById('st-total').textContent  = totalCases.toLocaleString();
   document.getElementById('st-states').textContent = reporting.length+' / '+Object.keys(NAME_BY_FIPS).length;
-  document.getElementById('st-hi').textContent     = hi ? `${hi.name} (${hi.cases.toLocaleString()})` : '—';
-  document.getElementById('st-lo').textContent     = lo ? `${lo.name} (${lo.cases.toLocaleString()})` : '—';
+  document.getElementById('st-hi').textContent     = hi ? `${hi.name} (${hi.cases.toLocaleString()})` : ',';
+  document.getElementById('st-lo').textContent     = lo ? `${lo.name} (${lo.cases.toLocaleString()})` : ',';
   document.getElementById('m-total').textContent   = totalCases.toLocaleString();
   document.getElementById('m-states').textContent  = reporting.length+' / '+Object.keys(NAME_BY_FIPS).length;
-  document.getElementById('m-hi').textContent      = hi ? hi.name : '—';
-  document.getElementById('m-lo').textContent      = lo ? lo.name : '—';
+  document.getElementById('m-hi').textContent      = hi ? hi.name : ',';
+  document.getElementById('m-lo').textContent      = lo ? lo.name : ',';
   document.getElementById('stats-card').classList.add('visible');
   const top = reporting.slice(0,7);
   document.getElementById('hotspot-list').innerHTML = top.map((e,i) => `

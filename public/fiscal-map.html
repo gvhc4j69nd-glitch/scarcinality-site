@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Federal Donor &amp; Consumer States · Scarcinality</title>
-<meta name="description" content="Which US states pay more in federal taxes than they receive in federal spending — and how that aligns with political lean, 2008–2023.">
+<meta name="description" content="Which US states pay more in federal taxes than they receive in federal spending, and how that aligns with political lean, 2008–2023.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Scarcinality">
 <meta property="og:title" content="Federal Donor &amp; Consumer States · Scarcinality">
@@ -35,12 +35,12 @@
   --rule:           #ddd3c2;
   --rule-soft:      #e7ddcd;
   /* Political × fiscal colors */
-  --c-red-consumer:  #8b2a2a;   /* deep rust — votes R, receives more than pays */
-  --c-red-donor:     #e8a0a0;   /* pale rose — votes R, pays more than receives */
-  --c-blue-consumer: #9ac4e0;   /* pale sky — votes D, receives more than pays */
-  --c-blue-donor:    #1a5276;   /* deep navy — votes D, pays more than receives */
-  --c-purple-consumer: #a57ec8; /* medium violet — swing, receives more */
-  --c-purple-donor:    #4a235a; /* deep purple — swing, pays more */
+  --c-red-consumer:  #8b2a2a;   /* deep rust, votes R, receives more than pays */
+  --c-red-donor:     #e8a0a0;   /* pale rose, votes R, pays more than receives */
+  --c-blue-consumer: #9ac4e0;   /* pale sky, votes D, receives more than pays */
+  --c-blue-donor:    #1a5276;   /* deep navy, votes D, pays more than receives */
+  --c-purple-consumer: #a57ec8; /* medium violet, swing, receives more */
+  --c-purple-donor:    #4a235a; /* deep purple, swing, pays more */
   --c-neutral:       #e0dbd0;   /* near-balanced */
   --serif: "EB Garamond", Georgia, serif;
   --mono:  "IBM Plex Mono", ui-monospace, monospace;
@@ -253,18 +253,18 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 
         <div class="stats-card" id="stat-card" style="display:none">
           <div class="stats-card-title">National overview</div>
-          <div class="stat-row"><span class="stat-label">Donor states</span><span class="stat-val donor hi" id="st-donors">—</span></div>
-          <div class="stat-row"><span class="stat-label">Consumer states</span><span class="stat-val consumer hi" id="st-consumers">—</span></div>
-          <div class="stat-row"><span class="stat-label">Largest donor</span><span class="stat-val" id="st-top-donor">—</span></div>
-          <div class="stat-row"><span class="stat-label">Largest consumer</span><span class="stat-val" id="st-top-consumer">—</span></div>
+          <div class="stat-row"><span class="stat-label">Donor states</span><span class="stat-val donor hi" id="st-donors">,</span></div>
+          <div class="stat-row"><span class="stat-label">Consumer states</span><span class="stat-val consumer hi" id="st-consumers">,</span></div>
+          <div class="stat-row"><span class="stat-label">Largest donor</span><span class="stat-val" id="st-top-donor">,</span></div>
+          <div class="stat-row"><span class="stat-label">Largest consumer</span><span class="stat-val" id="st-top-consumer">,</span></div>
         </div>
 
         <div class="party-section" id="party-section" style="display:none">
           <h3>Red state donors vs. consumers</h3>
           <div class="party-bar" id="red-bar">
             <div class="party-bar-label">
-              <span id="red-donor-ct">—</span> donors
-              <span id="red-consumer-ct">—</span> consumers
+              <span id="red-donor-ct">,</span> donors
+              <span id="red-consumer-ct">,</span> consumers
             </div>
             <div class="party-bar-track">
               <div class="party-bar-fill" id="red-donor-fill" style="background:var(--c-red-donor);width:50%"></div>
@@ -274,8 +274,8 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
           <h3 style="margin-top:.5rem">Blue state donors vs. consumers</h3>
           <div class="party-bar" id="blue-bar">
             <div class="party-bar-label">
-              <span id="blue-donor-ct">—</span> donors
-              <span id="blue-consumer-ct">—</span> consumers
+              <span id="blue-donor-ct">,</span> donors
+              <span id="blue-consumer-ct">,</span> consumers
             </div>
             <div class="party-bar-track">
               <div class="party-bar-fill" id="blue-donor-fill" style="background:var(--c-blue-donor);width:50%"></div>
@@ -285,18 +285,18 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
         </div>
 
         <div class="detail-card" id="detail-card">
-          <div class="detail-name" id="d-name">—</div>
+          <div class="detail-name" id="d-name">,</div>
           <div class="detail-badge" id="d-badge"></div>
           <div class="detail-divider"></div>
           <div class="program-list">
-            <div class="prog-row"><span class="prog-label">Federal taxes paid</span><span class="prog-val" id="d-taxes">—</span></div>
-            <div class="prog-row"><span class="prog-label">Federal spending rec'd</span><span class="prog-val" id="d-spending">—</span></div>
-            <div class="prog-row"><span class="prog-label">Net balance</span><span class="prog-val" id="d-net">—</span></div>
+            <div class="prog-row"><span class="prog-label">Federal taxes paid</span><span class="prog-val" id="d-taxes">,</span></div>
+            <div class="prog-row"><span class="prog-label">Federal spending rec'd</span><span class="prog-val" id="d-spending">,</span></div>
+            <div class="prog-row"><span class="prog-label">Net balance</span><span class="prog-val" id="d-net">,</span></div>
             <div class="detail-divider"></div>
-            <div class="prog-row"><span class="prog-label">Per capita balance</span><span class="prog-val" id="d-net-pc">—</span></div>
-            <div class="prog-row"><span class="prog-label">Grants (Medicaid, ed…)</span><span class="prog-val" id="d-grants">—</span></div>
-            <div class="prog-row"><span class="prog-label">Direct pmts (SS, Medicare)</span><span class="prog-val" id="d-direct">—</span></div>
-            <div class="prog-row"><span class="prog-label">Contracts (defense…)</span><span class="prog-val" id="d-contracts">—</span></div>
+            <div class="prog-row"><span class="prog-label">Per capita balance</span><span class="prog-val" id="d-net-pc">,</span></div>
+            <div class="prog-row"><span class="prog-label">Grants (Medicaid, ed…)</span><span class="prog-val" id="d-grants">,</span></div>
+            <div class="prog-row"><span class="prog-label">Direct pmts (SS, Medicare)</span><span class="prog-val" id="d-direct">,</span></div>
+            <div class="prog-row"><span class="prog-label">Contracts (defense…)</span><span class="prog-val" id="d-contracts">,</span></div>
           </div>
         </div>
 
@@ -332,10 +332,10 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
   <!-- Mobile stats strip (outside layout) -->
   <div class="mobile-stats" id="mobile-stats" style="display:none">
     <div class="mobile-stats-scroll">
-      <div class="mobile-stat"><span class="mobile-stat-key">Donor states</span><span class="mobile-stat-val donor" id="m-donors">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Consumer states</span><span class="mobile-stat-val consumer" id="m-consumers">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Red consumers</span><span class="mobile-stat-val" id="m-red-consumer">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Blue donors</span><span class="mobile-stat-val" id="m-blue-donor">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Donor states</span><span class="mobile-stat-val donor" id="m-donors">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Consumer states</span><span class="mobile-stat-val consumer" id="m-consumers">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Red consumers</span><span class="mobile-stat-val" id="m-red-consumer">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Blue donors</span><span class="mobile-stat-val" id="m-blue-donor">,</span></div>
     </div>
   </div>
 </div>
@@ -386,7 +386,7 @@ function colorFor(d) {
 }
 
 function fmt(n) {
-  if (n == null) return '—';
+  if (n == null) return ',';
   const abs = Math.abs(n);
   if (abs >= 1e12) return (n/1e12).toFixed(2) + 'T';
   if (abs >= 1e9)  return (n/1e9).toFixed(1) + 'B';
@@ -395,7 +395,7 @@ function fmt(n) {
 }
 
 function fmtPc(n) {
-  if (n == null) return '—';
+  if (n == null) return ',';
   const s = n < 0 ? '-' : '+';
   return s + '$' + Math.abs(n).toLocaleString();
 }
@@ -440,9 +440,9 @@ function renderMap() {
       tt.innerHTML = `<strong>${name}</strong>
         <div class="tt-row"><span class="tt-label">Political lean</span><span class="tt-val">${leanLabel}</span></div>
         <div class="tt-row"><span class="tt-label">Fiscal status</span><span class="tt-val">${status}</span></div>
-        <div class="tt-row"><span class="tt-label">Federal taxes paid</span><span class="tt-val">${sd ? fmt(sd.taxes) : '—'}</span></div>
-        <div class="tt-row"><span class="tt-label">Federal spending</span><span class="tt-val">${sd ? fmt(sd.spending) : '—'}</span></div>
-        <div class="tt-row"><span class="tt-label">Net per capita</span><span class="tt-val">${sd ? fmtPc(sd.net_pc) : '—'}</span></div>`;
+        <div class="tt-row"><span class="tt-label">Federal taxes paid</span><span class="tt-val">${sd ? fmt(sd.taxes) : ','}</span></div>
+        <div class="tt-row"><span class="tt-label">Federal spending</span><span class="tt-val">${sd ? fmt(sd.spending) : ','}</span></div>
+        <div class="tt-row"><span class="tt-label">Net per capita</span><span class="tt-val">${sd ? fmtPc(sd.net_pc) : ','}</span></div>`;
       tt.classList.add('visible');
       const x = event.clientX + 14, y = event.clientY + 14;
       const rect = tt.getBoundingClientRect();
@@ -481,8 +481,8 @@ function updateSidebar(year) {
 
   document.getElementById('st-donors').textContent = donors.length;
   document.getElementById('st-consumers').textContent = consumers.length;
-  document.getElementById('st-top-donor').textContent = donors[0] ? STATE_NAMES[donors[0][0]] || donors[0][0] : '—';
-  document.getElementById('st-top-consumer').textContent = consumers[0] ? STATE_NAMES[consumers[0][0]] || consumers[0][0] : '—';
+  document.getElementById('st-top-donor').textContent = donors[0] ? STATE_NAMES[donors[0][0]] || donors[0][0] : ',';
+  document.getElementById('st-top-consumer').textContent = consumers[0] ? STATE_NAMES[consumers[0][0]] || consumers[0][0] : ',';
   document.getElementById('stat-card').style.display = '';
 
   // Party bars

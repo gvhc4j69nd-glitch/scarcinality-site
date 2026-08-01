@@ -350,7 +350,7 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
         <div class="control-group">
           <div class="control-label">Commodity</div>
           <select id="commodity-select">
-            <option value="">— Select a crop —</option>
+            <option value="">, Select a crop,</option>
             <option value="CORN">Corn</option>
             <option value="SOYBEANS">Soybeans</option>
             <option value="WHEAT">Wheat (all)</option>
@@ -387,11 +387,11 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
 
         <div class="stats-card" id="stats-card">
           <div class="card-title">Overview</div>
-          <div class="stat-row"><span class="stat-key">Total output</span><span class="stat-val" id="st-total">—</span></div>
-          <div class="stat-row"><span class="stat-key">Unit</span><span class="stat-val" id="st-unit">—</span></div>
-          <div class="stat-row"><span class="stat-key">States reporting</span><span class="stat-val" id="st-states">—</span></div>
-          <div class="stat-row"><span class="stat-key">Top producer</span><span class="stat-val hi" id="st-hi">—</span></div>
-          <div class="stat-row"><span class="stat-key">Smallest (non-zero)</span><span class="stat-val lo" id="st-lo">—</span></div>
+          <div class="stat-row"><span class="stat-key">Total output</span><span class="stat-val" id="st-total">,</span></div>
+          <div class="stat-row"><span class="stat-key">Unit</span><span class="stat-val" id="st-unit">,</span></div>
+          <div class="stat-row"><span class="stat-key">States reporting</span><span class="stat-val" id="st-states">,</span></div>
+          <div class="stat-row"><span class="stat-key">Top producer</span><span class="stat-val hi" id="st-hi">,</span></div>
+          <div class="stat-row"><span class="stat-key">Smallest (non-zero)</span><span class="stat-val lo" id="st-lo">,</span></div>
         </div>
 
         <div class="producers-section" id="producers-section">
@@ -441,10 +441,10 @@ select:focus { border-color: var(--oxblood); box-shadow: 0 0 0 2px rgba(138,51,3
   </div>
   <div class="mobile-stats" id="mobile-stats">
     <div class="mobile-stats-scroll">
-      <div class="mobile-stat"><span class="mobile-stat-key">Total output</span><span class="mobile-stat-val" id="m-total">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">States</span><span class="mobile-stat-val" id="m-states">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Top producer</span><span class="mobile-stat-val hi" id="m-hi">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Smallest</span><span class="mobile-stat-val" id="m-lo">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Total output</span><span class="mobile-stat-val" id="m-total">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">States</span><span class="mobile-stat-val" id="m-states">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Top producer</span><span class="mobile-stat-val hi" id="m-hi">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Smallest</span><span class="mobile-stat-val" id="m-lo">,</span></div>
     </div>
   </div>
 </div>
@@ -593,7 +593,7 @@ function onHover(event, d) {
   document.getElementById('tt-name').textContent = name;
   document.getElementById('tt-val').textContent = fmtVal(val, currentUnit);
   document.getElementById('tt-pct').textContent = (val !== undefined && totalVal > 0)
-    ? ((val / totalVal) * 100).toFixed(1) + '%' : '—';
+    ? ((val / totalVal) * 100).toFixed(1) + '%' : ',';
   const pct = (val !== undefined && maxVal > 0) ? (Math.sqrt(val/maxVal)*100).toFixed(1)+'%' : '0%';
   const bar = document.getElementById('tt-bar');
   bar.style.width = pct;
@@ -622,12 +622,12 @@ function updateSidebar(cfg) {
   document.getElementById('st-total').textContent  = fmtVal(totalVal, cfg.unit);
   document.getElementById('st-unit').textContent   = cfg.unit;
   document.getElementById('st-states').textContent = nonzero.length + ' states';
-  document.getElementById('st-hi').textContent     = hi ? `${hi.name}` : '—';
-  document.getElementById('st-lo').textContent     = lo ? `${lo.name}` : '—';
+  document.getElementById('st-hi').textContent     = hi ? `${hi.name}` : ',';
+  document.getElementById('st-lo').textContent     = lo ? `${lo.name}` : ',';
   document.getElementById('m-total').textContent   = fmtVal(totalVal, cfg.unit);
   document.getElementById('m-states').textContent  = nonzero.length + ' states';
-  document.getElementById('m-hi').textContent      = hi ? hi.name : '—';
-  document.getElementById('m-lo').textContent      = lo ? lo.name : '—';
+  document.getElementById('m-hi').textContent      = hi ? hi.name : ',';
+  document.getElementById('m-lo').textContent      = lo ? lo.name : ',';
   document.getElementById('stats-card').classList.add('visible');
 
   const top = nonzero.slice(0, 7);

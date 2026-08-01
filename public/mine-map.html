@@ -294,9 +294,9 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 
         <div class="stat-card" id="stat-card" style="display:none">
           <div class="stat-head">Overview</div>
-          <div class="stat-row"><span class="stat-key">Total mines</span><span class="stat-val" id="st-total">—</span></div>
-          <div class="stat-row"><span class="stat-key">States with mines</span><span class="stat-val" id="st-states">—</span></div>
-          <div class="stat-row"><span class="stat-key">Top state</span><span class="stat-val hi" id="st-hi">—</span></div>
+          <div class="stat-row"><span class="stat-key">Total mines</span><span class="stat-val" id="st-total">,</span></div>
+          <div class="stat-row"><span class="stat-key">States with mines</span><span class="stat-val" id="st-states">,</span></div>
+          <div class="stat-row"><span class="stat-key">Top state</span><span class="stat-val hi" id="st-hi">,</span></div>
         </div>
 
         <div id="rank-section" style="display:none">
@@ -327,9 +327,9 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
   </div>
   <div class="mobile-stats" id="mobile-stats">
     <div class="mobile-stats-scroll">
-      <div class="mobile-stat"><span class="mobile-stat-key">Total mines</span><span class="mobile-stat-val" id="m-total">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">States</span><span class="mobile-stat-val" id="m-states">—</span></div>
-      <div class="mobile-stat"><span class="mobile-stat-key">Top state</span><span class="mobile-stat-val hi" id="m-hi">—</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Total mines</span><span class="mobile-stat-val" id="m-total">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">States</span><span class="mobile-stat-val" id="m-states">,</span></div>
+      <div class="mobile-stat"><span class="mobile-stat-key">Top state</span><span class="mobile-stat-val hi" id="m-hi">,</span></div>
     </div>
   </div>
 </div>
@@ -415,7 +415,7 @@ function updateSidebar(commodity) {
   const entries = Object.entries(mineMap).sort((a,b) => b[1]-a[1]);
   const total = entries.reduce((s,[,v]) => s+v, 0);
   const stateCount = entries.length;
-  const topState = entries[0] ? STATE_NAMES[entries[0][0]] || entries[0][0] : '—';
+  const topState = entries[0] ? STATE_NAMES[entries[0][0]] || entries[0][0] : ',';
 
   document.getElementById('st-total').textContent = total.toLocaleString();
   document.getElementById('st-states').textContent = stateCount;
@@ -478,7 +478,7 @@ function renderMap() {
       const pct = maxVal > 0 && val ? ((val / Object.values(mineMap).reduce((s,v)=>s+v,0))*100).toFixed(1) : null;
       tooltip.style.display = 'block';
       tooltip.innerHTML = `<div class="tip-state">${name}</div>
-        <div class="tip-row"><span>Active mines</span><span class="tip-val">${val !== undefined ? val : '—'}</span></div>
+        <div class="tip-row"><span>Active mines</span><span class="tip-val">${val !== undefined ? val : ','}</span></div>
         ${pct ? `<div class="tip-row"><span>Share of US</span><span class="tip-val">${pct}%</span></div>` : ''}`;
       const rect = el.getBoundingClientRect();
       let x = event.clientX - rect.left + 12;

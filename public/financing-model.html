@@ -153,7 +153,7 @@ table.hh-table td.verdict{text-align:center;}
 
   <article class="prose" style="max-width:52rem;">
 
-    <p>The <a href="/dispatch-counterfeit-shortage-of-care">Counterfeit Shortage of Care</a> argues that America faces no real resource shortage preventing universal coverage — the binding scarcity is monetary, not physical. The <a href="/dispatch-order-of-operations">Order of Operations</a> sets out the sequencing. This model makes the arithmetic interactive. The core claim: if you reroute the dollars already being paid — employer premiums, worker premiums, out-of-pocket spending, and a recovered tax subsidy — into a single pool, the system costs less to run and the majority of households pay less than they do today.</p>
+    <p>The <a href="/dispatch-counterfeit-shortage-of-care">Counterfeit Shortage of Care</a> argues that America faces no real resource shortage preventing universal coverage, the binding scarcity is monetary, not physical. The <a href="/dispatch-order-of-operations">Order of Operations</a> sets out the sequencing. This model makes the arithmetic interactive. The core claim: if you reroute the dollars already being paid, employer premiums, worker premiums, out-of-pocket spending, and a recovered tax subsidy, into a single pool, the system costs less to run and the majority of households pay less than they do today.</p>
 
     <p>Blue inputs are yours to adjust. Black outputs are calculated. The structure follows the national health expenditure data; the sources are in the table footers.</p>
 
@@ -161,7 +161,7 @@ table.hh-table td.verdict{text-align:center;}
     <p>Two assumptions drive most of the arithmetic. Everything else flows from them.</p>
 
     <div class="model-panel">
-      <h3>Inputs — adjust to explore</h3>
+      <h3>Inputs, adjust to explore</h3>
       <div class="control-grid">
         <div class="control-row">
           <label>Employer payroll contribution rate</label>
@@ -195,7 +195,7 @@ table.hh-table td.verdict{text-align:center;}
     </div>
 
     <h2>National financing</h2>
-    <p>The numbers below update with the sliders. The existing public share — Medicare, Medicaid, and other government-sponsored spending — continues unchanged. Only the new financing needed is the target.</p>
+    <p>The numbers below update with the sliders. The existing public share, Medicare, Medicaid, and other government-sponsored spending, continues unchanged. Only the new financing needed is the target.</p>
 
     <div class="summary-grid" id="summary-grid">
       <!-- filled by JS -->
@@ -212,7 +212,7 @@ table.hh-table td.verdict{text-align:center;}
     <p class="note">Sources: CMS National Health Expenditure accounts 2024; BEA wages &amp; salaries; Tax Policy Center ESI exclusion estimate. Public share held at 47% of NHE (CMS government-sponsored share). Wage base $11,500B.</p>
 
     <h2>Household impact by income</h2>
-    <p>Illustrative households. The comparison is household-paid costs only — worker share of premium plus out-of-pocket — against the income-based contribution under the new system. The employer side is handled separately in the national financing above.</p>
+    <p>Illustrative households. The comparison is household-paid costs only, worker share of premium plus out-of-pocket, against the income-based contribution under the new system. The employer side is handled separately in the national financing above.</p>
     <p>Every household also gains: out-of-pocket capped at <strong id="cap-prose">$2,000</strong> per year, and the elimination of medical-bankruptcy risk.</p>
 
     <div class="crossover-note" id="crossover-note">Loading…</div>
@@ -232,7 +232,7 @@ table.hh-table td.verdict{text-align:center;}
         <!-- filled by JS -->
       </tbody>
     </table>
-    <p class="note">Current costs are approximate medians — premiums are roughly flat across income deciles, so higher earners' direct cost rises modestly while an income-based contribution rises with income. The contribution rate schedule is illustrative; exact rates are a legislative design choice.</p>
+    <p class="note">Current costs are approximate medians, premiums are roughly flat across income deciles, so higher earners' direct cost rises modestly while an income-based contribution rises with income. The contribution rate schedule is illustrative; exact rates are a legislative design choice.</p>
 
     <h2>Scenario: retaining a private layer</h2>
     <p>If complementary private insurance and private administration of the public benefit are kept, administrative savings are realized closer to the conservative floor ($265B vs. $450B). The trade reduces displacement of insurance-sector jobs but pushes more of the financing cost onto households. The column labeled <em>conservative</em> is the budget case.</p>
@@ -243,9 +243,9 @@ table.hh-table td.verdict{text-align:center;}
     <p class="note">Jobs displaced: central scenario ~1.8M gross; conservative (private layer retained) ~1.0M gross. A just-transition package scaled proportionally from the $107B figure requires a fraction of one year's savings to fund.</p>
 
     <h2>Reading the model</h2>
-    <p>The financing is not a new spending program. It is a consolidation of spending that already occurs — employer premiums, worker premiums, out-of-pocket costs, and a tax subsidy that currently flows disproportionately to high earners. The administrative savings come from eliminating the coordination and billing complexity that is unique to the American multi-payer system.</p>
+    <p>The financing is not a new spending program. It is a consolidation of spending that already occurs, employer premiums, worker premiums, out-of-pocket costs, and a tax subsidy that currently flows disproportionately to high earners. The administrative savings come from eliminating the coordination and billing complexity that is unique to the American multi-payer system.</p>
     <p>The scarcinality frame: as long as administrative savings and the ESI recapture exceed the amount employers and households are asked to contribute beyond their current spending, the net burden on the economy does not rise. The constraint is organizational, not material. No hospital is asked to close. No physician is asked to work for free. The real resource base is unchanged; only the money's routing changes.</p>
-    <p>Adjust the employer rate downward to see where the household residual rises past today's out-of-pocket burden. That is the zone where the reform becomes regressive in aggregate — the levers that prevent it from going there are the administrative savings and the ESI recapture, neither of which is speculative.</p>
+    <p>Adjust the employer rate downward to see where the household residual rises past today's out-of-pocket burden. That is the zone where the reform becomes regressive in aggregate, the levers that prevent it from going there are the administrative savings and the ESI recapture, neither of which is speculative.</p>
 
     <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this model';b.classList.remove('copied');},2000)})">Share this model</button>
 
@@ -412,7 +412,7 @@ function update() {
   }
 
   document.getElementById('crossover-note').innerHTML =
-    'At a ' + (rate*100).toFixed(2).replace(/\.?0+$/,'') + '% employer rate and $' + savings.toFixed(0) + 'B in administrative savings, the crossover sits near <strong>' + crossoverStr + '</strong> household income — below it, households pay less than today; above it, they pay more. Everyone gains the $' + Math.round(cap).toLocaleString() + ' out-of-pocket cap.';
+    'At a ' + (rate*100).toFixed(2).replace(/\.?0+$/,'') + '% employer rate and $' + savings.toFixed(0) + 'B in administrative savings, the crossover sits near <strong>' + crossoverStr + '</strong> household income, below it, households pay less than today; above it, they pay more. Everyone gains the $' + Math.round(cap).toLocaleString() + ' out-of-pocket cap.';
 
   var hbody = document.getElementById('hh-body');
   hbody.innerHTML = hhRows.map(function(r){
@@ -455,7 +455,7 @@ function update() {
 
   var sc = document.getElementById('scenario-compare');
   sc.innerHTML =
-    '<div class="scenario-col"><h4>Central — <span>$450B savings</span></h4>'
+    '<div class="scenario-col"><h4>Central, <span>$450B savings</span></h4>'
     + '<div class="sc-row"><span class="sc-label">Admin savings</span><span class="sc-val good">$' + savings.toFixed(0) + 'B (your input)</span></div>'
     + '<div class="sc-row"><span class="sc-label">New financing needed</span><span class="sc-val">$' + newNeeded.toFixed(0) + 'B</span></div>'
     + '<div class="sc-row"><span class="sc-label">Employer contribution</span><span class="sc-val">$' + employerContrib.toFixed(0) + 'B</span></div>'
@@ -463,7 +463,7 @@ function update() {
     + '<div class="sc-row"><span class="sc-label">Household change</span><span class="sc-val '+(householdChange<=0?'good':'bad')+'">'+(householdChange<=0?'−':'+')+'$'+Math.abs(householdChange).toFixed(0)+'B</span></div>'
     + '<div class="sc-row"><span class="sc-label">Jobs displaced (gross)</span><span class="sc-val bad">~1.8M</span></div>'
     + '</div>'
-    + '<div class="scenario-col"><h4>Conservative — <span>$265B savings</span></h4>'
+    + '<div class="scenario-col"><h4>Conservative, <span>$265B savings</span></h4>'
     + '<div class="sc-row"><span class="sc-label">Admin savings</span><span class="sc-val bad">$265B (McKinsey floor)</span></div>'
     + '<div class="sc-row"><span class="sc-label">New financing needed</span><span class="sc-val">$' + newNeededCons.toFixed(0) + 'B</span></div>'
     + '<div class="sc-row"><span class="sc-label">Employer contribution</span><span class="sc-val">$' + employerContrib.toFixed(0) + 'B</span></div>'
