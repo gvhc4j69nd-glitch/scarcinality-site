@@ -361,6 +361,7 @@ select:focus { border-color: var(--oxblood); outline: none; box-shadow: 0 0 0 2p
   <a href="/beef-price-chart">Beef Price</a>
   <a href="/political-spectrum">Politics</a>
   <a href="/economy-party-chart">Economy &amp; Party</a>
+  <button onclick="var b=this;navigator.clipboard.writeText(window.location.origin+window.location.pathname).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
 </div>
 
 <div id="map-app">
