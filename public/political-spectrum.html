@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Political Spectrum Gauge · Scarcinality</title>
+<meta name="description" content="An interpretive gauge of where 28 countries sit on the political spectrum, from communism to fascism, with a timeline of each country's trajectory from 1940 to the present. The United States, Germany, Russia, China, Hungary, Brazil, and 22 more.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Political Spectrum Gauge · Scarcinality">
+<meta property="og:description" content="Where 28 countries sit on the political spectrum, and how each moved from 1940 to now. An interpretive gauge and timeline.">
+<meta property="og:url" content="https://scarcinality.com/political-spectrum">
+<meta property="og:image" content="https://scarcinality.com/assets/curiosity-political-spectrum.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Political Spectrum Gauge · Scarcinality">
+<meta name="twitter:description" content="Where 28 countries sit on the political spectrum, and how each moved from 1940 to now.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/curiosity-political-spectrum.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
+.chart-wrap { max-width: 72rem; margin: 0 auto; padding: 1.6rem clamp(1.1rem,5vw,3rem) 3rem; }
+
+.country-bar {
+  display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-bottom: 1.4rem;
+}
+.country-bar label { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+#country-select {
+  font-family: var(--mono); font-size: .82rem;
+  border: 1px solid var(--rule); background: var(--parchment-deep);
+  color: var(--ink); padding: .45rem .6rem; outline: none; cursor: pointer;
+  min-width: 14rem;
+}
+#country-select:focus { border-color: var(--oxblood); }
+
+.gauge-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; margin-bottom: 1rem; }
+.gauge-box { flex: 1 1 24rem; max-width: 34rem; }
+#gauge-svg { width: 100%; height: auto; display: block; }
+.reading-box { flex: 1 1 16rem; padding-top: 1rem; }
+.reading-label { font-family: var(--mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+#reading-band { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--oxblood); line-height: 1.15; margin: .3rem 0 .2rem; }
+#reading-note { font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); line-height: 1.55; }
+
+.timeline-block { margin-top: 1.6rem; border-top: 1px solid var(--rule); padding-top: 1.4rem; }
+.timeline-block h3 { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 .8rem; }
+#timeline-svg { width: 100%; height: auto; display: block; }
+
+.prose-note { max-width: 54rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.6rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule); border-left: 3px solid var(--oxblood);
+  padding: .5rem .7rem; font-family: var(--mono); font-size: .7rem;
+  line-height: 1.5; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.1); z-index: 5;
+}
+.timeline-container { position: relative; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  #reading-band { font-size: 1.5rem; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>The Political Spectrum Gauge</h1>
+  <span class="source-badge">Interpretive · 28 countries · 1940–2026</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart">Beef Price</a>
+  <a href="/political-spectrum" aria-current="page">Politics</a>
+</div>
+
+<div class="chart-wrap">
+  <div class="country-bar">
+    <label for="country-select">Country</label>
+    <select id="country-select"></select>
+  </div>
+
+  <div class="gauge-row">
+    <div class="gauge-box">
+      <svg id="gauge-svg" viewBox="0 0 520 300" role="img" aria-label="Political spectrum gauge showing the selected country's current position"></svg>
+    </div>
+    <div class="reading-box">
+      <div class="reading-label">Current reading &middot; 2026</div>
+      <div id="reading-band"></div>
+      <div id="reading-note"></div>
+    </div>
+  </div>
+
+  <div class="timeline-block">
+    <h3>Trajectory, 1940&ndash;2026</h3>
+    <div class="timeline-container">
+      <svg id="timeline-svg" viewBox="0 0 900 400" role="img" aria-label="Timeline of the selected country's position on the political spectrum from 1940 to 2026"></svg>
+      <div class="tooltip-box" id="tooltip"></div>
+    </div>
+  </div>
+
+  <div class="prose-note">
+    <strong>How to read this, and what it is not.</strong> These placements are interpretive editorial judgments about the character of each country's governing coalition and regime, informed by the kinds of assessments found in V-Dem, Polity, and standard political histories. They are not measurements. A single left-right axis compresses realities it cannot hold: China after 1978 is a market economy under one-party control, Venezuela under Maduro is authoritarian in method and leftist in doctrine, and Argentina under Perón fits no band cleanly. Where a regime is authoritarian in practice regardless of its stated doctrine, the placement leans toward the authoritarian band and the note says so. Occupied countries during World War II are placed under their occupying regime. Colonial-era placements (India and Pakistan before 1947) reflect the colonial administration. The scale runs: Communism, Radical Socialism, Social Democracy, Liberalism, Centrist, Conservatism, Authoritarian, Fascism. The two ends of this scale famously bend toward each other in method; the horseshoe is acknowledged, not resolved, by a straight line. Corrections and arguments welcome, the placements are offered to be disputed.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* Bands: 0..7 */
+  var BANDS = [
+    { name: "Communism",         color: "#7a1f1f" },
+    { name: "Radical Socialism", color: "#a04030" },
+    { name: "Social Democracy",  color: "#b06a35" },
+    { name: "Liberalism",        color: "#7a7a3a" },
+    { name: "Centrist",          color: "#5c6b52" },
+    { name: "Conservatism",      color: "#3d5a6b" },
+    { name: "Authoritarian",     color: "#44355b" },
+    { name: "Fascism",           color: "#2b1f2e" }
+  ];
+
+  /* Each country: array of [year, value 0-7] breakpoints, linear interpolation between.
+     Values are interpretive placements. Note field explains the current reading. */
+  var DATA = {
+    "United States": { pts: [[1940,2.6],[1947,4.2],[1953,4.8],[1961,3.2],[1969,4.6],[1977,3.6],[1981,5.0],[1993,3.9],[2001,4.9],[2009,3.4],[2017,5.4],[2021,3.6],[2025,5.9],[2026,5.9]],
+      note: "Second Trump administration: conservative program executed with expanding executive power, institutional pressure on the central bank, courts, and civil service. Placed between conservatism and the authoritarian band." },
+    "Germany": { pts: [[1940,7.0],[1945,4.0],[1949,4.6],[1969,2.8],[1982,4.8],[1998,2.9],[2005,4.3],[2021,3.2],[2025,4.4],[2026,4.4]],
+      note: "CDU-led coalition; AfD polling strength pulls the debate rightward but remains outside government. West Germany used for 1949-1990." },
+    "France": { pts: [[1940,6.5],[1944,3.5],[1958,4.8],[1981,2.3],[1986,4.4],[1988,2.8],[1995,4.7],[2012,2.7],[2017,3.8],[2024,4.4],[2026,4.4]],
+      note: "Post-Macron fragmentation; center-right government with National Rally as largest opposition bloc. Vichy regime used for 1940-44." },
+    "United Kingdom": { pts: [[1940,4.8],[1945,2.2],[1951,4.9],[1964,2.6],[1970,4.8],[1974,2.4],[1979,5.2],[1997,3.0],[2010,4.8],[2024,3.0],[2026,3.1]],
+      note: "Labour government governing from the center-left; Reform UK pressure from the right." },
+    "Spain": { pts: [[1940,6.9],[1975,5.5],[1978,3.8],[1982,2.5],[1996,4.7],[2004,2.7],[2011,4.7],[2018,2.6],[2026,2.8]],
+      note: "PSOE-led coalition; Vox as third force. Franco dictatorship 1939-75." },
+    "Portugal": { pts: [[1940,6.6],[1974,1.8],[1976,2.8],[1985,4.3],[1995,2.9],[2002,4.4],[2005,2.8],[2011,4.6],[2015,2.6],[2024,4.5],[2026,4.5]],
+      note: "Center-right government; Chega rising on the right. Salazar's Estado Novo 1933-74." },
+    "Brazil": { pts: [[1940,6.2],[1946,4.2],[1964,6.3],[1985,3.9],[1995,4.1],[2003,2.4],[2016,4.9],[2019,5.9],[2023,2.6],[2026,2.7]],
+      note: "Lula's third term, social-democratic program under fiscal constraint; Bolsonarismo remains the organized opposition." },
+    "Chile": { pts: [[1940,3.5],[1952,4.4],[1970,1.2],[1973,6.8],[1990,3.4],[2010,4.7],[2014,2.8],[2018,4.8],[2022,2.3],[2026,3.9]],
+      note: "Post-Boric swing back toward the center-right. Allende 1970-73, Pinochet 1973-90." },
+    "Mexico": { pts: [[1940,2.8],[1946,4.0],[1982,4.4],[2000,4.7],[2012,4.3],[2018,2.4],[2024,2.4],[2026,2.4]],
+      note: "Morena under Sheinbaum: social-democratic program with growing single-party dominance. PRI corporatist rule 1946-2000." },
+    "South Africa": { pts: [[1940,5.2],[1948,6.5],[1990,5.0],[1994,2.6],[2010,3.0],[2024,3.3],[2026,3.4]],
+      note: "ANC-DA unity government after the ANC lost its majority in 2024. Apartheid regime 1948-90." },
+    "Italy": { pts: [[1940,7.0],[1946,4.2],[1963,3.6],[1983,3.4],[1994,4.9],[2006,3.5],[2008,4.9],[2013,3.9],[2018,4.6],[2022,5.6],[2026,5.5]],
+      note: "Meloni government: post-fascist lineage governing as national conservatism within EU constraints. Mussolini regime to 1943-45." },
+    "Netherlands": { pts: [[1940,7.0],[1945,4.2],[1973,2.8],[1977,4.3],[1994,3.3],[2002,4.6],[2012,3.9],[2023,5.1],[2026,4.9]],
+      note: "Wilders-led coalition arithmetic pulled governance rightward; coalition instability moderates it in practice. Nazi occupation 1940-45." },
+    "Norway": { pts: [[1940,7.0],[1945,2.2],[1965,3.9],[1971,2.4],[1981,4.5],[1990,2.5],[2001,3.9],[2005,2.5],[2013,4.4],[2021,2.6],[2026,2.7]],
+      note: "Labour-led government; the deepest social-democratic continuity in the dataset. Quisling occupation regime 1940-45." },
+    "Finland": { pts: [[1940,4.8],[1945,3.2],[1956,3.6],[1982,3.0],[1991,4.2],[2000,2.9],[2015,4.3],[2019,2.7],[2023,4.7],[2026,4.7]],
+      note: "Right-of-center coalition with the Finns Party; NATO accession completed the westward turn." },
+    "Belgium": { pts: [[1940,7.0],[1945,4.0],[1954,3.4],[1958,4.2],[1988,3.6],[1999,3.4],[2014,4.5],[2020,3.6],[2025,4.6],[2026,4.6]],
+      note: "N-VA-led federal government; Flemish nationalist right leading a fractured system. Nazi occupation 1940-44." },
+    "Ireland": { pts: [[1940,4.9],[1973,4.4],[1994,3.6],[1997,4.3],[2011,4.0],[2020,3.9],[2026,4.0]],
+      note: "Fianna Fáil / Fine Gael center; Sinn Féin as the left opposition. The narrowest historical range in the dataset." },
+    "Russia": { pts: [[1940,0.3],[1953,0.8],[1985,1.5],[1991,3.4],[2000,5.4],[2012,6.1],[2022,6.7],[2026,6.7]],
+      note: "Wartime personalist autocracy. The full traverse: Stalinism to a decade of chaotic liberalism to consolidated authoritarianism." },
+    "Poland": { pts: [[1940,7.0],[1945,0.8],[1989,3.6],[1995,3.2],[2005,4.9],[2007,4.1],[2015,5.7],[2023,4.0],[2026,4.0]],
+      note: "Tusk coalition reversing PiS-era judicial capture; the presidency remains contested terrain. Occupied 1939-45, communist 1945-89." },
+    "Hungary": { pts: [[1940,6.4],[1945,1.0],[1989,3.7],[1994,3.0],[1998,4.4],[2002,3.1],[2010,5.6],[2018,6.1],[2026,6.1]],
+      note: "Orbán's self-described illiberal state: electoral authoritarianism inside the EU. Horthy regency to 1944, communist 1949-89." },
+    "Czechia": { pts: [[1940,7.0],[1945,2.0],[1948,0.8],[1968,1.4],[1969,0.8],[1989,3.6],[1998,3.2],[2006,4.4],[2013,4.0],[2017,4.7],[2021,4.3],[2026,4.3]],
+      note: "Center-right coalition; Babiš's ANO leading polls. Occupied 1939-45, communist 1948-89 with the 1968 spring crushed." },
+    "China": { pts: [[1940,5.8],[1949,0.2],[1978,1.6],[1992,2.8],[2002,3.6],[2012,5.9],[2020,6.3],[2026,6.3]],
+      note: "Xi's party-state: market economy under intensifying one-party control. The line crossing the center after 1992 is the single axis compressing state capitalism; the note in the footer applies most strongly here." },
+    "Australia": { pts: [[1940,3.0],[1949,4.8],[1972,2.7],[1975,4.7],[1983,3.0],[1996,4.8],[2007,3.1],[2013,4.8],[2022,3.3],[2026,3.3]],
+      note: "Labor government; compulsory voting keeps the contest near the center." },
+    "India": { pts: [[1940,5.8],[1947,2.6],[1966,2.2],[1975,5.9],[1977,3.4],[1980,2.8],[1991,3.8],[1998,4.7],[2004,3.4],[2014,5.3],[2019,5.8],[2026,5.8]],
+      note: "Modi's third term: Hindu-nationalist majoritarianism with weakened but functioning federal institutions. Colonial administration before 1947; the Emergency 1975-77." },
+    "Pakistan": { pts: [[1940,5.8],[1947,4.2],[1958,6.0],[1971,2.8],[1977,6.3],[1988,4.0],[1999,5.9],[2008,4.1],[2018,4.9],[2022,5.4],[2026,5.5]],
+      note: "Hybrid regime: elected government under effective military tutelage, Khan imprisoned. Alternating military and civilian rule throughout." },
+    "Saudi Arabia": { pts: [[1940,6.4],[2017,6.3],[2026,6.3]],
+      note: "Absolute monarchy throughout; MBS's social liberalization has not touched the structure of power. The flattest line in the dataset." },
+    "Argentina": { pts: [[1940,5.4],[1946,3.8],[1955,5.6],[1973,3.5],[1976,6.8],[1983,3.5],[1989,4.4],[2003,2.6],[2015,4.6],[2019,2.7],[2023,5.2],[2026,5.2]],
+      note: "Milei: libertarian economics delivered through concentrated executive action. Perón defies the axis; the 1976-83 junta does not." },
+    "Venezuela": { pts: [[1940,5.8],[1945,3.3],[1948,6.2],[1958,3.6],[1974,3.2],[1989,3.9],[1999,1.6],[2007,1.0],[2013,0.8],[2017,0.6],[2026,0.6]],
+      note: "Maduro: authoritarian in method, socialist in doctrine. Placed by stated doctrine at the far left; in practice the regime demonstrates the horseshoe, matching the far right in method." },
+    "Israel": { pts: [[1940,5.5],[1948,2.4],[1977,4.9],[1992,3.2],[1996,4.8],[1999,3.5],[2001,5.0],[2009,5.2],[2021,4.4],[2022,5.8],[2026,5.8]],
+      note: "Netanyahu's coalition with the religious-nationalist right; judicial overhaul and wartime emergency powers. British Mandate before 1948." }
+  };
+
+  var COUNTRIES = Object.keys(DATA);
+  /* US first, then alphabetical */
+  COUNTRIES.sort(function(a,b){
+    if (a === "United States") return -1;
+    if (b === "United States") return 1;
+    return a.localeCompare(b);
+  });
+
+  var sel = document.getElementById('country-select');
+  COUNTRIES.forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+
+  var ns = 'http://www.w3.org/2000/svg';
+  function el(parent, tag, attrs, txt) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt !== undefined) e.textContent = txt;
+    parent.appendChild(e); return e;
+  }
+  function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+
+  function valueAt(pts, year) {
+    if (year <= pts[0][0]) return pts[0][1];
+    if (year >= pts[pts.length-1][0]) return pts[pts.length-1][1];
+    for (var i = 1; i < pts.length; i++) {
+      if (year <= pts[i][0]) {
+        var a = pts[i-1], b = pts[i];
+        var f = (year - a[0]) / (b[0] - a[0]);
+        return a[1] + f * (b[1] - a[1]);
+      }
+    }
+    return pts[pts.length-1][1];
+  }
+
+  function bandFor(v) {
+    var i = Math.max(0, Math.min(7, Math.round(v - 0.0001)));
+    /* round to nearest band center: bands are 0..7, value v in [0,7] */
+    i = Math.max(0, Math.min(7, Math.round(v)));
+    return BANDS[i];
+  }
+
+  /* ---------- Gauge ---------- */
+  function drawGauge(country) {
+    var svg = document.getElementById('gauge-svg');
+    clear(svg);
+    var cx = 260, cy = 265, R = 210, r = 150;
+    var A0 = Math.PI, A1 = 0; /* left to right semicircle */
+
+    function pol(radius, ang) {
+      return [cx + radius * Math.cos(ang), cy - radius * Math.sin(ang)];
+    }
+    /* 8 segments */
+    for (var i = 0; i < 8; i++) {
+      var a0 = Math.PI - (i / 8) * Math.PI;
+      var a1 = Math.PI - ((i + 1) / 8) * Math.PI;
+      var p1 = pol(R, a0), p2 = pol(R, a1), p3 = pol(r, a1), p4 = pol(r, a0);
+      var d = "M" + p1[0].toFixed(1) + "," + p1[1].toFixed(1) +
+        " A" + R + "," + R + " 0 0 1 " + p2[0].toFixed(1) + "," + p2[1].toFixed(1) +
+        " L" + p3[0].toFixed(1) + "," + p3[1].toFixed(1) +
+        " A" + r + "," + r + " 0 0 0 " + p4[0].toFixed(1) + "," + p4[1].toFixed(1) + " Z";
+      el(svg, 'path', { d: d, fill: BANDS[i].color, stroke: 'var(--parchment)', 'stroke-width': 1.5, opacity: 0.88 });
+      /* label */
+      var mid = Math.PI - ((i + 0.5) / 8) * Math.PI;
+      var lp = pol((R + r) / 2, mid);
+      var words = BANDS[i].name.split(' ');
+      words.forEach(function (w, wi) {
+        el(svg, 'text', {
+          x: lp[0], y: lp[1] + wi * 11 - (words.length - 1) * 5,
+          'text-anchor': 'middle', 'font-size': 9.5, fill: '#f6f2e9',
+          'font-family': 'IBM Plex Mono, monospace', 'letter-spacing': '.04em'
+        }, w.toUpperCase());
+      });
+    }
+
+    /* needle */
+    var d0 = DATA[country];
+    var v = d0.pts[d0.pts.length - 1][1];
+    var ang = Math.PI - (v / 7) * Math.PI;
+    var tip = pol(r - 14, ang);
+    var b1 = pol(18, ang + Math.PI / 2);
+    var b2 = pol(18, ang - Math.PI / 2);
+    el(svg, 'polygon', {
+      points: tip[0].toFixed(1) + ',' + tip[1].toFixed(1) + ' ' + b1[0].toFixed(1) + ',' + b1[1].toFixed(1) + ' ' + b2[0].toFixed(1) + ',' + b2[1].toFixed(1),
+      fill: '#211d18'
+    });
+    el(svg, 'circle', { cx: cx, cy: cy, r: 24, fill: '#211d18' });
+    el(svg, 'circle', { cx: cx, cy: cy, r: 10, fill: 'var(--parchment)' });
+
+    /* endpoints */
+    el(svg, 'text', { x: cx - R - 4, y: cy + 20, 'text-anchor': 'start', 'font-size': 9, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, 'FAR LEFT');
+    el(svg, 'text', { x: cx + R + 4, y: cy + 20, 'text-anchor': 'end', 'font-size': 9, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, 'FAR RIGHT');
+  }
+
+  /* ---------- Timeline ---------- */
+  function drawTimeline(country) {
+    var svg = document.getElementById('timeline-svg');
+    var tip = document.getElementById('tooltip');
+    clear(svg);
+    var W = 900, H = 400, L = 128, Rm = 20, T = 14, B = 40;
+    var iw = W - L - Rm, ih = H - T - B;
+    var Y0 = 1940, Y1 = 2026;
+
+    function X(yr) { return L + (yr - Y0) / (Y1 - Y0) * iw; }
+    function Y(v) { return T + (v / 7) * ih; } /* 0=communism at TOP? No: put fascism at bottom? Choose: left/communism at bottom */
+    /* Flip: 0 (communism) at bottom, 7 (fascism) at top */
+    function Yf(v) { return T + ih - (v / 7) * ih; }
+
+    /* band stripes + labels */
+    for (var i = 0; i < 8; i++) {
+      var y0 = Yf(i + 0.5) ; /* band i center at value i */
+      var top = Yf(Math.min(7, i + 0.5));
+      var bot = Yf(Math.max(0, i - 0.5));
+      el(svg, 'rect', { x: L, y: top, width: iw, height: bot - top, fill: BANDS[i].color, opacity: 0.10 });
+      el(svg, 'line', { x1: L, y1: bot, x2: L + iw, y2: bot, stroke: '#ddd3c2', 'stroke-width': 0.5 });
+      el(svg, 'text', { x: L - 8, y: Yf(i) + 3.5, 'text-anchor': 'end', 'font-size': 9.5, fill: BANDS[i].color, 'font-family': 'IBM Plex Mono, monospace', 'font-weight': 500 }, BANDS[i].name);
+    }
+
+    /* x axis */
+    for (var yr = 1940; yr <= 2026; yr += 10) {
+      var tx = X(yr);
+      el(svg, 'line', { x1: tx, y1: T + ih, x2: tx, y2: T + ih + 5, stroke: '#ddd3c2', 'stroke-width': 0.8 });
+      el(svg, 'text', { x: tx, y: T + ih + 18, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, yr);
+    }
+    el(svg, 'line', { x1: L, y1: T + ih, x2: L + iw, y2: T + ih, stroke: '#ddd3c2', 'stroke-width': 1 });
+
+    /* line: sample yearly for smooth interpolation */
+    var pts = DATA[country].pts;
+    var lineP = [];
+    for (var y = 1940; y <= 2026; y++) {
+      lineP.push(X(y).toFixed(1) + ',' + Yf(valueAt(pts, y)).toFixed(1));
+    }
+    el(svg, 'polyline', { points: lineP.join(' '), fill: 'none', stroke: '#8a3324', 'stroke-width': 2.4, 'stroke-linejoin': 'round' });
+
+    /* breakpoint dots */
+    pts.forEach(function (p) {
+      if (p[0] < 1940) return;
+      el(svg, 'circle', { cx: X(p[0]), cy: Yf(p[1]), r: 3.4, fill: '#8a3324', stroke: 'var(--parchment)', 'stroke-width': 1.2 });
+    });
+
+    /* hover */
+    var hover = el(svg, 'rect', { x: L, y: T, width: iw, height: ih, fill: 'transparent', style: 'cursor:crosshair' });
+    var marker = el(svg, 'circle', { r: 5, fill: 'none', stroke: '#211d18', 'stroke-width': 1.5, style: 'display:none' });
+    hover.addEventListener('mousemove', function (e) {
+      var rect = svg.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width * W;
+      var yr = Math.round(Y0 + (px - L) / iw * (Y1 - Y0));
+      yr = Math.max(Y0, Math.min(Y1, yr));
+      var v = valueAt(pts, yr);
+      marker.setAttribute('cx', X(yr));
+      marker.setAttribute('cy', Yf(v));
+      marker.style.display = '';
+      tip.innerHTML = '<span style="color:var(--ink-faint);font-size:.62rem;letter-spacing:.1em;">' + yr + '</span><br><strong style="color:var(--oxblood);">' + bandFor(v).name + '</strong>';
+      tip.style.display = 'block';
+      var cc = tip.parentElement.getBoundingClientRect();
+      var txp = e.clientX - cc.left + 14;
+      var typ = e.clientY - cc.top - 10;
+      if (txp + 170 > cc.width) txp = e.clientX - cc.left - 160;
+      tip.style.left = txp + 'px';
+      tip.style.top = typ + 'px';
+    });
+    hover.addEventListener('mouseleave', function () {
+      tip.style.display = 'none'; marker.style.display = 'none';
+    });
+  }
+
+  function render() {
+    var c = sel.value;
+    drawGauge(c);
+    drawTimeline(c);
+    var d0 = DATA[c];
+    var v = d0.pts[d0.pts.length - 1][1];
+    document.getElementById('reading-band').textContent = bandFor(v).name;
+    document.getElementById('reading-note').textContent = d0.note;
+  }
+
+  sel.addEventListener('change', render);
+  sel.value = "United States";
+  render();
+})();
+</script>
+</body>
+</html>
