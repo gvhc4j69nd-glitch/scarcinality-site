@@ -31,8 +31,19 @@ function send(res, status, body, type) {
   res.end(body);
 }
 
+const CANONICAL_HOST = "www.scarcinality.com";
+
 const server = http.createServer((req, res) => {
   try {
+    // Redirect the apex to the canonical www host, preserving the full path
+    // and query string. Only fires once the apex DNS points at Railway;
+    // *.up.railway.app is left alone so health checks are unaffected.
+    const host = (req.headers.host || "").split(":")[0].toLowerCase();
+    if (host === "scarcinality.com") {
+      res.writeHead(301, { Location: "https://" + CANONICAL_HOST + req.url });
+      return res.end();
+    }
+
     // Proxy NASS API requests to keep the key server-side
     if (req.url.startsWith("/api/nass?")) {
       const qs = req.url.slice("/api/nass?".length);
