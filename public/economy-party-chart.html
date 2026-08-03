@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Economy Under Each Party · Scarcinality</title>
+<meta name="description" content="Unemployment, real GDP growth, inflation, and the national debt from 1940 to 2026, drawn over a band chart of which party held the White House. Toggle each series and judge the record for yourself.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Economy Under Each Party · Scarcinality">
+<meta property="og:description" content="Unemployment, GDP growth, inflation, and the national debt, 1940-2026, overlaid on which party held the presidency.">
+<meta property="og:url" content="https://scarcinality.com/economy-party-chart">
+<meta property="og:image" content="https://scarcinality.com/assets/curiosity-economy-party.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Economy Under Each Party · Scarcinality">
+<meta name="twitter:description" content="Four economic series, 86 years, one party band chart. Judge the record yourself.">
+<meta name="twitter:image" content="https://scarcinality.com/assets/curiosity-economy-party.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
+.chart-wrap { max-width: 76rem; margin: 0 auto; padding: 1.6rem clamp(1.1rem,5vw,3rem) 3rem; }
+
+.series-toggles { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1.2rem; align-items: center; }
+.series-toggles label {
+  display: inline-flex; align-items: center; gap: .45rem; cursor: pointer;
+  font-family: var(--mono); font-size: .7rem; color: var(--ink-soft); user-select: none;
+}
+.series-toggles input { accent-color: var(--oxblood); }
+.sw { width: 20px; height: 3px; display: inline-block; flex-shrink: 0; }
+.party-legend { display: inline-flex; gap: 1rem; margin-left: auto; font-family: var(--mono); font-size: .66rem; color: var(--ink-faint); align-items: center; }
+.party-chip { width: 12px; height: 12px; display: inline-block; margin-right: .3rem; vertical-align: -1px; }
+
+.chart-container { position: relative; }
+#econ-svg { width: 100%; height: auto; display: block; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule); border-left: 3px solid var(--oxblood);
+  padding: .55rem .75rem; font-family: var(--mono); font-size: .68rem;
+  line-height: 1.6; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.1); z-index: 5;
+}
+
+.prose-note { max-width: 54rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.6rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .party-legend { margin-left: 0; }
+  #econ-svg { height: 300px; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>The Economy Under Each Party, 1940&ndash;2026</h1>
+  <span class="source-badge">BLS &middot; BEA &middot; Treasury &middot; annual</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart">Beef Price</a>
+  <a href="/political-spectrum">Politics</a>
+  <a href="/economy-party-chart" aria-current="page">Economy &amp; Party</a>
+</div>
+
+<div class="chart-wrap">
+  <div class="series-toggles">
+    <label><input type="checkbox" id="t-unemp" checked><span class="sw" style="background:#2f5670;"></span>Unemployment %</label>
+    <label><input type="checkbox" id="t-gdp" checked><span class="sw" style="background:#3f6b3a;"></span>Real GDP growth %</label>
+    <label><input type="checkbox" id="t-infl" checked><span class="sw" style="background:#8a3324;"></span>Inflation (CPI) %</label>
+    <label><input type="checkbox" id="t-debt" checked><span class="sw" style="background:#5c5247;border-top:1px dashed #5c5247;height:0;border-bottom:2px dashed #5c5247;"></span>Debt / GDP % (right axis)</label>
+    <span class="party-legend">
+      <span><span class="party-chip" style="background:rgba(47,86,112,.14);border:1px solid rgba(47,86,112,.3);"></span>Democratic</span>
+      <span><span class="party-chip" style="background:rgba(138,51,36,.12);border:1px solid rgba(138,51,36,.3);"></span>Republican</span>
+    </span>
+  </div>
+
+  <div class="chart-container">
+    <svg id="econ-svg" viewBox="0 0 960 460" role="img" aria-label="Unemployment, GDP growth, inflation, and debt to GDP from 1940 to 2026 over presidential party bands"></svg>
+    <div class="tooltip-box" id="tooltip"></div>
+  </div>
+
+  <div class="prose-note">
+    <strong>What the overlay shows, and what it cannot.</strong> The background bands mark which party held the White House; the lines are the standard annual series: unemployment rate (BLS), real GDP growth (BEA), CPI inflation (BLS), and gross federal debt as a share of GDP (Treasury/OMB, right axis). The chart invites the obvious game, does the economy do better under one party, and the honest answer is that the chart cannot settle it. Presidents inherit the prior administration's economy with a lag; the Fed sets monetary policy independently (mostly); wars, pandemics, and oil shocks do not check party registration. The wartime boom of the 1940s, the 1970s stagflation that spanned three administrations of both parties, the 2008 collapse handed across an inauguration, and the 2020 pandemic all cut across the bands. What the chart does show cleanly is the debt ratchet: debt/GDP fell almost continuously from 1946 to 1974 under both parties, and has risen almost continuously since 1981 under both parties, with the steepest single climbs in 2008-2012 and 2020. The scarcinality reading: the postwar decline was growth outrunning the debt, not repayment; the post-1981 climb is the bill for suppressing every downturn's financial scarcity with borrowed demand. The bond market's patience with that ratchet is the standing question of the treatise's worked example. Figures for 2025-2026 are estimates from partial-year data.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var YEARS = []; for (var y = 1940; y <= 2026; y++) YEARS.push(y);
+
+  var UNEMP = [14.6,9.9,4.7,1.9,1.2,1.9,3.9,3.9,3.8,5.9,5.3,3.3,3.0,2.9,5.5,4.4,4.1,4.3,6.8,5.5,5.5,6.7,5.5,5.7,5.2,4.5,3.8,3.8,3.6,3.5,4.9,5.9,5.6,4.9,5.6,8.5,7.7,7.1,6.1,5.8,7.1,7.6,9.7,9.6,7.5,7.2,7.0,6.2,5.5,5.3,5.6,6.8,7.5,6.9,6.1,5.6,5.4,4.9,4.5,4.2,4.0,4.7,5.8,6.0,5.5,5.1,4.6,4.6,5.8,9.3,9.6,8.9,8.1,7.4,6.2,5.3,4.9,4.4,3.9,3.7,8.1,5.4,3.6,3.6,4.0,4.2,4.3];
+  var GDP = [8.8,17.7,18.9,17.0,8.0,-1.0,-11.6,-1.1,4.1,-0.6,8.7,8.0,4.1,4.7,-0.6,7.1,2.1,2.1,-0.7,6.9,2.6,2.6,6.1,4.4,5.8,6.5,6.6,2.7,4.9,3.1,0.2,3.3,5.3,5.6,-0.5,-0.2,5.4,4.6,5.5,3.2,-0.3,2.5,-1.8,4.6,7.2,4.2,3.5,3.5,4.2,3.7,1.9,-0.1,3.5,2.8,4.0,2.7,3.8,4.4,4.5,4.8,4.1,1.0,1.7,2.9,3.8,3.5,2.9,1.9,-0.1,-2.5,2.6,1.6,2.2,1.8,2.5,2.9,1.7,2.3,2.9,2.3,-2.8,5.9,1.9,2.5,2.8,1.8,1.4];
+  var INFL = [0.7,5.0,10.9,6.1,1.7,2.3,8.3,14.4,8.1,-1.2,1.3,7.9,1.9,0.8,0.7,-0.4,1.5,3.3,2.8,0.7,1.7,1.0,1.0,1.3,1.3,1.6,2.9,3.1,4.2,5.5,5.7,4.4,3.2,6.2,11.0,9.1,5.8,6.5,7.6,11.3,13.5,10.3,6.2,3.2,4.3,3.6,1.9,3.6,4.1,4.8,5.4,4.2,3.0,3.0,2.6,2.8,3.0,2.3,1.6,2.2,3.4,2.8,1.6,2.3,2.7,3.4,3.2,2.8,3.8,-0.4,1.6,3.2,2.1,1.5,1.6,0.1,1.3,2.1,2.4,1.8,1.2,4.7,8.0,4.1,2.9,3.5,4.2];
+  var DEBT = [50,44,48,70,91,114,119,103,92,93,86,74,71,68,69,65,61,57,58,56,54,53,51,49,46,43,40,39,40,36,35,35,34,33,31,32,34,34,33,31,32,31,34,38,39,42,46,48,49,51,54,58,61,64,64,65,65,63,61,58,55,54,57,59,60,60,61,62,68,82,91,95,99,100,101,100,105,103,104,106,126,121,120,119,121,124,127];
+
+  /* Presidential party by year (party holding the White House for most of that year) */
+  var PARTY_SPANS = [
+    { p: 'D', y0: 1940, y1: 1953 },
+    { p: 'R', y0: 1953, y1: 1961 },
+    { p: 'D', y0: 1961, y1: 1969 },
+    { p: 'R', y0: 1969, y1: 1977 },
+    { p: 'D', y0: 1977, y1: 1981 },
+    { p: 'R', y0: 1981, y1: 1993 },
+    { p: 'D', y0: 1993, y1: 2001 },
+    { p: 'R', y0: 2001, y1: 2009 },
+    { p: 'D', y0: 2009, y1: 2017 },
+    { p: 'R', y0: 2017, y1: 2021 },
+    { p: 'D', y0: 2021, y1: 2025 },
+    { p: 'R', y0: 2025, y1: 2027 }
+  ];
+  var PRESIDENTS = [
+    ['FDR/Truman',1940],['Eisenhower',1953],['JFK/LBJ',1961],['Nixon/Ford',1969],['Carter',1977],
+    ['Reagan/Bush',1981],['Clinton',1993],['Bush',2001],['Obama',2009],['Trump',2017],['Biden',2021],['Trump',2025]
+  ];
+
+  var svg = document.getElementById('econ-svg');
+  var tip = document.getElementById('tooltip');
+  var W = 960, H = 460, L = 52, R = 52, T = 30, B = 44;
+  var iw = W - L - R, ih = H - T - B;
+  var Y0 = 1940, Y1 = 2026;
+  var ns = 'http://www.w3.org/2000/svg';
+
+  /* Left axis: -12 to 20 (%), right axis: 0 to 130 (debt/GDP) */
+  var lMin = -12, lMax = 20, rMin = 0, rMax = 130;
+
+  function X(yr) { return L + (yr - Y0) / (Y1 - Y0) * iw; }
+  function YL(v) { return T + ih - (v - lMin) / (lMax - lMin) * ih; }
+  function YR(v) { return T + ih - (v - rMin) / (rMax - rMin) * ih; }
+
+  function el(tag, attrs, txt) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt !== undefined) e.textContent = txt;
+    svg.appendChild(e); return e;
+  }
+  function clear() { while (svg.firstChild) svg.removeChild(svg.firstChild); }
+
+  var SHOW = { unemp: true, gdp: true, infl: true, debt: true };
+
+  function draw() {
+    clear();
+
+    /* party bands */
+    PARTY_SPANS.forEach(function (s) {
+      var x0 = X(Math.max(s.y0, Y0)), x1 = X(Math.min(s.y1, Y1));
+      el('rect', { x: x0, y: T, width: x1 - x0, height: ih,
+        fill: s.p === 'D' ? 'rgba(47,86,112,.14)' : 'rgba(138,51,36,.12)' });
+    });
+    /* president labels */
+    PRESIDENTS.forEach(function (pr, i) {
+      var end = i + 1 < PRESIDENTS.length ? PRESIDENTS[i+1][1] : Y1 + 1;
+      var mid = X((Math.max(pr[1], Y0) + Math.min(end, Y1)) / 2);
+      el('text', { x: mid, y: T - 8, 'text-anchor': 'middle', 'font-size': 8,
+        fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, pr[0]);
+    });
+
+    /* left grid */
+    [-10, -5, 0, 5, 10, 15, 20].forEach(function (v) {
+      el('line', { x1: L, y1: YL(v), x2: L + iw, y2: YL(v), stroke: '#ddd3c2', 'stroke-width': v === 0 ? 1.2 : 0.5 });
+      el('text', { x: L - 6, y: YL(v) + 3.5, 'text-anchor': 'end', 'font-size': 9, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, v + '%');
+    });
+    /* right axis labels */
+    [0, 25, 50, 75, 100, 125].forEach(function (v) {
+      el('text', { x: L + iw + 6, y: YR(v) + 3.5, 'text-anchor': 'start', 'font-size': 9, fill: '#5c5247', 'font-family': 'IBM Plex Mono, monospace' }, v);
+    });
+    /* x axis */
+    for (var yr = 1940; yr <= 2026; yr += 10) {
+      el('line', { x1: X(yr), y1: T + ih, x2: X(yr), y2: T + ih + 5, stroke: '#ddd3c2', 'stroke-width': 0.8 });
+      el('text', { x: X(yr), y: T + ih + 18, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, yr);
+    }
+    el('line', { x1: L, y1: T + ih, x2: L + iw, y2: T + ih, stroke: '#ddd3c2', 'stroke-width': 1 });
+
+    function poly(arr, yfn, color, width, dash) {
+      var pts = YEARS.map(function (yr, i) { return X(yr).toFixed(1) + ',' + yfn(arr[i]).toFixed(1); }).join(' ');
+      var attrs = { points: pts, fill: 'none', stroke: color, 'stroke-width': width, 'stroke-linejoin': 'round' };
+      if (dash) attrs['stroke-dasharray'] = dash;
+      el('polyline', attrs);
+    }
+
+    if (SHOW.debt)  poly(DEBT, YR, '#5c5247', 1.8, '6 3');
+    if (SHOW.gdp)   poly(GDP, YL, '#3f6b3a', 1.7);
+    if (SHOW.infl)  poly(INFL, YL, '#8a3324', 1.7);
+    if (SHOW.unemp) poly(UNEMP, YL, '#2f5670', 2.0);
+
+    /* axis titles */
+    el('text', { x: L - 40, y: T + ih / 2, 'text-anchor': 'middle', 'font-size': 9, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace', transform: 'rotate(-90 ' + (L - 40) + ' ' + (T + ih / 2) + ')' }, 'percent');
+    el('text', { x: L + iw + 42, y: T + ih / 2, 'text-anchor': 'middle', 'font-size': 9, fill: '#5c5247', 'font-family': 'IBM Plex Mono, monospace', transform: 'rotate(90 ' + (L + iw + 42) + ' ' + (T + ih / 2) + ')' }, 'debt / GDP %');
+
+    /* hover */
+    var hover = el('rect', { x: L, y: T, width: iw, height: ih, fill: 'transparent', style: 'cursor:crosshair' });
+    var vline = el('line', { y1: T, y2: T + ih, stroke: '#211d18', 'stroke-width': 0.7, 'stroke-dasharray': '3 3', style: 'display:none' });
+    hover.addEventListener('mousemove', function (e) {
+      var rect = svg.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width * W;
+      var yr = Math.round(Y0 + (px - L) / iw * (Y1 - Y0));
+      yr = Math.max(Y0, Math.min(Y1, yr));
+      var i = yr - Y0;
+      vline.setAttribute('x1', X(yr)); vline.setAttribute('x2', X(yr));
+      vline.style.display = '';
+      var party = 'D';
+      PARTY_SPANS.forEach(function (s) { if (yr >= s.y0 && yr < s.y1) party = s.p; });
+      tip.innerHTML =
+        '<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.1em;">' + yr + ' &middot; ' + (party === 'D' ? 'DEMOCRATIC' : 'REPUBLICAN') + '</span><br>' +
+        (SHOW.unemp ? '<span style="color:#2f5670;">Unemployment ' + UNEMP[i].toFixed(1) + '%</span><br>' : '') +
+        (SHOW.gdp ? '<span style="color:#3f6b3a;">GDP growth ' + GDP[i].toFixed(1) + '%</span><br>' : '') +
+        (SHOW.infl ? '<span style="color:#8a3324;">Inflation ' + INFL[i].toFixed(1) + '%</span><br>' : '') +
+        (SHOW.debt ? '<span style="color:#5c5247;">Debt/GDP ' + DEBT[i] + '%</span>' : '');
+      tip.style.display = 'block';
+      var cc = tip.parentElement.getBoundingClientRect();
+      var txp = e.clientX - cc.left + 14;
+      var typ = e.clientY - cc.top - 10;
+      if (txp + 190 > cc.width) txp = e.clientX - cc.left - 185;
+      tip.style.left = txp + 'px';
+      tip.style.top = typ + 'px';
+    });
+    hover.addEventListener('mouseleave', function () { tip.style.display = 'none'; vline.style.display = 'none'; });
+  }
+
+  [['t-unemp','unemp'],['t-gdp','gdp'],['t-infl','infl'],['t-debt','debt']].forEach(function (pair) {
+    document.getElementById(pair[0]).addEventListener('change', function (e) {
+      SHOW[pair[1]] = e.target.checked; draw();
+    });
+  });
+
+  draw();
+})();
+</script>
+</body>
+</html>
