@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://scarcinality.com/sitemap.xml
+Sitemap: https://www.scarcinality.com/sitemap.xml
