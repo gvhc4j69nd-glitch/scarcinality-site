@@ -1,0 +1,20 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t3 d3">
+  <title id="t3">Scarcinality</title>
+  <desc id="d3">Four stacked strata. The topmost is fully oxblood, representing monetary scarcity at the top of the order. Each layer below carries a shorter oxblood segment, showing that scarcity descending with diminishing force into the layers it governs.</desc>
+
+  <rect width="512" height="512" fill="#f6f2e9"/>
+
+  <!-- content sits inside the inscribed circle so it survives a round avatar crop -->
+  <line x1="110" y1="148" x2="110" y2="364" stroke="#8a3324" stroke-width="3"/>
+
+  <rect x="110" y="148" width="292" height="36" fill="#8a3324"/>
+
+  <rect x="110" y="208" width="292" height="36" fill="#ddd3c2"/>
+  <rect x="110" y="208" width="202" height="36" fill="#8a3324"/>
+
+  <rect x="110" y="268" width="292" height="36" fill="#ddd3c2"/>
+  <rect x="110" y="268" width="122" height="36" fill="#8a3324"/>
+
+  <rect x="110" y="328" width="292" height="36" fill="#ddd3c2"/>
+  <rect x="110" y="328" width="52"  height="36" fill="#8a3324"/>
+</svg>

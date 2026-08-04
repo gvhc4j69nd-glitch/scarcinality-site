@@ -1,0 +1,26 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Scarcinality</title>
+  <desc id="d">Five stacked strata. The topmost is fully oxblood, representing monetary scarcity at the top of the order. Each layer below carries a shorter oxblood segment, showing that scarcity descending with diminishing force into the layers it governs.</desc>
+
+  <rect width="512" height="512" fill="#f6f2e9"/>
+  <rect x="26" y="26" width="460" height="460" fill="none" stroke="#211d18" stroke-width="2"/>
+
+  <!-- the descent spine: every layer's scarcity originates at the same left edge -->
+  <line x1="96" y1="128" x2="96" y2="384" stroke="#8a3324" stroke-width="2.5"/>
+
+  <!-- layer 1: money. entirely scarce. -->
+  <rect x="96" y="128" width="320" height="30" fill="#8a3324"/>
+
+  <!-- layers below: the counterfeit, weaker at each remove -->
+  <rect x="96" y="192" width="320" height="30" fill="#ddd3c2"/>
+  <rect x="96" y="192" width="248" height="30" fill="#8a3324"/>
+
+  <rect x="96" y="256" width="320" height="30" fill="#ddd3c2"/>
+  <rect x="96" y="256" width="176" height="30" fill="#8a3324"/>
+
+  <rect x="96" y="320" width="320" height="30" fill="#ddd3c2"/>
+  <rect x="96" y="320" width="104" height="30" fill="#8a3324"/>
+
+  <rect x="96" y="384" width="320" height="30" fill="#ddd3c2"/>
+  <rect x="96" y="384" width="42"  height="30" fill="#8a3324"/>
+</svg>
