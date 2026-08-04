@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Seismic Survey to Gas Pump · Scarcinality</title>
+<meta name="description" content="How long it takes to get a barrel of oil from a geological survey to the pump, broken into every phase, for land, shallow water, and deepwater drilling. Plus the share of exploration wells that ever find oil worth producing.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="From Seismic Survey to Gas Pump · Scarcinality">
+<meta property="og:description" content="Every phase from geological survey to the pump, for land, shallow water, and deepwater. Land takes about 16 months. Deepwater takes nearly nine years.">
+<meta property="og:url" content="https://www.scarcinality.com/oil-timeline">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-oil-timeline.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="From Seismic Survey to Gas Pump · Scarcinality">
+<meta name="twitter:description" content="Every phase from survey to pump for land, shallow water, and deepwater drilling, plus exploration success rates.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-oil-timeline.svg">
+<link rel="canonical" href="https://www.scarcinality.com/oil-timeline">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
+.chart-wrap { max-width: 76rem; margin: 0 auto; padding: 1.6rem clamp(1.1rem,5vw,3rem) 3rem; }
+
+.section-head {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--oxblood); margin: 2.2rem 0 .3rem; font-weight: 500;
+}
+.section-head:first-of-type { margin-top: 0; }
+.section-sub { font-family: var(--mono); font-size: .7rem; color: var(--ink-faint); margin: 0 0 1rem; line-height: 1.5; max-width: 52rem; }
+
+.phase-legend { display: flex; gap: .5rem 1.1rem; flex-wrap: wrap; margin: .6rem 0 1rem; }
+.pl-item { display: inline-flex; align-items: center; gap: .38rem; font-family: var(--mono); font-size: .63rem; color: var(--ink-soft); }
+.pl-sw { width: 11px; height: 11px; flex-shrink: 0; border-radius: 1px; }
+
+.chart-container { position: relative; }
+svg.viz { width: 100%; height: auto; display: block; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule); border-left: 3px solid var(--oxblood);
+  padding: .5rem .7rem; font-family: var(--mono); font-size: .68rem;
+  line-height: 1.55; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.12); z-index: 6;
+}
+
+.totals { display: flex; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 1.2rem 0 0; flex-wrap: wrap; }
+.total-cell { background: var(--parchment); padding: .85rem 1.1rem; flex: 1 1 12rem; }
+.total-cell .tc-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+.total-cell .tc-big { font-family: var(--serif); font-size: 1.75rem; font-weight: 600; line-height: 1.1; margin: .15rem 0 .1rem; }
+.total-cell .tc-note { font-family: var(--mono); font-size: .64rem; color: var(--ink-soft); line-height: 1.45; }
+
+.prose-note { max-width: 54rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.8rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 620px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .total-cell .tc-big { font-size: 1.4rem; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>From Seismic Survey to Gas Pump</h1>
+  <span class="source-badge">Typical cycle times &middot; land / shallow / deepwater</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart">Beef Price</a>
+  <a href="/political-spectrum">Politics</a>
+  <a href="/economy-party-chart">Economy &amp; Party</a>
+  <a href="/oil-timeline" aria-current="page">Oil Timeline</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <p class="section-head">Upstream: survey to first oil</p>
+  <p class="section-sub">Every phase from the first geological survey to the moment a well starts producing. Hover any segment for detail. Note the axis is years, not months: the deepwater bar is roughly six times the length of the land bar.</p>
+
+  <div class="phase-legend" id="legend"></div>
+
+  <div class="chart-container">
+    <svg id="upstream-svg" class="viz" viewBox="0 0 940 300" role="img" aria-label="Timeline of oil development phases from seismic survey to first production, comparing land, shallow water, and deepwater drilling"></svg>
+    <div class="tooltip-box" id="tip-up"></div>
+  </div>
+
+  <div class="totals">
+    <div class="total-cell">
+      <div class="tc-label">Land / onshore shale</div>
+      <div class="tc-big" style="color:#7a5a18;">~16 months</div>
+      <div class="tc-note">Survey to first oil. Spud to first production alone is about 66 days in the Permian.</div>
+    </div>
+    <div class="total-cell">
+      <div class="tc-label">Shallow water</div>
+      <div class="tc-big" style="color:#3d5a6b;">~5.5 years</div>
+      <div class="tc-note">Fixed platform on the seabed. Fabrication and installation dominate the schedule.</div>
+    </div>
+    <div class="total-cell">
+      <div class="tc-label">Deepwater</div>
+      <div class="tc-big" style="color:#2f3f56;">~8.8 years</div>
+      <div class="tc-note">Lease to first production commonly runs 7 to 10 years. Discovery to first oil alone is 3 to 5.</div>
+    </div>
+  </div>
+
+  <p class="section-head">Downstream: wellhead to pump</p>
+  <p class="section-sub">Once oil is flowing, the rest is logistics, and it is the same for all three. Refining is the fastest step in the entire chain. Note the axis here is days, not years.</p>
+
+  <div class="chart-container">
+    <svg id="downstream-svg" class="viz" viewBox="0 0 940 150" role="img" aria-label="Timeline from wellhead to gas pump in days"></svg>
+    <div class="tooltip-box" id="tip-down"></div>
+  </div>
+
+  <p class="section-head">How many wells actually find oil worth producing</p>
+  <p class="section-sub">The single most misunderstood number in the industry. It depends entirely on whether you are drilling into a known reservoir or a guess.</p>
+
+  <div class="chart-container">
+    <svg id="success-svg" class="viz" viewBox="0 0 940 300" role="img" aria-label="Bar chart of well success rates by drilling type"></svg>
+    <div class="tooltip-box" id="tip-succ"></div>
+  </div>
+
+  <div class="prose-note">
+    <strong>Reading the chart, and the scarcinality of it.</strong> These are typical cycle times, not guarantees. Every number here is a midpoint in a wide range: a land well in a permitted, well-mapped basin can go faster, and a deepwater project in a frontier basin with no existing infrastructure can take fifteen years or never happen at all. Regulatory regime matters enormously, as federal land and offshore leases carry permitting timelines that private mineral rights in Texas do not.
+    <br><br>
+    <strong>The framework's interest is the lag.</strong> When oil prices spike, the political demand is always for more drilling, and the implicit assumption is that supply can answer quickly. The chart shows why it cannot. Even the fastest case, a land well in an active shale basin, is over a year from survey to first oil, and that assumes leases, permits, rigs, crews, and pipeline capacity all already exist. Deepwater decisions being made today are answering a price signal from the late 2010s. This is the physical reason the rig count lags the oil price by six to twelve months, which is visible directly in the <a href="/rig-brent-chart">rig count and Brent chart</a>. A shortage of oil is one of the genuinely real scarcities, the kind the framework says money cannot conjure away, because no monetary policy shortens the time it takes to build a floating production platform.
+    <br><br>
+    <strong>And most of it fails.</strong> Roughly seven in ten high-impact exploration wells find nothing commercial. In ultra-deepwater over 2021 to 2025, only two of thirty-seven wells made a commercial discovery. Those dry holes are paid for by the wells that succeed, which is why the economics require the price to stay high long enough to justify a decade of committed capital, and why producers hedge rather than chase spot prices.
+    <br><br>
+    Sources: EIA and Dallas Fed (Permian spud-to-production and drilling times); BOEM and NOIA (Gulf of Mexico project lifecycle); Westwood Energy (high-impact exploration commercial success rates, 2021 to 2025); API and PHMSA (pipeline transit and distribution); industry cycle-time literature. Success rates are commercial success, meaning discoveries large enough to develop, not merely wells that encountered hydrocarbons.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var ns = 'http://www.w3.org/2000/svg';
+  function mk(svg, tag, attrs, txt) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt !== undefined) e.textContent = txt;
+    svg.appendChild(e); return e;
+  }
+  function hookTip(el, tipEl, html) {
+    el.addEventListener('mousemove', function (ev) {
+      tipEl.innerHTML = html;
+      tipEl.style.display = 'block';
+      var cc = tipEl.parentElement.getBoundingClientRect();
+      var x = ev.clientX - cc.left + 14, y = ev.clientY - cc.top - 12;
+      if (x + 250 > cc.width) x = ev.clientX - cc.left - 240;
+      tipEl.style.left = x + 'px'; tipEl.style.top = y + 'px';
+    });
+    el.addEventListener('mouseleave', function () { tipEl.style.display = 'none'; });
+  }
+
+  /* ---------- Phase definitions ---------- */
+  var PHASES = [
+    { key: 'survey',  name: 'Geological survey & seismic', color: '#6b6a3a' },
+    { key: 'lease',   name: 'Lease & permitting',          color: '#8a7a3d' },
+    { key: 'rig',     name: 'Rig contracting & mobilise',  color: '#a8873f' },
+    { key: 'explore', name: 'Exploratory drilling',        color: '#8a3324' },
+    { key: 'appraise',name: 'Appraisal & economic decision (FID)', color: '#6d4a6a' },
+    { key: 'build',   name: 'Development & construction',  color: '#3d5a6b' },
+    { key: 'devwell', name: 'Production drilling & completion', color: '#2f6b52' },
+    { key: 'first',   name: 'Flowback to first oil',       color: '#3f8b5a' }
+  ];
+  var PHASE_BY_KEY = {}; PHASES.forEach(function(p){ PHASE_BY_KEY[p.key] = p; });
+
+  /* months per phase */
+  var TRACKS = [
+    { label: 'Land / onshore', sub: 'shale, e.g. Permian',
+      segs: { survey: 6, lease: 5, rig: 1.5, explore: 0.8, appraise: 0.7, build: 0, devwell: 1.5, first: 0.5 },
+      detail: {
+        survey: '3D seismic over a known basin. Often already shot and licensed.',
+        lease: 'Private mineral leases. State permits in Texas can issue in weeks.',
+        rig: 'Rigs and frac crews are contracted from an active regional fleet.',
+        explore: 'Horizontal well drilled in 15 to 25 days.',
+        appraise: 'Log evaluation. In a known play the decision is often near-automatic.',
+        build: 'No standalone construction phase. Pad and tank battery built alongside.',
+        devwell: 'Completion and hydraulic fracturing, 3 to 6 weeks.',
+        first: 'Flowback of frac fluid, then stabilised production in 7 to 21 days.'
+      } },
+    { label: 'Shallow water', sub: 'jackup, fixed platform',
+      segs: { survey: 14, lease: 12, rig: 5, explore: 2, appraise: 12, build: 15, devwell: 5, first: 1 },
+      detail: {
+        survey: 'Marine 3D seismic acquisition and processing.',
+        lease: 'Federal offshore lease sale plus BOEM/BSEE permitting.',
+        rig: 'Jackup rig contracted and towed to location.',
+        explore: 'Exploratory well, typically 1 to 3 months.',
+        appraise: 'Delineation wells and the final investment decision.',
+        build: 'Steel jacket platform fabricated onshore, then installed on the seabed.',
+        devwell: 'Production wells drilled from the installed platform.',
+        first: 'Commissioning and tie-in to existing infrastructure.'
+      } },
+    { label: 'Deepwater', sub: 'floating production system',
+      segs: { survey: 20, lease: 10, rig: 8, explore: 8, appraise: 20, build: 30, devwell: 8, first: 2 },
+      detail: {
+        survey: 'One year of preliminary geology, then 1 to 2 years acquiring and processing 3D seismic.',
+        lease: 'Federal lease sale, exploration plan approval, environmental review.',
+        rig: 'Contracting a deepwater drillship can take a year on its own.',
+        explore: 'A single exploratory well takes 6 to 10 months to drill and complete.',
+        appraise: 'Delineation drilling and reservoir development plan, 2 to 3 years.',
+        build: 'FPSO or semi-submersible built, plus subsea trees, risers and flowlines. The longest phase.',
+        devwell: 'Subsea production wells drilled and tied back.',
+        first: 'Commissioning, ramp-up to plateau production.'
+      } }
+  ];
+
+  /* ---------- Legend ---------- */
+  var leg = document.getElementById('legend');
+  PHASES.forEach(function (p) {
+    if (p.key === 'build') { /* still show, land has 0 */ }
+    var d = document.createElement('div'); d.className = 'pl-item';
+    d.innerHTML = '<span class="pl-sw" style="background:' + p.color + '"></span>' + p.name;
+    leg.appendChild(d);
+  });
+
+  /* ---------- Upstream Gantt ---------- */
+  (function () {
+    var svg = document.getElementById('upstream-svg');
+    var tip = document.getElementById('tip-up');
+    var W = 940, H = 300, L = 132, R = 26, T = 34, B = 46;
+    var iw = W - L - R;
+    var maxM = 110; /* months on axis */
+    var rowH = 46, gap = 24;
+
+    function X(m) { return L + (m / maxM) * iw; }
+
+    /* axis: years */
+    for (var yr = 0; yr <= 9; yr++) {
+      var m = yr * 12, x = X(m);
+      mk(svg, 'line', { x1: x, y1: T - 8, x2: x, y2: T + 3 * rowH + 2 * gap + 4, stroke: '#ddd3c2', 'stroke-width': yr === 0 ? 1.2 : 0.5 });
+      mk(svg, 'text', { x: x, y: T - 14, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, yr === 0 ? '0' : yr + 'y');
+    }
+
+    TRACKS.forEach(function (tr, i) {
+      var y = T + i * (rowH + gap);
+      mk(svg, 'text', { x: L - 12, y: y + rowH / 2 - 2, 'text-anchor': 'end', 'font-size': 11.5, fill: '#211d18', 'font-family': 'EB Garamond, serif', 'font-weight': 600 }, tr.label);
+      mk(svg, 'text', { x: L - 12, y: y + rowH / 2 + 11, 'text-anchor': 'end', 'font-size': 8.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, tr.sub);
+
+      var cursor = 0, total = 0;
+      PHASES.forEach(function (p) {
+        var dur = tr.segs[p.key] || 0;
+        if (dur <= 0) return;
+        var x0 = X(cursor), x1 = X(cursor + dur);
+        var rect = mk(svg, 'rect', { x: x0, y: y, width: Math.max(1.5, x1 - x0), height: rowH - 12, fill: p.color, opacity: 0.9, stroke: 'var(--parchment)', 'stroke-width': 0.8, style: 'cursor:crosshair' });
+        var months = dur < 1 ? (Math.round(dur * 30) + ' days') : (dur < 12 ? (dur % 1 ? dur.toFixed(1) : dur) + ' months' : (dur / 12).toFixed(1) + ' years');
+        hookTip(rect, tip,
+          '<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">' + tr.label + '</span><br>' +
+          '<strong style="color:' + p.color + '">' + p.name + '</strong><br>' +
+          '<span style="color:var(--ink);">Duration: ' + months + '</span><br>' +
+          '<span style="color:var(--ink-soft);white-space:normal;display:block;max-width:20rem;margin-top:.25rem;">' + tr.detail[p.key] + '</span>');
+        cursor += dur; total += dur;
+      });
+      /* total label */
+      var tx = X(cursor) + 8;
+      var lbl = total < 24 ? Math.round(total) + ' mo' : (total / 12).toFixed(1) + ' yr';
+      mk(svg, 'text', { x: tx, y: y + (rowH - 12) / 2 + 4, 'font-size': 10.5, fill: '#211d18', 'font-family': 'IBM Plex Mono, monospace', 'font-weight': 500 }, lbl);
+    });
+  })();
+
+  /* ---------- Downstream ---------- */
+  (function () {
+    var svg = document.getElementById('downstream-svg');
+    var tip = document.getElementById('tip-down');
+    var W = 940, H = 150, L = 132, R = 26, T = 34;
+    var iw = W - L - R, maxD = 22, rowH = 40;
+    function X(d) { return L + (d / maxD) * iw; }
+
+    var STEPS = [
+      { n: 'Wellhead to gathering & storage', d: 2,   c: '#8a3324', t: 'Crude moves from the wellhead through gathering lines into field storage tanks.' },
+      { n: 'Pipeline or tanker to refinery',  d: 10,  c: '#a8873f', t: 'A batch travels 7 to 14 days by pipeline. Waterborne cargo can take far longer.' },
+      { n: 'Refining',                        d: 1,   c: '#2f6b52', t: 'Distillation and cracking take 8 to 18 hours. Batch testing and quality control add 12 to 24 hours. The fastest step in the entire chain.' },
+      { n: 'Refinery to distribution terminal',d: 6.5,c: '#3d5a6b', t: 'Refined product moves by pipeline to regional terminals, roughly 6 to 7 days.' },
+      { n: 'Terminal to the pump',            d: 0.5, c: '#6d4a6a', t: 'Tanker truck loads at the rack and delivers to the station, usually within 12 hours.' }
+    ];
+
+    for (var d = 0; d <= 20; d += 5) {
+      var x = X(d);
+      mk(svg, 'line', { x1: x, y1: T - 8, x2: x, y2: T + rowH + 6, stroke: '#ddd3c2', 'stroke-width': d === 0 ? 1.2 : 0.5 });
+      mk(svg, 'text', { x: x, y: T - 14, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, d === 0 ? '0' : d + 'd');
+    }
+    mk(svg, 'text', { x: L - 12, y: T + rowH / 2 + 2, 'text-anchor': 'end', 'font-size': 11.5, fill: '#211d18', 'font-family': 'EB Garamond, serif', 'font-weight': 600 }, 'Crude to pump');
+    mk(svg, 'text', { x: L - 12, y: T + rowH / 2 + 15, 'text-anchor': 'end', 'font-size': 8.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, 'same for all three');
+
+    var cur = 0, tot = 0;
+    STEPS.forEach(function (s) {
+      var x0 = X(cur), x1 = X(cur + s.d);
+      var r = mk(svg, 'rect', { x: x0, y: T, width: Math.max(2, x1 - x0), height: rowH - 6, fill: s.c, opacity: 0.9, stroke: 'var(--parchment)', 'stroke-width': 0.8, style: 'cursor:crosshair' });
+      hookTip(r, tip, '<strong style="color:' + s.c + '">' + s.n + '</strong><br><span style="color:var(--ink);">' +
+        (s.d < 1 ? '~12 hours' : '~' + s.d + ' days') + '</span><br><span style="color:var(--ink-soft);white-space:normal;display:block;max-width:20rem;margin-top:.25rem;">' + s.t + '</span>');
+      cur += s.d; tot += s.d;
+    });
+    mk(svg, 'text', { x: X(cur) + 8, y: T + (rowH - 6) / 2 + 4, 'font-size': 10.5, fill: '#211d18', 'font-family': 'IBM Plex Mono, monospace', 'font-weight': 500 }, '~' + Math.round(tot) + ' days');
+
+    /* mini legend */
+    var lx = L, ly = T + rowH + 26;
+    STEPS.forEach(function (s, i) {
+      if (i > 0 && i % 3 === 0) { ly += 15; lx = L; }
+      mk(svg, 'rect', { x: lx, y: ly - 8, width: 10, height: 10, fill: s.c, rx: 1 });
+      var t = mk(svg, 'text', { x: lx + 15, y: ly, 'font-size': 8.6, fill: '#5c5247', 'font-family': 'IBM Plex Mono, monospace' }, s.n);
+      lx += 15 + s.n.length * 4.9 + 22;
+    });
+  })();
+
+  /* ---------- Success rates ---------- */
+  (function () {
+    var svg = document.getElementById('success-svg');
+    var tip = document.getElementById('tip-succ');
+    var W = 940, H = 300, L = 250, R = 70, T = 26, B = 34;
+    var iw = W - L - R;
+
+    var BARS = [
+      { n: 'Development well',        sub: 'into a known, mapped reservoir', v: 67, c: '#2f6b52',
+        t: 'Drilled into a reservoir already proven by earlier wells. The geology is known; the risk is mechanical and economic, not exploratory. 65 to 70 percent succeed.' },
+      { n: 'Onshore exploration',     sub: 'mature basin', v: 45, c: '#6b6a3a',
+        t: 'Exploration in a mature onshore basin, where seismic coverage is dense and analogues are plentiful.' },
+      { n: 'Offshore exploration',    sub: 'all water depths', v: 35, c: '#3d5a6b',
+        t: 'Average across offshore exploration. Better seismic imaging and direct hydrocarbon indicators have lifted this over two decades.' },
+      { n: 'High-impact exploration', sub: 'global, 2025', v: 31, c: '#a8873f',
+        t: 'Commercial success rate for high-impact wells in 2025, up from 28 to 29 percent in 2023 and 2024. Over 2021 to 2025, 373 such wells delivered a 30 percent commercial success rate.' },
+      { n: 'Frontier plays',          sub: 'five-year average', v: 13, c: '#8a3324',
+        t: 'Drilling in basins with no established production. Five-year average commercial success rate of 13 percent.' },
+      { n: 'Ultra-deepwater',         sub: '2021 to 2025', v: 5, c: '#5a1f18',
+        t: 'Only 2 of 37 ultra-deepwater wells completed between 2021 and 2025 made a commercial discovery. The highest cost per well in the industry, at the lowest success rate.' }
+    ];
+
+    var rowH = (H - T - B) / BARS.length;
+    function X(p) { return L + (p / 100) * iw; }
+
+    for (var p = 0; p <= 100; p += 25) {
+      mk(svg, 'line', { x1: X(p), y1: T - 6, x2: X(p), y2: H - B + 4, stroke: '#ddd3c2', 'stroke-width': p === 0 ? 1.2 : 0.5 });
+      mk(svg, 'text', { x: X(p), y: H - B + 18, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, p + '%');
+    }
+
+    BARS.forEach(function (b, i) {
+      var y = T + i * rowH, bh = rowH * 0.56;
+      mk(svg, 'text', { x: L - 12, y: y + bh / 2 + 1, 'text-anchor': 'end', 'font-size': 11.5, fill: '#211d18', 'font-family': 'EB Garamond, serif', 'font-weight': 600 }, b.n);
+      mk(svg, 'text', { x: L - 12, y: y + bh / 2 + 13, 'text-anchor': 'end', 'font-size': 8.4, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, b.sub);
+      /* ghost bar to 100 */
+      mk(svg, 'rect', { x: L, y: y, width: iw, height: bh, fill: '#ddd3c2', opacity: 0.28 });
+      var r = mk(svg, 'rect', { x: L, y: y, width: Math.max(2, X(b.v) - L), height: bh, fill: b.c, opacity: 0.92, style: 'cursor:crosshair' });
+      hookTip(r, tip, '<strong style="color:' + b.c + '">' + b.n + '</strong><br><span style="color:var(--ink);font-size:.8rem;font-weight:600;">' + b.v + '% commercial success</span><br><span style="color:var(--ink-soft);white-space:normal;display:block;max-width:21rem;margin-top:.25rem;">' + b.t + '</span>');
+      mk(svg, 'text', { x: X(b.v) + 8, y: y + bh / 2 + 4, 'font-size': 11, fill: b.c, 'font-family': 'IBM Plex Mono, monospace', 'font-weight': 600 }, b.v + '%');
+    });
+  })();
+})();
+</script>
+</body>
+</html>
