@@ -36,7 +36,7 @@
   gap: 1px;
   background: var(--rule);
   border: 1px solid var(--rule);
-  margin: 2.4rem 0;
+  margin: 0 0 1rem;
 }
 .curiosity-card {
   background: var(--parchment);
@@ -77,6 +77,15 @@
 .curiosity-dek {
   font-size: 1.02rem; color: var(--ink-soft); line-height: 1.5; flex: 1;
 }
+.curio-group {
+  font-family: var(--serif); font-size: 1.9rem; font-weight: 600;
+  color: var(--oxblood); margin: 2.8rem 0 .15rem; line-height: 1.1;
+}
+.curio-group:first-of-type { margin-top: 1.6rem; }
+.curio-group-sub {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .02em;
+  color: var(--ink-faint); margin: 0 0 1rem; line-height: 1.5;
+}
 .curiosity-cta {
   font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
   color: var(--oxblood); margin-top: .9rem;
@@ -105,7 +114,22 @@
     <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share the curiosities';b.classList.remove('copied');},2000)})">Share the curiosities</button>
   </div>
 
+  <h2 class="curio-group">Health</h2>
+  <p class="curio-group-sub">Where scarcity shows up in bodies rather than balance sheets.</p>
   <div class="curiosity-grid">
+
+    <a class="curiosity-card" href="/health-outcomes">
+      <div class="curiosity-thumb" style="background:#f6f2e9">
+        <img src="/assets/curiosity-health-outcomes.svg"
+             alt="A scatter plot of health spending per person against infant mortality, with peer nations clustered low and the United States isolated in the top right corner.">
+      </div>
+      <div class="curiosity-body">
+        <p class="curiosity-tag">Spending vs outcomes &middot; 27 nations &middot; OECD data</p>
+        <h2 class="curiosity-title">What Health Care Buys</h2>
+        <p class="curiosity-dek">The United States spends $13,473 per person and has the worst infant mortality and shortest life expectancy of any rich country. Japan spends $5,365 and leads the world on both. Twenty-seven systems compared, each with a synopsis and rated wait times for physicals, minor surgery, and major surgery.</p>
+        <p class="curiosity-cta">Open the comparison &rsaquo;</p>
+      </div>
+    </a>
 
     <a class="curiosity-card" href="/disease-map">
       <div class="curiosity-thumb">
@@ -117,6 +141,25 @@
         <h2 class="curiosity-title">Disease Hotspot Map</h2>
         <p class="curiosity-dek">Select any nationally notifiable disease and year from the CDC's NNDSS data set. The map recolors by state case count, light for fewer, oxblood for more, with a ranked sidebar and state-by-state tooltip. Scarcity shows up in health systems too; this is where it lands geographically.</p>
         <p class="curiosity-cta">Open the map &rsaquo;</p>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 class="curio-group">Commodities</h2>
+  <p class="curio-group-sub">The things that get grown, dug up, and priced.</p>
+  <div class="curiosity-grid">
+
+    <a class="curiosity-card" href="/beef-price-chart">
+      <div class="curiosity-thumb" style="background:#f6f2e9">
+        <img src="/assets/curiosity-beef-chart.svg"
+             alt="A line chart of ground beef retail price per pound from 2008 to 2026, annotated with drought, COVID packing shutdowns, and tariff events.">
+      </div>
+      <div class="curiosity-body">
+        <p class="curiosity-tag">Annotated chart &middot; BLS APU0000703112 · 2008–2026</p>
+        <h2 class="curiosity-title">Ground Beef Price, 2008–2026</h2>
+        <p class="curiosity-dek">Eighteen years of retail ground beef prices annotated by scarcity type: the real drought-driven herd shortage of 2011–2015, the COVID meatpacking bottleneck of 2020, and the compound tariff-and-screwworm stack driving prices above $6.80 in 2026. A companion to the dispatch on which shortage is actually behind the beef price.</p>
+        <p class="curiosity-cta">Open the chart &rsaquo;</p>
       </div>
     </a>
 
@@ -146,94 +189,22 @@
       </div>
     </a>
 
-    <a class="curiosity-card" href="/oil-map">
-      <div class="curiosity-thumb" style="background:#1a0f05">
-        <img src="/assets/curiosity-oil-map.svg"
-             alt="A choropleth map of the United States shaded from light tan to dark brown by crude oil production, Texas sharply dominant.">
-      </div>
-      <div class="curiosity-body">
-        <p class="curiosity-tag">Interactive map &middot; EIA data</p>
-        <h2 class="curiosity-title">Oil Production Map</h2>
-        <p class="curiosity-dek">Select any year from 1981 to 2025 to see how US crude oil production is distributed across states. Data from the EIA. Texas produces nearly half the national total. New Mexico and North Dakota have surged since the shale boom. Alaska's share has fallen every decade since its 1988 peak.</p>
-        <p class="curiosity-cta">Open the map &rsaquo;</p>
-      </div>
-    </a>
+  </div>
 
-    <a class="curiosity-card" href="/fiscal-map">
-      <div class="curiosity-thumb" style="background:#1a1210">
-        <img src="/assets/curiosity-fiscal-map.svg"
-             alt="A US map color-coded by political lean and fiscal status, dark blue for blue donor states, dark red for red consumer states, purple shades for swing states.">
-      </div>
-      <div class="curiosity-body">
-        <p class="curiosity-tag">Interactive map &middot; USASpending · BEA · MIT Election Lab</p>
-        <h2 class="curiosity-title">Federal Donor &amp; Consumer States</h2>
-        <p class="curiosity-dek">Which states pay more in federal taxes than they receive in federal spending, and does it follow party lines? Select any fiscal year from 2008 to 2023 to see grants, direct payments, and contracts by state, colored by political lean.</p>
-        <p class="curiosity-cta">Open the map &rsaquo;</p>
-      </div>
-    </a>
+  <h2 class="curio-group">Energy</h2>
+  <p class="curio-group-sub">What it costs, how long it takes, and where it comes from.</p>
+  <div class="curiosity-grid">
 
-    <a class="curiosity-card" href="/rig-brent-chart">
+    <a class="curiosity-card" href="/energy-mix">
       <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-rig-brent.svg"
-             alt="A dual-axis line chart showing US rig count (navy dashed) and Brent crude price (oxblood) from 2015 to 2025.">
+        <img src="/assets/curiosity-energy-mix.svg"
+             alt="Stacked bars showing electricity generation mix by source for the world, China, USA, France, Norway, South Africa, and Brazil.">
       </div>
       <div class="curiosity-body">
-        <p class="curiosity-tag">Dual-axis chart &middot; EIA · Baker Hughes · 2015–2025</p>
-        <h2 class="curiosity-title">Rig Count &amp; Brent Crude</h2>
-        <p class="curiosity-dek">Ten years of US rotary rig count and Brent crude spot price on one chart. The lag between price and drilling tells the story of shale economics and OPEC+ strategy, visible at every inflection from the 2015 price war through the COVID crash and the Ukraine shock.</p>
+        <p class="curiosity-tag">Generation mix &middot; 37 countries &middot; 2025</p>
+        <h2 class="curiosity-title">How the World Makes Electricity</h2>
+        <p class="curiosity-dek">France runs on nuclear, Norway on water, South Africa on coal, Iran almost entirely on gas. Every country&rsquo;s generation mix broken into coal, gas, oil, nuclear, hydro, wind, solar, and biomass, sortable by any source. In 2025 renewables passed coal worldwide for the first time in a century.</p>
         <p class="curiosity-cta">Open the chart &rsaquo;</p>
-      </div>
-    </a>
-
-    <a class="curiosity-card" href="/beef-price-chart">
-      <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-beef-chart.svg"
-             alt="A line chart of ground beef retail price per pound from 2008 to 2026, annotated with drought, COVID packing shutdowns, and tariff events.">
-      </div>
-      <div class="curiosity-body">
-        <p class="curiosity-tag">Annotated chart &middot; BLS APU0000703112 · 2008–2026</p>
-        <h2 class="curiosity-title">Ground Beef Price, 2008–2026</h2>
-        <p class="curiosity-dek">Eighteen years of retail ground beef prices annotated by scarcity type: the real drought-driven herd shortage of 2011–2015, the COVID meatpacking bottleneck of 2020, and the compound tariff-and-screwworm stack driving prices above $6.80 in 2026. A companion to the dispatch on which shortage is actually behind the beef price.</p>
-        <p class="curiosity-cta">Open the chart &rsaquo;</p>
-      </div>
-    </a>
-
-    <a class="curiosity-card" href="/political-spectrum">
-      <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-political-spectrum.svg"
-             alt="A semicircular gauge divided into eight political bands from communism to fascism, with a needle pointing between conservatism and authoritarian.">
-      </div>
-      <div class="curiosity-body">
-        <p class="curiosity-tag">Interpretive gauge &middot; 28 countries &middot; 1940&ndash;2026</p>
-        <h2 class="curiosity-title">The Political Spectrum Gauge</h2>
-        <p class="curiosity-dek">Where does each country sit on the spectrum from communism to fascism, and how did it get there? A gauge of the current reading and a timeline of every swing since 1940, for the United States and 27 other countries. Interpretive placements, offered to be disputed.</p>
-        <p class="curiosity-cta">Open the gauge &rsaquo;</p>
-      </div>
-    </a>
-
-    <a class="curiosity-card" href="/economy-party-chart">
-      <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-economy-party.svg"
-             alt="A chart of unemployment, inflation, and debt-to-GDP lines from 1940 to 2026, drawn over alternating blue and red bands marking which party held the presidency.">
-      </div>
-      <div class="curiosity-body">
-        <p class="curiosity-tag">Interactive chart &middot; BLS &middot; BEA &middot; Treasury &middot; 1940&ndash;2026</p>
-        <h2 class="curiosity-title">The Economy Under Each Party</h2>
-        <p class="curiosity-dek">Unemployment, real GDP growth, inflation, and the national debt, drawn over a band chart of which party held the White House. Toggle each series, hover any year, and judge the record for yourself. The one clean pattern is the debt ratchet, and it belongs to both parties.</p>
-        <p class="curiosity-cta">Open the chart &rsaquo;</p>
-      </div>
-    </a>
-
-    <a class="curiosity-card" href="/oil-timeline">
-      <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-oil-timeline.svg"
-             alt="Three stacked timeline bars comparing land, shallow water, and deepwater oil development from survey to first oil, with a success rate strip below.">
-      </div>
-      <div class="curiosity-body">
-        <p class="curiosity-tag">Cycle-time chart &middot; land &middot; shallow &middot; deepwater</p>
-        <h2 class="curiosity-title">From Seismic Survey to Gas Pump</h2>
-        <p class="curiosity-dek">Every phase between a geologist's first survey and a gallon in your tank, for land, shallow water, and deepwater drilling. A land well takes about sixteen months. A deepwater project takes nearly nine years. And seven in ten high-impact exploration wells find nothing worth producing at all.</p>
-        <p class="curiosity-cta">Open the timeline &rsaquo;</p>
       </div>
     </a>
 
@@ -250,29 +221,87 @@
       </div>
     </a>
 
-    <a class="curiosity-card" href="/energy-mix">
+    <a class="curiosity-card" href="/oil-timeline">
       <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-energy-mix.svg"
-             alt="Stacked bars showing electricity generation mix by source for the world, China, USA, France, Norway, South Africa, and Brazil.">
+        <img src="/assets/curiosity-oil-timeline.svg"
+             alt="Three stacked timeline bars comparing land, shallow water, and deepwater oil development from survey to first oil, with a success rate strip below.">
       </div>
       <div class="curiosity-body">
-        <p class="curiosity-tag">Generation mix &middot; 37 countries &middot; 2025</p>
-        <h2 class="curiosity-title">How the World Makes Electricity</h2>
-        <p class="curiosity-dek">France runs on nuclear, Norway on water, South Africa on coal, Iran almost entirely on gas. Every country&rsquo;s generation mix broken into coal, gas, oil, nuclear, hydro, wind, solar, and biomass, sortable by any source. In 2025 renewables passed coal worldwide for the first time in a century.</p>
+        <p class="curiosity-tag">Cycle-time chart &middot; land &middot; shallow &middot; deepwater</p>
+        <h2 class="curiosity-title">From Seismic Survey to Gas Pump</h2>
+        <p class="curiosity-dek">Every phase between a geologist's first survey and a gallon in your tank, for land, shallow water, and deepwater drilling. A land well takes about sixteen months. A deepwater project takes nearly nine years. And seven in ten high-impact exploration wells find nothing worth producing at all.</p>
+        <p class="curiosity-cta">Open the timeline &rsaquo;</p>
+      </div>
+    </a>
+
+    <a class="curiosity-card" href="/rig-brent-chart">
+      <div class="curiosity-thumb" style="background:#f6f2e9">
+        <img src="/assets/curiosity-rig-brent.svg"
+             alt="A dual-axis line chart showing US rig count (navy dashed) and Brent crude price (oxblood) from 2015 to 2025.">
+      </div>
+      <div class="curiosity-body">
+        <p class="curiosity-tag">Dual-axis chart &middot; EIA · Baker Hughes · 2015–2025</p>
+        <h2 class="curiosity-title">Rig Count &amp; Brent Crude</h2>
+        <p class="curiosity-dek">Ten years of US rotary rig count and Brent crude spot price on one chart. The lag between price and drilling tells the story of shale economics and OPEC+ strategy, visible at every inflection from the 2015 price war through the COVID crash and the Ukraine shock.</p>
         <p class="curiosity-cta">Open the chart &rsaquo;</p>
       </div>
     </a>
 
-    <a class="curiosity-card" href="/health-outcomes">
-      <div class="curiosity-thumb" style="background:#f6f2e9">
-        <img src="/assets/curiosity-health-outcomes.svg"
-             alt="A scatter plot of health spending per person against infant mortality, with peer nations clustered low and the United States isolated in the top right corner.">
+    <a class="curiosity-card" href="/oil-map">
+      <div class="curiosity-thumb" style="background:#1a0f05">
+        <img src="/assets/curiosity-oil-map.svg"
+             alt="A choropleth map of the United States shaded from light tan to dark brown by crude oil production, Texas sharply dominant.">
       </div>
       <div class="curiosity-body">
-        <p class="curiosity-tag">Spending vs outcomes &middot; 27 nations &middot; OECD data</p>
-        <h2 class="curiosity-title">What Health Care Buys</h2>
-        <p class="curiosity-dek">The United States spends $13,473 per person and has the worst infant mortality and shortest life expectancy of any rich country. Japan spends $5,365 and leads the world on both. Twenty-seven systems compared, each with a synopsis and rated wait times for physicals, minor surgery, and major surgery.</p>
-        <p class="curiosity-cta">Open the comparison &rsaquo;</p>
+        <p class="curiosity-tag">Interactive map &middot; EIA data</p>
+        <h2 class="curiosity-title">Oil Production Map</h2>
+        <p class="curiosity-dek">Select any year from 1981 to 2025 to see how US crude oil production is distributed across states. Data from the EIA. Texas produces nearly half the national total. New Mexico and North Dakota have surged since the shale boom. Alaska's share has fallen every decade since its 1988 peak.</p>
+        <p class="curiosity-cta">Open the map &rsaquo;</p>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 class="curio-group">Politics</h2>
+  <p class="curio-group-sub">Who decides, who pays, and where that has moved over time.</p>
+  <div class="curiosity-grid">
+
+    <a class="curiosity-card" href="/economy-party-chart">
+      <div class="curiosity-thumb" style="background:#f6f2e9">
+        <img src="/assets/curiosity-economy-party.svg"
+             alt="A chart of unemployment, inflation, and debt-to-GDP lines from 1940 to 2026, drawn over alternating blue and red bands marking which party held the presidency.">
+      </div>
+      <div class="curiosity-body">
+        <p class="curiosity-tag">Interactive chart &middot; BLS &middot; BEA &middot; Treasury &middot; 1940&ndash;2026</p>
+        <h2 class="curiosity-title">The Economy Under Each Party</h2>
+        <p class="curiosity-dek">Unemployment, real GDP growth, inflation, and the national debt, drawn over a band chart of which party held the White House. Toggle each series, hover any year, and judge the record for yourself. The one clean pattern is the debt ratchet, and it belongs to both parties.</p>
+        <p class="curiosity-cta">Open the chart &rsaquo;</p>
+      </div>
+    </a>
+
+    <a class="curiosity-card" href="/fiscal-map">
+      <div class="curiosity-thumb" style="background:#1a1210">
+        <img src="/assets/curiosity-fiscal-map.svg"
+             alt="A US map color-coded by political lean and fiscal status, dark blue for blue donor states, dark red for red consumer states, purple shades for swing states.">
+      </div>
+      <div class="curiosity-body">
+        <p class="curiosity-tag">Interactive map &middot; USASpending · BEA · MIT Election Lab</p>
+        <h2 class="curiosity-title">Federal Donor &amp; Consumer States</h2>
+        <p class="curiosity-dek">Which states pay more in federal taxes than they receive in federal spending, and does it follow party lines? Select any fiscal year from 2008 to 2023 to see grants, direct payments, and contracts by state, colored by political lean.</p>
+        <p class="curiosity-cta">Open the map &rsaquo;</p>
+      </div>
+    </a>
+
+    <a class="curiosity-card" href="/political-spectrum">
+      <div class="curiosity-thumb" style="background:#f6f2e9">
+        <img src="/assets/curiosity-political-spectrum.svg"
+             alt="A semicircular gauge divided into eight political bands from communism to fascism, with a needle pointing between conservatism and authoritarian.">
+      </div>
+      <div class="curiosity-body">
+        <p class="curiosity-tag">Interpretive gauge &middot; 28 countries &middot; 1940&ndash;2026</p>
+        <h2 class="curiosity-title">The Political Spectrum Gauge</h2>
+        <p class="curiosity-dek">Where does each country sit on the spectrum from communism to fascism, and how did it get there? A gauge of the current reading and a timeline of every swing since 1940, for the United States and 27 other countries. Interpretive placements, offered to be disputed.</p>
+        <p class="curiosity-cta">Open the gauge &rsaquo;</p>
       </div>
     </a>
 
