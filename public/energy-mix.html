@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the World Makes Electricity &middot; Scarcinality</title>
+<meta name="description" content="Electricity generation mix by country: coal, gas, oil, nuclear, hydro, wind, solar, and biomass, for 37 countries and the world. In 2025 renewables passed coal globally for the first time in a century.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="How the World Makes Electricity &middot; Scarcinality">
+<meta property="og:description" content="Generation mix by country for 37 countries. France runs on nuclear, Norway on water, South Africa on coal, Iran on gas. In 2025 renewables passed coal worldwide for the first time in a century.">
+<meta property="og:url" content="https://www.scarcinality.com/energy-mix">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-energy-mix.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How the World Makes Electricity &middot; Scarcinality">
+<meta name="twitter:description" content="Electricity generation mix by source for 37 countries and the world.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-energy-mix.svg">
+<link rel="canonical" href="https://www.scarcinality.com/energy-mix">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem;
+  padding:.75rem clamp(1.1rem,5vw,3rem); border-bottom:1px solid var(--rule); background:var(--parchment); }
+.map-header h1 { font-size:1.1rem; font-weight:600; margin:0; }
+.source-badge { font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; color:var(--ink-faint); text-transform:uppercase; }
+.curio-switch { display:flex; overflow-x:auto; gap:.4rem; padding:.45rem clamp(1.1rem,5vw,3rem); border-bottom:1px solid var(--rule); background:var(--parchment); -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.curio-switch::-webkit-scrollbar { display:none; }
+.curio-switch a { font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; padding:.28rem .6rem; border:1px solid var(--rule); border-radius:2px; color:var(--ink-faint); text-decoration:none; flex-shrink:0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color:var(--ink); border-color:var(--ink-faint); background:var(--parchment-deep,#dfd5c4); }
+.chart-wrap { max-width:78rem; margin:0 auto; padding:1.6rem clamp(1.1rem,5vw,3rem) 3rem; }
+.controls { display:flex; gap:.9rem; flex-wrap:wrap; align-items:center; margin-bottom:.9rem; }
+.controls label { font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); }
+#sort-select { font-family:var(--mono); font-size:.76rem; border:1px solid var(--rule); background:var(--parchment-deep); color:var(--ink); padding:.38rem .55rem; outline:none; cursor:pointer; }
+#sort-select:focus { border-color:var(--oxblood); }
+.src-legend { display:flex; gap:.45rem .95rem; flex-wrap:wrap; margin:.2rem 0 1.1rem; }
+.sl-item { display:inline-flex; align-items:center; gap:.35rem; font-family:var(--mono); font-size:.63rem; color:var(--ink-soft); }
+.sl-sw { width:11px; height:11px; flex-shrink:0; border-radius:1px; }
+.chart-container { position:relative; }
+svg.viz { width:100%; height:auto; display:block; }
+.tooltip-box { position:absolute; pointer-events:none; display:none; background:var(--parchment-deep);
+  border:1px solid var(--rule); border-left:3px solid var(--oxblood); padding:.55rem .75rem;
+  font-family:var(--mono); font-size:.67rem; line-height:1.6; color:var(--ink); white-space:nowrap;
+  box-shadow:0 2px 8px rgba(35,32,27,.12); z-index:6; }
+.facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin:1.6rem 0 0; }
+.fact { background:var(--parchment); padding:.9rem 1.05rem; }
+.fact .f-big { font-family:var(--serif); font-size:1.5rem; font-weight:600; line-height:1.15; margin-bottom:.15rem; }
+.fact .f-body { font-family:var(--mono); font-size:.66rem; color:var(--ink-soft); line-height:1.5; }
+.prose-note { max-width:54rem; font-family:var(--mono); font-size:.72rem; color:var(--ink-soft); line-height:1.6; margin-top:1.8rem; border-top:1px solid var(--rule); padding-top:1rem; }
+.prose-note strong { color:var(--ink); font-weight:500; }
+@media (max-width:620px){
+  .site-header{padding:.8rem 1rem;}
+  .site-nav{display:flex;overflow-x:auto;flex-wrap:nowrap;gap:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .site-nav::-webkit-scrollbar{display:none;}
+  .fact .f-big{font-size:1.2rem;}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>How the World Makes Electricity</h1>
+  <span class="source-badge">37 countries &middot; generation mix &middot; 2025</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart">Beef Price</a>
+  <a href="/political-spectrum">Politics</a>
+  <a href="/economy-party-chart">Economy &amp; Party</a>
+  <a href="/oil-timeline">Oil Timeline</a>
+  <a href="/oil-cost-map">Oil Cost</a>
+  <a href="/energy-mix" aria-current="page">Energy Mix</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+  <div class="controls">
+    <label for="sort-select">Sort by</label>
+    <select id="sort-select">
+      <option value="twh" selected>Total generation</option>
+      <option value="clean">Low-carbon share</option>
+      <option value="fossil">Fossil share</option>
+      <option value="coal">Coal</option>
+      <option value="gas">Gas</option>
+      <option value="nuc">Nuclear</option>
+      <option value="hyd">Hydro</option>
+      <option value="windsol">Wind + solar</option>
+      <option value="name">Name</option>
+    </select>
+  </div>
+
+  <div class="src-legend" id="legend"></div>
+
+  <div class="chart-container">
+    <svg id="mix-svg" class="viz" role="img" aria-label="Stacked bar chart of electricity generation mix by source for 37 countries"></svg>
+    <div class="tooltip-box" id="tip"></div>
+  </div>
+
+  <div class="facts">
+    <div class="fact">
+      <div class="f-big" style="color:#3f7a4a;">33.8% vs 33.0%</div>
+      <div class="f-body">In 2025 renewables passed coal in the global mix for the first time in a century. Solar alone met three quarters of the year&rsquo;s growth in demand.</div>
+    </div>
+    <div class="fact">
+      <div class="f-big" style="color:#6d4a6a;">France, 69%</div>
+      <div class="f-body">The most nuclear-dependent grid of any large country, and the result is one of the lowest-carbon grids in the industrial world.</div>
+    </div>
+    <div class="fact">
+      <div class="f-big" style="color:#2f5670;">Norway, 90%</div>
+      <div class="f-body">Hydro alone. Geography, not policy, is the deciding variable in the cleanest grids: Norway, Iceland, Brazil, Canada.</div>
+    </div>
+    <div class="fact">
+      <div class="f-big" style="color:#3d3226;">South Africa, 81%</div>
+      <div class="f-body">The most coal-dependent grid in the sample, followed by India at 71% and Indonesia at 62%.</div>
+    </div>
+  </div>
+
+  <div class="prose-note">
+    <strong>What the chart shows.</strong> Each bar is one country&rsquo;s electricity generation broken into its sources, as a share of the total. Bar order defaults to total generation, so China and the United States sit at the top, but you can re-sort by any single source or by low-carbon share. Hover any country for the full breakdown and its absolute output in terawatt-hours. This is electricity only, not total primary energy, so it excludes transport fuel, industrial heat, and heating, which together are a larger share of world energy use than electricity is.
+    <br><br>
+    <strong>Geography still decides more than policy.</strong> The cleanest grids in the world are mostly not the product of climate ambition. Norway at 90 percent hydro, Iceland on hydro and geothermal, Brazil at 52 percent hydro, and Canada at 53 percent are all endowments. Where geography gave a country a river system or a volcanic field, it has a clean grid and always did. Where it did not, decarbonisation is a genuine cost. France is the interesting exception, because 69 percent nuclear was a deliberate state programme built in two decades after the 1973 oil shock, and it remains the only large industrial economy to have decarbonised its grid by choice rather than by luck.
+    <br><br>
+    <strong>The scarcinality reading.</strong> Electricity is the one commodity where the physical scarcity and the monetary scarcity have almost fully decoupled. Wind and sunlight have no fuel cost at all: once the capital is spent, the marginal cost of the next unit is near zero. Coal and gas have a real, recurring input cost. So a grid&rsquo;s composition determines which kind of scarcity binds it. A country running on gas is exposed to a fuel price set in a global market it does not control, which is what made 2022 a crisis in Europe and merely an inconvenience in Norway. A country running on hydro and nuclear has converted a recurring real scarcity into a one-time financial one: it paid capital up front to escape a permanent fuel bill. That is the same trade the framework describes throughout, moving a binding constraint from the layer where it recurs to the layer where it can be financed, and it is the strongest argument for building generation that has no fuel input, independent of any argument about carbon.
+    <br><br>
+    Data: Our World in Data energy dataset, drawn from Ember and the Energy Institute Statistical Review. Figures are 2025 except Saudi Arabia, Indonesia, and Iceland (2024, most recent available). Shares are rounded and may not sum to exactly 100. &ldquo;Other&rdquo; covers geothermal, tidal, and waste heat, and is the bulk of Iceland&rsquo;s non-hydro generation.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var SRC = [
+    { k:'coal', n:'Coal',    c:'#3d3226' },
+    { k:'gas',  n:'Gas',     c:'#a8873f' },
+    { k:'oil',  n:'Oil',     c:'#6b4a2a' },
+    { k:'nuc',  n:'Nuclear', c:'#6d4a6a' },
+    { k:'hyd',  n:'Hydro',   c:'#2f5670' },
+    { k:'wind', n:'Wind',    c:'#3d8a8a' },
+    { k:'sol',  n:'Solar',   c:'#d4a72c' },
+    { k:'bio',  n:'Biomass', c:'#6b7a3a' },
+    { k:'oth',  n:'Other',   c:'#8a6a5a' }
+  ];
+
+  var DATA = [
+    {n:'World',           y:2025, twh:31772, coal:33.0, gas:21.8, oil:2.6, nuc:8.8,  hyd:14.0, wind:8.5,  sol:8.7,  bio:2.2, oth:0.3},
+    {n:'China',           y:2025, twh:10583, coal:54.3, gas:3.2,  oil:0.8, nuc:4.6,  hyd:13.2, wind:10.7, sol:11.1, bio:2.0, oth:0.0},
+    {n:'United States',   y:2025, twh:4520,  coal:16.3, gas:40.0, oil:0.7, nuc:17.4, hyd:5.3,  wind:10.3, sol:8.6,  bio:1.0, oth:0.4},
+    {n:'India',           y:2025, twh:2082,  coal:70.8, gas:2.3,  oil:0.2, nuc:2.6,  hyd:8.6,  wind:5.0,  sol:9.4,  bio:1.1, oth:0.0},
+    {n:'Russia',          y:2025, twh:1193,  coal:18.4, gas:44.7, oil:1.2, nuc:18.3, hyd:16.7, wind:0.3,  sol:0.2,  bio:0.1, oth:0.0},
+    {n:'Japan',           y:2025, twh:1030,  coal:32.1, gas:32.8, oil:2.5, nuc:9.1,  hyd:7.2,  wind:1.2,  sol:9.8,  bio:5.3, oth:0.0},
+    {n:'Brazil',          y:2025, twh:751,   coal:2.3,  gas:7.3,  oil:1.7, nuc:2.1,  hyd:51.8, wind:15.7, sol:11.8, bio:7.3, oth:0.0},
+    {n:'Canada',          y:2025, twh:652,   coal:4.1,  gas:17.8, oil:1.2, nuc:13.1, hyd:52.8, wind:7.9,  sol:1.6,  bio:1.6, oth:0.0},
+    {n:'Germany',         y:2025, twh:500,   coal:20.6, gas:16.5, oil:3.8, nuc:0.0,  hyd:3.9,  wind:27.2, sol:17.9, bio:10.1, oth:0.0},
+    {n:'France',          y:2025, twh:570,   coal:0.3,  gas:3.0,  oil:1.8, nuc:68.8, hyd:10.4, wind:8.2,  sol:5.6,  bio:1.8, oth:0.1},
+    {n:'United Kingdom',  y:2025, twh:292,   coal:0.1,  gas:31.1, oil:4.4, nuc:12.4, hyd:1.9,  wind:29.4, sol:6.6,  bio:14.1, oth:0.0},
+    {n:'South Korea',     y:2025, twh:625,   coal:31.1, gas:27.9, oil:1.0, nuc:29.6, hyd:0.6,  wind:0.6,  sol:6.1,  bio:3.2, oth:0.0},
+    {n:'Australia',       y:2025, twh:286,   coal:42.7, gas:16.4, oil:2.2, nuc:0.0,  hyd:4.3,  wind:13.7, sol:19.6, bio:1.1, oth:0.0},
+    {n:'Italy',           y:2025, twh:265,   coal:1.4,  gas:47.2, oil:2.6, nuc:0.0,  hyd:15.8, wind:8.1,  sol:16.9, bio:5.9, oth:2.1},
+    {n:'Spain',           y:2025, twh:288,   coal:0.3,  gas:21.6, oil:3.5, nuc:18.8, hyd:11.4, wind:20.4, sol:21.8, bio:2.2, oth:0.0},
+    {n:'Turkey',          y:2025, twh:354,   coal:34.3, gas:22.1, oil:0.3, nuc:0.0,  hyd:16.2, wind:11.1, sol:10.5, bio:2.4, oth:3.0},
+    {n:'Mexico',          y:2025, twh:357,   coal:3.0,  gas:61.6, oil:9.4, nuc:2.8,  hyd:8.1,  wind:6.0,  sol:7.4,  bio:1.7, oth:0.0},
+    {n:'Saudi Arabia',    y:2024, twh:455,   coal:0.0,  gas:63.3, oil:34.5, nuc:0.0,  hyd:0.0,  wind:0.3,  sol:1.8,  bio:0.0, oth:0.0},
+    {n:'Iran',            y:2025, twh:396,   coal:0.2,  gas:89.5, oil:4.6, nuc:1.9,  hyd:3.3,  wind:0.3,  sol:0.2,  bio:0.0, oth:0.0},
+    {n:'Egypt',           y:2025, twh:246,   coal:0.0,  gas:79.6, oil:7.4, nuc:0.0,  hyd:6.1,  wind:3.8,  sol:3.1,  bio:0.0, oth:0.0},
+    {n:'Indonesia',       y:2024, twh:372,   coal:61.5, gas:18.5, oil:1.9, nuc:0.0,  hyd:7.3,  wind:0.1,  sol:0.4,  bio:5.7, oth:4.5},
+    {n:'Vietnam',         y:2025, twh:310,   coal:48.1, gas:6.2,  oil:0.2, nuc:0.0,  hyd:33.0, wind:4.6,  sol:7.4,  bio:0.3, oth:0.0},
+    {n:'Thailand',        y:2025, twh:188,   coal:17.8, gas:65.5, oil:0.1, nuc:0.0,  hyd:4.0,  wind:1.8,  sol:5.3,  bio:5.4, oth:0.0},
+    {n:'Pakistan',        y:2025, twh:195,   coal:14.8, gas:21.0, oil:9.2, nuc:12.2, hyd:20.2, wind:2.9,  sol:18.8, bio:0.9, oth:0.0},
+    {n:'Poland',          y:2025, twh:173,   coal:50.4, gas:14.3, oil:3.8, nuc:0.0,  hyd:1.0,  wind:14.2, sol:11.3, bio:4.9, oth:0.1},
+    {n:'Netherlands',     y:2025, twh:135,   coal:7.1,  gas:34.9, oil:3.9, nuc:3.0,  hyd:0.0,  wind:25.0, sol:21.1, bio:5.1, oth:0.0},
+    {n:'South Africa',    y:2025, twh:243,   coal:81.4, gas:0.0,  oil:0.8, nuc:4.2,  hyd:0.8,  wind:4.7,  sol:8.0,  bio:0.2, oth:0.0},
+    {n:'Argentina',       y:2025, twh:153,   coal:1.8,  gas:52.7, oil:3.9, nuc:7.0,  hyd:17.1, wind:12.2, sol:3.4,  bio:1.9, oth:0.0},
+    {n:'Sweden',          y:2025, twh:171,   coal:0.0,  gas:0.1,  oil:1.2, nuc:27.6, hyd:40.0, wind:22.8, sol:2.6,  bio:5.8, oth:0.0},
+    {n:'Norway',          y:2025, twh:161,   coal:0.0,  gas:0.6,  oil:0.4, nuc:0.0,  hyd:90.0, wind:8.4,  sol:0.3,  bio:0.1, oth:0.1},
+    {n:'Finland',         y:2025, twh:82,    coal:0.2,  gas:1.2,  oil:2.3, nuc:39.9, hyd:15.1, wind:27.4, sol:1.2,  bio:12.6, oth:0.2},
+    {n:'Austria',         y:2025, twh:73,    coal:0.0,  gas:11.9, oil:4.5, nuc:0.0,  hyd:51.8, wind:11.3, sol:14.1, bio:6.4, oth:0.0},
+    {n:'Switzerland',     y:2025, twh:65,    coal:0.0,  gas:0.4,  oil:1.9, nuc:29.9, hyd:52.3, wind:0.2,  sol:12.1, bio:1.6, oth:1.6},
+    {n:'Chile',           y:2025, twh:88,    coal:17.8, gas:15.3, oil:0.6, nuc:0.0,  hyd:22.2, wind:13.1, sol:25.1, bio:5.7, oth:0.3},
+    {n:'Denmark',         y:2025, twh:33,    coal:2.7,  gas:2.4,  oil:3.7, nuc:0.0,  hyd:0.1,  wind:57.7, sol:13.4, bio:20.1, oth:0.0},
+    {n:'New Zealand',     y:2025, twh:43,    coal:1.1,  gas:8.9,  oil:1.5, nuc:0.0,  hyd:54.8, wind:9.7,  sol:0.9,  bio:1.3, oth:21.8},
+    {n:'Nigeria',         y:2025, twh:42,    coal:0.0,  gas:68.7, oil:0.0, nuc:0.0,  hyd:30.9, wind:0.0,  sol:0.3,  bio:0.1, oth:0.0},
+    {n:'Iceland',         y:2024, twh:19,    coal:0.0,  gas:0.0,  oil:0.0, nuc:0.0,  hyd:70.7, wind:0.1,  sol:0.1,  bio:0.0, oth:29.2},
+  ];
+
+  var leg = document.getElementById('legend');
+  SRC.forEach(function (s) {
+    var d = document.createElement('div'); d.className = 'sl-item';
+    d.innerHTML = '<span class="sl-sw" style="background:' + s.c + '"></span>' + s.n;
+    leg.appendChild(d);
+  });
+
+  var ns = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('mix-svg');
+  var tip = document.getElementById('tip');
+  var sel = document.getElementById('sort-select');
+
+  var W = 960, L = 132, R = 74, T = 30, B = 34, rowH = 20;
+
+  function mk(tag, attrs, txt) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt !== undefined) e.textContent = txt;
+    svg.appendChild(e); return e;
+  }
+  function clear() { while (svg.firstChild) svg.removeChild(svg.firstChild); }
+  function fossil(d) { return d.coal + d.gas + d.oil; }
+  function clean(d)  { return d.nuc + d.hyd + d.wind + d.sol + d.bio + d.oth; }
+
+  function draw() {
+    clear();
+    var mode = sel.value;
+    var world = DATA.filter(function (d) { return d.n === 'World'; });
+    var rows = DATA.filter(function (d) { return d.n !== 'World'; });
+
+    rows.sort(function (a, b) {
+      if (mode === 'name')    return a.n.localeCompare(b.n);
+      if (mode === 'twh')     return b.twh - a.twh;
+      if (mode === 'clean')   return clean(b) - clean(a);
+      if (mode === 'fossil')  return fossil(b) - fossil(a);
+      if (mode === 'windsol') return (b.wind + b.sol) - (a.wind + a.sol);
+      return b[mode] - a[mode];
+    });
+    rows = world.concat(rows);
+
+    var H = T + rows.length * rowH + B + 10;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var iw = W - L - R;
+
+    for (var p = 0; p <= 100; p += 25) {
+      var x = L + (p / 100) * iw;
+      mk('line', { x1:x, y1:T-8, x2:x, y2:T + rows.length*rowH + 4, stroke:'#ddd3c2', 'stroke-width': p===0?1.1:0.5 });
+      mk('text', { x:x, y:T-13, 'text-anchor':'middle', 'font-size':9, fill:'#8a8073', 'font-family':'IBM Plex Mono, monospace' }, p+'%');
+    }
+
+    rows.forEach(function (d, i) {
+      var y = T + i * rowH, bh = rowH - 5.5;
+      var isWorld = d.n === 'World';
+
+      mk('text', { x:L-10, y:y+bh/2+3.5, 'text-anchor':'end', 'font-size':isWorld?10.5:10,
+        fill: isWorld ? '#8a3324' : '#211d18', 'font-family':'EB Garamond, serif',
+        'font-weight': isWorld ? 700 : 600 }, d.n);
+
+      var cur = 0;
+      var body = '<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">' +
+        d.n + ' &middot; ' + d.y + '</span><br>' +
+        '<span style="color:var(--ink);font-weight:600;">' + d.twh.toLocaleString() + ' TWh generated</span><br>';
+      SRC.forEach(function (s) {
+        if (d[s.k] > 0) body += '<span style="color:' + s.c + ';">&#9632;</span> ' + s.n + ' ' + d[s.k].toFixed(1) + '%<br>';
+      });
+      body += '<span style="color:var(--ink-soft);">Low-carbon ' + clean(d).toFixed(0) + '% &middot; fossil ' + fossil(d).toFixed(0) + '%</span>';
+
+      SRC.forEach(function (s) {
+        var v = d[s.k]; if (v <= 0) return;
+        var x0 = L + (cur/100)*iw, x1 = L + ((cur+v)/100)*iw;
+        mk('rect', { x:x0, y:y, width:Math.max(0.6, x1-x0), height:bh, fill:s.c,
+          opacity: isWorld ? 1 : 0.92, stroke:'var(--parchment)', 'stroke-width':0.4 });
+        cur += v;
+      });
+
+      if (isWorld) mk('rect', { x:L, y:y-1, width:iw, height:bh+2, fill:'none', stroke:'#8a3324', 'stroke-width':1.1 });
+
+      mk('text', { x:L+iw+8, y:y+bh/2+3.5, 'font-size':8.6, fill:'#5c5247', 'font-family':'IBM Plex Mono, monospace' },
+        d.twh >= 1000 ? (d.twh/1000).toFixed(1)+'k TWh' : d.twh+' TWh');
+
+      var hit = mk('rect', { x:L, y:y-2, width:iw, height:rowH, fill:'transparent', style:'cursor:crosshair' });
+      hit.addEventListener('mousemove', function (ev) {
+        tip.innerHTML = body; tip.style.display = 'block';
+        var cc = tip.parentElement.getBoundingClientRect();
+        var tx = ev.clientX - cc.left + 15, ty = ev.clientY - cc.top - 12;
+        if (tx + 210 > cc.width) tx = ev.clientX - cc.left - 200;
+        if (ty < 0) ty = 4;
+        tip.style.left = tx+'px'; tip.style.top = ty+'px';
+      });
+      hit.addEventListener('mouseleave', function () { tip.style.display='none'; });
+    });
+
+    mk('text', { x:L+iw/2, y:T + rows.length*rowH + 26, 'text-anchor':'middle', 'font-size':9,
+      fill:'#8a8073', 'font-family':'IBM Plex Mono, monospace' },
+      'Share of electricity generation. World shown outlined at top for reference.');
+  }
+
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+</body>
+</html>
