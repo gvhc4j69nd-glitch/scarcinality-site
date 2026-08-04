@@ -49,6 +49,7 @@
     <p class="post-meta">Live application</p>
     <h1>Scarcinal Dispatches</h1>
     <p class="dek">Where the theory meets the tape. The framework makes conditional predictions; this is where they are written down, dated, and checked against what actually happens.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share the dispatches';b.classList.remove('copied');},2000)})">Share the dispatches</button>
   </div>
 
   <article class="prose" style="max-width:48rem;">
