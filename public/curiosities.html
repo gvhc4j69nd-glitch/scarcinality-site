@@ -79,8 +79,13 @@
 }
 .curio-group {
   font-family: var(--serif); font-size: 1.9rem; font-weight: 600;
-  color: var(--oxblood); margin: 2.8rem 0 .15rem; line-height: 1.1;
+  margin: 2.8rem 0 .15rem; line-height: 1.1;
+  padding-left: .6rem; border-left: 4px solid currentColor;
 }
+.curio-group.g-health { color:#3f6b3a; }
+.curio-group.g-comm   { color:#7a5a18; }
+.curio-group.g-energy { color:#2f5670; }
+.curio-group.g-pol    { color:#8a3324; }
 .curio-group:first-of-type { margin-top: 1.6rem; }
 .curio-group-sub {
   font-family: var(--mono); font-size: .72rem; letter-spacing: .02em;
@@ -114,7 +119,7 @@
     <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share the curiosities';b.classList.remove('copied');},2000)})">Share the curiosities</button>
   </div>
 
-  <h2 class="curio-group">Health</h2>
+  <h2 class="curio-group g-health">Health</h2>
   <p class="curio-group-sub">Where scarcity shows up in bodies rather than balance sheets.</p>
   <div class="curiosity-grid">
 
@@ -146,7 +151,7 @@
 
   </div>
 
-  <h2 class="curio-group">Commodities</h2>
+  <h2 class="curio-group g-comm">Commodities</h2>
   <p class="curio-group-sub">The things that get grown, dug up, and priced.</p>
   <div class="curiosity-grid">
 
@@ -191,7 +196,7 @@
 
   </div>
 
-  <h2 class="curio-group">Energy</h2>
+  <h2 class="curio-group g-energy">Energy</h2>
   <p class="curio-group-sub">What it costs, how long it takes, and where it comes from.</p>
   <div class="curiosity-grid">
 
@@ -262,7 +267,7 @@
 
   </div>
 
-  <h2 class="curio-group">Politics</h2>
+  <h2 class="curio-group g-pol">Politics</h2>
   <p class="curio-group-sub">Who decides, who pays, and where that has moved over time.</p>
   <div class="curiosity-grid">
 

@@ -292,6 +292,17 @@ select:focus { border-color: var(--oxblood); outline: none; box-shadow: 0 0 0 2p
 .curio-switch::-webkit-scrollbar { display: none; }
 .curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
 .curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+/* curio-switch group colours, from the phase-plane quadrant palette */
+.curio-switch a.g-health  { color:#3f6b3a; border-color:#c2cfbc; }
+.curio-switch a.g-comm    { color:#7a5a18; border-color:#d8cba8; }
+.curio-switch a.g-energy  { color:#2f5670; border-color:#bcc8d2; }
+.curio-switch a.g-pol     { color:#8a3324; border-color:#dbbfb8; }
+.curio-switch a.g-health[aria-current], .curio-switch a.g-health:hover { color:#2f5230; border-color:#3f6b3a; background:#e7ece4; }
+.curio-switch a.g-comm[aria-current],   .curio-switch a.g-comm:hover   { color:#5e4512; border-color:#7a5a18; background:#f0e9d8; }
+.curio-switch a.g-energy[aria-current], .curio-switch a.g-energy:hover { color:#234155; border-color:#2f5670; background:#e3e9ee; }
+.curio-switch a.g-pol[aria-current],    .curio-switch a.g-pol:hover    { color:#6f281c; border-color:#8a3324; background:#f2e4e0; }
+.curio-switch a[aria-current] { font-weight:500; }
+.curio-switch a.g-first { margin-left:.55rem; }
 
 @media (max-width: 580px) {
   .site-header { padding: .8rem 1rem; }
@@ -353,19 +364,19 @@ select:focus { border-color: var(--oxblood); outline: none; box-shadow: 0 0 0 2p
 </div>
 
 <div class="curio-switch">
-  <a href="/health-outcomes">Health</a>
-  <a href="/disease-map" aria-current="page">Disease</a>
-  <a href="/beef-price-chart">Beef Price</a>
-  <a href="/crop-map">Crops</a>
-  <a href="/mine-map">Mining</a>
-  <a href="/energy-mix">Energy Mix</a>
-  <a href="/oil-cost-map">Oil Cost</a>
-  <a href="/oil-timeline">Oil Timeline</a>
-  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
-  <a href="/oil-map">Oil</a>
-  <a href="/economy-party-chart">Economy &amp; Party</a>
-  <a href="/fiscal-map">Federal Budget</a>
-  <a href="/political-spectrum">Politics</a>
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health" aria-current="page">Disease</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/economy-party-chart" class="g-pol g-first">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
   <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
 </div>
 
