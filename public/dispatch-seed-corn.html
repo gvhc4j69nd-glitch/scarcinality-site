@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Seed Corn Problem &middot; Scarcinality</title>
+<meta name="description" content="Federal research funding has fallen from 1.86 percent of GDP in 1964 to 0.63 percent today, while patents and total R&amp;D sit at record highs. That apparent contradiction is the whole argument, and it is the treatise's capacity-destruction mechanism operating on a twenty-year delay.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Seed Corn Problem &middot; Scarcinality">
+<meta property="og:description" content="Federal research funding is down two thirds as a share of GDP since 1964, yet patents are at record highs. Both are true, and the reconciliation explains what the current cuts are actually destroying.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-seed-corn">
+<meta property="og:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Seed Corn Problem &middot; Scarcinality">
+<meta name="twitter:description" content="Federal research down two thirds since 1964. Patents at record highs. Both true. The reconciliation is the argument.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-seed-corn">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .chart-block{max-width:64rem;margin:2rem 0;border:1px solid var(--rule);
+   background:var(--parchment-deep);padding:1.2rem 1.2rem 1rem;}
+  .chart-block h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--ink-soft);margin:0 0 .6rem;}
+  .chart-block figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);
+   margin-top:.7rem;line-height:1.5;}
+  .cleg{display:flex;gap:.5rem 1.4rem;flex-wrap:wrap;margin:.4rem 0 .7rem;}
+  .cleg span{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);
+   font-size:.66rem;color:var(--ink-soft);}
+  .cleg i{width:20px;height:3px;display:inline-block;flex-shrink:0;}
+  svg.viz{width:100%;height:auto;display:block;}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:11rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:17rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.6rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.7rem;font-weight:600;line-height:1.1;color:var(--oxblood);}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.35rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Themed reading &middot; as of 4 August 2026</p>
+    <h1>The Seed Corn Problem</h1>
+    <p class="dek">Federal research funding has fallen from 1.86 percent of GDP in 1964 to 0.63 percent today, a two-thirds decline. Over the same period patent grants rose sevenfold and total national R&amp;D reached an all-time high. Both facts are true. Reconciling them is the entire argument, and the reconciliation is not reassuring.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">A themed reading covering 1940 to 2026. Applies Section VII of the treatise, the temporal axis and the capacity-destruction mechanism, to education and research funding. Companion to <a href="/dispatch-scarcity-cant-borrow-back">The Scarcity You Can&rsquo;t Borrow Back</a>, which makes the same argument about public health infrastructure. Conditional, falsifiable, not policy advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">There is an argument for cutting federal research funding that deserves to be taken seriously, because on the surface the data supports it. Since the Apollo peak, federal research spending has collapsed as a share of the economy, falling by roughly two thirds. If that money were the engine of American innovation, the engine should have seized decades ago. Instead, patent grants are near record highs, total national research and development spending has never been larger in dollars or as a share of GDP, and the private sector now funds the overwhelming majority of it. On this reading, Washington quietly stopped being the main funder of American science around 1980, the private sector picked up the slack, and nothing broke. The current cuts are therefore trimming something the country demonstrably stopped needing.</p>
+
+    <p>The framework&rsquo;s job is to ask whether the abundance is real. Here it is not. The three curves below look like a story about substitution, private money replacing public money with no loss. They are actually a story about composition, and the composition is where the shortage lives.</p>
+
+  </article>
+
+  <div class="chart-block">
+    <h3>Federal research, education, and patents, 1940&ndash;2026</h3>
+    <div class="cleg">
+      <span><i style="background:#8a3324"></i>Federal R&amp;D, % of GDP (left)</span>
+      <span><i style="background:#3f6b3a"></i>Government education spending, % of GDP (left)</span>
+      <span><i style="background:#2f5670;border-top:2px dashed #2f5670;height:0;"></i>US patents granted, thousands (right)</span>
+    </div>
+    <svg id="viz" class="viz" viewBox="0 0 940 420" role="img" aria-label="Federal R and D and education spending as a share of GDP against patents granted, 1940 to 2026"></svg>
+    <figcaption>Federal R&amp;D peaked at 1.86% of GDP in 1964 and has run at or below 0.70% since 2014, reaching 0.63% in 2024. Education spending rose from about 2% of GDP in 1940 to a 1976 plateau it has never meaningfully left. Patent grants took off after 1985 and again after 2000. Sources: AAAS and NSF NCSES historical series (federal R&amp;D); OMB, BEA, and World Bank (education); USPTO Technology Assessment and Forecast (utility patents granted). Values between documented anchor years are interpolated; 2026 is an estimate reflecting enacted and proposed reductions.</figcaption>
+  </div>
+
+  <article class="prose">
+
+    <h2>What actually happened to the money</h2>
+
+    <p>Three shifts run underneath those curves, and none is visible in the totals.</p>
+
+    <p><strong>The federal share collapsed while the total grew.</strong> In 1964 the federal government funded about 67 percent of all American research and development. By 2022 it funded roughly 18 percent. Total national R&amp;D reached $937 billion in 2023 and an estimated $993 billion in 2024, and the R&amp;D-to-GDP ratio hit 3.43 percent in 2022, the highest in the country&rsquo;s history. Business did not merely replace federal money; it dwarfed it. The aggregate is genuinely abundant.</p>
+
+    <p><strong>But the composition moved decisively toward development.</strong> Of that $937 billion in 2023, only $138 billion was basic research. $174 billion was applied research. $625 billion, roughly two thirds of the entire national effort, was experimental development: turning existing knowledge into shippable product. NSF is explicit that the recent rise in the R&amp;D-to-GDP ratio is driven by experimental development. The country is spending more than ever on the last mile and comparatively little on the first.</p>
+
+    <p><strong>And the funder of the first mile is being withdrawn.</strong> At the turn of the century the federal government funded about 60 percent of American basic research. That share has fallen steadily and business is now close to overtaking it there too. This matters more than any aggregate, because basic research is the one category with no appropriable private return. A firm that discovers something fundamental cannot capture most of the value it creates; the value diffuses to competitors, to other industries, to other countries, and to the future. That is the textbook definition of a public good, and systematic private underinvestment in it is the textbook justification for public funding. It is the single thing the market is structurally worst at buying.</p>
+
+    <div class="pull">The private sector did not replace federal research. It replaced federal development, which it was always going to do anyway, and left the part with no private return quietly underfunded while the totals looked magnificent.</div>
+
+    <h2>Why the patent line proves less than it appears</h2>
+
+    <p>Patents are the most cited evidence that the cuts are harmless, and they are the weakest. Three problems.</p>
+
+    <p><strong>They lag by decades.</strong> The interval from basic discovery to patented application routinely runs fifteen to thirty years. The patents granted in 2024 are largely harvesting basic science funded in the 1970s, 1980s, and 1990s, when the federal share was two to three times what it is now. A patent count is a reading of the seed corn planted a generation ago, not of what is being planted today. Using it to evaluate this year&rsquo;s budget is like judging a orchard&rsquo;s planting decisions by this season&rsquo;s fruit.</p>
+
+    <p><strong>They are a debased unit.</strong> Patent counts inflated after the 1982 creation of the Federal Circuit, the 1990s expansion into software and business methods, and the rise of defensive and portfolio patenting, where filings are strategic assets rather than records of invention. A patent in 2024 is not the same object as a patent in 1964, and counting them as though it were is the same error as comparing nominal dollars across a century.</p>
+
+    <p><strong>And a majority now belong to foreigners.</strong> This is the most direct evidence available, and it is rarely mentioned. Foreign owners were assigned 53 percent of USPTO utility patents in 2022, up from 44 percent in 2000. The line labelled &ldquo;US patents&rdquo; on the chart above stopped being predominantly American some time in the last decade. The patent office is measuring invention that happens inside the American legal system, not invention that happens inside American laboratories, and those two things have been separating for twenty years.</p>
+
+  </article>
+
+  <div class="statgrid">
+    <div><div class="sv">1.86% &rarr; 0.63%</div><div class="sl">Federal R&amp;D as a share of GDP, 1964 peak to 2024. A two-thirds decline.</div></div>
+    <div><div class="sv">67% &rarr; 18%</div><div class="sl">Federal share of all US R&amp;D funding, 1964 to 2022.</div></div>
+    <div><div class="sv">15%</div><div class="sl">Share of the $937bn national R&amp;D effort that is basic research. Two thirds is experimental development.</div></div>
+    <div><div class="sv">44% &rarr; 53%</div><div class="sl">Foreign-owned share of USPTO utility patents, 2000 to 2022. Now a majority.</div></div>
+    <div><div class="sv">1.4% &rarr; 0.9%</div><div class="sl">Average annual total factor productivity growth, 1950&ndash;1999 versus 2000&ndash;2024.</div></div>
+    <div><div class="sv">613</div><div class="sl">NSF grants awarded at one point in FY2025, about 20% of the pace of each of the prior four years.</div></div>
+  </div>
+
+  <article class="prose">
+
+    <h2>The yield is falling</h2>
+
+    <p>If record R&amp;D spending and record patent counts were producing record results, it would show up in productivity, which is the only measure that captures whether new knowledge is actually making the economy more capable. It does not. Total factor productivity growth averaged about 1.4 percent a year from 1950 to 1999 and about 0.9 percent from 2000 to 2024. Labour productivity growth slipped from 2.2 to 2.0 percent over the same split. The slowdown began in the mid-2000s, before the financial crisis, so it cannot be written off as a recession artefact.</p>
+
+    <p>So the picture is: research spending at an all-time high, patents at an all-time high, and the growth rate of the economy&rsquo;s productive capability roughly a third lower than it was in the era when federal research funding was two to three times larger. More inputs, more nominal outputs, less actual capability. Something in the middle of that chain has become much less efficient, and the most economically coherent candidate is that the country has been converting an inherited stock of basic knowledge into products at an accelerating rate while replenishing that stock more slowly.</p>
+
+    <p>The honest caveat is that productivity has many parents and no single cause has been established. Exhaustion of the transport and electrification gains, the fading of the 1990s information technology boom, measurement problems in a service economy, and demographic change are all live explanations, and serious economists disagree. The framework does not claim the research decline is the whole story. It claims that a falling yield on rising research inputs is exactly the signature the composition shift predicts, and that the burden of proof sits with anyone asserting the two are unrelated.</p>
+
+    <h2>What is being cut now, and what that does</h2>
+
+    <p>The 2025 and 2026 measures are not a trim at the margin. The administration proposed reducing the National Science Foundation from $8.8 billion to $3.9 billion, a cut of more than half, alongside roughly $18 billion from the National Institutes of Health. NSF halted new awards for a period and moved to cap reimbursement of indirect research costs at 15 percent, against negotiated rates averaging around 28 percent and exceeding 60 percent at research-intensive universities. At one point in fiscal 2025 the agency had made 613 new grants, roughly a fifth of the pace of each of the four preceding years, with total funding at about a third. More than twenty-five thousand people left the federal science agencies, a large share of them early in their careers.</p>
+
+    <p>That last figure is the one the framework weighs most heavily, and it is the same argument made in the <a href="/dispatch-scarcity-cant-borrow-back">public health dispatch</a>. Budgets are restorable in a single appropriations cycle. A cohort is not. A doctoral student whose funding disappears in 2026 does not resume in 2029; they take a job in industry or abroad and the specific line of inquiry they were pursuing simply ends. The laboratory that loses its technicians loses the tacit knowledge that never appeared in any paper. The indirect cost cap is aimed at what sounds like overhead but is in fact the physical substrate of research: instrument maintenance, animal facilities, compliance staff, the building itself. A university cannot run a lab at 15 percent indirect recovery, so it closes the lab, and closing a lab is not a pause.</p>
+
+    <h2>The scarcinality reading</h2>
+
+    <p>The treatise&rsquo;s Section VII describes a mechanism with two phases. In the acute phase, a monetary scarcity is counterfeit: the productive base is intact and only the claim on it has been withdrawn, so relief restores the system. In the chronic phase, if the acute scarcity is left standing, the counterfeit becomes genuine. Machines are scrapped, skills atrophy, going concerns are liquidated and the knowledge inside them evaporates. What began as an illusion becomes real poverty that no later liquidity can undo.</p>
+
+    <p>Research capacity is the purest case of that mechanism, because its output is invisible for so long that the destruction is politically costless in the year it occurs. Cut the NSF today and nothing happens. No hospital closes, no bridge falls, and next year&rsquo;s patent count, harvesting work funded in 1995, will be as high as ever. The cost arrives in the 2040s as discoveries that were never made, and by then it is unattributable and unrecoverable. It is the ideal thing to cut if the objective is to book savings now and locate the consequences beyond any horizon of accountability.</p>
+
+    <p>And the deficit that justifies the cut is, in the framework&rsquo;s vocabulary, a monetary scarcity. It is real within its own layer and worth taking seriously. But it is being relieved by destroying physical capacity of a kind that cannot be repurchased, which is precisely the trade Section VII warns against. The country is not short of scientists, laboratories, or problems worth solving. All three exist right now. What has been withdrawn is the claim that moves them into use, and that claim was withdrawn by choice.</p>
+
+    <p>Education spending shows the same shape from a different angle. It rose steeply from about 2 percent of GDP in 1940 to a plateau near 5.4 to 5.7 percent by the mid 1970s, and it has essentially not moved in fifty years. What changed instead was who pays. The public share of higher education costs fell and the private share rose, transferring the burden from the public balance sheet to household balance sheets in the form of student debt. Aggregate spending held constant while the financing moved from a layer that can absorb it to a layer that cannot. That is not a reduction in cost. It is a relocation of a scarcity, and the framework&rsquo;s consistent claim is that relocating a scarcity downward, onto the units least able to carry it, is what converts a manageable constraint into a binding one.</p>
+
+    <h2>The falsifiable claims</h2>
+
+  </article>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>Claim</th><th>Measured by</th><th>Falsified if</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Domestic patent share keeps falling</td>
+          <td class="r">Foreign-owned share of USPTO utility patents, currently 53%.</td>
+          <td class="r">The foreign-owned share stops rising or reverses without any restoration of federal research funding.</td>
+          <td class="num">by 2032</td>
+        </tr>
+        <tr>
+          <td class="k">Basic research share of national R&amp;D declines further</td>
+          <td class="r">NSF NCSES national patterns: basic research as a share of total domestic R&amp;D, currently about 15%.</td>
+          <td class="r">Basic research holds at or above 15% of total R&amp;D through 2030 despite the federal reductions.</td>
+          <td class="num">by 2030</td>
+        </tr>
+        <tr>
+          <td class="k">The cuts are not offset by private money</td>
+          <td class="r">Business-funded basic research in constant dollars.</td>
+          <td class="r">Business-funded basic research rises by enough to replace the federal reduction dollar for dollar within three years.</td>
+          <td class="num">by 2029</td>
+        </tr>
+        <tr>
+          <td class="k">Cohort loss is durable</td>
+          <td class="r">Doctoral completions and early-career placements in NSF and NIH funded fields.</td>
+          <td class="r">Completions and placements return to their 2019&ndash;2024 trend within four years of any funding restoration.</td>
+          <td class="num">by 2032</td>
+        </tr>
+        <tr>
+          <td class="k">Patents remain a lagging indicator</td>
+          <td class="r">US patent grants over the next five years.</td>
+          <td class="r">Patent grants fall sharply and immediately, within two years of the cuts. That would indicate a much shorter lag than claimed here and would weaken the framework&rsquo;s reasoning about delay.</td>
+          <td class="num">by 2028</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+
+    <p style="margin-top:1.6rem;">The framework cannot say what the discoveries would have been. Nobody can; that is the nature of research, and it is the reason the argument for funding it has always had to be made on structure rather than on forecast. What the framework can say is which layer the scarcity currently sits in. The laboratories exist. The people who would staff them exist. The questions are open and the instruments are built. Nothing real has run out. What has been withdrawn is the monetary claim that would put them to work, and the treatise&rsquo;s whole warning is about how long a counterfeit scarcity can be left standing before it stops being counterfeit.</p>
+
+    <p>Seed corn is the oldest metaphor in economics for exactly this, and it survives because it is exact. Eating it produces a good year and a catastrophic decade, and the decisive feature is that the good year comes first.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var FED=[0.08,0.20,0.32,0.43,0.55,0.43,0.30,0.18,0.20,0.23,0.25,0.29,0.33,0.37,0.41,0.45,0.55,0.65,0.75,0.93,1.12,1.30,1.49,1.67,1.86,1.82,1.79,1.75,1.66,1.57,1.48,1.41,1.35,1.28,1.22,1.15,1.14,1.12,1.11,1.09,1.08,1.11,1.14,1.16,1.19,1.22,1.19,1.15,1.12,1.08,1.05,1.02,0.98,0.95,0.91,0.88,0.84,0.81,0.77,0.74,0.70,0.74,0.78,0.81,0.85,0.84,0.84,0.83,0.83,0.82,0.88,0.93,0.87,0.81,0.76,0.70,0.69,0.68,0.67,0.66,0.70,0.74,0.63,0.63,0.63,0.59,0.55];
+  var EDU=[2.00,1.92,1.84,1.76,1.68,1.60,1.78,1.96,2.14,2.32,2.50,2.53,2.57,2.60,2.79,2.97,3.16,3.34,3.53,3.71,3.90,4.00,4.10,4.20,4.30,4.40,4.58,4.76,4.94,5.12,5.30,5.37,5.43,5.50,5.57,5.63,5.70,5.60,5.50,5.40,5.30,5.15,5.00,4.85,4.70,4.75,4.80,4.85,4.90,4.95,5.00,5.04,5.08,5.12,5.16,5.20,5.22,5.24,5.26,5.28,5.30,5.36,5.42,5.48,5.54,5.60,5.70,5.80,5.90,6.00,6.10,6.00,5.90,5.80,5.70,5.60,5.60,5.60,5.60,5.60,5.60,5.52,5.44,5.42,5.40,5.40,5.40];
+  var PAT=[42.0,38.8,35.6,32.4,29.2,26.0,29.4,32.8,36.2,39.6,43.0,40.6,38.2,35.8,33.4,31.0,34.2,37.4,40.6,43.8,47.0,46.6,46.1,45.7,48.4,51.0,53.7,56.4,59.1,61.7,64.4,65.9,67.4,69.0,70.5,72.0,70.0,67.9,65.9,63.8,61.8,63.8,65.8,67.7,69.7,71.7,75.4,79.2,82.9,86.7,90.4,92.6,94.8,97.0,99.2,101.4,112.6,123.8,135.1,146.3,157.5,154.8,152.0,149.3,146.5,143.8,159.0,174.1,189.3,204.4,219.6,235.4,251.1,266.9,282.6,298.4,312.4,326.4,340.4,354.4,344.1,333.7,323.4,323.7,324.0,324.5,325.0];
+  var Y0=1940,Y1=2026,N=FED.length;
+  var ns='http://www.w3.org/2000/svg',svg=document.getElementById('viz');
+  var W=940,H=420,L=54,R=56,T=26,B=42,iw=W-L-R,ih=H-T-B;
+  function mk(t,a,x){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);
+    if(x!==undefined)e.textContent=x;svg.appendChild(e);return e;}
+  function X(y){return L+(y-Y0)/(Y1-Y0)*iw;}
+  function YL(v){return T+ih-(v/6.5)*ih;}          // left: % of GDP, 0-6.5
+  function YR(v){return T+ih-(v/400)*ih;}          // right: patents, thousands, 0-400
+
+  for(var g=0;g<=6;g++){
+    mk('line',{x1:L,y1:YL(g),x2:L+iw,y2:YL(g),stroke:'#ddd3c2','stroke-width':g===0?1.1:0.5});
+    mk('text',{x:L-7,y:YL(g)+3.5,'text-anchor':'end','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},g+'%');
+  }
+  for(var p=0;p<=400;p+=100){
+    mk('text',{x:L+iw+7,y:YR(p)+3.5,'text-anchor':'start','font-size':9,fill:'#2f5670','font-family':'IBM Plex Mono, monospace'},p+'k');
+  }
+  for(var y=1940;y<=2026;y+=10){
+    mk('line',{x1:X(y),y1:T+ih,x2:X(y),y2:T+ih+5,stroke:'#ddd3c2','stroke-width':0.8});
+    mk('text',{x:X(y),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},y);
+  }
+
+  // 1964 marker
+  mk('line',{x1:X(1964),y1:T,x2:X(1964),y2:T+ih,stroke:'#8a3324','stroke-width':1,'stroke-dasharray':'4 3',opacity:.55});
+  mk('text',{x:X(1964)+4,y:T+11,'font-size':8.5,fill:'#8a3324','font-family':'IBM Plex Mono, monospace'},'1964 peak 1.86%');
+
+  function line(arr,yfn,col,w,dash){
+    var pts=[];for(var i=0;i<N;i++)pts.push(X(Y0+i).toFixed(1)+','+yfn(arr[i]).toFixed(1));
+    var a={points:pts.join(' '),fill:'none',stroke:col,'stroke-width':w,'stroke-linejoin':'round'};
+    if(dash)a['stroke-dasharray']=dash;
+    mk('polyline',a);
+  }
+  line(PAT,YR,'#2f5670',1.9,'6 3');
+  line(EDU,YL,'#3f6b3a',1.9);
+  line(FED,YL,'#8a3324',2.4);
+
+  mk('text',{x:L-40,y:T+ih/2,'text-anchor':'middle','font-size':9,fill:'#8a8073',
+    'font-family':'IBM Plex Mono, monospace',transform:'rotate(-90 '+(L-40)+' '+(T+ih/2)+')'},'% of GDP');
+  mk('text',{x:L+iw+44,y:T+ih/2,'text-anchor':'middle','font-size':9,fill:'#2f5670',
+    'font-family':'IBM Plex Mono, monospace',transform:'rotate(90 '+(L+iw+44)+' '+(T+ih/2)+')'},'patents granted');
+})();
+</script>
+</body>
+</html>
