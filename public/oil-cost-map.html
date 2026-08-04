@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What a Barrel Actually Costs · Scarcinality</title>
+<meta name="description" content="Oil extraction cost by country, split three ways: the cash cost to lift a barrel, the full-cycle cost to develop a new one, and the price a petrostate's budget requires. Saudi Arabia pumps the world's cheapest oil and needs one of the world's highest prices.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="What a Barrel Actually Costs · Scarcinality">
+<meta property="og:description" content="Extraction cost by country, split into lifting cost, full-cycle breakeven, and fiscal breakeven. The gap between what oil costs to pump and what it costs to govern on is the whole story.">
+<meta property="og:url" content="https://www.scarcinality.com/oil-cost-map">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-oil-cost.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What a Barrel Actually Costs · Scarcinality">
+<meta name="twitter:description" content="Oil cost by country across three measures. Saudi Arabia lifts at $3 and budgets at $86.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-oil-cost.svg">
+<link rel="canonical" href="https://www.scarcinality.com/oil-cost-map">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+
+.chart-wrap { max-width: 76rem; margin: 0 auto; padding: 1.6rem clamp(1.1rem,5vw,3rem) 3rem; }
+
+.controls { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+.controls label { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+#sort-select {
+  font-family: var(--mono); font-size: .76rem;
+  border: 1px solid var(--rule); background: var(--parchment-deep);
+  color: var(--ink); padding: .38rem .55rem; outline: none; cursor: pointer;
+}
+#sort-select:focus { border-color: var(--oxblood); }
+
+.measure-legend { display: flex; gap: 1.1rem; flex-wrap: wrap; margin-left: auto; }
+.ml-item { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--mono); font-size: .64rem; color: var(--ink-soft); }
+.ml-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+.chart-container { position: relative; }
+svg.viz { width: 100%; height: auto; display: block; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule); border-left: 3px solid var(--oxblood);
+  padding: .55rem .75rem; font-family: var(--mono); font-size: .68rem;
+  line-height: 1.6; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.12); z-index: 6;
+}
+
+.defs { display: grid; grid-template-columns: repeat(auto-fit,minmax(16rem,1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 1.6rem 0 0; }
+.def { background: var(--parchment); padding: .9rem 1.05rem; }
+.def .d-name { font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
+.def .d-body { font-family: var(--mono); font-size: .68rem; color: var(--ink-soft); line-height: 1.55; }
+
+.pull-stat {
+  margin: 1.8rem 0 0; padding: 1.1rem 1.3rem;
+  background: var(--parchment-deep); border-left: 3px solid var(--oxblood);
+  max-width: 54rem;
+}
+.pull-stat .ps-big { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.pull-stat .ps-sub { font-family: var(--mono); font-size: .7rem; color: var(--ink-soft); line-height: 1.55; margin-top: .5rem; }
+
+.prose-note { max-width: 54rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.8rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 620px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .measure-legend { margin-left: 0; }
+  .pull-stat .ps-big { font-size: 1.1rem; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>What a Barrel Actually Costs</h1>
+  <span class="source-badge">Extraction cost by country &middot; three measures &middot; $/bbl</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a>
+  <a href="/crop-map">Crops</a>
+  <a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a>
+  <a href="/fiscal-map">Federal Budget</a>
+  <a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart">Beef Price</a>
+  <a href="/political-spectrum">Politics</a>
+  <a href="/economy-party-chart">Economy &amp; Party</a>
+  <a href="/oil-timeline">Oil Timeline</a>
+  <a href="/oil-cost-map" aria-current="page">Oil Cost</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <div class="controls">
+    <label for="sort-select">Sort by</label>
+    <select id="sort-select">
+      <option value="lift">Lifting cost</option>
+      <option value="full">Full-cycle breakeven</option>
+      <option value="fiscal" selected>Fiscal breakeven</option>
+      <option value="gap">Gap: lifting to fiscal</option>
+    </select>
+    <div class="measure-legend">
+      <div class="ml-item"><span class="ml-dot" style="background:#2f6b52;"></span>Lifting cost</div>
+      <div class="ml-item"><span class="ml-dot" style="background:#a8873f;"></span>Full-cycle breakeven</div>
+      <div class="ml-item"><span class="ml-dot" style="background:#8a3324;"></span>Fiscal breakeven</div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <svg id="cost-svg" class="viz" viewBox="0 0 940 620" role="img" aria-label="Oil extraction cost by country showing lifting cost, full-cycle breakeven, and fiscal breakeven"></svg>
+    <div class="tooltip-box" id="tip"></div>
+  </div>
+
+  <div class="pull-stat">
+    <div class="ps-big">Saudi Arabia lifts a barrel of oil for about $3 and needs roughly $86 to balance its budget.</div>
+    <div class="ps-sub">That spread, near thirty to one, is not a geological fact. It is a political one. The oil is almost free to extract; the state built on top of it is not. Nearly every producing government sits somewhere on that same gap, and it is the reason OPEC exists.</div>
+  </div>
+
+  <div class="defs">
+    <div class="def">
+      <div class="d-name" style="color:#2f6b52;">Lifting cost</div>
+      <div class="d-body">The cash cost of getting one more barrel out of a well that already exists. Labour, power, maintenance, water handling. This is the number that decides whether to keep an old field flowing, and it is why production almost never stops when prices crash.</div>
+    </div>
+    <div class="def">
+      <div class="d-name" style="color:#a8873f;">Full-cycle breakeven</div>
+      <div class="d-body">What a new project needs to earn back exploration, development, drilling, and the cost of capital. This is the number that decides whether anyone drills a new well, and it is what actually governs future supply.</div>
+    </div>
+    <div class="def">
+      <div class="d-name" style="color:#8a3324;">Fiscal breakeven</div>
+      <div class="d-body">The oil price a petrostate's national budget requires to avoid a deficit. It has almost nothing to do with geology and everything to do with public payrolls, subsidies, and defence. It applies only to governments that fund themselves from oil.</div>
+    </div>
+  </div>
+
+  <div class="prose-note">
+    <strong>Why three numbers instead of one.</strong> Asking what a barrel of oil costs is like asking what a house costs: the answer depends entirely on whether you mean the utility bill, the mortgage, or the property tax that funds the town. Conflating them produces most of the bad analysis in energy commentary. When a headline says Saudi oil costs three dollars, that is the lifting cost, and it is true but nearly irrelevant to whether the kingdom can fund itself. When another says Saudi Arabia needs eighty-six dollar oil, that is the fiscal breakeven, and it says nothing about whether pumping is profitable. Both are correct. They describe different scarcities.
+    <br><br>
+    <strong>The framework's reading.</strong> The lifting cost is the real scarcity: the genuine physical cost of extracting a barrel, and it is remarkably low almost everywhere. The fiscal breakeven is a monetary and political construct sitting on top of it, and for most producers it is five to twenty times larger than the physical cost. This is the clearest case in any commodity market of a price that is set by an ordering rather than by physical scarcity. Oil is not expensive because it is hard to get out of the ground in the Gulf. It is expensive because a dozen states have built their entire fiscal existence on a floor price, and they coordinate production to defend it. OPEC is not a cartel over a scarce resource. It is a cartel over an abundant one, manufacturing the scarcity its members' budgets require.
+    <br><br>
+    <strong>The asymmetry that follows.</strong> Because lifting costs are so far below market price, a price crash almost never stops existing production, only new drilling. That is the mechanism behind the lag in the <a href="/oil-timeline">development timeline</a> and the divergence visible in the <a href="/rig-brent-chart">rig count against Brent</a>. Supply responds to price through the full-cycle number, on a multi-year delay, while the lifting cost keeps yesterday's barrels flowing regardless. Countries whose fiscal breakeven sits above the market price are not losing money on oil. They are running budget deficits, which is a different problem with a different remedy, and it is why they borrow rather than shut in wells.
+    <br><br>
+    Figures are approximate midpoints of published ranges and move with exchange rates, tax regimes, field mix, and sanctions. Fiscal breakeven is shown only for governments materially dependent on hydrocarbon revenue; it is not a meaningful measure for the United States, Canada, the United Kingdom, or Norway, whose budgets do not depend on oil receipts. Iran and Venezuela are the least reliable figures here, as sanctions and currency distortion make published costs largely notional. Sources: Rystad Energy (breakeven and opex by region), Saudi Aramco financial disclosures (lifting cost), IMF and Reuters (fiscal breakeven estimates), Wood Mackenzie and KAPSARC commentary on breakeven methodology.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var BRENT = 70; /* reference market price, $/bbl */
+
+  /* lift = cash lifting/opex cost; full = full-cycle breakeven for new supply;
+     fiscal = government budget breakeven (null where not applicable) */
+  var DATA = [
+    { c: 'Saudi Arabia', lift: 3,  full: 27, fiscal: 86,  note: 'Aramco reported production and exploration cost of $3.53/bbl in 2024. Onshore Middle East new supply averages $27. Fiscal breakeven rises further, past $100, if Public Investment Fund spending is counted.' },
+    { c: 'Kuwait',       lift: 8,  full: 25, fiscal: 55,  note: 'Among the lowest fiscal breakevens in the Gulf, helped by a small population and a large sovereign fund.' },
+    { c: 'Qatar',        lift: 9,  full: 28, fiscal: 45,  note: 'Gas revenue carries much of the budget, so the oil-price requirement is unusually low.' },
+    { c: 'UAE',          lift: 8,  full: 27, fiscal: 65,  note: 'The most fiscally resilient large Gulf producer, with diversified non-oil revenue.' },
+    { c: 'Iraq',         lift: 10, full: 30, fiscal: 98,  note: 'Very cheap oil, very expensive state. A vast public payroll puts the budget requirement near $100.' },
+    { c: 'Iran',         lift: 10, full: 32, fiscal: 122, note: 'Highly uncertain. Sanctions, discounted export sales, and a distorted exchange rate make any published figure notional.' },
+    { c: 'Russia',       lift: 18, full: 45, fiscal: 95,  note: 'Lifting is cheap, but gross production taxes make Russian full-cycle supply among the more expensive onshore in the world. War spending has pushed the fiscal requirement sharply higher.' },
+    { c: 'Nigeria',      lift: 25, full: 42, fiscal: 125, note: 'Security costs, theft, and pipeline losses raise real costs well above the geology. One of the highest fiscal breakevens of any producer.' },
+    { c: 'Algeria',      lift: 15, full: 40, fiscal: 130, note: 'Heavy subsidy and public wage commitments give it the highest budget requirement in the sample.' },
+    { c: 'Venezuela',    lift: 22, full: 40, fiscal: 110, note: 'Geologically among the cheapest oil on earth, but infrastructure collapse and sanctions have inverted that advantage. Figures are highly unreliable.' },
+    { c: 'Libya',        lift: 15, full: 38, fiscal: 105, note: 'Low extraction cost, but production is repeatedly interrupted by conflict, so realised revenue rarely matches capacity.' },
+    { c: 'Angola',       lift: 20, full: 45, fiscal: 95,  note: 'Mature deepwater fields with rising per-barrel costs as the shelf depletes.' },
+    { c: 'Kazakhstan',   lift: 15, full: 40, fiscal: 95,  note: 'Landlocked, so export routing through Russia adds cost and political risk.' },
+    { c: 'Mexico',       lift: 15, full: 40, fiscal: 85,  note: 'Pemex carries heavy debt service, and the state budget leans on its transfers.' },
+    { c: 'Brazil',       lift: 11, full: 43, fiscal: null,note: 'Pre-salt deepwater. Opex fell from $16/boe in 2014 to about $11 by 2019, among the largest cost reductions anywhere. Budget is not oil-dependent.' },
+    { c: 'Norway',       lift: 19, full: 45, fiscal: null,note: 'High-cost offshore, but revenue flows to the sovereign wealth fund rather than the operating budget, so there is no meaningful fiscal breakeven.' },
+    { c: 'United States',lift: 28, full: 62, fiscal: null,note: 'Shale. Upstream project breakeven averages about $45, but all-in corporate breakeven including debt service and dividends is closer to $62.50 WTI.' },
+    { c: 'Canada',       lift: 25, full: 65, fiscal: null,note: 'Oil sands. Breakevens average about $57 and reach $75 for new mining projects. Very high capital intensity, but decades-long production once built.' },
+    { c: 'UK',           lift: 30, full: 55, fiscal: null,note: 'The highest opex per barrel of any major offshore region: small mature fields, fragmented operators, and high crew counts per barrel.' }
+  ];
+
+  var ns = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('cost-svg');
+  var tip = document.getElementById('tip');
+  var sel = document.getElementById('sort-select');
+
+  var W = 940, H = 620, L = 116, R = 58, T = 40, B = 44;
+  var iw = W - L - R;
+  var maxX = 140;
+
+  function mk(tag, attrs, txt) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt !== undefined) e.textContent = txt;
+    svg.appendChild(e); return e;
+  }
+  function clear() { while (svg.firstChild) svg.removeChild(svg.firstChild); }
+  function X(v) { return L + (v / maxX) * iw; }
+
+  function hook(el, html) {
+    el.addEventListener('mousemove', function (ev) {
+      tip.innerHTML = html;
+      tip.style.display = 'block';
+      var cc = tip.parentElement.getBoundingClientRect();
+      var x = ev.clientX - cc.left + 14, y = ev.clientY - cc.top - 12;
+      if (x + 300 > cc.width) x = ev.clientX - cc.left - 290;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+    });
+    el.addEventListener('mouseleave', function () { tip.style.display = 'none'; });
+  }
+
+  function draw() {
+    clear();
+    var mode = sel.value;
+    var rows = DATA.slice().sort(function (a, b) {
+      if (mode === 'lift')   return b.lift - a.lift;
+      if (mode === 'full')   return b.full - a.full;
+      if (mode === 'gap')    return ((b.fiscal || b.full) - b.lift) - ((a.fiscal || a.full) - a.lift);
+      return (b.fiscal || -1) - (a.fiscal || -1);
+    });
+
+    var rowH = (H - T - B) / rows.length;
+
+    /* x grid */
+    for (var v = 0; v <= maxX; v += 20) {
+      mk('line', { x1: X(v), y1: T - 10, x2: X(v), y2: H - B + 4, stroke: '#ddd3c2', 'stroke-width': v === 0 ? 1.2 : 0.5 });
+      mk('text', { x: X(v), y: H - B + 18, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, '$' + v);
+    }
+
+    /* Brent reference band */
+    mk('line', { x1: X(BRENT), y1: T - 22, x2: X(BRENT), y2: H - B + 4, stroke: '#211d18', 'stroke-width': 1.3, 'stroke-dasharray': '5 3', opacity: 0.75 });
+    mk('text', { x: X(BRENT) + 5, y: T - 26, 'font-size': 9.5, fill: '#211d18', 'font-family': 'IBM Plex Mono, monospace', 'font-weight': 500 }, 'Brent ~$' + BRENT);
+
+    rows.forEach(function (d, i) {
+      var y = T + i * rowH + rowH / 2;
+
+      /* row hairline */
+      mk('line', { x1: L, y1: y + rowH / 2, x2: L + iw, y2: y + rowH / 2, stroke: '#ddd3c2', 'stroke-width': 0.35 });
+
+      /* country label */
+      mk('text', { x: L - 10, y: y + 3.5, 'text-anchor': 'end', 'font-size': 11, fill: '#211d18', 'font-family': 'EB Garamond, serif', 'font-weight': 600 }, d.c);
+
+      /* connector: lifting -> highest measure */
+      var hi = d.fiscal !== null ? d.fiscal : d.full;
+      mk('line', { x1: X(d.lift), y1: y, x2: X(hi), y2: y, stroke: '#8a8073', 'stroke-width': 1.1, opacity: 0.45 });
+
+      var body = '<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">' + d.c + '</span><br>' +
+        '<span style="color:#2f6b52;">Lifting cost&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' + d.lift + '</span><br>' +
+        '<span style="color:#a8873f;">Full-cycle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' + d.full + '</span><br>' +
+        (d.fiscal !== null
+          ? '<span style="color:#8a3324;">Fiscal breakeven $' + d.fiscal + '</span><br>'
+          : '<span style="color:var(--ink-faint);">Fiscal breakeven not applicable</span><br>') +
+        '<span style="color:var(--ink-soft);white-space:normal;display:block;max-width:24rem;margin-top:.3rem;">' + d.note + '</span>';
+
+      /* markers */
+      var m1 = mk('circle', { cx: X(d.lift), cy: y, r: 5, fill: '#2f6b52', stroke: 'var(--parchment)', 'stroke-width': 1.2, style: 'cursor:crosshair' });
+      var m2 = mk('circle', { cx: X(d.full), cy: y, r: 5, fill: '#a8873f', stroke: 'var(--parchment)', 'stroke-width': 1.2, style: 'cursor:crosshair' });
+      hook(m1, body); hook(m2, body);
+      if (d.fiscal !== null) {
+        var m3 = mk('circle', { cx: X(d.fiscal), cy: y, r: 5.5, fill: '#8a3324', stroke: 'var(--parchment)', 'stroke-width': 1.2, style: 'cursor:crosshair' });
+        hook(m3, body);
+        /* deficit flag */
+        if (d.fiscal > BRENT) {
+          mk('text', { x: X(d.fiscal) + 10, y: y + 3.5, 'font-size': 9, fill: '#8a3324', 'font-family': 'IBM Plex Mono, monospace' }, '$' + d.fiscal);
+        } else {
+          mk('text', { x: X(d.fiscal) + 10, y: y + 3.5, 'font-size': 9, fill: '#2f6b52', 'font-family': 'IBM Plex Mono, monospace' }, '$' + d.fiscal);
+        }
+      } else {
+        mk('text', { x: X(d.full) + 11, y: y + 3.5, 'font-size': 9, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' }, '$' + d.full);
+      }
+
+      /* invisible row hit area for easier hovering */
+      var hit = mk('rect', { x: L, y: y - rowH / 2, width: iw, height: rowH, fill: 'transparent', style: 'cursor:crosshair' });
+      hook(hit, body);
+    });
+
+    /* axis caption */
+    mk('text', { x: L + iw / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#8a8073', 'font-family': 'IBM Plex Mono, monospace' },
+      'US dollars per barrel. Countries with a fiscal breakeven right of the dashed line run a deficit at today’s price.');
+  }
+
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+</body>
+</html>
