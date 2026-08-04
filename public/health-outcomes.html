@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Health Care Buys &middot; Scarcinality</title>
+<meta name="description" content="Health spending per capita against infant mortality, life expectancy, and medical bankruptcy across 27 developed nations, with a synopsis of every system and rated wait times for physicals, minor surgery, and major surgery.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="What Health Care Buys &middot; Scarcinality">
+<meta property="og:description" content="The United States spends $13,473 per person and has the worst infant mortality and shortest life expectancy of any rich country. 27 nations compared, with system synopses and wait-time ratings.">
+<meta property="og:url" content="https://www.scarcinality.com/health-outcomes">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-health-outcomes.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Health Care Buys &middot; Scarcinality">
+<meta name="twitter:description" content="Spending against outcomes across 27 rich countries, plus system synopses and wait-time ratings.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-health-outcomes.svg">
+<link rel="canonical" href="https://www.scarcinality.com/health-outcomes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+ padding:.75rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);}
+.map-header h1{font-size:1.1rem;font-weight:600;margin:0;}
+.source-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;}
+.curio-switch{display:flex;overflow-x:auto;gap:.4rem;padding:.45rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.curio-switch::-webkit-scrollbar{display:none;}
+.curio-switch a{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint);text-decoration:none;flex-shrink:0;}
+.curio-switch a[aria-current],.curio-switch a:hover{color:var(--ink);border-color:var(--ink-faint);background:var(--parchment-deep,#dfd5c4);}
+.chart-wrap{max-width:78rem;margin:0 auto;padding:1.6rem clamp(1.1rem,5vw,3rem) 3rem;}
+.section-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin:2.4rem 0 .3rem;font-weight:500;}
+.section-head:first-of-type{margin-top:0;}
+.section-sub{font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);margin:0 0 1rem;line-height:1.55;max-width:54rem;}
+.controls{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;margin-bottom:.9rem;}
+.controls label{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+select{font-family:var(--mono);font-size:.76rem;border:1px solid var(--rule);background:var(--parchment-deep);color:var(--ink);padding:.38rem .55rem;outline:none;cursor:pointer;}
+select:focus{border-color:var(--oxblood);}
+.chart-container{position:relative;}
+svg.viz{width:100%;height:auto;display:block;}
+.tooltip-box{position:absolute;pointer-events:none;display:none;background:var(--parchment-deep);
+ border:1px solid var(--rule);border-left:3px solid var(--oxblood);padding:.55rem .75rem;
+ font-family:var(--mono);font-size:.68rem;line-height:1.6;color:var(--ink);white-space:nowrap;
+ box-shadow:0 2px 8px rgba(35,32,27,.12);z-index:6;}
+.bank-note{margin:1.4rem 0 0;padding:1.05rem 1.25rem;background:var(--parchment-deep);border-left:3px solid var(--oxblood);max-width:56rem;}
+.bank-note .bn-h{font-family:var(--serif);font-size:1.22rem;font-weight:600;line-height:1.4;color:var(--ink);}
+.bank-note .bn-b{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);line-height:1.6;margin-top:.5rem;}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(23rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:1rem;}
+.card2{background:var(--parchment);padding:1.05rem 1.15rem;display:flex;flex-direction:column;gap:.5rem;}
+.card2.us{background:#f4ece8;}
+.c2-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;}
+.c2-name{font-family:var(--serif);font-size:1.16rem;font-weight:600;}
+.c2-spend{font-family:var(--mono);font-size:.68rem;color:var(--oxblood);white-space:nowrap;}
+.c2-stats{font-family:var(--mono);font-size:.62rem;color:var(--ink-faint);letter-spacing:.02em;}
+.c2-sys{font-family:var(--mono);font-size:.665rem;color:var(--ink-soft);line-height:1.6;}
+.scales{display:flex;flex-direction:column;gap:.28rem;margin-top:.15rem;}
+.scale-row{display:flex;align-items:center;gap:.5rem;}
+.scale-lab{font-family:var(--mono);font-size:.6rem;color:var(--ink-faint);width:6.6rem;flex-shrink:0;}
+.pips{display:flex;gap:2px;}
+.pip{width:15px;height:7px;background:var(--rule);border-radius:1px;}
+.c2-bank{font-family:var(--mono);font-size:.63rem;line-height:1.55;border-top:1px solid var(--rule);padding-top:.45rem;color:var(--ink-soft);}
+.c2-bank b{color:var(--oxblood);}
+.prose-note{max-width:54rem;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.6;margin-top:2rem;border-top:1px solid var(--rule);padding-top:1rem;}
+.prose-note strong{color:var(--ink);font-weight:500;}
+@media(max-width:620px){
+ .site-header{padding:.8rem 1rem;}
+ .site-nav{display:flex;overflow-x:auto;flex-wrap:nowrap;gap:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+ .site-nav::-webkit-scrollbar{display:none;}
+ .bank-note .bn-h{font-size:1.05rem;}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+ gtag('js',new Date());gtag('config','G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>What Health Care Buys</h1>
+  <span class="source-badge">27 developed nations &middot; spending vs outcomes</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/disease-map">Disease</a><a href="/crop-map">Crops</a><a href="/mine-map">Mining</a>
+  <a href="/oil-map">Oil</a><a href="/fiscal-map">Federal Budget</a><a href="/rig-brent-chart">Rigs &amp; Brent</a>
+  <a href="/beef-price-chart">Beef Price</a><a href="/political-spectrum">Politics</a>
+  <a href="/economy-party-chart">Economy &amp; Party</a><a href="/oil-timeline">Oil Timeline</a>
+  <a href="/oil-cost-map">Oil Cost</a><a href="/energy-mix">Energy Mix</a>
+  <a href="/health-outcomes" aria-current="page">Health</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <p class="section-head">Spending against outcome</p>
+  <p class="section-sub">Each dot is a country. Horizontal axis is health spending per person. Vertical axis is the outcome you choose. If money bought health in a straight line, the dots would form one. They do not, and one country sits conspicuously off the pattern.</p>
+
+  <div class="controls">
+    <label for="y-select">Outcome</label>
+    <select id="y-select">
+      <option value="imr" selected>Infant mortality (deaths per 1,000 births)</option>
+      <option value="le">Life expectancy at birth (years)</option>
+    </select>
+  </div>
+
+  <div class="chart-container">
+    <svg id="scatter" class="viz" viewBox="0 0 940 520" role="img" aria-label="Scatter plot of health spending per capita against health outcome by country"></svg>
+    <div class="tooltip-box" id="tip"></div>
+  </div>
+
+  <div class="bank-note">
+    <div class="bn-h">Medical bankruptcy is the one measure where the comparison is not a matter of degree.</div>
+    <div class="bn-b">In twenty-six of these twenty-seven countries, being ill cannot bankrupt you, because catastrophic costs are structurally capped. The mechanism does not exist. In the United States it does, and the debate is only about size. Research led by Himmelstein finds roughly two thirds of people filing for bankruptcy cite medical bills or illness as a contributor. Dobkin and colleagues, isolating the causal effect of a single hospital admission, put the directly attributable share nearer 4 percent. Both figures are defensible; they measure different things. What neither side disputes is that the category exists in America and effectively nowhere else in the developed world.</div>
+  </div>
+
+  <p class="section-head">Every system, and what it feels like to use</p>
+  <p class="section-sub">Sorted by spending. The rating bars are editorial judgments informed by Commonwealth Fund and OECD access data, not measurements. Five pips is best. Waits and quality are not the same axis: a system can deliver excellent medicine slowly, or mediocre medicine quickly.</p>
+
+  <div class="controls">
+    <label for="sort2">Sort by</label>
+    <select id="sort2">
+      <option value="spend" selected>Spending (high to low)</option>
+      <option value="imr">Infant mortality (best first)</option>
+      <option value="le">Life expectancy (best first)</option>
+      <option value="qual">Quality rating</option>
+      <option value="waits">Wait times (shortest first)</option>
+      <option value="name">Country name</option>
+    </select>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="prose-note">
+    <strong>On the ratings.</strong> Spending, infant mortality, and life expectancy are measured data and are cited below. The wait-time and quality pips are not. They are judgments drawn from Commonwealth Fund survey work, OECD access statistics, and published national waiting-list data, compressed onto a five-point scale so systems can be compared at a glance. They will be wrong at the margins and are offered to be argued with. Wait times in particular vary enormously within a country by region and procedure, and a national average conceals that.
+    <br><br>
+    <strong>What the scatter shows.</strong> Among developed nations, above roughly four thousand dollars per person, additional health spending buys very little additional life. Japan spends $5,365 and reaches 84.7 years with the lowest infant mortality in the world. The United States spends $13,473, two and a half times as much, and reaches 79.3 years with the highest infant mortality in this group. Greece spends a quarter of what America spends and outlives it by two and a half years. The curve flattens hard, and the United States is not on it at all.
+    <br><br>
+    <strong>The scarcinality reading.</strong> This is the framework's clearest worked example, and the companion dispatch <a href="/dispatch-counterfeit-shortage-of-care">The Counterfeit Shortage of Care</a> develops it in full. The United States is told it cannot afford to cover everyone. But it already spends more per person than any country that does cover everyone. The doctors exist, the hospitals exist, the drugs exist, and the money is already being spent. Nothing real has run out. What is scarce is not medicine but the monetary claim that would move it to the people who need it, and that scarcity is manufactured one level up, in how the claim is ordered and who is permitted to hold it. Every other country on this chart made a different ordering decision and got more health for less money.
+    <br><br>
+    <strong>And the honest counterweight.</strong> Universal systems ration too. They ration by time rather than by price, and the Canadian and British queues are real, not propaganda: Canada's median wait from referral to treatment reached 30 weeks in 2024, the longest in that survey's thirty-year history. A system that makes care free at the point of use and then makes you wait eleven months for a hip has not abolished scarcity, it has relocated it. The framework's point is not that queues are costless. It is that a queue and a bankruptcy are two different ways of rationing the same abundant thing, and only one of them takes the house.
+    <br><br>
+    Sources: health spending per capita, World Bank and OECD via Our World in Data, 2023 to 2024 depending on country. Infant mortality, World Bank, 2023. Life expectancy at birth, Our World in Data, 2023. Wait time and quality ratings are editorial, informed by Commonwealth Fund Mirror Mirror 2024 and OECD Health at a Glance. Bankruptcy discussion draws on Himmelstein et al. and Dobkin et al.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var D = [
+    {c:'United States',spend:13473,imr:5.5,le:79.3,wp:4,wmi:4,wma:4,qual:3,bank:'high',
+     sys:'Multi-payer private insurance with public programs (Medicare 65+, Medicaid low-income). No universal coverage; roughly 8 percent uninsured and many more underinsured. Care is rationed by price and network rather than by queue.',
+     bnote:'The only rich country where medical debt is a leading cause of personal bankruptcy. Estimates are contested: research led by Himmelstein finds about two thirds of filers cite medical bills or illness as a contributor, while Dobkin and colleagues, using a narrower causal method around hospitalisation, put the directly attributable share near 4 percent. Both agree the phenomenon exists and is essentially unique to the United States.'},
+    {c:'Switzerland',spend:10602,imr:3.4,le:84.0,wp:5,wmi:5,wma:4,qual:5,bank:'none',
+     sys:'Mandatory private insurance, community-rated, with income-based subsidies. Everyone must buy a policy; insurers cannot refuse the basic package. Highest out-of-pocket costs in Europe.',
+     bnote:'Deductibles and copays are high by European standards and are a real household burden, but catastrophic costs are capped and medical bankruptcy is not a recognised phenomenon.'},
+    {c:'Norway',spend:9523,imr:2,le:83.3,wp:3,wmi:2,wma:2,qual:4,bank:'none',
+     sys:'Tax-funded national health service with regional delivery and a statutory annual out-of-pocket ceiling. High spending, strong outcomes, moderate to long elective waits.',
+     bnote:'Capped annually. Not a recognised phenomenon.'},
+    {c:'Germany',spend:8826,imr:3.1,le:81.4,wp:5,wmi:5,wma:5,qual:4,bank:'none',
+     sys:'Statutory health insurance through competing non-profit sickness funds, financed by payroll contributions, with a private option for higher earners. Universal, and among the fastest access in the world.',
+     bnote:'Statutory cover includes an out-of-pocket ceiling tied to income. Medical bankruptcy is not a recognised category.'},
+    {c:'Luxembourg',spend:8808,imr:1.9,le:82.2,wp:5,wmi:5,wma:5,qual:5,bank:'none',
+     sys:'Compulsory single-fund social insurance, generously financed, with free choice of provider and very short waits.',
+     bnote:'Reimbursement is near complete. Not a recognised phenomenon.'},
+    {c:'Ireland',spend:8772,imr:3.4,le:82.4,wp:3,wmi:2,wma:2,qual:3,bank:'none',
+     sys:'Two-tier system: tax-funded public care with means-tested charges, alongside a large private sector. Public waits are long; private cover buys speed.',
+     bnote:'Statutory caps on public charges. Not a recognised phenomenon.'},
+    {c:'Austria',spend:8250,imr:2.8,le:82.0,wp:4,wmi:4,wma:4,qual:4,bank:'none',
+     sys:'Compulsory social insurance by occupation, financed by payroll contributions, with broad coverage and short waits. Supplementary private insurance buys hotel comforts rather than faster care.',
+     bnote:'Negligible. Out-of-pocket costs are modest and capped.'},
+    {c:'Netherlands',spend:8195,imr:3.4,le:82.2,wp:5,wmi:5,wma:5,qual:5,bank:'none',
+     sys:'Mandatory private insurance with a regulated basic package and risk equalisation between insurers. Strong gatekeeping through GPs. Consistently ranks at or near the top on access.',
+     bnote:'An annual deductible applies, capped at a few hundred euros. Catastrophic exposure is negligible.'},
+    {c:'Sweden',spend:7770,imr:2,le:83.3,wp:3,wmi:2,wma:2,qual:4,bank:'none',
+     sys:'Tax-funded regional single-payer system with a national out-of-pocket ceiling. Excellent outcomes, but among the longest elective waits in Europe.',
+     bnote:'Annual out-of-pocket costs are capped at roughly the price of a mid-range phone. Medical bankruptcy does not occur.'},
+    {c:'Australia',spend:7691,imr:3.1,le:83.9,wp:4,wmi:4,wma:4,qual:5,bank:'none',
+     sys:'Medicare, a tax-funded universal scheme, alongside subsidised private insurance for faster elective access and private rooms. Ranked first overall by the Commonwealth Fund in 2024.',
+     bnote:'Safety-net thresholds cap annual out-of-pocket costs. Not a recognised phenomenon.'},
+    {c:'Canada',spend:7646,imr:4.7,le:82.6,wp:3,wmi:1,wma:1,qual:3,bank:'none',
+     sys:'Provincial single-payer insurance covering hospital and physician services, with no charge at the point of use. Drugs, dental, and vision are largely outside the public plan. The longest elective waits in the developed world.',
+     bnote:'Hospital and physician care cannot generate a bill. Gaps in drug and dental coverage create hardship but rarely bankruptcy.'},
+    {c:'Belgium',spend:7489,imr:3.2,le:82.1,wp:5,wmi:5,wma:4,qual:4,bank:'none',
+     sys:'Compulsory social insurance through non-profit mutualities, with cost-sharing that is reimbursed for lower earners. Very short waits and high patient satisfaction.',
+     bnote:'Reimbursement caps limit household exposure. Not a recognised phenomenon.'},
+    {c:'Denmark',spend:7262,imr:3.4,le:81.9,wp:4,wmi:3,wma:3,qual:4,bank:'none',
+     sys:'Tax-funded universal system with strong primary-care gatekeeping and a statutory maximum wait guarantee for many procedures.',
+     bnote:'Negligible. Care is free at the point of use for most services.'},
+    {c:'Iceland',spend:6927,imr:2.1,le:82.7,wp:4,wmi:3,wma:3,qual:4,bank:'none',
+     sys:'Tax-funded universal system with modest cost-sharing and an annual ceiling. Small population, strong outcomes, some waits for specialist procedures.',
+     bnote:'Capped annually. Not a recognised phenomenon.'},
+    {c:'France',spend:6868,imr:3.4,le:83.3,wp:5,wmi:4,wma:4,qual:5,bank:'none',
+     sys:'Statutory social insurance covering roughly 70 to 80 percent of costs, with near-universal supplementary mutuelle cover for the rest. Long-term and serious illness is covered at 100 percent.',
+     bnote:'The affection de longue durée mechanism removes cost-sharing entirely for serious chronic illness, which is the exposure that bankrupts Americans.'},
+    {c:'United Kingdom',spend:6606,imr:4.1,le:81.3,wp:3,wmi:2,wma:1,qual:3,bank:'none',
+     sys:'The NHS: tax-funded, free at the point of use, universal. Among the most equitable systems in the world on paper, but elective waiting lists reached record highs after 2020 and remain the system’s central problem.',
+     bnote:'Care is free at the point of use, so medical bankruptcy is structurally impossible. The rationing is by time, not money.'},
+    {c:'Finland',spend:6433,imr:1.9,le:81.9,wp:3,wmi:3,wma:3,qual:4,bank:'none',
+     sys:'Tax-funded municipal system with a parallel occupational health channel that covers most working adults. Public primary-care waits are the weak point.',
+     bnote:'Annual caps apply. Not a recognised phenomenon.'},
+    {c:'New Zealand',spend:5576,imr:4.1,le:82.1,wp:3,wmi:2,wma:2,qual:3,bank:'none',
+     sys:'Tax-funded universal system with subsidised primary care and a no-fault accident compensation scheme covering all injury. Elective waits are a persistent weakness.',
+     bnote:'The ACC scheme removes injury costs entirely. Medical bankruptcy is not a recognised phenomenon.'},
+    {c:'Slovenia',spend:5425,imr:1.9,le:81.6,wp:3,wmi:3,wma:3,qual:4,bank:'none',
+     sys:'Compulsory social insurance with near-universal complementary cover for cost-sharing. Outcomes rival far richer countries at half the spend.',
+     bnote:'Complementary insurance covers cost-sharing for almost the entire population.'},
+    {c:'Japan',spend:5365,imr:1.8,le:84.7,wp:5,wmi:5,wma:4,qual:5,bank:'none',
+     sys:'Statutory insurance with universal enrolment and a nationally fixed fee schedule that sets every price by regulation. Extremely high utilisation, very short waits, and the best longevity and infant mortality in the world.',
+     bnote:'A monthly catastrophic ceiling scaled to income makes large bills effectively impossible.'},
+    {c:'South Korea',spend:5081,imr:2.4,le:84.3,wp:5,wmi:5,wma:5,qual:4,bank:'none',
+     sys:'Single national insurer with mandatory enrolment, a fixed fee schedule, and a very large private delivery sector. Fast access and low cost, with high out-of-pocket shares by OECD standards.',
+     bnote:'A catastrophic ceiling scaled to income limits annual exposure.'},
+    {c:'Italy',spend:4993,imr:2.3,le:83.7,wp:3,wmi:3,wma:3,qual:4,bank:'none',
+     sys:'Regionally administered national health service, tax-funded and universal, with copays for diagnostics and outpatient care. Excellent longevity on comparatively low spending.',
+     bnote:'Exemptions apply by income and condition. Not a recognised phenomenon.'},
+    {c:'Spain',spend:4935,imr:2.6,le:83.7,wp:3,wmi:3,wma:3,qual:4,bank:'none',
+     sys:'Tax-funded regional national health service, universal and largely free at the point of use, with pharmaceutical copays scaled to income. Very strong outcomes on low spending.',
+     bnote:'Pharmaceutical copays are capped for pensioners and low earners. Not a recognised phenomenon.'},
+    {c:'Portugal',spend:4928,imr:2.7,le:82.4,wp:3,wmi:2,wma:2,qual:3,bank:'none',
+     sys:'Tax-funded national health service with copays, alongside occupational subsystems. Good outcomes on low spending; public elective waits can be long.',
+     bnote:'Exemptions by income and condition. Not a recognised phenomenon.'},
+    {c:'Czechia',spend:4674,imr:2.1,le:79.8,wp:4,wmi:4,wma:4,qual:3,bank:'none',
+     sys:'Compulsory insurance through competing public funds, financed by payroll contributions. Very low cost-sharing and short waits, but longevity lags Western Europe.',
+     bnote:'Cost-sharing is minimal. Not a recognised phenomenon.'},
+    {c:'Israel',spend:4033,imr:2.7,le:82.4,wp:4,wmi:4,wma:4,qual:4,bank:'none',
+     sys:'Mandatory enrolment in one of four competing non-profit health funds, financed by a health tax with risk adjustment. Efficient, and the lowest spending in this group.',
+     bnote:'Supplementary cover is widely held and caps exposure. Not a recognised phenomenon.'},
+    {c:'Greece',spend:3454,imr:3.3,le:81.9,wp:3,wmi:2,wma:2,qual:3,bank:'none',
+     sys:'Unified social insurance fund after the post-crisis reforms, with a significant private out-of-pocket sector and informal payments. Lowest spending in this group.',
+     bnote:'Out-of-pocket spending is high as a share of the total, but catastrophic caps and public provision prevent bankruptcy.'},
+  ];
+
+  var ns='http://www.w3.org/2000/svg';
+  var svg=document.getElementById('scatter'), tip=document.getElementById('tip');
+  var ysel=document.getElementById('y-select'), s2=document.getElementById('sort2');
+
+  function mk(t,a,x){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);
+    if(x!==undefined)e.textContent=x;svg.appendChild(e);return e;}
+  function clr(){while(svg.firstChild)svg.removeChild(svg.firstChild);}
+
+  var W=940,H=520,L=64,R=28,T=28,B=52;
+  var iw=W-L-R, ih=H-T-B;
+
+  function scatter(){
+    clr();
+    var mode=ysel.value;
+    var xMin=3000,xMax=14500;
+    var yMin,yMax,yLab,inv;
+    if(mode==='imr'){yMin=1,yMax=6,yLab='Infant deaths per 1,000 live births',inv=true;}
+    else{yMin=78,yMax=86,yLab='Life expectancy at birth (years)',inv=false;}
+
+    function X(v){return L+(v-xMin)/(xMax-xMin)*iw;}
+    function Y(v){return T+ih-(v-yMin)/(yMax-yMin)*ih;}
+
+    for(var gx=4000;gx<=14000;gx+=2000){
+      mk('line',{x1:X(gx),y1:T,x2:X(gx),y2:T+ih,stroke:'#ddd3c2','stroke-width':.5});
+      mk('text',{x:X(gx),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},'$'+(gx/1000)+'k');
+    }
+    var step=(mode==='imr')?1:2;
+    for(var gy=yMin;gy<=yMax;gy+=step){
+      mk('line',{x1:L,y1:Y(gy),x2:L+iw,y2:Y(gy),stroke:'#ddd3c2','stroke-width':.5});
+      mk('text',{x:L-8,y:Y(gy)+3.5,'text-anchor':'end','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},gy);
+    }
+    mk('line',{x1:L,y1:T+ih,x2:L+iw,y2:T+ih,stroke:'#ddd3c2','stroke-width':1});
+    mk('line',{x1:L,y1:T,x2:L,y2:T+ih,stroke:'#ddd3c2','stroke-width':1});
+    mk('text',{x:L+iw/2,y:H-10,'text-anchor':'middle','font-size':10,fill:'#5c5247','font-family':'IBM Plex Mono, monospace'},'Health spending per person, USD PPP');
+    mk('text',{x:16,y:T+ih/2,'text-anchor':'middle','font-size':10,fill:'#5c5247','font-family':'IBM Plex Mono, monospace',transform:'rotate(-90 16 '+(T+ih/2)+')'},yLab);
+    mk('text',{x:L+iw-4,y:T+12,'text-anchor':'end','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},
+      inv?'lower is better':'higher is better');
+
+    D.forEach(function(d){
+      var v=d[mode], x=X(d.spend), y=Y(v);
+      var us=d.c==='United States';
+      var c=mk('circle',{cx:x,cy:y,r:us?8:5.5,fill:us?'#8a3324':'#3d5a6b',
+        opacity:us?1:.82,stroke:'var(--parchment)','stroke-width':1.3,style:'cursor:crosshair'});
+      var body='<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+d.c+'</span><br>'+
+        '<span style="color:var(--oxblood);font-weight:600;">$'+d.spend.toLocaleString()+' per person</span><br>'+
+        'Infant mortality '+d.imr+' per 1,000<br>Life expectancy '+d.le+' years<br>'+
+        '<span style="color:'+(d.bank==='high'?'#8a3324':'var(--ink-soft)')+';">Medical bankruptcy: '+(d.bank==='high'?'a leading cause':'structurally absent')+'</span>';
+      c.addEventListener('mousemove',function(ev){
+        tip.innerHTML=body;tip.style.display='block';
+        var cc=tip.parentElement.getBoundingClientRect();
+        var tx=ev.clientX-cc.left+15,ty=ev.clientY-cc.top-12;
+        if(tx+250>cc.width)tx=ev.clientX-cc.left-240;
+        if(ty<0)ty=4;
+        tip.style.left=tx+'px';tip.style.top=ty+'px';});
+      c.addEventListener('mouseleave',function(){tip.style.display='none';});
+      if(us||['Japan','Greece','Switzerland','Norway','Spain','Canada'].indexOf(d.c)>=0){
+        mk('text',{x:x+(us?12:9),y:y+3.5,'font-size':us?10:8.6,
+          fill:us?'#8a3324':'#5c5247','font-family':'IBM Plex Mono, monospace',
+          'font-weight':us?600:400},d.c);
+      }
+    });
+  }
+
+  function pips(n){
+    var h='';
+    for(var i=1;i<=5;i++){
+      var col = i<=n ? (n<=2?'#8a3324':(n===3?'#a8873f':'#3f7a4a')) : '#ddd3c2';
+      h+='<span class="pip" style="background:'+col+'"></span>';
+    }
+    return '<span class="pips">'+h+'</span>';
+  }
+
+  function cards(){
+    var box=document.getElementById('cards');
+    box.innerHTML='';
+    var m=s2.value;
+    var rows=D.slice().sort(function(a,b){
+      if(m==='name')return a.c.localeCompare(b.c);
+      if(m==='spend')return b.spend-a.spend;
+      if(m==='imr')return a.imr-b.imr;
+      if(m==='le')return b.le-a.le;
+      if(m==='qual')return b.qual-a.qual;
+      if(m==='waits')return (b.wp+b.wmi+b.wma)-(a.wp+a.wmi+a.wma);
+      return 0;});
+    rows.forEach(function(d){
+      var el=document.createElement('div');
+      el.className='card2'+(d.c==='United States'?' us':'');
+      el.innerHTML=
+        '<div class="c2-top"><span class="c2-name">'+d.c+'</span><span class="c2-spend">$'+d.spend.toLocaleString()+'</span></div>'+
+        '<div class="c2-stats">Infant mortality '+d.imr+' &middot; life expectancy '+d.le+' yrs</div>'+
+        '<div class="c2-sys">'+d.sys+'</div>'+
+        '<div class="scales">'+
+          '<div class="scale-row"><span class="scale-lab">Physical / GP</span>'+pips(d.wp)+'</div>'+
+          '<div class="scale-row"><span class="scale-lab">Minor surgery</span>'+pips(d.wmi)+'</div>'+
+          '<div class="scale-row"><span class="scale-lab">Major surgery</span>'+pips(d.wma)+'</div>'+
+          '<div class="scale-row"><span class="scale-lab">Quality of care</span>'+pips(d.qual)+'</div>'+
+        '</div>'+
+        '<div class="c2-bank"><b>Medical bankruptcy:</b> '+d.bnote+'</div>';
+      box.appendChild(el);
+    });
+  }
+
+  ysel.addEventListener('change',scatter);
+  s2.addEventListener('change',cards);
+  scatter();cards();
+})();
+</script>
+</body>
+</html>
