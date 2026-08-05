@@ -133,7 +133,13 @@ const server = http.createServer((req, res) => {
         const q = new URLSearchParams(req.url.split("?")[1] || "");
         const page = q.get("page");
         if (page) return json(res, 200, { page: page, count: likes[page] || 0 });
-        return json(res, 200, { counts: likes });   // whole store, for a dashboard
+        // whole store, plus where it lives so volume mounting can be verified
+        return json(res, 200, {
+          counts: likes,
+          store: LIKES_FILE,
+          persistent: !!LIKES_FILE && LIKES_FILE.indexOf(__dirname) !== 0,
+          total: Object.values(likes).reduce((a, b) => a + b, 0)
+        });
       }
 
       if (req.method === "POST") {
