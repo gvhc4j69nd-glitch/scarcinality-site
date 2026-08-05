@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Money Is Not the Question, and You Still Cannot Do It Without Money &middot; Scarcinality</title>
+<meta name="description" content="Across rich countries, education spending barely predicts outcomes. Within countries, causal studies find that spending clearly improves them. Both are true, and the reconciliation explains why the binding scarcity in education is no longer dollars but the authority to aim them and the patience to wait for the return.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Money Is Not the Question, and You Still Cannot Do It Without Money &middot; Scarcinality">
+<meta property="og:description" content="Spending share does not predict national education outcomes. Marginal spending causally improves them. The US spends above average and pays teachers worse relative to other graduates than any country in the OECD. The scarcity moved.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-money-is-not-the-question">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-education.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Money Is Not the Question &middot; Scarcinality">
+<meta name="twitter:description" content="Education spending does not predict outcomes across countries but does improve them within countries. Both true. The scarcity moved from dollars to allocation and patience.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-education.svg">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-money-is-not-the-question">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.7rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  .paybar{max-width:var(--measure);margin:1.6rem 0 .4rem;}
+  .paybar svg{width:100%;height:auto;display:block;}
+  .paybar figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:10rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.35rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Themed reading &middot; as of 5 August 2026</p>
+    <h1>Money Is Not the Question</h1>
+    <p class="dek">Across rich countries, education spending explains almost nothing about outcomes. Within countries, careful causal studies find that spending clearly improves them. Both findings are correct. Holding them together tells you where the binding scarcity in education actually sits, and it is not in the budget.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">Built on the curiosity <a href="/education-outcomes">What Education Spending Buys</a>, which plots spending against attainment for 32 developed countries. Companion to <a href="/dispatch-seed-corn">The Seed Corn Problem</a>, which asks the same question of research funding. Conditional, falsifiable, not policy advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">The chart that prompted this is close to a scatter of noise. Thirty-two developed countries, education spending on one axis and attainment on the other, and the fitted line is nearly flat. Ireland devotes 2.9 percent of GDP, the least in the group, and finishes near the top on both degrees and reading. Iceland devotes 7.3 percent and finishes below average on both. The correlation is +0.19 for reading and +0.15 for higher education, which is another way of saying there is nothing there. The obvious conclusion is that money does not matter, and the obvious conclusion is wrong.</p>
+
+    <h2>The other half of the evidence</h2>
+
+    <p>Jackson and Mackevicius assembled every credibly causal study of American school spending they could find, thirty-one of them, and pooled the results. A thousand dollars of additional per-pupil spending sustained over four years raises test scores by about 0.035 standard deviations, high school graduation by 1.9 percentage points, and college-going by 2.65 percentage points. The effects are roughly twice as large for low-income students on test scores and more than three times as large on attainment. A policy that raises per-pupil spending for four years improves outcomes more than ninety percent of the time.</p>
+
+    <p>So money works. It is one of the better established causal findings in education economics, and it sits in flat contradiction to a chart showing no relationship at all. Any argument that only reports one of these two facts is not an argument; it is a selection.</p>
+
+    <h2>Why both are true</h2>
+
+    <p>The two findings answer different questions. The causal studies ask what happens when you add a marginal dollar to a specific system and follow it. The cross-country chart asks whether the total size of the education budget, expressed as a share of the economy, predicts national results. Those are not the same question, and the second one is badly posed.</p>
+
+    <p>A national spending share aggregates over everything: how many teachers, paid how much relative to what else they could do, teaching what curriculum, to classes sorted how and how early, in buildings of what quality, with what share of the total absorbed by administration, and financed publicly or pushed onto households. Two countries at 5.4 percent of GDP can be running almost unrelated systems. Comparing the totals asks whether the sum of a dozen different decisions predicts the outcome, and it does not, because the decisions inside the sum point in different directions and cancel.</p>
+
+    <div class="pull">Money is not the question because the totals are already similar and the results are not. What differs is where inside the total the money lands, and that is a question about allocation, not about size.</div>
+
+    <h2>The clearest evidence that allocation is the variable</h2>
+
+    <p>The United States spends 5.4 percent of GDP on education, above the middle of this group, and considerably more per student in absolute terms than most of it. And American teachers earn about 37 percent less than other full-time workers with the same level of education. That is not merely below the OECD average of 17 percent. It is the largest gap in the OECD. There is no country where teaching pays worse relative to the alternatives available to the same graduates.</p>
+
+    <p>Korea sits at the other end. Statutory salaries after fifteen years exceed the earnings of comparably educated workers by at least 25 percent. Teaching there competes for graduates rather than accepting whoever the market did not take, and Korea reads at 514 while spending 5.4 percent of GDP, the identical share to the United States.</p>
+
+  </article>
+
+  <figure class="paybar">
+    <svg viewBox="0 0 720 190" role="img" aria-label="Teacher pay relative to other tertiary educated workers: Korea plus 25 percent, OECD average minus 17, Finland minus 19, United States minus 37">
+      <line x1="330" y1="24" x2="330" y2="150" stroke="#211d18" stroke-width="1.2"/>
+      <text x="330" y="167" text-anchor="middle" font-size="10" fill="#5c5247" font-family="IBM Plex Mono, monospace">parity with comparable graduates</text>
+
+      <text x="150" y="44" text-anchor="end" font-size="12.5" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">South Korea</text>
+      <rect x="330" y="32" width="100" height="17" fill="#3f6b3a"/>
+      <text x="438" y="45" font-size="11" fill="#3f6b3a" font-family="IBM Plex Mono, monospace" font-weight="600">+25%</text>
+
+      <text x="150" y="76" text-anchor="end" font-size="12.5" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">OECD average</text>
+      <rect x="262" y="64" width="68" height="17" fill="#8a8073"/>
+      <text x="254" y="77" text-anchor="end" font-size="11" fill="#5c5247" font-family="IBM Plex Mono, monospace">&minus;17%</text>
+
+      <text x="150" y="108" text-anchor="end" font-size="12.5" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">Finland</text>
+      <rect x="254" y="96" width="76" height="17" fill="#7a5a18"/>
+      <text x="246" y="109" text-anchor="end" font-size="11" fill="#5c5247" font-family="IBM Plex Mono, monospace">&minus;19%</text>
+
+      <text x="150" y="140" text-anchor="end" font-size="12.5" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">United States</text>
+      <rect x="182" y="128" width="148" height="17" fill="#8a3324"/>
+      <text x="174" y="141" text-anchor="end" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">&minus;37%</text>
+    </svg>
+    <figcaption>Teacher salaries against the earnings of full-time workers with the same level of education. The United States and Korea devote the same share of GDP to education, 5.4 percent, and arrive at opposite ends of this chart. Source: OECD Education at a Glance.</figcaption>
+  </figure>
+
+  <article class="prose">
+
+    <p>This is what a composition problem looks like when it is made concrete. The American education budget is not small. It is aimed somewhere other than the price of attracting people into the classroom, and relative pay is the mechanism by which a country decides which half of the graduate distribution its teaching workforce is drawn from. You cannot select from the top decile of applicants if the job pays a third less than what that decile can get elsewhere. Finland's famous selectivity is not a national personality trait. It is what happens when teaching is a competitive profession to enter, which requires that entering it is not a financial sacrifice.</p>
+
+    <h2>The four levers, and what each of them costs</h2>
+
+    <p>The curiosity ended by naming where the real variation lives: teacher selection, tracking and vocational design, curriculum, and how early sorting happens. It is worth being specific about the money each one requires, because the answer is not zero and it is not simply more.</p>
+
+    <p><strong>Teacher selection</strong> is the most expensive and the most purely monetary of the four, and it is the one that money alone genuinely can move. Raising the relative wage of teaching against competing professions changes the applicant pool, and a larger applicant pool is what makes a selection ratio possible. But note what kind of spending this is. It is spending on fewer, better paid people rather than more people. A system that responds to a budget increase by hiring more staff at unchanged relative pay has spent the money without touching the lever. Both look identical in the national accounts and in the chart that started this dispatch.</p>
+
+    <p><strong>Tracking and vocational design</strong> is the least monetary. The German, Swiss, and Austrian dual systems work because employers accept apprentices, co-design the qualifications, and treat the credential as real. That is coordination capital built over decades between firms, unions, chambers of commerce, and schools. A country cannot buy it. It can fund the administrative scaffolding, subsidise apprentice wages, and pay for the assessment infrastructure, all of which cost real money, but the binding input is institutional trust and there is no market in it.</p>
+
+    <p><strong>Curriculum</strong> is cheap to write and expensive to land. The document costs almost nothing. Making it real means retraining every teacher who will deliver it, replacing materials, building assessments that match it, and protecting it from revision for long enough to know whether it worked. The recurring failure mode in American education is not the absence of good curricula; it is adoption without the implementation budget, which produces the appearance of reform and none of the substance.</p>
+
+    <p><strong>Early sorting</strong> is where money and design meet most directly. Germany streams at around ten, Finland at around sixteen. Sorting early is administratively cheap, because it lets each track teach a narrower range. Sorting late is expensive, because it requires teaching a wide range of attainment in one room, which demands more skilled teachers, more support staff, and more differentiated materials. Finland's late sorting is not a soft egalitarian gesture. It is a costly instructional commitment that depends on the teacher quality its selection produces. The levers are coupled, and buying one without the other buys nothing.</p>
+
+    <h2>Necessary, not sufficient, and the difference matters</h2>
+
+    <p>Every one of those four reforms has a price. None of them is achievable by will alone, and the widespread conclusion that money does not matter, drawn from charts exactly like the one that opened this piece, has been used for forty years to justify not paying it. That conclusion does not follow from the evidence and it is contradicted by the causal literature. Money is a strict precondition for all four levers.</p>
+
+    <p>But a precondition is not a mechanism. Money buys the reform; it does not constitute it. A budget increase can be spent on higher relative teacher pay or on more administrators, on curriculum implementation or on facilities, on later sorting with proper support or on nothing in particular, and the national totals cannot tell these apart. That is precisely why the cross-country chart is flat while the causal studies are positive. The studies follow dollars into identified uses. The chart sums over uses that cancel.</p>
+
+    <h2>Where this sits in the framework</h2>
+
+    <p>The treatise's central claim is that scarcities are ranked, that the ranking is not fixed, and that the binding constraint moves. Education in the developed world is a clean case of that movement having already happened, and of policy debate not having noticed.</p>
+
+    <p>In a country without schools, money is unambiguously the binding scarcity. Build the buildings, pay the teachers, print the books, and outcomes improve enormously per dollar, because the constraint being relieved is the one that binds. Every country in this sample passed through that phase and came out the other side. Adult literacy is above 99 percent across the whole group and primary attainment runs from 92 to 100 percent. That is a real scarcity genuinely abolished, one of the few in the framework's whole catalogue that industrial societies actually finished.</p>
+
+    <p>And when a binding constraint is relieved, it stops being the thing that explains variation. The framework says the rank moves, and it moved here to two places at once. The first is allocation authority: the capacity to direct money at a specific lever and keep it there, against every institutional interest that would prefer it went somewhere more visible. The second is time. Every one of the four levers pays back over fifteen to twenty five years. Raise teacher pay today and you change the composition of the applicant pool over a decade, the composition of the workforce over two, and outcomes after that. Rebuild vocational credibility with employers and the first cohort that trusts it enrols years later.</p>
+
+    <div class="pull">Dollars are abundant in these countries and patience is scarce. That inversion is the whole finding, and it is the same one the research dispatch reached by a different route.</div>
+
+    <p>This is the temporal mechanism of Section VII pointed forward instead of backward. That section describes how an unrelieved monetary scarcity, left standing, destroys capacity that cannot then be repurchased. The same clock runs in the other direction on the way up: capacity that takes twenty years to build cannot be bought in one, and a system whose decisions are made on a four-year cycle will systematically underinvest in anything whose return arrives after the people deciding have gone. It will also systematically prefer the visible input to the effective one, because a new building and a hiring announcement are legible within the cycle and a change in the relative wage of teaching is not.</p>
+
+    <p>So the honest formulation is narrower than either slogan and more demanding than both. Money is not what distinguishes these countries from each other, because they have all cleared the threshold where the quantity binds. Money is nonetheless required to move any of the things that do distinguish them, and refusing to spend it guarantees that none of them move. What binds is the ability to aim the money at a lever with a twenty-year payback and to leave it there through several changes of government. That is the scarce resource. It is not in the budget, and no budget increase supplies it.</p>
+
+    <h2>The falsifiable claims</h2>
+
+  </article>
+
+  <div class="statgrid">
+    <div><div class="sv" style="color:#8a3324;">&minus;37%</div><div class="sl">US teacher pay against comparably educated workers. The largest gap in the OECD, against an average of &minus;17%.</div></div>
+    <div><div class="sv" style="color:#3f6b3a;">+25%</div><div class="sl">Korean statutory pay after 15 years, above comparable graduates. Same 5.4% of GDP as the US.</div></div>
+    <div><div class="sv" style="color:#2f5670;">+1.92pp</div><div class="sl">Graduation gain per $1,000 per-pupil over four years, pooled across 31 causal studies. Money works when aimed.</div></div>
+    <div><div class="sv" style="color:#6d4a6a;">r = +0.19</div><div class="sl">Correlation between national spending share and reading across 32 countries. Totals explain nothing.</div></div>
+  </div>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>Claim</th><th>Measured by</th><th>Falsified if</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Relative teacher pay predicts outcomes better than spending share</td>
+          <td class="r">OECD relative teacher salary against PISA reading, versus spending share against the same.</td>
+          <td class="r">Relative pay correlates no better with outcomes than the spending share does, across the same country set.</td>
+          <td class="num">testable now</td>
+        </tr>
+        <tr>
+          <td class="k">Budget increases without allocation rules do not reach the lever</td>
+          <td class="r">Change in relative teacher pay following national education budget increases.</td>
+          <td class="r">Relative teacher pay rises roughly in proportion to budget increases in countries that add money without earmarking it.</td>
+          <td class="num">by 2034</td>
+        </tr>
+        <tr>
+          <td class="k">Reform payback exceeds the political cycle</td>
+          <td class="r">Interval between an enacted selection or sorting reform and a measurable cohort outcome change.</td>
+          <td class="r">Measurable national outcome effects appear within a single electoral term of enactment.</td>
+          <td class="num">by 2040</td>
+        </tr>
+        <tr>
+          <td class="k">The US gap is allocation, not scarcity</td>
+          <td class="r">US per-pupil spending in PPP terms against relative teacher pay.</td>
+          <td class="r">US per-pupil spending turns out to be below the OECD median, making the low relative pay a resource constraint rather than a choice.</td>
+          <td class="num">testable now</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+    <p style="margin-top:1.6rem;">The framework does not say what any country should spend. It says which shortage is real, and in education among wealthy nations the real one has not been dollars for about half a century. The schools exist. The buildings stand. The people who could teach exist and are currently doing something else for more money. Nothing has run out. What is missing is the willingness to aim a known quantity of money at a known lever and wait longer than one term to find out whether it worked, and that is a scarcity of a kind no appropriation creates.</p>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+  </div>
+</footer>
+</body>
+</html>
