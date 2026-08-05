@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Education Spending Buys &middot; Scarcinality</title>
+<meta name="description" content="Education spending as a share of GDP against literacy, primary, secondary, and higher education attainment across 32 developed countries. Ireland spends the least and finishes near the top. Iceland spends the most and finishes below average.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="What Education Spending Buys &middot; Scarcinality">
+<meta property="og:description" content="Across 32 rich countries, education spending barely predicts outcomes. Ireland spends 2.9% of GDP and beats Iceland, which spends 7.3%, on both reading and degrees.">
+<meta property="og:url" content="https://www.scarcinality.com/education-outcomes">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-education.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Education Spending Buys &middot; Scarcinality">
+<meta name="twitter:description" content="Education spending vs attainment across 32 developed countries. The correlation is almost zero.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-education.svg">
+<link rel="canonical" href="https://www.scarcinality.com/education-outcomes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+ padding:.75rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);}
+.map-header h1{font-size:1.1rem;font-weight:600;margin:0;}
+.source-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;}
+.curio-switch{display:flex;overflow-x:auto;gap:.4rem;padding:.45rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.curio-switch::-webkit-scrollbar{display:none;}
+.curio-switch a{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint);text-decoration:none;flex-shrink:0;}
+.curio-switch a[aria-current],.curio-switch a:hover{color:var(--ink);border-color:var(--ink-faint);background:var(--parchment-deep,#dfd5c4);}
+.curio-switch a.g-health{color:#3f6b3a;border-color:#c2cfbc;}
+.curio-switch a.g-comm{color:#7a5a18;border-color:#d8cba8;}
+.curio-switch a.g-energy{color:#2f5670;border-color:#bcc8d2;}
+.curio-switch a.g-pol{color:#8a3324;border-color:#dbbfb8;}
+.curio-switch a.g-health[aria-current],.curio-switch a.g-health:hover{color:#2f5230;border-color:#3f6b3a;background:#e7ece4;}
+.curio-switch a.g-comm[aria-current],.curio-switch a.g-comm:hover{color:#5e4512;border-color:#7a5a18;background:#f0e9d8;}
+.curio-switch a.g-energy[aria-current],.curio-switch a.g-energy:hover{color:#234155;border-color:#2f5670;background:#e3e9ee;}
+.curio-switch a.g-pol[aria-current],.curio-switch a.g-pol:hover{color:#6f281c;border-color:#8a3324;background:#f2e4e0;}
+.curio-switch a[aria-current]{font-weight:500;}
+.curio-switch a.g-first{margin-left:.55rem;}
+
+.chart-wrap{max-width:76rem;margin:0 auto;padding:1.6rem clamp(1.1rem,5vw,3rem) 3rem;}
+.controls{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+.controls label{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+select{font-family:var(--mono);font-size:.76rem;border:1px solid var(--rule);background:var(--parchment-deep);
+ color:var(--ink);padding:.38rem .55rem;outline:none;cursor:pointer;}
+select:focus{border-color:var(--oxblood);}
+.rbox{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);
+ border:1px solid var(--rule);background:var(--parchment-deep);padding:.34rem .7rem;}
+.rbox b{color:var(--oxblood);font-weight:600;}
+.chart-container{position:relative;}
+svg.viz{width:100%;height:auto;display:block;}
+.tooltip-box{position:absolute;pointer-events:none;display:none;background:var(--parchment-deep);
+ border:1px solid var(--rule);border-left:3px solid var(--oxblood);padding:.55rem .75rem;
+ font-family:var(--mono);font-size:.68rem;line-height:1.6;color:var(--ink);white-space:nowrap;
+ box-shadow:0 2px 8px rgba(35,32,27,.12);z-index:6;}
+.section-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+ color:var(--oxblood);margin:2.4rem 0 .3rem;font-weight:500;}
+.section-sub{font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);margin:0 0 1rem;line-height:1.5;max-width:52rem;}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1px;background:var(--rule);
+ border:1px solid var(--rule);margin:1.6rem 0 0;}
+.fact{background:var(--parchment);padding:.9rem 1.05rem;}
+.fact .f-big{font-family:var(--serif);font-size:1.45rem;font-weight:600;line-height:1.15;margin-bottom:.15rem;}
+.fact .f-body{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);line-height:1.5;}
+.prose-note{max-width:54rem;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.6;
+ margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1rem;}
+.prose-note strong{color:var(--ink);font-weight:500;}
+@media(max-width:620px){
+ .site-header{padding:.8rem 1rem;}
+ .site-nav{display:flex;overflow-x:auto;flex-wrap:nowrap;gap:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+ .site-nav::-webkit-scrollbar{display:none;}
+ .rbox{margin-left:0;}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>What Education Spending Buys</h1>
+  <span class="source-badge">32 developed countries &middot; World Bank &middot; OECD PISA</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first" aria-current="page">Education</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <p class="section-head">Spending against outcome</p>
+  <p class="section-sub">Horizontal axis is government education spending as a share of GDP. Choose what to plot against it. If money bought results, these would climb left to right.</p>
+
+  <div class="controls">
+    <label for="ysel">Outcome</label>
+    <select id="ysel">
+      <option value="pi" selected>Functional literacy (PISA reading)</option>
+      <option value="te">Higher education completed (bachelor&rsquo;s or above)</option>
+      <option value="se">Upper secondary completed</option>
+      <option value="pr">Primary completed</option>
+    </select>
+    <div class="rbox" id="rbox"></div>
+  </div>
+
+  <div class="chart-container">
+    <svg id="scatter" class="viz" viewBox="0 0 940 470" role="img" aria-label="Scatter plot of education spending against outcomes"></svg>
+    <div class="tooltip-box" id="tip1"></div>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><div class="f-big" style="color:#3f6b3a;">Ireland, 2.9%</div>
+      <div class="f-body">The lowest spender here, and among the highest performers: 41.9% with a degree and PISA reading of 518.</div></div>
+    <div class="fact"><div class="f-big" style="color:#8a3324;">Iceland, 7.3%</div>
+      <div class="f-body">The highest spender, at two and a half times Ireland&rsquo;s share, and below average on both measures.</div></div>
+    <div class="fact"><div class="f-big" style="color:#2f5670;">r = +0.19</div>
+      <div class="f-body">Correlation between spending share and reading. For degrees it is +0.15. Both are close to nothing.</div></div>
+    <div class="fact"><div class="f-big" style="color:#7a5a18;">99%+</div>
+      <div class="f-body">Adult literacy in every country here. The measure stopped discriminating decades ago, which is itself the point.</div></div>
+  </div>
+
+  <p class="section-head">The attainment ladder</p>
+  <p class="section-sub">Share of adults who completed each stage. Primary is finished everywhere. The spread opens at secondary and widens again at higher education, and that is where national differences actually live.</p>
+
+  <div class="chart-container">
+    <svg id="ladder" class="viz" role="img" aria-label="Attainment ladder by country"></svg>
+    <div class="tooltip-box" id="tip2"></div>
+  </div>
+
+  <div class="prose-note">
+    <strong>What the chart does not show.</strong> There is no meaningful relationship between how much of its economy a rich country devotes to education and what it gets back. Ireland spends 2.9 percent of GDP, the least in this group, and lands near the top on both degrees and reading. Iceland and Sweden both spend 7.3 percent and finish either side of average. Japan spends 3.3 percent and reads at 504. The correlation across all 32 countries is +0.19 for reading and +0.15 for higher education, which is to say the line is nearly flat and the scatter is nearly a cloud.
+    <br><br>
+    <strong>Two honest caveats.</strong> A share of GDP is not an amount of money: Luxembourg&rsquo;s 3.7 percent and Greece&rsquo;s 3.4 percent buy very different things per student, because the economies underneath them differ by a factor of several. And spending mix matters enormously, since a country that funds universities publicly reports a higher share than one that pushes the same cost onto households through tuition and debt. The United States is the clearest case: 5.4 percent of GDP in public spending understates total national education expenditure, because a large slice of American higher education is financed privately and therefore never appears in this figure.
+    <br><br>
+    <strong>The scarcinality reading.</strong> Primary attainment is the interesting column precisely because it is boring. Every country here sits between 92 and 100 percent, and adult literacy is above 99 percent across the board. That was not true a century ago. Universal basic education is one of the few genuine scarcities that industrial societies actually abolished, and having abolished it, they stopped being able to distinguish themselves by it. The measure went flat because the problem was solved.
+    <br><br>
+    Which is why the money question is the wrong one at this end of the development curve. In a country without schools, spending is the binding constraint and more of it buys enormous gains. In a country that already has universal primary and near-universal secondary, spending is no longer what binds, and the framework&rsquo;s standing claim applies: when a constraint has been relieved, pouring more of the relieving resource at it produces very little, because the shortage has moved somewhere else. The variation between these countries lives in teacher selection and status, tracking and vocational design, curriculum, and how early the sorting happens, none of which is a budget line. Money is necessary and it is nowhere near sufficient, and the flatness of this chart is what that looks like when you plot it.
+    <br><br>
+    Companion to <a href="/dispatch-seed-corn">The Seed Corn Problem</a>, which asks the same question of research funding and finds the composition, not the total, is what moved. Sources: World Bank, government expenditure on education as a share of GDP, and educational attainment for population 25 and over, most recent year available per country, generally 2021 to 2024. OECD PISA reading, 2018 round, the most recent with complete coverage for this group. Attainment measures are the share of adults who have completed each level, a stock measure, rather than annual completion rates, which are unstable and exceed 100 percent for several countries in this group.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var D=[
+    {n:'Iceland',         sp:7.3,  pr:100,   se:80.2,  te:34.5,  pi:474},
+    {n:'Sweden',          sp:7.3,  pr:100,   se:84.7,  te:34.9,  pi:506},
+    {n:'Denmark',         sp:6.4,  pr:100,   se:78.1,  te:33.6,  pi:501},
+    {n:'Finland',         sp:6.4,  pr:100,   se:82.1,  te:29.9,  pi:520},
+    {n:'Belgium',         sp:6.3,  pr:95.8,  se:74.4,  te:37.4,  pi:493},
+    {n:'United Kingdom',  sp:5.9,  pr:100,   se:80.5,  te:39.6,  pi:504},
+    {n:'Israel',          sp:5.9,  pr:96.4,  se:85.2,  te:38.3,  pi:470},
+    {n:'South Korea',     sp:5.4,  pr:97.9,  se:81.5,  te:36.5,  pi:514},
+    {n:'Norway',          sp:5.4,  pr:99.7,  se:81.9,  te:32.2,  pi:499},
+    {n:'United States',   sp:5.4,  pr:99.1,  se:91.6,  te:39.1,  pi:505},
+    {n:'Austria',         sp:5.3,  pr:100,   se:82.6,  te:14.9,  pi:484},
+    {n:'France',          sp:5.3,  pr:100,   se:78.0,  te:24.4,  pi:493},
+    {n:'Slovenia',        sp:5.3,  pr:99.8,  se:82.3,  te:22.0,  pi:495},
+    {n:'Germany',         sp:5.2,  pr:100,   se:81.9,  te:30.5,  pi:498},
+    {n:'Estonia',         sp:5.2,  pr:99.9,  se:86.6,  te:32.9,  pi:523},
+    {n:'Netherlands',     sp:5.2,  pr:97.3,  se:74.1,  te:36.6,  pi:485},
+    {n:'Australia',       sp:5.1,  pr:99.5,  se:79.9,  te:36.8,  pi:503},
+    {n:'Switzerland',     sp:4.9,  pr:99.6,  se:84.4,  te:41.6,  pi:484},
+    {n:'Chile',           sp:4.9,  pr:92.5,  se:69.8,  te:22.3,  pi:452},
+    {n:'Canada',          sp:4.8,  pr:96.4,  se:89.9,  te:34.7,  pi:520},
+    {n:'Slovakia',        sp:4.7,  pr:99.8,  se:90.1,  te:25.3,  pi:458},
+    {n:'Portugal',        sp:4.6,  pr:95.6,  se:48.6,  te:24.9,  pi:492},
+    {n:'Czechia',         sp:4.3,  pr:99.9,  se:91.4,  te:22.0,  pi:490},
+    {n:'Lithuania',       sp:4.3,  pr:99.4,  se:92.5,  te:41.3,  pi:476},
+    {n:'Latvia',          sp:4.3,  pr:99.6,  se:89.2,  te:33.2,  pi:479},
+    {n:'Poland',          sp:4.3,  pr:99.7,  se:87.4,  te:27.7,  pi:512},
+    {n:'Italy',           sp:4.1,  pr:98.0,  se:55.3,  te:17.6,  pi:476},
+    {n:'Hungary',         sp:3.8,  pr:99.7,  se:83.9,  te:26.4,  pi:476},
+    {n:'Luxembourg',      sp:3.7,  pr:98.3,  se:77.2,  te:41.9,  pi:470},
+    {n:'Greece',          sp:3.4,  pr:97.5,  se:70.1,  te:28.9,  pi:457},
+    {n:'Japan',           sp:3.3,  pr:99.6,  se:85.2,  te:25.5,  pi:504},
+    {n:'Ireland',         sp:2.9,  pr:99.7,  se:83.0,  te:41.9,  pi:518},
+  ];
+  var META={
+    pi:{n:'PISA reading score',   lo:440, hi:535, fmt:function(v){return v;},           c:'#2f5670'},
+    te:{n:'Higher education, %',  lo:10,  hi:46,  fmt:function(v){return v.toFixed(1)+'%';}, c:'#6d4a6a'},
+    se:{n:'Upper secondary, %',   lo:44,  hi:96,  fmt:function(v){return v.toFixed(1)+'%';}, c:'#3f6b3a'},
+    pr:{n:'Primary, %',           lo:90,  hi:101, fmt:function(v){return v.toFixed(1)+'%';}, c:'#7a5a18'}
+  };
+  var ns='http://www.w3.org/2000/svg';
+  var sv=document.getElementById('scatter'), tip=document.getElementById('tip1');
+  var sel=document.getElementById('ysel'), rbox=document.getElementById('rbox');
+
+  function mk(svg,t,a,x){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);
+    if(x!==undefined)e.textContent=x;svg.appendChild(e);return e;}
+  function clear(s){while(s.firstChild)s.removeChild(s.firstChild);}
+  function hook(el,tp,html){
+    el.addEventListener('mousemove',function(ev){
+      tp.innerHTML=html;tp.style.display='block';
+      var cc=tp.parentElement.getBoundingClientRect();
+      var x=ev.clientX-cc.left+14,y=ev.clientY-cc.top-12;
+      if(x+230>cc.width)x=ev.clientX-cc.left-220; if(y<0)y=4;
+      tp.style.left=x+'px';tp.style.top=y+'px';});
+    el.addEventListener('mouseleave',function(){tp.style.display='none';});
+  }
+  function corr(a,b){var n=a.length,ma=a.reduce(function(s,v){return s+v;},0)/n,
+    mb=b.reduce(function(s,v){return s+v;},0)/n,c=0,sa=0,sb=0;
+    for(var i=0;i<n;i++){var da=a[i]-ma,db=b[i]-mb;c+=da*db;sa+=da*da;sb+=db*db;}
+    return c/Math.sqrt(sa*sb);}
+
+  function drawScatter(){
+    clear(sv);
+    var key=sel.value,M=META[key];
+    var W=940,H=470,L=64,R=26,T=26,B=48,iw=W-L-R,ih=H-T-B;
+    var xlo=2.5,xhi=7.8;
+    function X(v){return L+(v-xlo)/(xhi-xlo)*iw;}
+    function Y(v){return T+ih-(v-M.lo)/(M.hi-M.lo)*ih;}
+
+    for(var g=3;g<=7;g++){
+      mk(sv,'line',{x1:X(g),y1:T,x2:X(g),y2:T+ih,stroke:'#ddd3c2','stroke-width':0.5});
+      mk(sv,'text',{x:X(g),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},g+'%');
+    }
+    for(var i=0;i<=4;i++){
+      var v=M.lo+(M.hi-M.lo)*i/4,y=Y(v);
+      mk(sv,'line',{x1:L,y1:y,x2:L+iw,y2:y,stroke:'#ddd3c2','stroke-width':0.5});
+      mk(sv,'text',{x:L-8,y:y+3.5,'text-anchor':'end','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},
+        key==='pi'?Math.round(v):Math.round(v)+'%');
+    }
+    mk(sv,'line',{x1:L,y1:T+ih,x2:L+iw,y2:T+ih,stroke:'#ddd3c2','stroke-width':1});
+    mk(sv,'text',{x:L+iw/2,y:H-8,'text-anchor':'middle','font-size':10,fill:'#5c5247','font-family':'IBM Plex Mono, monospace'},
+      'Government education spending, % of GDP');
+    mk(sv,'text',{x:L-46,y:T+ih/2,'text-anchor':'middle','font-size':10,fill:'#5c5247','font-family':'IBM Plex Mono, monospace',
+      transform:'rotate(-90 '+(L-46)+' '+(T+ih/2)+')'},M.n);
+
+    var xs=D.map(function(d){return d.sp;}),ys=D.map(function(d){return d[key];});
+    var r=corr(xs,ys);
+    // least squares fit
+    var n=xs.length,mx=xs.reduce(function(s,v){return s+v;},0)/n,my=ys.reduce(function(s,v){return s+v;},0)/n;
+    var num=0,den=0;for(var i=0;i<n;i++){num+=(xs[i]-mx)*(ys[i]-my);den+=(xs[i]-mx)*(xs[i]-mx);}
+    var slope=num/den,b0=my-slope*mx;
+    mk(sv,'line',{x1:X(xlo),y1:Y(b0+slope*xlo),x2:X(xhi),y2:Y(b0+slope*xhi),
+      stroke:'#8a3324','stroke-width':1.4,'stroke-dasharray':'6 4',opacity:.55});
+
+    rbox.innerHTML='Correlation with spending: <b>r = '+(r>=0?'+':'')+r.toFixed(2)+'</b> &nbsp;(effectively none)';
+
+    D.forEach(function(d){
+      var hi=(d.n==='Ireland'||d.n==='Iceland');
+      var c=mk(sv,'circle',{cx:X(d.sp),cy:Y(d[key]),r:hi?7:5.2,
+        fill:hi?(d.n==='Ireland'?'#3f6b3a':'#8a3324'):M.c,
+        opacity:hi?1:.72,stroke:'var(--parchment)','stroke-width':1.2,style:'cursor:crosshair'});
+      hook(c,tip,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+d.n+'</span><br>'+
+        '<span style="color:var(--ink);font-weight:600;">Spending '+d.sp+'% of GDP</span><br>'+
+        '<span style="color:#7a5a18;">Primary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+d.pr+'%</span><br>'+
+        '<span style="color:#3f6b3a;">Upper secondary '+d.se+'%</span><br>'+
+        '<span style="color:#6d4a6a;">Higher education '+d.te+'%</span><br>'+
+        '<span style="color:#2f5670;">PISA reading '+d.pi+'</span>');
+      if(hi) mk(sv,'text',{x:X(d.sp),y:Y(d[key])-12,'text-anchor':'middle','font-size':10.5,
+        fill:d.n==='Ireland'?'#3f6b3a':'#8a3324','font-family':'IBM Plex Mono, monospace','font-weight':500},d.n);
+    });
+  }
+
+  function drawLadder(){
+    var lv=document.getElementById('ladder'),tp=document.getElementById('tip2');
+    clear(lv);
+    var rows=D.slice().sort(function(a,b){return b.te-a.te;});
+    var W=940,L=132,R=40,T=30,B=34,rowH=19,H=T+rows.length*rowH+B;
+    lv.setAttribute('viewBox','0 0 '+W+' '+H);
+    var iw=W-L-R;
+    function X(v){return L+(v/100)*iw;}
+    for(var p=0;p<=100;p+=25){
+      mk(lv,'line',{x1:X(p),y1:T-8,x2:X(p),y2:T+rows.length*rowH+4,stroke:'#ddd3c2','stroke-width':p===0?1.1:0.5});
+      mk(lv,'text',{x:X(p),y:T-13,'text-anchor':'middle','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},p+'%');
+    }
+    var STG=[['pr','#7a5a18','Primary'],['se','#3f6b3a','Upper secondary'],['te','#6d4a6a','Higher education']];
+    rows.forEach(function(d,i){
+      var y=T+i*rowH+rowH/2;
+      mk(lv,'text',{x:L-10,y:y+3.5,'text-anchor':'end','font-size':10,fill:'#211d18','font-family':'EB Garamond, serif','font-weight':600},d.n);
+      mk(lv,'line',{x1:X(d.te),y1:y,x2:X(d.pr),y2:y,stroke:'#ddd3c2','stroke-width':1.4});
+      var body='<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+d.n+
+        ' &middot; '+d.sp+'% of GDP</span><br>'+
+        '<span style="color:#7a5a18;">Primary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+d.pr+'%</span><br>'+
+        '<span style="color:#3f6b3a;">Upper secondary '+d.se+'%</span><br>'+
+        '<span style="color:#6d4a6a;">Higher education '+d.te+'%</span><br>'+
+        '<span style="color:#2f5670;">PISA reading '+d.pi+'</span>';
+      STG.forEach(function(s){
+        var c=mk(lv,'circle',{cx:X(d[s[0]]),cy:y,r:4.4,fill:s[1],opacity:.9,
+          stroke:'var(--parchment)','stroke-width':1,style:'cursor:crosshair'});
+        hook(c,tp,body);
+      });
+      var hit=mk(lv,'rect',{x:L,y:y-rowH/2,width:iw,height:rowH,fill:'transparent',style:'cursor:crosshair'});
+      hook(hit,tp,body);
+    });
+    var lx=L;
+    STG.forEach(function(s){
+      mk(lv,'circle',{cx:lx+5,cy:T+rows.length*rowH+22,r:4.4,fill:s[1]});
+      mk(lv,'text',{x:lx+15,y:T+rows.length*rowH+25.5,'font-size':9,fill:'#5c5247','font-family':'IBM Plex Mono, monospace'},s[2]);
+      lx+=s[2].length*5.6+40;
+    });
+  }
+
+  sel.addEventListener('change',drawScatter);
+  drawScatter(); drawLadder();
+})();
+</script>
+</body>
+</html>
