@@ -456,7 +456,7 @@ function update() {
 
   var sc = document.getElementById('scenario-compare');
   sc.innerHTML =
-    '<div class="scenario-col"><h4>Central, <span>$450B savings</span></h4>'
+    '<div class="scenario-col"><h4>Central <span>$450B savings</span></h4>'
     + '<div class="sc-row"><span class="sc-label">Admin savings</span><span class="sc-val good">$' + savings.toFixed(0) + 'B (your input)</span></div>'
     + '<div class="sc-row"><span class="sc-label">New financing needed</span><span class="sc-val">$' + newNeeded.toFixed(0) + 'B</span></div>'
     + '<div class="sc-row"><span class="sc-label">Employer contribution</span><span class="sc-val">$' + employerContrib.toFixed(0) + 'B</span></div>'
@@ -464,7 +464,7 @@ function update() {
     + '<div class="sc-row"><span class="sc-label">Household change</span><span class="sc-val '+(householdChange<=0?'good':'bad')+'">'+(householdChange<=0?'−':'+')+'$'+Math.abs(householdChange).toFixed(0)+'B</span></div>'
     + '<div class="sc-row"><span class="sc-label">Jobs displaced (gross)</span><span class="sc-val bad">~1.8M</span></div>'
     + '</div>'
-    + '<div class="scenario-col"><h4>Conservative, <span>$265B savings</span></h4>'
+    + '<div class="scenario-col"><h4>Conservative <span>$265B savings</span></h4>'
     + '<div class="sc-row"><span class="sc-label">Admin savings</span><span class="sc-val bad">$265B (McKinsey floor)</span></div>'
     + '<div class="sc-row"><span class="sc-label">New financing needed</span><span class="sc-val">$' + newNeededCons.toFixed(0) + 'B</span></div>'
     + '<div class="sc-row"><span class="sc-label">Employer contribution</span><span class="sc-val">$' + employerContrib.toFixed(0) + 'B</span></div>'

@@ -541,7 +541,7 @@ async function loadDiseases() {
   try {
     const data = await apiFetch({ '$select':'label','$group':'label','$order':'label','$limit':'500' });
     const sel = document.getElementById('disease-select');
-    sel.innerHTML = '<option value="">, Select a disease,</option>';
+    sel.innerHTML = '<option value="">Select a disease</option>';
     data.forEach(d => {
       const o = document.createElement('option');
       o.value = d.label; o.textContent = d.label;
@@ -701,5 +701,6 @@ async function init() {
 }
 init();
 </script>
+<script src="/assets/like.js" defer></script>
 </body>
 </html>
