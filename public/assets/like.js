@@ -25,7 +25,10 @@
     'border-top:1px solid #ddd3c2;}' +
     '.scarc-like-bar .q{font-family:"IBM Plex Mono",ui-monospace,monospace;' +
     'font-size:.68rem;letter-spacing:.08em;color:#8a8073;}' +
-    '.scarc-like-inline{margin-left:auto;flex-shrink:0;}';
+    '.scarc-like-inline{margin-left:auto;flex-shrink:0;}' +
+    '.scarc-like .n{font-variant-numeric:tabular-nums;opacity:.75;' +
+    'padding-left:.15rem;transition:opacity .15s;}' +
+    '.scarc-like.on .n{opacity:1;font-weight:500;}';
 
   var THUMB_OUTLINE =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -53,10 +56,14 @@
 
   function liked() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
 
+  var count = null;   // null until the server answers
+
   function paint() {
     var on = liked();
     btn.classList.toggle('on', on);
-    btn.innerHTML = (on ? THUMB_FILLED : THUMB_OUTLINE) + '<span>' + (on ? 'Liked' : 'Like') + '</span>';
+    var n = (count === null || count <= 0) ? '' : '<span class="n">' + count + '</span>';
+    btn.innerHTML = (on ? THUMB_FILLED : THUMB_OUTLINE) +
+                    '<span>' + (on ? 'Liked' : 'Like') + '</span>' + n;
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     btn.setAttribute('aria-label', on ? 'You liked this page. Click to undo.' : 'Do you like this page?');
     btn.title = on ? 'Thanks. Click to undo.' : 'Do you like this?';
@@ -65,7 +72,16 @@
   btn.addEventListener('click', function () {
     var next = !liked();
     try { next ? localStorage.setItem(KEY, '1') : localStorage.removeItem(KEY); } catch (e) {}
+    if (count !== null) count = Math.max(0, count + (next ? 1 : -1));
     paint();
+
+    fetch('/api/likes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ page: slug, delta: next ? 1 : -1 })
+    }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (d && typeof d.count === 'number') { count = d.count; paint(); } })
+      .catch(function () { /* count stays optimistic; the like still registered locally */ });
     if (next) {
       btn.classList.add('pop');
       setTimeout(function () { btn.classList.remove('pop'); }, 220);
@@ -79,6 +95,11 @@
   });
 
   paint();
+
+  fetch('/api/likes?page=' + encodeURIComponent(slug))
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) { if (d && typeof d.count === 'number') { count = d.count; paint(); } })
+    .catch(function () { /* no store: the button still works, just without a number */ });
 
   /* Mount at the end of the content, where "was this useful" belongs.
      Never inside .curio-switch, which scrolls horizontally and would hide it. */
