@@ -1,0 +1,43 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="20" y="14" font-size="6.8" fill="#8a8073">green cards per year, 1960&#8211;2025</text>
+
+  <!-- grid -->
+  <line x1="34" y1="96" x2="300" y2="96" stroke="#ddd3c2" stroke-width="0.9"/>
+  <line x1="34" y1="70" x2="300" y2="70" stroke="#ddd3c2" stroke-width="0.35"/>
+  <line x1="34" y1="44" x2="300" y2="44" stroke="#ddd3c2" stroke-width="0.35"/>
+  <text x="30" y="98" font-size="5.6" fill="#8a8073" text-anchor="end">0</text>
+  <text x="30" y="46" font-size="5.6" fill="#8a8073" text-anchor="end">1.8M</text>
+
+  <!-- IRCA spike marker -->
+  <line x1="152" y1="20" x2="152" y2="96" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <text x="155" y="26" font-size="5.6" fill="#8a3324">1986 IRCA legalisation</text>
+
+  <!-- admissions area: 1960 265k .. 1991 1.83M .. 2025 1.32M -->
+  <polygon fill="#2f5670" opacity=".16"
+    points="34,88 54,86 74,84 94,81 114,78 134,74 148,66 156,22 164,40 180,74 196,72 212,58 228,62 244,66 258,79 272,58 290,50 300,52 300,96 34,96"/>
+  <polyline fill="none" stroke="#2f5670" stroke-width="1.7" stroke-linejoin="round"
+    points="34,88 54,86 74,84 94,81 114,78 134,74 148,66 156,22 164,40 180,74 196,72 212,58 228,62 244,66 258,79 272,58 290,50 300,52"/>
+
+  <text x="34"  y="108" font-size="6" fill="#8a8073" text-anchor="middle">1960</text>
+  <text x="167" y="108" font-size="6" fill="#8a8073" text-anchor="middle">1993</text>
+  <text x="300" y="108" font-size="6" fill="#8a8073" text-anchor="middle">2025</text>
+
+  <!-- per-capita federal ledger -->
+  <line x1="20" y1="120" x2="300" y2="120" stroke="#ddd3c2" stroke-width="0.6"/>
+  <text x="20" y="133" font-size="6.6" fill="#5c5247">federal $ per person per year</text>
+
+  <text x="86" y="150" font-size="6.4" fill="#211d18" text-anchor="end" font-weight="600">Immigrant</text>
+  <rect x="90" y="143" width="78"  height="7" fill="#8a3324" opacity=".85"/>
+  <text x="172" y="149" font-size="5.8" fill="#8a3324">$9,767 received</text>
+  <rect x="90" y="152" width="57" height="7" fill="#3f6b3a" opacity=".85"/>
+  <text x="151" y="158" font-size="5.8" fill="#3f6b3a">$7,117 paid</text>
+
+  <text x="86" y="176" font-size="6.4" fill="#211d18" text-anchor="end" font-weight="600">Native born</text>
+  <rect x="90" y="169" width="96" height="7" fill="#8a3324" opacity=".85"/>
+  <text x="190" y="175" font-size="5.8" fill="#8a3324">$12,050 received</text>
+  <rect x="90" y="178" width="76" height="7" fill="#3f6b3a" opacity=".85"/>
+  <text x="170" y="184" font-size="5.8" fill="#3f6b3a">$9,473 paid</text>
+
+  <text x="20" y="196" font-size="5.8" fill="#8a8073">Citizens receive more per head than immigrants, in every scenario modelled.</text>
+</svg>
