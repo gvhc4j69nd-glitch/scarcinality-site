@@ -1,0 +1,52 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="20" y="15" font-size="7" fill="#8a8073">international students in the US</text>
+
+  <!-- grid -->
+  <line x1="34" y1="150" x2="300" y2="150" stroke="#ddd3c2" stroke-width="0.9"/>
+  <line x1="34" y1="112" x2="300" y2="112" stroke="#ddd3c2" stroke-width="0.35"/>
+  <line x1="34" y1="74"  x2="300" y2="74"  stroke="#ddd3c2" stroke-width="0.35"/>
+  <line x1="34" y1="36"  x2="300" y2="36"  stroke="#ddd3c2" stroke-width="0.35"/>
+  <text x="30" y="152" font-size="6" fill="#8a8073" text-anchor="end">0</text>
+  <text x="30" y="76"  font-size="6" fill="#8a8073" text-anchor="end">600k</text>
+  <text x="30" y="38"  font-size="6" fill="#8a8073" text-anchor="end">1.2M</text>
+
+  <!-- policy markers -->
+  <line x1="54"  y1="24" x2="54"  y2="150" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <line x1="154" y1="24" x2="154" y2="150" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <line x1="206" y1="24" x2="206" y2="150" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <line x1="286" y1="24" x2="286" y2="150" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <text x="57"  y="30" font-size="5.6" fill="#8a3324">1965</text>
+  <text x="157" y="30" font-size="5.6" fill="#8a3324">1990 H-1B</text>
+  <text x="209" y="30" font-size="5.6" fill="#8a3324">2003 SEVIS</text>
+  <text x="284" y="30" font-size="5.6" fill="#8a3324" text-anchor="end">2025</text>
+
+  <!-- total enrolment area: 1960 (48k) .. 2025 (1.18M) -->
+  <polygon fill="#2f5670" opacity=".16"
+    points="34,147 54,141 74,128 94,120 114,113 134,107 154,126 174,120 194,117 214,116 234,105 254,86 266,54 274,66 286,42 294,39 300,45 300,150 34,150"/>
+  <polyline fill="none" stroke="#2f5670" stroke-width="1.8" stroke-linejoin="round"
+    points="34,147 54,141 74,128 94,120 114,113 134,107 154,126 174,120 194,117 214,116 234,105 254,86 266,54 274,66 286,42 294,39"/>
+  <polyline fill="none" stroke="#2f5670" stroke-width="1.8" stroke-dasharray="3 2" points="294,39 300,45"/>
+
+  <!-- OPT band -->
+  <polygon fill="#7a9ab0" opacity=".45"
+    points="154,149 174,148 194,147 214,145 234,142 254,133 266,124 274,127 286,119 294,112 300,113 300,150 154,150"/>
+  <polyline fill="none" stroke="#7a9ab0" stroke-width="1.4"
+    points="154,149 174,148 194,147 214,145 234,142 254,133 266,124 274,127 286,119 294,112"/>
+
+  <text x="34"  y="162" font-size="6.2" fill="#8a8073" text-anchor="middle">1960</text>
+  <text x="167" y="162" font-size="6.2" fill="#8a8073" text-anchor="middle">1993</text>
+  <text x="300" y="162" font-size="6.2" fill="#8a8073" text-anchor="middle">2026</text>
+
+  <!-- stay-rate strip -->
+  <line x1="20" y1="172" x2="300" y2="172" stroke="#ddd3c2" stroke-width="0.6"/>
+  <text x="20" y="185" font-size="6.6" fill="#5c5247">Of intl STEM PhDs, 2000&#8211;2015:</text>
+  <rect x="140" y="179" width="60" height="7" fill="#ddd3c2" opacity=".5"/>
+  <rect x="140" y="179" width="46" height="7" fill="#3f6b3a"/>
+  <text x="205" y="185" font-size="6.6" fill="#3f6b3a">77% stayed</text>
+
+  <rect x="20"  y="192" width="7" height="5" fill="#2f5670" opacity=".55"/>
+  <text x="30" y="197" font-size="5.8" fill="#5c5247">Enrolled</text>
+  <rect x="70"  y="192" width="7" height="5" fill="#7a9ab0"/>
+  <text x="80" y="197" font-size="5.8" fill="#5c5247">Working on OPT</text>
+</svg>

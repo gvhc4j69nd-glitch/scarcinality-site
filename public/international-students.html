@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Came, and Who Stayed &middot; Scarcinality</title>
+<meta name="description" content="International students in American higher education from 1960 to 2026, from 48,000 to 1.18 million, with the share who remained in the country after graduating and the policy changes that moved both lines.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Who Came, and Who Stayed &middot; Scarcinality">
+<meta property="og:description" content="From 48,000 international students in 1960 to 1.18 million in 2025, and roughly three quarters of STEM doctorates staying on. The policy timeline that shaped both.">
+<meta property="og:url" content="https://www.scarcinality.com/international-students">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-intl-students.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Who Came, and Who Stayed &middot; Scarcinality">
+<meta name="twitter:description" content="International students in the US, 1960 to 2026, and the share who stayed.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-intl-students.svg">
+<link rel="canonical" href="https://www.scarcinality.com/international-students">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+ padding:.75rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);}
+.map-header h1{font-size:1.1rem;font-weight:600;margin:0;}
+.source-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;}
+.curio-switch{display:flex;overflow-x:auto;gap:.4rem;padding:.45rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.curio-switch::-webkit-scrollbar{display:none;}
+.curio-switch a{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint);text-decoration:none;flex-shrink:0;}
+.curio-switch a[aria-current],.curio-switch a:hover{color:var(--ink);border-color:var(--ink-faint);background:var(--parchment-deep,#dfd5c4);}
+.curio-switch a.g-health{color:#3f6b3a;border-color:#c2cfbc;}
+.curio-switch a.g-comm{color:#7a5a18;border-color:#d8cba8;}
+.curio-switch a.g-energy{color:#2f5670;border-color:#bcc8d2;}
+.curio-switch a.g-pol{color:#8a3324;border-color:#dbbfb8;}
+.curio-switch a.g-health[aria-current],.curio-switch a.g-health:hover{color:#2f5230;border-color:#3f6b3a;background:#e7ece4;}
+.curio-switch a.g-comm[aria-current],.curio-switch a.g-comm:hover{color:#5e4512;border-color:#7a5a18;background:#f0e9d8;}
+.curio-switch a.g-energy[aria-current],.curio-switch a.g-energy:hover{color:#234155;border-color:#2f5670;background:#e3e9ee;}
+.curio-switch a.g-pol[aria-current],.curio-switch a.g-pol:hover{color:#6f281c;border-color:#8a3324;background:#f2e4e0;}
+.curio-switch a[aria-current]{font-weight:500;}
+.curio-switch a.g-first{margin-left:.55rem;}
+.chart-wrap{max-width:78rem;margin:0 auto;padding:1.6rem clamp(1.1rem,5vw,3rem) 3rem;}
+.section-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+ color:var(--oxblood);margin:2.4rem 0 .3rem;font-weight:500;}
+.section-head:first-of-type{margin-top:0;}
+.section-sub{font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);margin:0 0 1rem;line-height:1.5;max-width:54rem;}
+.leg{display:flex;gap:.5rem 1.3rem;flex-wrap:wrap;margin:.3rem 0 .9rem;}
+.leg span{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);}
+.leg i{width:16px;height:10px;display:inline-block;flex-shrink:0;border-radius:1px;}
+.chart-container{position:relative;}
+svg.viz{width:100%;height:auto;display:block;}
+.tooltip-box{position:absolute;pointer-events:none;display:none;background:var(--parchment-deep);
+ border:1px solid var(--rule);border-left:3px solid var(--oxblood);padding:.55rem .75rem;
+ font-family:var(--mono);font-size:.68rem;line-height:1.6;color:var(--ink);white-space:nowrap;
+ box-shadow:0 2px 8px rgba(35,32,27,.12);z-index:6;}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1px;background:var(--rule);
+ border:1px solid var(--rule);margin:1.6rem 0 0;}
+.fact{background:var(--parchment);padding:.9rem 1.05rem;}
+.fact .f-big{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.15;margin-bottom:.15rem;}
+.fact .f-body{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);line-height:1.5;}
+.prose-note{max-width:54rem;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.6;
+ margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1rem;}
+.prose-note strong{color:var(--ink);font-weight:500;}
+@media(max-width:620px){
+ .site-header{padding:.8rem 1rem;}
+ .site-nav{display:flex;overflow-x:auto;flex-wrap:nowrap;gap:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+ .site-nav::-webkit-scrollbar{display:none;}
+ .fact .f-big{font-size:1.25rem;}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>Who Came, and Who Stayed</h1>
+  <span class="source-badge">IIE Open Doors &middot; NSF &middot; 1960&ndash;2026</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first">Education</a>
+  <a href="/international-students" class="g-pol" aria-current="page">Intl Students</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <p class="section-head">How many came</p>
+  <p class="section-sub">Total international students enrolled in US higher education each academic year. The shaded band is Optional Practical Training, the work authorisation that lets a graduate stay and be employed. Hover any year. Dashed markers are policy changes.</p>
+
+  <div class="leg">
+    <span><i style="background:#2f5670"></i>Enrolled students</span>
+    <span><i style="background:#7a9ab0"></i>On Optional Practical Training (working)</span>
+    <span><i style="background:#8a3324;height:2px;"></i>Policy change</span>
+  </div>
+
+  <div class="chart-container">
+    <svg id="enrol" class="viz" viewBox="0 0 960 470" role="img" aria-label="International student enrolment in the United States, 1960 to 2026, with policy markers"></svg>
+    <div class="tooltip-box" id="tip1"></div>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><div class="f-big" style="color:#2f5670;">48,486 &rarr; 1.18M</div>
+      <div class="f-body">Enrolment in 1960 against 2024/25, a twenty-four-fold rise. US higher education overall roughly tripled in the same period.</div></div>
+    <div class="fact"><div class="f-big" style="color:#7a9ab0;">294,253</div>
+      <div class="f-body">On OPT in 2024/25, one in four of all international students. It was 7,712 in 1990, the year H-1B was created.</div></div>
+    <div class="fact"><div class="f-big" style="color:#3f6b3a;">~77%</div>
+      <div class="f-body">Of international STEM doctorate graduates from 2000 to 2015 were still living in the US as of 2017.</div></div>
+    <div class="fact"><div class="f-big" style="color:#8a3324;">&minus;17%</div>
+      <div class="f-body">New international enrolment in autumn 2025. Student visa issuances fell 36 percent over summer 2025.</div></div>
+  </div>
+
+  <p class="section-head">How many stayed</p>
+  <p class="section-sub">Share of international STEM doctorate graduates still living in the United States, by graduating class. This is the only population tracked longitudinally, so it stands in for a broader number nobody actually measures. Note how far China and India sit above everyone else.</p>
+
+  <div class="leg">
+    <span><i style="background:#8a3324"></i>All international</span>
+    <span><i style="background:#7a5a18"></i>China</span>
+    <span><i style="background:#3f6b3a"></i>India</span>
+    <span><i style="background:#8a8073"></i>Everyone else</span>
+  </div>
+
+  <div class="chart-container">
+    <svg id="stay" class="viz" viewBox="0 0 960 340" role="img" aria-label="Stay rates of international STEM doctorate graduates by graduating class"></svg>
+    <div class="tooltip-box" id="tip2"></div>
+  </div>
+
+  <div class="prose-note">
+    <strong>Two lines, two different questions.</strong> The first chart counts arrivals and is close to complete: the Institute of International Education has run an annual census since 1948, and the numbers are a headcount. The second chart is an estimate of departures, and it is much narrower, because the United States has never systematically tracked whether international students leave. What exists is the National Science Foundation's Survey of Doctorate Recipients, which follows people who earned science and engineering PhDs. So the stay rate here describes doctorate holders, roughly five percent of the international student population, and is almost certainly higher than the rate for the whole group. Undergraduates and taught masters students leave at far greater rates. Treat the second chart as the ceiling, not the average.
+    <br><br>
+    <strong>The policy markers are where the two charts meet.</strong> Nearly every inflection in the enrolment line sits next to a legal change rather than an economic one. The 1965 Hart-Celler Act abolished national-origin quotas and Asian enrolment climbed for three decades afterwards. The 1990 Immigration Act created the H-1B visa and with it a defined path from a student visa to a job, which is the mechanism that turns arrival into settlement. After September 2001 the SEVIS tracking system and slower consular processing flattened enrolment for four years. The 2008 and 2016 extensions of STEM Optional Practical Training, to seventeen and then twenty-four months beyond graduation, are visible directly in the shaded band: OPT went from 67,804 in 2010 to 294,253 today, and now accounts for one in four international students in the country.
+    <br><br>
+    <strong>The scarcinality reading.</strong> Nothing about American universities became physically scarcer or more abundant at any of those moments. The classrooms, the laboratories, the faculty, and the willing students all existed continuously across every one of those turns. What changed each time was a legal permission, and the framework's point is that a permission is a claim, not a resource. This is a case where the ordering is unusually clean: the binding constraint on how many talented people work in American science has almost never been the supply of talented people, and it has almost never been the physical capacity to teach them. It has been the number of pieces of paper the state chose to issue. When that number went up, in 1965 and 1990 and 2008 and 2016, the flow rose to meet it. When it went down, it fell.
+    <br><br>
+    That makes the current moment legible in the framework's own terms. New enrolment fell 17 percent in autumn 2025 and visa issuances fell 36 percent over the preceding summer, and the proposals now pending would replace duration-of-status admission with fixed end dates and restrict or eliminate Optional Practical Training. Read alongside <a href="/dispatch-seed-corn">the research funding cuts</a>, the same mechanism appears twice: capacity that took decades to build being reduced by decisions whose consequences arrive long after the decision-makers have gone. The stay rate is the part worth watching, because it is the point at which an educated person becomes a permanent addition to the country rather than a temporary visitor, and unlike enrolment it is measured with a lag of five to ten years. By the time it moves, whatever moved it will be a decade old.
+    <br><br>
+    Sources: Institute of International Education, Open Doors census of international student enrolment, 1948/49 to 2024/25, downloaded directly from the published series. Optional Practical Training counts are reported within that census from 1990. Stay rates from the Center for Security and Emerging Technology analysis of the NSF Survey of Doctorate Recipients, covering graduating classes 2000 to 2015 measured as of February 2017, and from NSF NCSES for the 2017 to 2019 cohort measured at five years. The 2026 enrolment point is an estimate reflecting the reported 17 percent fall in new enrolment and is drawn dashed.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/like.js" defer></script>
+<script>
+(function(){
+  var D=[
+    {y:1960,t:48486,o:0},
+    {y:1961,t:53107,o:0},
+    {y:1962,t:58086,o:0},
+    {y:1963,t:64705,o:0},
+    {y:1964,t:74814,o:0},
+    {y:1965,t:82045,o:0},
+    {y:1966,t:82709,o:0},
+    {y:1967,t:100262,o:0},
+    {y:1968,t:110315,o:0},
+    {y:1969,t:121362,o:0},
+    {y:1970,t:134959,o:0},
+    {y:1971,t:144708,o:0},
+    {y:1972,t:140126,o:0},
+    {y:1973,t:146097,o:0},
+    {y:1974,t:151066,o:0},
+    {y:1977,t:203068,o:0},
+    {y:1978,t:235509,o:0},
+    {y:1979,t:263938,o:0},
+    {y:1981,t:311882,o:3450},
+    {y:1982,t:326299,o:2880},
+    {y:1983,t:336985,o:3620},
+    {y:1984,t:338894,o:3400},
+    {y:1985,t:342113,o:4310},
+    {y:1986,t:343777,o:4150},
+    {y:1987,t:349609,o:4730},
+    {y:1988,t:356187,o:4800},
+    {y:1990,t:386851,o:7712},
+    {y:1991,t:407529,o:8770},
+    {y:1992,t:419585,o:8230},
+    {y:1993,t:438618,o:11010},
+    {y:1994,t:449749,o:11430},
+    {y:1995,t:452635,o:13208},
+    {y:1996,t:453787,o:15450},
+    {y:1997,t:457984,o:18125},
+    {y:1998,t:481280,o:16582},
+    {y:1999,t:490933,o:16842},
+    {y:2000,t:514723,o:24857},
+    {y:2001,t:547867,o:21058},
+    {y:2002,t:582996,o:22745},
+    {y:2003,t:586323,o:27793},
+    {y:2004,t:572509,o:29340},
+    {y:2005,t:565039,o:32999},
+    {y:2006,t:564766,o:38096},
+    {y:2007,t:582984,o:41660},
+    {y:2008,t:623805,o:56766},
+    {y:2009,t:671616,o:66601},
+    {y:2010,t:690923,o:67804},
+    {y:2011,t:723277,o:76031},
+    {y:2012,t:764495,o:85157},
+    {y:2013,t:819644,o:94919},
+    {y:2014,t:886052,o:105997},
+    {y:2015,t:974926,o:120287},
+    {y:2016,t:1043839,o:147498},
+    {y:2017,t:1078822,o:175695},
+    {y:2018,t:1094792,o:203462},
+    {y:2019,t:1095299,o:223085},
+    {y:2020,t:1075496,o:223539},
+    {y:2022,t:948519,o:184759},
+    {y:2023,t:1057188,o:198793},
+    {y:2024,t:1126690,o:242782},
+    {y:2025,t:1177766,o:294253},
+  ];
+  D.push({y:2026,t:1120000,o:290000,est:true});
+
+  var POLICY=[
+    {y:1965,l:'Hart-Celler Act',s:'National-origin quotas abolished. Asian enrolment begins its long climb.'},
+    {y:1979,l:'Iran revolution',s:'Iranians were about a fifth of all international students in 1979. The cohort collapses.'},
+    {y:1990,l:'H-1B created',s:'The Immigration Act of 1990 creates the H-1B visa, the main path from a student visa to a job.'},
+    {y:2003,l:'SEVIS after 9/11',s:'Mandatory electronic tracking and slower consular vetting. Enrolment goes flat for four years.'},
+    {y:2008,l:'STEM OPT 17mo',s:'STEM graduates may stay and work 29 months after graduating rather than 12.'},
+    {y:2016,l:'STEM OPT 24mo',s:'Extended again, to 36 months total. The OPT population more than doubles over the following decade.'},
+    {y:2020,l:'COVID',s:'Borders close and an attempted rule would have barred students taking classes online. Enrolment drops 15 percent.'},
+    {y:2025,l:'Visa restrictions',s:'New enrolment falls 17 percent; visa issuances down 36 percent over the summer. Duration-of-status and OPT rules pending.'}
+  ];
+
+  var ns='http://www.w3.org/2000/svg';
+  function mk(sv,t,a,x){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);
+    if(x!==undefined)e.textContent=x;sv.appendChild(e);return e;}
+  function hook(el,tp,html){
+    el.addEventListener('mousemove',function(ev){
+      tp.innerHTML=html;tp.style.display='block';
+      var cc=tp.parentElement.getBoundingClientRect();
+      var x=ev.clientX-cc.left+14,y=ev.clientY-cc.top-12;
+      if(x+260>cc.width)x=ev.clientX-cc.left-250; if(y<0)y=4;
+      tp.style.left=x+'px';tp.style.top=y+'px';});
+    el.addEventListener('mouseleave',function(){tp.style.display='none';});
+  }
+
+  /* ---------------- enrolment ---------------- */
+  (function(){
+    var sv=document.getElementById('enrol'),tp=document.getElementById('tip1');
+    var W=960,H=470,L=62,R=26,T=78,B=40,iw=W-L-R,ih=H-T-B;
+    var Y0=1960,Y1=2026,MAX=1250000;
+    function X(y){return L+(y-Y0)/(Y1-Y0)*iw;}
+    function Y(v){return T+ih-(v/MAX)*ih;}
+
+    for(var g=0;g<=1250000;g+=250000){
+      mk(sv,'line',{x1:L,y1:Y(g),x2:L+iw,y2:Y(g),stroke:'#ddd3c2','stroke-width':g===0?1.1:0.5});
+      mk(sv,'text',{x:L-8,y:Y(g)+3.5,'text-anchor':'end','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},
+        g===0?'0':(g/1000)+'k');
+    }
+    for(var y=1960;y<=2026;y+=10){
+      mk(sv,'line',{x1:X(y),y1:T+ih,x2:X(y),y2:T+ih+5,stroke:'#ddd3c2','stroke-width':.8});
+      mk(sv,'text',{x:X(y),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},y);
+    }
+
+    /* policy markers, labels staggered on three rows above the plot */
+    POLICY.forEach(function(p,i){
+      var x=X(p.y), row=i%3, ly=18+row*19;
+      mk(sv,'line',{x1:x,y1:ly+4,x2:x,y2:T+ih,stroke:'#8a3324','stroke-width':.9,'stroke-dasharray':'3 3',opacity:.5});
+      var tx=mk(sv,'text',{x:x+3,y:ly,'font-size':8.6,fill:'#8a3324','font-family':'IBM Plex Mono, monospace'},p.y+' '+p.l);
+      if(x>W-190){tx.setAttribute('text-anchor','end');tx.setAttribute('x',x-3);}
+      var hz=mk(sv,'rect',{x:x-14,y:ly-10,width:28,height:T+ih-ly+10,fill:'transparent',style:'cursor:crosshair'});
+      hook(hz,tp,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+p.y+'</span><br>'+
+        '<strong style="color:#8a3324;">'+p.l+'</strong><br>'+
+        '<span style="color:var(--ink-soft);white-space:normal;display:block;max-width:20rem;margin-top:.25rem;">'+p.s+'</span>');
+    });
+
+    function area(key,color,op,dashLast){
+      var pts=[],i;
+      for(i=0;i<D.length;i++) pts.push(X(D[i].y).toFixed(1)+','+Y(D[i][key]).toFixed(1));
+      var poly=pts.slice();
+      poly.push(X(D[D.length-1].y).toFixed(1)+','+Y(0)); poly.push(X(D[0].y).toFixed(1)+','+Y(0));
+      mk(sv,'polygon',{points:poly.join(' '),fill:color,opacity:op});
+      // solid through 2025, dashed for the estimated 2026 step
+      var solid=pts.slice(0,D.length-1).join(' ');
+      mk(sv,'polyline',{points:solid,fill:'none',stroke:color,'stroke-width':2,'stroke-linejoin':'round'});
+      mk(sv,'polyline',{points:pts.slice(D.length-2).join(' '),fill:'none',stroke:color,'stroke-width':2,'stroke-dasharray':'4 3'});
+    }
+    area('t','#2f5670',.16);
+    area('o','#7a9ab0',.42);
+
+    D.forEach(function(d){
+      var hz=mk(sv,'rect',{x:X(d.y)-((iw/(Y1-Y0))/2),y:T,width:iw/(Y1-Y0),height:ih,fill:'transparent',style:'cursor:crosshair'});
+      hook(hz,tp,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+
+        (d.y-1)+'/'+String(d.y).slice(2)+(d.est?' &middot; estimate':'')+'</span><br>'+
+        '<span style="color:#2f5670;font-weight:600;">'+d.t.toLocaleString()+' enrolled</span><br>'+
+        (d.o?'<span style="color:#5b7d95;">'+d.o.toLocaleString()+' on OPT ('+Math.round(100*d.o/d.t)+'%)</span>':
+              '<span style="color:var(--ink-faint);">OPT not reported</span>'));
+    });
+  })();
+
+  /* ---------------- stay rates ---------------- */
+  (function(){
+    var sv=document.getElementById('stay'),tp=document.getElementById('tip2');
+    var W=960,H=340,L=62,R=140,T=24,B=40,iw=W-L-R,ih=H-T-B;
+    var Y0=2000,Y1=2019;
+    function X(y){return L+(y-Y0)/(Y1-Y0)*iw;}
+    function Y(v){return T+ih-((v-50)/45)*ih;}
+
+    for(var g=50;g<=95;g+=15){
+      mk(sv,'line',{x1:L,y1:Y(g),x2:L+iw,y2:Y(g),stroke:'#ddd3c2','stroke-width':.5});
+      mk(sv,'text',{x:L-8,y:Y(g)+3.5,'text-anchor':'end','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},g+'%');
+    }
+    for(var y=2000;y<=2019;y+=5){
+      mk(sv,'text',{x:X(y),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},y);
+      mk(sv,'line',{x1:X(y),y1:T+ih,x2:X(y),y2:T+ih+5,stroke:'#ddd3c2','stroke-width':.8});
+    }
+    mk(sv,'line',{x1:L,y1:T+ih,x2:L+iw,y2:T+ih,stroke:'#ddd3c2','stroke-width':1});
+
+    var ALL=[[2000,79],[2001,74],[2002,73],[2003,65],[2004,73],[2005,79],[2006,75],[2007,73],
+             [2008,80],[2009,76],[2010,73],[2011,77],[2012,78],[2013,78],[2014,86],[2015,84],[2018,73]];
+    var CN =[[2000,96],[2002,91],[2004,94],[2006,90],[2008,89],[2010,85],[2012,86],[2014,94],[2018,83]];
+    var IN =[[2000,88],[2002,86],[2004,92],[2006,82],[2008,84],[2010,86],[2012,86],[2014,94],[2018,86]];
+    var OT =[[2000,64],[2002,54],[2004,61],[2006,60],[2008,70],[2010,65],[2012,71],[2014,76]];
+
+    function line(series,color,w,label,dashAfter){
+      var pts=series.map(function(p){return X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1);});
+      var cut=series.findIndex(function(p){return p[0]>2015;});
+      if(cut>0){
+        mk(sv,'polyline',{points:pts.slice(0,cut).join(' '),fill:'none',stroke:color,'stroke-width':w,'stroke-linejoin':'round'});
+        mk(sv,'polyline',{points:pts.slice(cut-1).join(' '),fill:'none',stroke:color,'stroke-width':w,'stroke-dasharray':'4 3'});
+      } else {
+        mk(sv,'polyline',{points:pts.join(' '),fill:'none',stroke:color,'stroke-width':w,'stroke-linejoin':'round'});
+      }
+      series.forEach(function(p){
+        var c=mk(sv,'circle',{cx:X(p[0]),cy:Y(p[1]),r:3.2,fill:color,stroke:'var(--parchment)','stroke-width':1,style:'cursor:crosshair'});
+        hook(c,tp,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">Class of '+p[0]+'</span><br>'+
+          '<strong style="color:'+color+';">'+label+'</strong><br><span style="color:var(--ink);font-size:.82rem;font-weight:600;">'+p[1]+'% still in the US</span>');
+      });
+      var last=series[series.length-1];
+      mk(sv,'text',{x:X(last[0])+8,y:Y(last[1])+3.5,'font-size':9.5,fill:color,'font-family':'IBM Plex Mono, monospace','font-weight':500},label+' '+last[1]+'%');
+    }
+    line(OT,'#8a8073',1.5,'Everyone else');
+    line(IN,'#3f6b3a',1.6,'India');
+    line(CN,'#7a5a18',1.6,'China');
+    line(ALL,'#8a3324',2.4,'All');
+
+    mk(sv,'text',{x:L,y:T-8,'font-size':8.6,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},
+      'Share of each graduating class still living in the US. Dashed segment is the later NSF five-year cohort, measured differently.');
+  })();
+})();
+</script>
+</body>
+</html>
