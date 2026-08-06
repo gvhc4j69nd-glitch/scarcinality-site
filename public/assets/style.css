@@ -207,6 +207,17 @@ a:hover{color:var(--oxblood-deep);border-color:var(--oxblood);}
 .cci-header-badge .cci-dir.warn{color:#8A2C26;}
 .cci-header-badge .cci-dir.clear{color:var(--ink-soft);}
 
+/* ---------- follow link ---------- */
+.follow{margin-top:.9rem;}
+.fb-follow{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+  color:var(--ink-faint);text-decoration:none;border:none;
+  transition:color .15s;
+}
+.fb-follow:hover{color:var(--oxblood);border:none;}
+.fb-follow svg{width:14px;height:14px;flex-shrink:0;display:block;}
+
 /* ---------- a11y + responsive ---------- */
 a:focus-visible,.btn:focus-visible{outline:2px solid var(--oxblood);outline-offset:3px;}
 @media (max-width:560px){
