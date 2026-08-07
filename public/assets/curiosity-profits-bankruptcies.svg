@@ -1,0 +1,43 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="20" y="14" font-size="6.6" fill="#3f6b3a">profits, % of GDP</text>
+  <text x="300" y="14" font-size="6.6" fill="#8a3324" text-anchor="end">bankruptcy filings</text>
+
+  <line x1="36" y1="128" x2="286" y2="128" stroke="#ddd3c2" stroke-width="0.9"/>
+  <line x1="36" y1="98"  x2="286" y2="98"  stroke="#ddd3c2" stroke-width="0.35"/>
+  <line x1="36" y1="68"  x2="286" y2="68"  stroke="#ddd3c2" stroke-width="0.35"/>
+  <line x1="36" y1="38"  x2="286" y2="38"  stroke="#ddd3c2" stroke-width="0.35"/>
+  <text x="32" y="130" font-size="5.6" fill="#3f6b3a" text-anchor="end">4%</text>
+  <text x="32" y="40"  font-size="5.6" fill="#3f6b3a" text-anchor="end">14%</text>
+  <text x="290" y="130" font-size="5.6" fill="#8a3324">0</text>
+  <text x="290" y="40"  font-size="5.6" fill="#8a3324">80k</text>
+
+  <!-- tax markers -->
+  <line x1="115" y1="22" x2="115" y2="128" stroke="#7a5a18" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <text x="118" y="28" font-size="5.4" fill="#7a5a18">1986 TRA</text>
+  <line x1="234" y1="22" x2="234" y2="128" stroke="#7a5a18" stroke-width="0.8" stroke-dasharray="3 2" opacity=".55"/>
+  <text x="231" y="28" font-size="5.4" fill="#7a5a18" text-anchor="end">2017 TCJA</text>
+
+  <!-- profits % GDP: 1960 10.1 .. 1982 6.8 .. 2025 13.25 -->
+  <polyline fill="none" stroke="#3f6b3a" stroke-width="1.9" stroke-linejoin="round"
+    points="36,73 50,62 62,86 76,96 90,99 100,110 110,104 122,110 134,98 146,104 158,95 170,92 182,72 196,80 208,58 220,64 234,72 248,66 262,60 274,52 286,48"/>
+
+  <!-- bankruptcies (from 1980): peak 1987 82k .. 2022 13k .. 2025 27k -->
+  <polyline fill="none" stroke="#8a3324" stroke-width="1.7" stroke-linejoin="round"
+    points="98,88 106,64 114,44 120,38 128,58 136,70 146,74 156,80 166,88 176,94 186,96 196,90 206,82 216,86 226,98 236,106 248,112 258,118 268,108 278,104 286,101"/>
+
+  <text x="36"  y="142" font-size="6" fill="#8a8073" text-anchor="middle">1960</text>
+  <text x="161" y="142" font-size="6" fill="#8a8073" text-anchor="middle">1993</text>
+  <text x="286" y="142" font-size="6" fill="#8a8073" text-anchor="middle">2025</text>
+
+  <!-- statutory rate strip -->
+  <line x1="20" y1="154" x2="300" y2="154" stroke="#ddd3c2" stroke-width="0.6"/>
+  <text x="20" y="166" font-size="6.4" fill="#7a5a18">top corporate tax rate</text>
+  <polygon fill="#7a5a18" opacity=".16"
+    points="120,172 150,172 150,176 196,176 196,181 234,181 234,187 286,187 286,192 120,192"/>
+  <polyline fill="none" stroke="#7a5a18" stroke-width="1.4"
+    points="120,172 150,172 150,176 196,176 196,181 234,181 234,187 286,187"/>
+  <text x="124" y="170" font-size="6" fill="#7a5a18">52%</text>
+  <text x="200" y="179" font-size="6" fill="#7a5a18">34%</text>
+  <text x="286" y="185" font-size="6" fill="#7a5a18" text-anchor="end">21%</text>
+</svg>

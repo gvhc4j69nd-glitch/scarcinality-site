@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profits Up, Failures Down &middot; Scarcinality</title>
+<meta name="description" content="Corporate profits as a share of GDP against business bankruptcy filings, 1960 to 2025, with every major change to the federal corporate tax rate marked. Profits are at a postwar record and failures near a modern low, and the tax markers do not explain the turn.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Profits Up, Failures Down &middot; Scarcinality">
+<meta property="og:description" content="Corporate profits hit 13.25% of GDP in 2025, a postwar record, while the statutory corporate rate fell from 52% to 21%. Business failures peaked in 1987 and have fallen since.">
+<meta property="og:url" content="https://www.scarcinality.com/profits-bankruptcies">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-profits-bankruptcies.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Profits Up, Failures Down &middot; Scarcinality">
+<meta name="twitter:description" content="Corporate profits and business bankruptcies since 1960, with every corporate tax change marked.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-profits-bankruptcies.svg">
+<link rel="canonical" href="https://www.scarcinality.com/profits-bankruptcies">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+ padding:.75rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);}
+.map-header h1{font-size:1.1rem;font-weight:600;margin:0;}
+.source-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;}
+.curio-switch{display:flex;overflow-x:auto;gap:.4rem;padding:.45rem clamp(1.1rem,5vw,3rem);border-bottom:1px solid var(--rule);background:var(--parchment);-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.curio-switch::-webkit-scrollbar{display:none;}
+.curio-switch a{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint);text-decoration:none;flex-shrink:0;}
+.curio-switch a[aria-current],.curio-switch a:hover{color:var(--ink);border-color:var(--ink-faint);background:var(--parchment-deep,#dfd5c4);}
+.curio-switch a.g-health{color:#3f6b3a;border-color:#c2cfbc;}
+.curio-switch a.g-comm{color:#7a5a18;border-color:#d8cba8;}
+.curio-switch a.g-energy{color:#2f5670;border-color:#bcc8d2;}
+.curio-switch a.g-pol{color:#8a3324;border-color:#dbbfb8;}
+.curio-switch a.g-health[aria-current],.curio-switch a.g-health:hover{color:#2f5230;border-color:#3f6b3a;background:#e7ece4;}
+.curio-switch a.g-comm[aria-current],.curio-switch a.g-comm:hover{color:#5e4512;border-color:#7a5a18;background:#f0e9d8;}
+.curio-switch a.g-energy[aria-current],.curio-switch a.g-energy:hover{color:#234155;border-color:#2f5670;background:#e3e9ee;}
+.curio-switch a.g-pol[aria-current],.curio-switch a.g-pol:hover{color:#6f281c;border-color:#8a3324;background:#f2e4e0;}
+.curio-switch a[aria-current]{font-weight:500;}
+.curio-switch a.g-first{margin-left:.55rem;}
+.chart-wrap{max-width:78rem;margin:0 auto;padding:1.6rem clamp(1.1rem,5vw,3rem) 3rem;}
+.section-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+ color:var(--oxblood);margin:2.4rem 0 .3rem;font-weight:500;}
+.section-head:first-of-type{margin-top:0;}
+.section-sub{font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);margin:0 0 1rem;line-height:1.5;max-width:54rem;}
+.leg{display:flex;gap:.5rem 1.3rem;flex-wrap:wrap;margin:.3rem 0 .9rem;}
+.leg span{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);}
+.leg i{width:18px;height:3px;display:inline-block;flex-shrink:0;}
+.chart-container{position:relative;}
+svg.viz{width:100%;height:auto;display:block;}
+.tooltip-box{position:absolute;pointer-events:none;display:none;background:var(--parchment-deep);
+ border:1px solid var(--rule);border-left:3px solid var(--oxblood);padding:.55rem .75rem;
+ font-family:var(--mono);font-size:.68rem;line-height:1.6;color:var(--ink);white-space:nowrap;
+ box-shadow:0 2px 8px rgba(35,32,27,.12);z-index:6;}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1px;background:var(--rule);
+ border:1px solid var(--rule);margin:1.6rem 0 0;}
+.fact{background:var(--parchment);padding:.9rem 1.05rem;}
+.fact .f-big{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.15;margin-bottom:.15rem;}
+.fact .f-body{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);line-height:1.5;}
+.prose-note{max-width:54rem;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.6;
+ margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1rem;}
+.prose-note strong{color:var(--ink);font-weight:500;}
+@media(max-width:620px){
+ .site-header{padding:.8rem 1rem;}
+ .site-nav{display:flex;overflow-x:auto;flex-wrap:nowrap;gap:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+ .site-nav::-webkit-scrollbar{display:none;}
+ .fact .f-big{font-size:1.25rem;}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>Profits Up, Failures Down</h1>
+  <span class="source-badge">BEA &middot; ABI &middot; US Courts &middot; 1960&ndash;2025</span>
+</div>
+
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/profits-bankruptcies" class="g-comm" aria-current="page">Profits &amp; Failures</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first">Education</a>
+  <a href="/international-students" class="g-pol">Intl Students</a>
+  <a href="/immigration-fiscal" class="g-pol">Immigration</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <p class="section-head">Profits and failures</p>
+  <p class="section-sub">Corporate profits as a share of GDP on the left axis, business bankruptcy filings on the right. Dashed markers are changes to the top federal corporate income tax rate. Hover anything.</p>
+
+  <div class="leg">
+    <span><i style="background:#3f6b3a"></i>Corporate profits, % of GDP</span>
+    <span><i style="background:#8a3324"></i>Business bankruptcy filings</span>
+    <span><i style="background:#7a5a18;height:2px;border-top:1px dashed #7a5a18;"></i>Corporate tax change</span>
+  </div>
+
+  <div class="chart-container">
+    <svg id="main" class="viz" viewBox="0 0 960 480" role="img" aria-label="Corporate profits as a share of GDP against business bankruptcy filings, 1960 to 2025"></svg>
+    <div class="tooltip-box" id="tip1"></div>
+  </div>
+
+  <p class="section-head">The statutory rate</p>
+  <p class="section-sub">Top federal corporate income tax rate, the thing that actually changed in law. It has gone in one direction for sixty-five years.</p>
+
+  <div class="chart-container">
+    <svg id="rate" class="viz" viewBox="0 0 960 220" role="img" aria-label="Top federal corporate income tax rate, 1960 to 2025"></svg>
+    <div class="tooltip-box" id="tip2"></div>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><div class="f-big" style="color:#3f6b3a;">13.25%</div>
+      <div class="f-body">Corporate profits as a share of GDP in 2025, the highest in the postwar record. The 1982 trough was 6.81 percent.</div></div>
+    <div class="fact"><div class="f-big" style="color:#7a5a18;">52% &rarr; 21%</div>
+      <div class="f-body">Top federal corporate rate, 1960 to today. Cut in 1964, 1965, 1979, 1987, 1988 and 2018; raised once, in 1993.</div></div>
+    <div class="fact"><div class="f-big" style="color:#8a3324;">82,446</div>
+      <div class="f-body">Business bankruptcy filings in 1987, the peak. In 2022 there were 13,481, the lowest in the series.</div></div>
+    <div class="fact"><div class="f-big" style="color:#2f5670;">1980&ndash;2025</div>
+      <div class="f-body">The bankruptcy series only starts in 1980. Profits run from 1960. The two lines do not cover the same period and should not be read as one story.</div></div>
+  </div>
+
+  <div class="prose-note">
+    <strong>What the chart shows, stated carefully.</strong> Corporate profits as a share of GDP bottomed at 6.81 percent in 1982 and have risen, unevenly but persistently, to 13.25 percent in 2025, the highest reading in the postwar record. Business bankruptcy filings peaked at 82,446 in 1987 and have fallen since, reaching 13,481 in 2022 before rising again to 26,606 in 2025. Over the same span the top federal corporate rate went from 52 percent to 21 percent.
+    <br><br>
+    <strong>What it does not show.</strong> It is tempting to read the tax markers as causes, and the chart will not support that. The corporate rate was cut sharply in 1987 and 1988, and business failures were at their all-time peak in exactly those years. The rate was raised in 1993, and both profits and failures moved in the direction the simple story says they should not. The 2018 cut from 35 to 21 percent is followed by a profit share that was already climbing for fifteen years, on a trend that is visually indistinguishable before and after. If tax rates were the dominant variable here, these markers would line up with the turns. They do not.
+    <br><br>
+    <strong>The bankruptcy line has a real problem worth naming.</strong> It counts filings, not failures. Most small businesses that fail never file for bankruptcy at all: they close, the owner absorbs the loss, and nothing appears in a federal court record. The 2005 bankruptcy reform made filing more expensive and procedurally harder, and filings fell afterwards, which tells you something about the cost of filing and not much about the rate of business failure. Read the red line as a measure of formal insolvency proceedings, which is what it is, rather than as a census of small businesses going under, which it is not. The two series also do not cover the same period: profits from 1960, filings only from 1980.
+    <br><br>
+    <strong>The scarcinality reading.</strong> The framework's habit is to ask which layer a constraint actually sits in, and this chart is a case where the popular answer and the visible evidence disagree. The story usually told about these two lines is a story about tax policy, in which lower corporate rates transfer margin from small firms to large ones. The chart does not carry that story. What it does show is a durable divergence between the profitability of incorporated capital and the survival environment for small firms, and a divergence that began around 1982 and did not turn at any of the tax markers.
+    <br><br>
+    The framework would look instead at what the treatise calls credit-coupled goods. A large corporation with investment-grade access to the bond market and a small firm dependent on a bank line are not exposed to the same scarcity even when they face identical tax rates, identical demand, and identical costs. When money tightens, the large firm refinances and the small one does not, and that difference is invisible in the tax code. The chart's turning point sits at the end of the Volcker disinflation, not at any tax act, which is the shape the framework predicts if the operative variable is access to credit rather than the rate on profits. That is a hypothesis this chart is consistent with rather than one it proves, and the honest form of the finding is negative: whatever produced this divergence, the tax markers do not track it.
+    <br><br>
+    Sources: Bureau of Economic Analysis, NIPA Table 1.12 corporate profits with inventory valuation and capital consumption adjustments, and Table 1.1.5 gross domestic product, annual, extracted from the published July 2026 release. Business bankruptcy filings from the American Bankruptcy Institute for 1980 to 2011 and from published US Courts annual tables for 2012 to 2025; the two sources use slightly different reporting periods and the seam falls at 2012. Top statutory federal corporate income tax rate from the statutory schedule, excluding surtaxes, state taxes, and the very different question of effective rates actually paid.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/like.js" defer></script>
+<script>
+(function(){
+  var D=[
+    {y:1960,p:10.08,b:null,r:52},
+    {y:1961,p:9.95,b:null,r:52},
+    {y:1962,p:10.6,b:null,r:52},
+    {y:1963,p:11.06,b:null,r:52},
+    {y:1964,p:11.35,b:null,r:50},
+    {y:1965,p:12.03,b:null,r:48},
+    {y:1966,p:11.82,b:null,r:48},
+    {y:1967,p:10.92,b:null,r:48},
+    {y:1968,p:10.82,b:null,r:52.8},
+    {y:1969,p:9.67,b:null,r:52.8},
+    {y:1970,p:8.04,b:null,r:49.2},
+    {y:1971,p:8.64,b:null,r:48},
+    {y:1972,p:9.16,b:null,r:48},
+    {y:1973,p:9.36,b:null,r:48},
+    {y:1974,p:8.13,b:null,r:48},
+    {y:1975,p:8.24,b:null,r:48},
+    {y:1976,p:9.31,b:null,r:48},
+    {y:1977,p:9.88,b:null,r:48},
+    {y:1978,p:10.14,b:null,r:48},
+    {y:1979,p:9.49,b:null,r:46},
+    {y:1980,p:7.81,b:43694,r:46},
+    {y:1981,p:7.67,b:48125,r:46},
+    {y:1982,p:6.81,b:69300,r:46},
+    {y:1983,p:7.65,b:62436,r:46},
+    {y:1984,p:8.35,b:64004,r:46},
+    {y:1985,p:8.14,b:71277,r:46},
+    {y:1986,p:7.07,b:81235,r:46},
+    {y:1987,p:7.64,b:82446,r:40},
+    {y:1988,p:7.95,b:63853,r:34},
+    {y:1989,p:7.42,b:63235,r:34},
+    {y:1990,p:7.03,b:64853,r:34},
+    {y:1991,p:7.29,b:71549,r:34},
+    {y:1992,p:7.38,b:70643,r:34},
+    {y:1993,p:7.74,b:62304,r:35},
+    {y:1994,p:8.7,b:52374,r:35},
+    {y:1995,p:9.38,b:51959,r:35},
+    {y:1996,p:9.95,b:53549,r:35},
+    {y:1997,p:10.37,b:54027,r:35},
+    {y:1998,p:9.22,b:44367,r:35},
+    {y:1999,p:9.0,b:37884,r:35},
+    {y:2000,p:8.06,b:35472,r:35},
+    {y:2001,p:7.44,b:40099,r:35},
+    {y:2002,p:8.51,b:38540,r:35},
+    {y:2003,p:9.4,b:35037,r:35},
+    {y:2004,p:10.81,b:34317,r:35},
+    {y:2005,p:11.73,b:39201,r:35},
+    {y:2006,p:12.28,b:19695,r:35},
+    {y:2007,p:11.03,b:28322,r:35},
+    {y:2008,p:9.11,b:43546,r:35},
+    {y:2009,p:9.85,b:60837,r:35},
+    {y:2010,p:11.79,b:56282,r:35},
+    {y:2011,p:11.94,b:47806,r:35},
+    {y:2012,p:12.66,b:40075,r:35},
+    {y:2013,p:12.33,b:36537,r:35},
+    {y:2014,p:12.57,b:30098,r:35},
+    {y:2015,p:11.88,b:27710,r:35},
+    {y:2016,p:11.4,b:27474,r:35},
+    {y:2017,p:11.35,b:25327,r:35},
+    {y:2018,p:11.45,b:24066,r:21},
+    {y:2019,p:11.47,b:24656,r:21},
+    {y:2020,p:11.28,b:22817,r:21},
+    {y:2021,p:13.06,b:15257,r:21},
+    {y:2022,p:12.91,b:13481,r:21},
+    {y:2023,p:13.01,b:20403,r:21},
+    {y:2024,p:12.98,b:24822,r:21},
+    {y:2025,p:13.25,b:26606,r:21},
+  ];
+
+  var TAX=[
+    {y:1964,l:'Revenue Act',s:'Kennedy-Johnson cuts. Top corporate rate 52 to 50 percent, then 48 the following year.'},
+    {y:1978,l:'Revenue Act',s:'Capital gains rate cut sharply. Corporate rate falls to 46 percent from 1979.'},
+    {y:1981,l:'ERTA',s:'Accelerated depreciation and investment incentives. The statutory rate is unchanged but the effective rate falls.'},
+    {y:1986,l:'Tax Reform Act',s:'The big one. Top corporate rate 46 to 34 percent, phased over 1987 and 1988, paid for by broadening the base.'},
+    {y:1993,l:'OBRA',s:'Corporate rate raised from 34 to 35 percent. The only increase in this whole period.'},
+    {y:2003,l:'JGTRRA',s:'Dividend and capital gains rates cut to 15 percent. Changes what shareholders keep rather than what firms pay.'},
+    {y:2017,l:'TCJA',s:'Corporate rate 35 to 21 percent from 2018, with immediate expensing and a deduction for pass-through income.'}
+  ];
+
+  var ns='http://www.w3.org/2000/svg';
+  function mk(sv,t,a,x){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);
+    if(x!==undefined)e.textContent=x;sv.appendChild(e);return e;}
+  function hook(el,tp,html){
+    el.addEventListener('mousemove',function(ev){
+      tp.innerHTML=html;tp.style.display='block';
+      var cc=tp.parentElement.getBoundingClientRect();
+      var x=ev.clientX-cc.left+14,y=ev.clientY-cc.top-12;
+      if(x+280>cc.width)x=ev.clientX-cc.left-270; if(y<0)y=4;
+      tp.style.left=x+'px';tp.style.top=y+'px';});
+    el.addEventListener('mouseleave',function(){tp.style.display='none';});
+  }
+  var Y0=1960,Y1=2025;
+
+  /* ---------- main ---------- */
+  (function(){
+    var sv=document.getElementById('main'),tp=document.getElementById('tip1');
+    var W=960,H=480,L=62,R=64,T=72,B=40,iw=W-L-R,ih=H-T-B;
+    function X(y){return L+(y-Y0)/(Y1-Y0)*iw;}
+    function YP(v){return T+ih-((v-4)/11)*ih;}      // profits 4-15 %
+    function YB(v){return T+ih-(v/90000)*ih;}        // filings 0-90k
+
+    for(var g=4;g<=15;g+=2){
+      mk(sv,'line',{x1:L,y1:YP(g),x2:L+iw,y2:YP(g),stroke:'#ddd3c2','stroke-width':.5});
+      mk(sv,'text',{x:L-8,y:YP(g)+3.5,'text-anchor':'end','font-size':9,fill:'#3f6b3a','font-family':'IBM Plex Mono, monospace'},g+'%');
+    }
+    for(var b=0;b<=90000;b+=30000){
+      mk(sv,'text',{x:L+iw+8,y:YB(b)+3.5,'font-size':9,fill:'#8a3324','font-family':'IBM Plex Mono, monospace'},b?(b/1000)+'k':'0');
+    }
+    for(var y=1960;y<=2025;y+=10){
+      mk(sv,'line',{x1:X(y),y1:T+ih,x2:X(y),y2:T+ih+5,stroke:'#ddd3c2','stroke-width':.8});
+      mk(sv,'text',{x:X(y),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},y);
+    }
+    mk(sv,'line',{x1:L,y1:T+ih,x2:L+iw,y2:T+ih,stroke:'#ddd3c2','stroke-width':1});
+
+    TAX.forEach(function(p,i){
+      var x=X(p.y),row=i%3,ly=16+row*18;
+      mk(sv,'line',{x1:x,y1:ly+4,x2:x,y2:T+ih,stroke:'#7a5a18','stroke-width':.9,'stroke-dasharray':'3 3',opacity:.5});
+      var tx=mk(sv,'text',{x:x+3,y:ly,'font-size':8.6,fill:'#7a5a18','font-family':'IBM Plex Mono, monospace'},p.y+' '+p.l);
+      if(x>W-165){tx.setAttribute('text-anchor','end');tx.setAttribute('x',x-3);}
+      var hz=mk(sv,'rect',{x:x-13,y:ly-9,width:26,height:T+ih-ly+9,fill:'transparent',style:'cursor:crosshair'});
+      hook(hz,tp,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+p.y+'</span><br>'+
+        '<strong style="color:#7a5a18;">'+p.l+'</strong><br>'+
+        '<span style="color:var(--ink-soft);white-space:normal;display:block;max-width:21rem;margin-top:.25rem;">'+p.s+'</span>');
+    });
+
+    var pp=D.filter(function(d){return d.p!==null;}).map(function(d){return X(d.y).toFixed(1)+','+YP(d.p).toFixed(1);});
+    mk(sv,'polyline',{points:pp.join(' '),fill:'none',stroke:'#3f6b3a','stroke-width':2.4,'stroke-linejoin':'round'});
+    var bb=D.filter(function(d){return d.b!==null;}).map(function(d){return X(d.y).toFixed(1)+','+YB(d.b).toFixed(1);});
+    mk(sv,'polyline',{points:bb.join(' '),fill:'none',stroke:'#8a3324','stroke-width':2.1,'stroke-linejoin':'round'});
+
+    mk(sv,'text',{x:L-44,y:T+ih/2,'text-anchor':'middle','font-size':9,fill:'#3f6b3a','font-family':'IBM Plex Mono, monospace',
+      transform:'rotate(-90 '+(L-44)+' '+(T+ih/2)+')'},'profits, % of GDP');
+    mk(sv,'text',{x:L+iw+48,y:T+ih/2,'text-anchor':'middle','font-size':9,fill:'#8a3324','font-family':'IBM Plex Mono, monospace',
+      transform:'rotate(90 '+(L+iw+48)+' '+(T+ih/2)+')'},'bankruptcy filings');
+
+    D.forEach(function(d){
+      var hz=mk(sv,'rect',{x:X(d.y)-((iw/(Y1-Y0))/2),y:T,width:iw/(Y1-Y0),height:ih,fill:'transparent',style:'cursor:crosshair'});
+      hook(hz,tp,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+d.y+'</span><br>'+
+        (d.p!==null?'<span style="color:#3f6b3a;">Profits '+d.p+'% of GDP</span><br>':'')+
+        (d.b!==null?'<span style="color:#8a3324;">'+d.b.toLocaleString()+' business filings</span><br>':
+                    '<span style="color:var(--ink-faint);">filings not reported before 1980</span><br>')+
+        '<span style="color:#7a5a18;">Top corporate rate '+d.r+'%</span>');
+    });
+  })();
+
+  /* ---------- statutory rate ---------- */
+  (function(){
+    var sv=document.getElementById('rate'),tp=document.getElementById('tip2');
+    var W=960,H=220,L=62,R=64,T=22,B=38,iw=W-L-R,ih=H-T-B;
+    function X(y){return L+(y-Y0)/(Y1-Y0)*iw;}
+    function Y(v){return T+ih-(v/60)*ih;}
+    for(var g=0;g<=60;g+=15){
+      mk(sv,'line',{x1:L,y1:Y(g),x2:L+iw,y2:Y(g),stroke:'#ddd3c2','stroke-width':g===0?1.1:.5});
+      mk(sv,'text',{x:L-8,y:Y(g)+3.5,'text-anchor':'end','font-size':9,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},g+'%');
+    }
+    for(var y=1960;y<=2025;y+=10){
+      mk(sv,'text',{x:X(y),y:T+ih+18,'text-anchor':'middle','font-size':9.5,fill:'#8a8073','font-family':'IBM Plex Mono, monospace'},y);
+    }
+    var pts=[];
+    D.forEach(function(d,i){
+      if(i>0 && d.r!==D[i-1].r) pts.push(X(d.y).toFixed(1)+','+Y(D[i-1].r).toFixed(1));
+      pts.push(X(d.y).toFixed(1)+','+Y(d.r).toFixed(1));
+    });
+    var poly=pts.concat([X(Y1).toFixed(1)+','+Y(0), X(Y0).toFixed(1)+','+Y(0)]);
+    mk(sv,'polygon',{points:poly.join(' '),fill:'#7a5a18',opacity:.14});
+    mk(sv,'polyline',{points:pts.join(' '),fill:'none',stroke:'#7a5a18','stroke-width':2.2,'stroke-linejoin':'miter'});
+    [[1960,52],[1988,34],[2018,21]].forEach(function(m){
+      mk(sv,'text',{x:X(m[0])+4,y:Y(m[1])-6,'font-size':10,fill:'#7a5a18','font-family':'IBM Plex Mono, monospace','font-weight':500},m[1]+'%');
+    });
+    D.forEach(function(d){
+      var hz=mk(sv,'rect',{x:X(d.y)-((iw/(Y1-Y0))/2),y:T,width:iw/(Y1-Y0),height:ih,fill:'transparent',style:'cursor:crosshair'});
+      hook(hz,tp,'<span style="color:var(--ink-faint);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;">'+d.y+'</span><br>'+
+        '<span style="color:#7a5a18;font-weight:600;">Top corporate rate '+d.r+'%</span>');
+    });
+  })();
+})();
+</script>
+</body>
+</html>
