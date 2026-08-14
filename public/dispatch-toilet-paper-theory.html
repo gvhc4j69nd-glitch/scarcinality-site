@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Toilet Paper Theory &middot; Scarcinality</title>
+<meta name="description" content="A rich household does not use more toilet paper. A poor one goes without. Because necessities have a physical ceiling, moving income upward destroys demand for basic goods that the recipient structurally cannot replace. Aggregate income can reach a record while consumption of the most ordinary things falls.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Toilet Paper Theory &middot; Scarcinality">
+<meta property="og:description" content="Necessities have a satiation ceiling. The top quintile spends 4.3 times the bottom and does not consume 4.3 times the basics. So upward redistribution shrinks the goods layer while inflating the asset layer, and 47.9 million people go without.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-toilet-paper-theory">
+<meta property="og:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Toilet Paper Theory &middot; Scarcinality">
+<meta name="twitter:description" content="A wealthy person does not buy more toilet paper. Someone near the poverty line goes without. That asymmetry has a ceiling in it, and the ceiling is an economic force.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-toilet-paper-theory">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .fig{max-width:var(--measure);margin:1.8rem 0 .4rem;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .formula{max-width:var(--measure);margin:1.4rem 0;padding:1rem 1.15rem;background:var(--parchment-deep);
+   border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.8rem;line-height:1.75;color:var(--ink);}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:10rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.3rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Extension to the framework &middot; as of 7 August 2026</p>
+    <h1>The Toilet Paper Theory</h1>
+    <p class="dek">A wealthy household does not use more toilet paper. A household near the poverty line goes without. That asymmetry sounds like a moral observation and is actually a mechanical one, because necessities carry a physical ceiling that income cannot raise. Move a dollar upward and it buys almost no additional basic goods. Move it downward and it buys them nearly one for one. Which means an economy can post record aggregate income while consuming less of the most ordinary things in it.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">An extension to the <a href="/treatise">treatise</a> rather than an application of it. Section IV describes how monetary scarcity descends and counterfeits a scarcity of goods. This dispatch argues the descent is not evenly distributed, that the ceiling on necessities is what distributes it, and that the framework&rsquo;s existing instruments are structurally unable to see the result. Conditional, falsifiable, not policy advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">Start with the observation that gives this its name. A household in the top income quintile spends about $150,342 a year. A household in the bottom quintile spends about $35,046. That is a ratio of more than four to one. Now ask whether the wealthy household uses four times as much toilet paper. Obviously not. It uses roughly the same amount, of a nicer kind. The extra money went to a larger house, a newer car, restaurant meals, tuition, and financial assets. It did not go into four times the volume of the most basic thing a person consumes, because there is no such thing as four times the need.</p>
+
+    <p>That is the whole mechanism, and once stated it is hard to unsee. Necessities have a satiation ceiling. Not a preference, not a budget line, a physical bound. Beyond a certain point additional income cannot buy additional volume of the basic goods, only better versions of them. And the corollary is the part that matters: at the other end of the distribution there is no ceiling at all, only a floor that people fall through. A constrained household does not buy a cheaper brand of the thing it needs. Past a certain point it buys less of it, or none.</p>
+
+    <h2>The evidence for the ceiling</h2>
+
+    <p>Engel discovered the shape of this in 1857 and it has held ever since: as income rises, the share spent on food falls. The current American numbers are stark. A household in the bottom quintile spends about $5,498 a year on food, which is 33.0 percent of its income before taxes. A middle-quintile household spends $9,097, which is 12.2 percent. Total spending across the same range rises more than fourfold, but food spending does not even double, and the increase that does occur is largely a shift from groceries to restaurants, which is to say from calories to service. Housing shows the same shape from the other side: 41.6 percent of total spending in the bottom quintile against 29.3 percent in the top.</p>
+
+    <p>The marginal propensity to consume shows the mechanism directly. Across income quintiles it runs roughly 0.55, 0.40, 0.22, 0.13, and 0.12 from bottom to top. By wealth quintile the gap is wider still, about 0.15 at the bottom against 0.06 at the top, a factor of ten. And in the stimulus experiments the effect appears even within a single household: marginal consumption out of a $600 payment is around 0.41, out of $1,200 around 0.31, and out of $1,800 around 0.25. The same person spends a declining fraction of each additional dollar, because the needs are being filled and the needs have an end.</p>
+
+  </article>
+
+  <figure class="fig">
+    <svg viewBox="0 0 720 250" role="img" aria-label="Total household spending scales more than fourfold from the bottom to the top income quintile, while food spending and necessity volume do not">
+      <text x="14" y="18" font-size="10.5" fill="#8a8073" font-family="IBM Plex Mono, monospace">WHAT SCALES WITH INCOME, AND WHAT DOES NOT</text>
+
+      <text x="150" y="52" text-anchor="end" font-size="12" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">Total spending</text>
+      <rect x="160" y="40" width="112" height="17" fill="#2f5670" opacity=".45"/>
+      <text x="278" y="53" font-size="10" fill="#2f5670" font-family="IBM Plex Mono, monospace">$35,046 bottom quintile</text>
+      <rect x="160" y="62" width="480" height="17" fill="#2f5670" opacity=".9"/>
+      <text x="646" y="75" font-size="10" fill="#2f5670" font-family="IBM Plex Mono, monospace">$150,342 top</text>
+
+      <text x="150" y="116" text-anchor="end" font-size="12" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">Food spending</text>
+      <rect x="160" y="104" width="94" height="17" fill="#7a5a18" opacity=".45"/>
+      <text x="260" y="117" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace">$5,498</text>
+      <rect x="160" y="126" width="156" height="17" fill="#7a5a18" opacity=".9"/>
+      <text x="322" y="139" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace">$9,097 at the middle, and flattening</text>
+
+      <text x="150" y="180" text-anchor="end" font-size="12" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">Toilet paper used</text>
+      <rect x="160" y="168" width="120" height="17" fill="#8a3324" opacity=".45"/>
+      <rect x="160" y="190" width="124" height="17" fill="#8a3324" opacity=".9"/>
+      <text x="292" y="190" font-size="10" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">the same, in softer form</text>
+
+      <line x1="160" y1="220" x2="700" y2="220" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="160" y="238" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Income has no ceiling. Need does. The gap between those two lines is where the demand goes missing.</text>
+    </svg>
+    <figcaption>Spending rises more than fourfold across the distribution. Food rises far less, and the rise is mostly a move from groceries to restaurants. Physical consumption of the most basic goods barely moves at all. Sources: BLS Consumer Expenditure Survey, 2024.</figcaption>
+  </figure>
+
+  <article class="prose">
+
+    <h2>Why this is a scarcity argument and not a fairness argument</h2>
+
+    <p>The observation that the rich save more is Keynes&rsquo;s, it is a century old, and on its own it is a statement about aggregate demand. What the ceiling adds is the reason the asymmetry cannot be arbitraged away, and that is what makes it belong to this framework rather than to the standard one.</p>
+
+    <p>A low marginal propensity to consume could in principle be a preference. Someone might simply choose to save, and might choose otherwise tomorrow. But the low marginal propensity to consume <em>necessities</em> at the top is not a choice. It is a bound. No amount of wanting produces a fifth roll of toilet paper for a household that needs four. So total demand for basic goods is not a function of total income at all. It is a function of how many people can afford them, multiplied by a per-person quantity that is fixed by biology and habit.</p>
+
+    <div class="formula">
+      Necessity demand &nbsp;=&nbsp; (people who can afford it) &nbsp;&times;&nbsp; (a roughly fixed quantity each)<br><br>
+      Not &nbsp;=&nbsp; (total income) &nbsp;&times;&nbsp; (some propensity)<br><br>
+      Therefore: aggregate income can rise without limit while necessity<br>
+      demand falls, provided the income rises in the right place.
+    </div>
+
+    <p>That last line is the claim, and it is a scarcinal one. It says the ordering of scarcities has a distributional dimension the treatise stated only for goods and not for people. Section IX ranks goods by their depth in the credit gradient, housing and cars first because their demand is a demand for credit, weekly cash purchases last. The Toilet Paper Theory says the same gradient runs across households, and runs the opposite way. The goods most insulated from a financial descent are the last to be given up by anyone who still has money, and the first to be given up by anyone who does not.</p>
+
+    <div class="pull">The shelves stay full and the people go without. The treatise says that of an economy. The ceiling explains which people, and why the fullness of the shelves is not evidence against the shortage but a symptom of it.</div>
+
+    <h2>What it does to the economy, which is the counterproductive part</h2>
+
+    <p>Follow a dollar moved from the bottom quintile to the top. At the bottom it had a marginal propensity to consume of roughly 0.55, and much of that consumption was of ordinary goods with ordinary supply chains: food, household products, clothing, fuel. At the top the same dollar has a propensity around 0.12, and the consumption it does buy is weighted toward services and premium versions rather than volume. The difference does not vanish. It goes into assets.</p>
+
+    <p>So the transfer does two things at once, and they are the two things the framework has been finding separately in every other dispatch. It shrinks the goods layer, because demand for ordinary output falls. And it inflates the asset layer, because the money that would have bought that output is now bidding for a fixed stock of claims. Corporate profits at a postwar record of 13.25 percent of GDP while the environment for small firms deteriorates, which is the <a href="/profits-bankruptcies">divergence that chart could not explain with tax rates</a>, is what this looks like from the corporate side. Subprime delinquency at a thirty-two year high while prime borrowers are fine, which is what <a href="/dispatch-abolish-financial-scarcity">the last dispatch</a> found the framework&rsquo;s own gauge could not see, is what it looks like from the household side.</p>
+
+    <p>This is where the theory earns the word counterproductive. An economy that concentrates income upward is not merely unequal. It is demand-suppressing in a specific and measurable way, because it is moving purchasing power from a place where it converts into consumption of produced goods into a place where it cannot. The firms that make ordinary things face falling volume in the middle of a boom. That is not a moral complaint about the boom. It is a description of why the boom does not reach them.</p>
+
+    <h2>The counterfeit becoming real</h2>
+
+    <p>Section VII of the treatise is the mechanism that makes all of this urgent rather than merely unfortunate. An acute monetary scarcity is counterfeit, meaning the productive base is intact and only the claim on it has been withdrawn. But left standing, it stops being counterfeit and destroys the capacity it was pretending to threaten.</p>
+
+    <p>At the household level that mechanism has a name and a measure. In 2024, 13.7 percent of American households were food insecure: 47.9 million people, including 14.1 million children. Through November 2025 the rate had risen to 14.2 percent, spiking to 16 percent in November alone, and among households receiving food assistance it reached 46 percent. Nothing had run out. American agriculture produced a surplus in every one of those years. The food existed, the distribution existed, and the people who needed it were standing in the same country as the food.</p>
+
+    <p>And a child who is food insecure does not simply defer consumption until conditions improve. Developmental damage from early nutritional deficit is among the least reversible things in economics. This is the chronic phase arriving at the household scale: a counterfeit scarcity, left standing long enough, converting into a permanent reduction in the productive capacity of the people who lived through it. The same clock the framework describes for scrapped machines and dispersed laboratories runs here, faster and with worse consequences.</p>
+
+    <h2>The instrument problem, for the third time</h2>
+
+    <p>There is a pattern in this framework&rsquo;s recent findings that is now too consistent to be coincidence. The Credit Counterfeit Index reads minus 1.31, meaning loose, while the bottom of the credit distribution posts a thirty-two year record. The profits and failures chart shows corporate profits and small-firm conditions diverging with no aggregate able to explain it. And in September 2025 the Department of Agriculture announced it would discontinue the Household Food Security report after the 2024 edition, which is to say that the single federal instrument measuring whether Americans are going without is being switched off.</p>
+
+    <div class="pull">Every instrument in this framework measures the top of the distribution well and the bottom badly, and the one that measured the bottom best is being discontinued. That is three independent discoveries of the same blind spot in two months.</div>
+
+    <p>The framework should treat this as a finding about itself rather than about the world. Aggregates are dominated by the large, the creditworthy, and the comfortable, because that is arithmetically what an average of dollars does. An economics built on aggregates will report that conditions are fine for exactly as long as conditions are fine for the people who hold most of the dollars, which can be a very long time after they have stopped being fine for everyone else. The Toilet Paper Theory is not only a claim about the economy. It is a claim about why the standard measurements will be the last to notice.</p>
+
+    <h2>The falsifiable claims</h2>
+
+  </article>
+
+  <div class="statgrid">
+    <div><div class="sv" style="color:#2f5670;">4.3x</div><div class="sl">Top quintile total spending against bottom quintile, $150,342 versus $35,046. Necessity volume does not scale with it.</div></div>
+    <div><div class="sv" style="color:#7a5a18;">0.55 vs 0.12</div><div class="sl">Marginal propensity to consume, bottom income quintile against top. By wealth the gap is tenfold.</div></div>
+    <div><div class="sv" style="color:#8a3324;">47.9M</div><div class="sl">People in food-insecure households in 2024, including 14.1 million children, in a country running an agricultural surplus.</div></div>
+    <div><div class="sv" style="color:#6d4a6a;">33.0% vs 12.2%</div><div class="sl">Share of before-tax income spent on food, bottom quintile against middle. Engel&rsquo;s Law, still holding after 169 years.</div></div>
+  </div>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>Claim</th><th>Measured by</th><th>Falsified if</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Necessity volume has a ceiling income cannot raise</td>
+          <td class="r">Physical unit consumption of staple household goods by income decile, not dollars spent.</td>
+          <td class="r">Top-decile households consume staple goods in physical quantities that scale with income rather than flattening.</td>
+          <td class="num">testable now</td>
+        </tr>
+        <tr>
+          <td class="k">Upward concentration suppresses ordinary goods volume</td>
+          <td class="r">Unit volumes in consumer staples against real aggregate income during periods of rising concentration.</td>
+          <td class="r">Staple unit volumes rise with aggregate income during a period of rising concentration, rather than flattening or falling.</td>
+          <td class="num">by 2031</td>
+        </tr>
+        <tr>
+          <td class="k">The displaced demand goes into assets, not savings that return</td>
+          <td class="r">The gap between corporate profit share and small-firm formation and survival.</td>
+          <td class="r">Periods of rising concentration show profits and small-firm conditions moving together rather than diverging.</td>
+          <td class="num">by 2031</td>
+        </tr>
+        <tr>
+          <td class="k">Going without becomes permanent capacity loss</td>
+          <td class="r">Long-run earnings and health outcomes of cohorts exposed to food insecurity in childhood.</td>
+          <td class="r">Cohorts exposed in childhood converge fully with unexposed peers once household income recovers.</td>
+          <td class="num">generational</td>
+        </tr>
+        <tr>
+          <td class="k">Aggregate instruments systematically miss it</td>
+          <td class="r">Any aggregate index of financial conditions against distributional stress measures over the same window.</td>
+          <td class="r">An aggregate index turns at the same time as distributional stress measures rather than lagging them.</td>
+          <td class="num">next breach</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+
+    <p style="margin-top:1.6rem;">The name is deliberately undignified because the argument is about undignified things. Grand economic debates about inequality tend to be conducted in the language of fairness, where they can be dismissed as preference, or in the language of growth, where the effects are diffuse enough to be argued about forever. The toilet paper framing collapses both. There is a fixed amount of it a person needs. A rich person will never need more. A poor person will sometimes have none. And an economy that arranges itself so that more of its income lands where it cannot be converted into ordinary consumption has not become more efficient. It has become quieter about a shortage that is still there.</p>
+
+    <p>The treatise ends by saying the factories stand and the shelves are full, and that whether people go without depends not on the goods but on the rank money holds in the order of scarcities. The Toilet Paper Theory adds the missing half of that sentence. It depends on the rank money holds, and on where in the distribution the money is standing when the rank changes.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/like.js" defer></script>
+</body>
+</html>
