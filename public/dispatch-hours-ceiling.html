@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hours Ceiling &middot; Scarcinality</title>
+<meta name="description" content="The supply-side mirror of the Toilet Paper Theory. Necessities have a ceiling on how much a person can consume. Labour has a ceiling on how much a person can sell. Capital has neither, which is why a monetary descent lands on wages and why the labour share sits at its lowest level since 1987.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Hours Ceiling &middot; Scarcinality">
+<meta property="og:description" content="A person can sell only so many hours. That bound is why the standard advice to work more is not a remedy but a description of the trap. Average weekly hours have not moved in twenty years while the labour share fell to a series low.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-hours-ceiling">
+<meta property="og:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Hours Ceiling &middot; Scarcinality">
+<meta name="twitter:description" content="Every other input answers a higher price by supplying more. Labour cannot. The person is already awake. That arithmetic, not bargaining power, is why the labour share keeps falling.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-hours-ceiling">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .fig{max-width:var(--measure);margin:1.8rem 0 .4rem;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .formula{max-width:var(--measure);margin:1.4rem 0;padding:1rem 1.15rem;background:var(--parchment-deep);
+   border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.8rem;line-height:1.75;color:var(--ink);}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:10rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.3rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Extension to the framework &middot; as of 15 August 2026</p>
+    <h1>The Hours Ceiling</h1>
+    <p class="dek">The Toilet Paper Theory says necessities have a ceiling on how much a person can consume, so income moved upward stops buying ordinary goods. This is the same argument seen from the other side of the household ledger. Labour has a ceiling on how much a person can sell. The standard answer to a household that cannot cover its necessities is that it should earn more, and the ceiling is why that answer describes the trap rather than the way out.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">The supply-side companion to <a href="/dispatch-toilet-paper-theory">the Toilet Paper Theory</a>, and an extension to the <a href="/treatise">treatise</a> rather than an application of it. The claim is that labour is the only input in the framework whose supply cannot answer its own price, that this is arithmetic rather than bargaining power, and that it determines where a monetary descent comes to rest. Conditional, falsifiable, not policy advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">There are one hundred and sixty-eight hours in a week and there is no version of the future in which there are more. Subtract sleep, and the commute, and the hours a body cannot be sold in because it has to recover in order to be sold in again tomorrow, and the sellable remainder is somewhere near fifty or sixty for a person in reasonable health. That number is not a preference. It is not a labour-market institution. It is not something a policy can raise, a union can bargain for, or a technology can relax. It is a bound, and it is the same bound for a warehouse worker as for a hedge fund manager.</p>
+
+    <p>Now put that beside the other side of the same household. The Toilet Paper Theory established that necessities carry a satiation ceiling: past a point, more income cannot buy more of the basic things, only better versions of them. This dispatch says the household is bounded at both ends. Its consumption of what it needs is capped by biology. Its production of what it sells is capped by the clock. And in between those two ceilings sits a set of prices that is capped by nothing at all.</p>
+
+    <h2>The asymmetry that does the work</h2>
+
+    <p>The framework's usual method is to ask which scarcity is actually binding, and its usual answer is that a monetary scarcity has descended and is wearing the costume of a real one. What makes labour a special case inside that method is the way it responds to price.</p>
+
+    <p>Every other input in the system answers a higher price by supplying more of itself, on some lag. Bid up oil and, after the survey and the permit and the drilling, more oil arrives. Bid up steel and a mill restarts. Bid up credit and more credit appears immediately, because credit is created by the act of extending it and is limited by willingness rather than by matter. The lags differ, the elasticities differ, but the direction is the same: price rises, quantity follows.</p>
+
+    <p>Labour does not do this, and the reason is not that workers are stubborn. Raise the price of an hour and the person who sells hours cannot manufacture a new one. They can move hours between employers, they can move them between leisure and work at the margin, and they can move them from one household member to another. What they cannot do is create hours, because the seller of the hour and the hour itself are the same object. The person is already awake.</p>
+
+    <div class="formula">
+      Oil, steel, housing stock &nbsp;&rarr;&nbsp; higher price, more supply, on a lag<br>
+      Credit &nbsp;&rarr;&nbsp; higher price, more supply, immediately<br>
+      Labour hours &nbsp;&rarr;&nbsp; higher price, the same supply, forever<br><br>
+      Therefore labour is the only input that cannot defend<br>
+      its own share by expanding, and the only one that must<br>
+      absorb a monetary descent rather than pass it along.
+    </div>
+
+    <p>That is the scarcinal statement, and it belongs in the framework rather than in a labour economics paper because it is a claim about the ordering of scarcities and not about wage-setting. Section IX ranks goods by their depth in the credit gradient. The Hours Ceiling says labour sits outside that ranking entirely, because labour is the one thing being ranked that has a fixed physical supply per holder and holders who cannot wait.</p>
+
+  </article>
+
+  <figure class="fig">
+    <svg viewBox="0 0 720 330" role="img" aria-label="The labour share of nonfarm business income fell from an index of 113.6 in 2001 to 95.7 in late 2025 while average weekly hours stayed near 34.3 throughout">
+      <text x="14" y="18" font-size="10.5" fill="#8a8073" font-family="IBM Plex Mono, monospace">THE PRICE FELL. THE QUANTITY COULD NOT RISE.</text>
+
+      <line x1="58" y1="46" x2="58" y2="250" stroke="#ddd3c2" stroke-width="1"/>
+      <line x1="58" y1="250" x2="700" y2="250" stroke="#ddd3c2" stroke-width="1"/>
+
+      <text x="52" y="52" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">115</text>
+      <text x="52" y="152" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">105</text>
+      <text x="52" y="252" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">95</text>
+
+      <text x="58" y="268" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">1987</text>
+      <text x="270" y="268" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">2001</text>
+      <text x="450" y="268" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">2012</text>
+      <text x="660" y="268" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">2025</text>
+
+      <polyline fill="none" stroke="#8a3324" stroke-width="2.2"
+        points="58,83 75,78 91,97 108,88 124,89 141,89 157,102 174,120 191,124 207,125 224,123 240,101 257,101 273,79 290,78 307,109 323,124 340,132 356,153 373,154 389,148 406,146 422,178 439,204 456,201 472,204 489,213 505,212 522,201 538,204 555,198 572,200 588,198 605,175 621,195 638,220 654,235 671,232 688,234 700,243"/>
+      <circle cx="290" cy="78" r="3" fill="#8a3324"/>
+      <text x="298" y="70" font-size="10" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">113.6 peak, Q1 2001</text>
+      <circle cx="700" cy="243" r="3" fill="#8a3324"/>
+      <line x1="700" y1="178" x2="700" y2="236" stroke="#8a3324" stroke-width=".8" stroke-dasharray="2 2"/>
+      <text x="700" y="172" text-anchor="end" font-size="10" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">95.7 in Q4 2025, the lowest on record</text>
+      <text x="66" y="66" font-size="10" fill="#8a3324" font-family="EB Garamond, serif" font-style="italic">Labour share of nonfarm business income</text>
+
+      <line x1="58" y1="300" x2="700" y2="300" stroke="#2f5670" stroke-width="2.2"/>
+      <circle cx="58" cy="300" r="2.6" fill="#2f5670"/><circle cx="700" cy="300" r="2.6" fill="#2f5670"/>
+      <text x="66" y="293" font-size="10" fill="#2f5670" font-family="EB Garamond, serif" font-style="italic">Average weekly hours, all private employees</text>
+      <text x="66" y="318" font-size="10" fill="#2f5670" font-family="IBM Plex Mono, monospace">34.3 in 2006</text>
+      <text x="700" y="318" text-anchor="end" font-size="10" fill="#2f5670" font-family="IBM Plex Mono, monospace">34.3 in 2026</text>
+    </svg>
+    <figcaption>Labour's share of what it produces has fallen for a quarter century and now sits at the lowest reading in the series. The hours available to answer that fall have not moved at all. Sources: BLS Major Sector Productivity, series PRS85006173, index 2017 equals 100, quarterly through Q4 2025; BLS Current Employment Statistics, series CES0500000002, monthly through July 2026.</figcaption>
+  </figure>
+
+  <article class="prose">
+
+    <h2>What a binding ceiling looks like in the data</h2>
+
+    <p>The temptation, having stated a theory about limits on work, is to go looking for a runaway number: hours climbing, second jobs at a record, an economy visibly running its people harder every year. That is not what the evidence shows, and the fact that it does not is the strongest thing in this dispatch.</p>
+
+    <p>Average weekly hours for all private employees stood at 34.3 in 2006. In July 2026 they stood at 34.3. In the twenty years between, the series has traded in a band roughly a third of an hour wide, dipping to 33.9 in the 2009 collapse and touching 35.0 in the reopening of early 2021, and returning both times. Two decades of stagnant real wages at the bottom, two decades of rising necessity costs, and the total hours a worker sells did not move.</p>
+
+    <p>Multiple jobholding tells the same story more sharply, because it runs the other way from the popular account. The rate is 5.4 percent as of July 2026, some 8.69 million people. That is elevated: November 2025 hit 5.7 percent, the highest single month since April 2000. But it is not a record. Through the middle 1990s the rate ran above 6 percent, peaking near 6.2 percent in 1996, and it has never returned there. Thirty years of data, two recessions, a pandemic, and a cost of living crisis, and the share of Americans working more than one job has stayed inside a band of about one percentage point.</p>
+
+    <div class="pull">A quantity that will not rise when its price falls and will not rise when the need for it rises is not behaving like a market. It is behaving like a wall.</div>
+
+    <p>Set that against the price. The labour share of nonfarm business income peaked at an index of 113.6 in the first quarter of 2001 and reached 95.7 in the fourth quarter of 2025, the lowest reading in a series that begins in 1987. Labour's cut of what it produces has fallen by roughly a sixth in a quarter century. In any other market, a price falling that far for that long would produce an unmistakable supply response. Here it produced a flat line.</p>
+
+    <p>The strain does surface, but it surfaces sideways rather than upward. In November 2025 the number of people working part time for economic reasons, meaning they wanted full-time work and could not get it, spiked to 5.49 million from a run rate near 4.7 million, and multiple jobholding hit its post-2000 high in the same month. Those are not people exceeding the ceiling. They are people trying to reach it and being held short of it by the demand side. The second job is not evidence that the ceiling can be raised. It is evidence of what people do when they hit it and still cannot cover the bill.</p>
+
+    <h2>Why the two ceilings compound</h2>
+
+    <p>Put the demand-side ceiling and the supply-side ceiling on the same household and the position becomes plain.</p>
+
+    <p>A household in the top quintile has an income channel with no ceiling, because assets can be accumulated without bound and a claim can always be lent to produce another claim. It faces a consumption requirement that does have a ceiling, because it needs the same four rolls as everyone else. Unbounded intake, bounded requirement, permanent surplus, and the surplus goes where the Toilet Paper Theory said it goes, into bidding for a fixed stock of assets rather than into ordinary output.</p>
+
+    <p>A household near the poverty line has an income channel that is capped by the clock and a consumption requirement that is capped by biology, and the second cap sits above the first. Bounded intake, bounded requirement, and a gap between them that no amount of effort closes, because the only lever the standard account offers is the one that has already been pulled to its stop.</p>
+
+    <div class="formula">
+      Top of the distribution: &nbsp;income unbounded, need bounded &nbsp;&rarr;&nbsp; surplus into assets<br>
+      Bottom of the distribution: &nbsp;income bounded, need bounded &nbsp;&rarr;&nbsp; deficit into going without<br><br>
+      The same two ceilings. Opposite consequences.<br>
+      The difference is which side of the wall you are standing on.
+    </div>
+
+    <p>This is why the framework treats the advice to work more as a category error rather than as unkindness. The advice presumes labour behaves like any other supply curve, that a household short of income holds unsold hours in reserve the way a producer holds spare capacity. Sometimes that is true, at the margin, for a while. Structurally it is not, and the flat twenty-year line in the hours series is what the structural version looks like from the outside.</p>
+
+    <h2>The descent has to land somewhere</h2>
+
+    <p>Section IV of the treatise describes a monetary scarcity descending through the economy and counterfeiting a scarcity of goods. What the Hours Ceiling adds is a claim about where the descent stops, and why it stops there.</p>
+
+    <p>When money becomes the binding scarcity, every party in the chain tries to pass the shortage along. The lender restricts the borrower. The borrower squeezes the supplier. The supplier raises price or cuts volume. Each of them can pass it because each of them has an adjustment margin, some quantity they can withhold or expand in response. Labour is where the passing stops, because labour has no such margin. It cannot supply more to earn more and it cannot withhold what it must sell this month to eat. The descent comes to rest on the one participant that cannot move.</p>
+
+    <p>Read that way, a falling labour share is not primarily a story about automation, or globalisation, or the decline of collective bargaining, though all three are real and all three matter. It is what the framework predicts must happen to the input that has no elasticity when the binding scarcity above it is monetary and persistent. The share falls because it is the only thing in the system that can.</p>
+
+    <p>And the same clock from Section VII runs here too. A counterfeit scarcity left standing stops being counterfeit. A worker holding two jobs to cover a rent that a single job used to cover is not simply enduring a rough patch. Chronic overwork and the health it costs are a reduction in the productive capacity of the person, which is to say a reduction in the very hours the economy was short of in the first place. The ceiling does not merely fail to rise under pressure. Under enough pressure, for long enough, it comes down.</p>
+
+    <h2>The instrument problem, for the fourth time</h2>
+
+    <p>This framework has now found the same defect four times in three months. The Credit Counterfeit Index reads loose while the bottom of the credit distribution posts a thirty-two year record. Corporate profits and small-firm conditions diverge with no aggregate able to reconcile them. The federal survey of whether Americans go without is being discontinued. And here, the two headline labour numbers, unemployment and average hours, are both structurally incapable of registering the thing this dispatch is about.</p>
+
+    <p>A person working two jobs is counted once, as employed. A person whose second job exists because the first one no longer covers rent is indistinguishable, in the payroll data, from a person who took a second job out of ambition. Average weekly hours is an average across everyone, which means it is dominated by the large mass of workers for whom the ceiling is not binding and reveals nothing about the tail for whom it is. Every instrument reports the middle accurately and the edge not at all.</p>
+
+    <div class="pull">Four findings, three months, one defect. An economics assembled out of averages will report that the labour market is healthy for exactly as long as the median worker is healthy, which can be a very long time after the ceiling has started to bind for everyone below.</div>
+
+    <h2>The falsifiable claims</h2>
+
+  </article>
+
+  <div class="statgrid">
+    <div><div class="sv" style="color:#2f5670;">34.3 &rarr; 34.3</div><div class="sl">Average weekly hours, all private employees, 2006 against July 2026. Twenty years, no movement.</div></div>
+    <div><div class="sv" style="color:#8a3324;">113.6 &rarr; 95.7</div><div class="sl">Labour share index, Q1 2001 peak against Q4 2025, the lowest reading since the series began in 1987.</div></div>
+    <div><div class="sv" style="color:#7a5a18;">5.7%</div><div class="sl">Multiple jobholding in November 2025, the highest month since April 2000, and still below the 6.2 percent of 1996.</div></div>
+    <div><div class="sv" style="color:#6d4a6a;">5.49M</div><div class="sl">Working part time for economic reasons at the November 2025 spike. People held short of the ceiling, not past it.</div></div>
+  </div>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>Claim</th><th>Measured by</th><th>Falsified if</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Hours per worker do not rise in answer to necessity cost</td>
+          <td class="r">Average weekly hours of all private employees across a period of rising real necessity prices.</td>
+          <td class="r">Average weekly hours rises past 35.0 and holds there for four consecutive quarters outside a reopening.</td>
+          <td class="num">by 2031</td>
+        </tr>
+        <tr>
+          <td class="k">Multiple jobholding is bounded, not runaway</td>
+          <td class="r">The multiple jobholders rate against its 1996 peak of roughly 6.2 percent.</td>
+          <td class="r">The rate exceeds 6.2 percent on an annual average, which would mean the ceiling sits higher than claimed.</td>
+          <td class="num">by 2031</td>
+        </tr>
+        <tr>
+          <td class="k">Labour absorbs the descent because it cannot expand</td>
+          <td class="r">Labour share against measures of monetary tightness across full cycles.</td>
+          <td class="r">The labour share rises through a sustained monetary tightening rather than falling or holding.</td>
+          <td class="num">next cycle</td>
+        </tr>
+        <tr>
+          <td class="k">The strain surfaces sideways, not upward</td>
+          <td class="r">Part time for economic reasons and multiple jobholding against aggregate unemployment at turning points.</td>
+          <td class="r">These measures turn at the same time as headline unemployment rather than ahead of it.</td>
+          <td class="num">next breach</td>
+        </tr>
+        <tr>
+          <td class="k">Sustained overwork lowers the ceiling itself</td>
+          <td class="r">Health and labour force participation outcomes of cohorts with long exposure to multiple jobholding.</td>
+          <td class="r">Exposed cohorts show no participation or health penalty once income recovers.</td>
+          <td class="num">generational</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+
+    <p style="margin-top:1.6rem;">One honest caveat, because the second claim above is the one most likely to embarrass this dispatch. Multiple jobholding is measured from a household survey and it has known coverage problems: administrative tax records suggest more people hold second jobs than the survey finds, particularly in gig and platform work that respondents do not always describe as a job. If the true rate is materially higher than 5.4 percent, the level of the ceiling in this dispatch is wrong. The shape of the argument survives, because the shape depends on hours being physically bounded rather than on where the bound sits. But the number would need restating, and that is worth saying before someone else says it.</p>
+
+    <p>The Toilet Paper Theory closed by saying that whether people go without depends on the rank money holds in the order of scarcities, and on where in the distribution the money is standing when the rank changes. This is the other half. It depends also on what the household has to sell, and on the fact that the thing most households have to sell is the one thing in the whole system that cannot be produced in greater quantity by wanting more of it. The factories stand, the shelves are full, and the people who would gladly work their way to those shelves are already working every hour there is.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/like.js" defer></script>
+</body>
+</html>
