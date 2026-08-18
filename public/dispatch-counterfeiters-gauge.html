@@ -106,7 +106,7 @@
 
 <main class="wrap">
   <div class="post-head">
-    <p class="post-meta">Dispatch · Instrument · as of 15 July 2026</p>
+    <p class="post-meta">Dispatch · Instrument · as of 15 August 2026</p>
     <h1>The Counterfeiter's Gauge</h1>
     <p class="dek">The framework asks which shortage is real. This dispatch turns the question into a number: the Credit Counterfeit Index, updated quarterly, with a threshold, twenty years of history, and a standing call it can be wrong about.</p>
     <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
@@ -151,8 +151,40 @@
     <p class="pull">Four breach quarters in eighty-two readings, falling in two episodes fifteen years apart. Both episodes coincide with textbook credit counterfeits. The fifteen years between them include two near-misses the gauge correctly declined to call. The discrimination holds.</p>
 
     <h2>Where the needle points now</h2>
-    <p>Today the index reads well below the threshold, around minus one and a third, and for the right reason: the war made the recent bind real, not monetary, and the gauge said so by falling as the oil shock hit. But the vector is the story. The market has hikes penciled, against the chair's stated intent, while core inflation crests; lending standards are already tightening modestly before any hike lands; and the real bind is fading as the strait clears and oil settles. A rising monetary bind against a falling real one is exactly the geometry that carried the index from minus one and a half to breach in the twelve months of 2022, and the current setup rhymes: tightening into rising labor slack because of an energy shock that is already passing.</p>
-    <p>The standing call, stated so it can fail: if the penciled hikes land while the oil pipeline clears, the gauge approaches the tipping point through late 2026 and plausibly breaches by mid-2027, and the counterfeits to watch for rhyme with 2023: housing refreezing, small-business credit denial, and stress in whichever balance sheets repriced fastest, this cycle most plausibly the data-center debt stack the loan-officer surveys have already begun asking about.</p>
+    <p>The index reads minus 1.08 for the third quarter of 2026, observed through mid-August, against minus 1.36 in the second quarter. It is not approaching the tipping point. It has moved further from it, and the July reading of this dispatch said the opposite would happen, so the reasons are worth setting out plainly.</p>
+
+    <p>The approach call made in July rested on two conditions joined by an <em>and</em>: that the penciled hikes would land, and that the oil pipeline would clear. Neither happened.</p>
+
+    <p>The hikes did not land. The effective federal funds rate sits at 3.63 percent against core PCE inflation of 3.3 percent, which puts the real policy rate at roughly plus 0.33 percent, essentially where it was in the second quarter. Money did not tighten; by the measures in this index it loosened slightly. M2 grew 5.3 percent over the year to June on the Federal Reserve's own H.6, which is real growth near 2 percent. High-yield spreads closed at 271 basis points on 12 August, near the tightest readings in the series, which is the credit market pricing almost no risk at all. And the July Senior Loan Officer Opinion Survey reported standards on business lending basically unchanged for firms of all sizes, with banks charging <em>narrower</em> rate spreads to large and middle-market firms.</p>
+
+    <p>The oil pipeline did not clear either. Brent traded between roughly $88 and $91 through the first half of August with the Strait of Hormuz still contested, and the Energy Information Administration expects Middle East production to return to near pre-conflict levels only in early 2027, with disruption near 0.6 million barrels a day persisting through next year. The Real Bind is easing from its wartime peak but it has not gone away, and it is doing most of the work holding the index down.</p>
+
+    <p class="pull">Both halves of the conditional failed, so the call is neither confirmed nor falsified. It is unresolved, and the honest entry in the ledger is that its premise never occurred rather than that the gauge was right to be worried.</p>
+
+    <p>One input has been revised. The second quarter of 2026 previously carried a bank-tightening reading of 8, estimated before the survey covering that quarter was published. The July survey put standards basically unchanged, so the input is revised to 3 and the quarter reads minus 1.36 rather than minus 1.31. The revision is small and it moves in the same direction as everything else in this update: conditions were looser than the gauge assumed.</p>
+
+    <h2>What the reevaluation found, which is a defect</h2>
+    <p>The more important part of this update is not the number. It is that four other dispatches have now identified the same blind spot in this framework's instruments, and this gauge is the one that started the list. It read minus 1.31 while subprime auto delinquency was posting a thirty-two year record. An index that says credit is not binding, in a quarter when credit was plainly binding for the households at the bottom of the distribution, has a problem that a decimal place will not fix.</p>
+
+    <p>The July survey shows the mechanism in a single document, which is what makes it worth stating precisely rather than in general terms. In the same release, banks reported easing loan rate spreads for large and middle-market firms and a net share reported <em>tightening</em> standards on credit cards. Two opposite movements, in one survey, in one quarter. The number this index consumes from that survey is the business-lending line, which nets to basically unchanged. So the gauge records a quiet quarter, and the quiet is an average of an easing at the top and a tightening at the bottom.</p>
+
+    <div class="formula">What the gauge reads: &nbsp;C&amp;I standards, basically unchanged<br>
+    What the same survey also says:<br>
+    &nbsp;&nbsp;· narrower rate spreads to large and middle-market firms<br>
+    &nbsp;&nbsp;· a net share of banks tightening credit card standards<br><br>
+    The aggregate is not wrong. It is the mean of two<br>
+    opposite signals, and the framework cares about both.</div>
+
+    <p>The household data says the same thing more slowly. The New York Fed's second-quarter report put total household debt at $18.8 trillion with 4.7 percent of balances delinquent, and the headline improved slightly. Underneath it, the share of auto loans transitioning into serious delinquency rose from 2.93 to 3.0 percent over the year, and mortgages entering serious delinquency rose from 1.29 to 1.52 percent, which is an increase of nearly a fifth in relative terms. The aggregate improved. Two of its components did not.</p>
+
+    <h2>The fix, and why it is not shipped today</h2>
+    <p>The obvious repair is a fifth input to the Monetary Bind capturing credit conditions at the bottom of the distribution: consumer standards rather than business standards, serious delinquency transitions in auto and card, and the rejection rate on credit applications. Call it the distributional companion.</p>
+
+    <p>It is not being added to the published series today, for a reason that should be stated rather than buried. The gauge's only real asset is a consistent history back to 2006 and two breach episodes it identified under a fixed definition. Adding an input now, with the benefit of knowing what the last two years did, would let this framework tune an instrument to fit a period it has already read, and the resulting track record would be worth nothing. The honest sequence is to define the companion, publish its definition before the next reading, and let it be scored forward from a date that is already on the record.</p>
+
+    <p class="pull">A gauge that is quietly improved every time it misses something is not an instrument. It is a narrator. The defect is published today and the repair is dated forward, which is the only version of this that can be checked later.</p>
+
+    <p>The standing call is therefore restated rather than reissued. The index will not approach the tipping point while the real policy rate sits near zero, credit spreads price no risk, and a genuine energy constraint persists. Conditions for a breach require the monetary bind to rise while the real bind falls, and as of August 2026 the real bind is falling slowly and the monetary bind is not rising at all. The next thing that could change that is not a rate decision. It is the Strait reopening while the rest of the settings stay where they are.</p>
 
     <hr class="descent-rule">
 
@@ -168,38 +200,45 @@
       <tbody>
         <tr>
           <td class="num">G1</td>
-          <td class="reading">The gauge discriminates. Breaches coincide with counterfeit scarcities (transactions freezing amid physical plenty); real-shortage episodes read negative. Twenty years of history now support this: both breach episodes, 2008Q4–2009Q1 and 2023Q2–Q3, coincide with textbook credit counterfeits, while 2020–2021's deep negative correctly identified genuine physical shortage.</td>
+          <td class="reading">The gauge discriminates. Breaches coincide with counterfeit scarcities (transactions freezing amid physical plenty); real-shortage episodes read negative. Both breach episodes, 2008Q4&ndash;2009Q1 and 2023Q2&ndash;Q3, coincide with textbook credit counterfeits, while 2020&ndash;2021 and the 2026 energy conflict correctly read deeply negative.</td>
           <td class="falsifier">A sustained breach with no counterfeit symptoms, or a deep negative reading during a plainly monetary freeze.</td>
           <td><span class="pill">Open, supported</span></td>
-          <td class="asof">15 Jul 2026</td>
+          <td class="asof">15 Aug 2026</td>
         </tr>
         <tr>
           <td class="num">G2</td>
           <td class="reading">The 2023 breach was counterfeit. Its shortages (housing lock-in, bank funding, business credit) resolved through monetary reordering, not real supply.</td>
           <td class="falsifier">Evidence that the 2023-24 normalization required real additions rather than rate relief.</td>
           <td><span class="pill">Open, supported</span></td>
-          <td class="asof">15 Jul 2026</td>
+          <td class="asof">15 Aug 2026</td>
         </tr>
         <tr>
           <td class="num">G3</td>
-          <td class="reading">The approach call. If the penciled hikes land as the energy shock fades, CCI rises toward the tipping point through late 2026 and plausibly breaches by mid-2027.</td>
-          <td class="falsifier">Hikes land, oil normalizes, and the index stays flat or falls; or no hikes and the index breaches anyway.</td>
-          <td><span class="pill">Open</span></td>
-          <td class="asof">15 Jul 2026</td>
+          <td class="reading">The approach call, made 15 July 2026: if the penciled hikes land as the energy shock fades, CCI rises toward the tipping point through late 2026 and plausibly breaches by mid-2027. Neither condition occurred. The real policy rate is roughly plus 0.33 percent and unchanged, and the Strait of Hormuz remains constrained with EIA expecting disruption into 2027. The index fell to minus 1.08 rather than rising.</td>
+          <td class="falsifier">Its own terms never triggered, so it cannot be scored either way. Recorded as unresolved rather than counted as a miss or a hit.</td>
+          <td><span class="pill">Unresolved, premise failed</span></td>
+          <td class="asof">15 Aug 2026</td>
         </tr>
         <tr>
           <td class="num">G4</td>
-          <td class="reading">The symptoms repeat. A future breach produces the 2023 family of counterfeits: housing freeze, small-firm credit denial, fastest-repriced balance sheets under stress. The 2008 breach supports this pattern: housing sales froze, interbank lending seized, and small-business credit vanished, all resolved when the monetary bind broke, not when more houses were built.</td>
+          <td class="reading">The symptoms repeat. A future breach produces the 2023 family of counterfeits: housing freeze, small-firm credit denial, fastest-repriced balance sheets under stress.</td>
           <td class="falsifier">A breach whose damage pattern shares nothing with the counterfeit family.</td>
           <td><span class="pill">Open, supported</span></td>
-          <td class="asof">15 Jul 2026</td>
+          <td class="asof">15 Aug 2026</td>
+        </tr>
+        <tr>
+          <td class="num">G5</td>
+          <td class="reading">The distributional defect. The Monetary Bind is an aggregate and cannot see the distribution beneath it. Stated concretely: in the July 2026 survey banks eased rate spreads for large and middle-market firms while a net share tightened credit card standards, and the gauge consumed only the business line. A distributional companion is defined here and will be scored forward from this date, not backfitted.</td>
+          <td class="falsifier">Consumer-side credit stress turns at the same time as the aggregate Monetary Bind across a full cycle, rather than leading it.</td>
+          <td><span class="pill">Open, new</span></td>
+          <td class="asof">15 Aug 2026</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <article class="prose">
-    <p style="margin-top:2.2rem;">The instrument does not predict the Fed, the strait, or the price of oil. It does one narrow thing: it says, each quarter, whether the binding scarcity is money pretending to be things. Right now it is not. The needle sits low because the recent bind was real. But it is pointed at the line, and the whole reason to publish a gauge instead of an essay is that when it crosses, or fails to, everyone will be able to see it. The number will say.</p>
+    <p style="margin-top:2.2rem;">The instrument does not predict the Fed, the Strait, or the price of oil. It does one narrow thing: it says, each quarter, whether the binding scarcity is money pretending to be things. Right now it is not, and it is further from that than it was in July, because the tightening this dispatch expected never arrived and the energy constraint it expected to clear did not clear. That is the value of publishing a number instead of an essay. An essay written in July could have been read in August as though it had said something else. The number cannot. It said minus 0.66 and the quarter came in at minus 1.08, and the reason is written above.</p>
   </article>
 </main>
 
@@ -266,7 +305,9 @@
     });
     /* now marker */
     mk("circle",{cx:X(lastA),cy:Y(qs[lastA].cci),r:4.4,fill:"#6E1F1B"});
-    mk("text",{x:X(lastA),y:Y(qs[lastA].cci)+20,"text-anchor":"middle","font-size":10.5,fill:"#23201B","font-family":"IBM Plex Mono, monospace"},"now "+qs[lastA].cci.toFixed(2));
+    var nx=X(lastA), anch="middle", dx=0;
+    if(nx > L+iw-70){ anch="end"; dx=-8; } else if(nx < L+70){ anch="start"; dx=8; }
+    mk("text",{x:nx+dx,y:Y(qs[lastA].cci)+20,"text-anchor":anch,"font-size":10.5,fill:"#23201B","font-family":"IBM Plex Mono, monospace"},"now "+qs[lastA].cci.toFixed(2));
     /* x labels: every 2nd quarter */
     qs.forEach(function(q,i){
       if(i%2===0||i===qs.length-1){

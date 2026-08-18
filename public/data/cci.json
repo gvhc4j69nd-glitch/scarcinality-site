@@ -1,855 +1,856 @@
 {
-  "meta": {
-    "name": "Credit Counterfeit Index",
-    "abbrev": "CCI",
-    "definition": "CCI = Monetary Bind (mean z of HY OAS, SLOOS C&I tightening, real fed funds, inverted real M2 growth) minus Real Bind (genuine physical scarcity intensity). Credit is the counterfeiter when CCI >= threshold: tight money manufacturing scarcity that is not physically real.",
-    "threshold": 1,
-    "as_of": "2026-07-15",
-    "sources": "FRED: BAMLH0A0HYM2, DRTSCILM, FEDFUNDS, PCEPILFE, M2SL. Real Bind is a published judgment series (GSCPI, energy disruptions).",
-    "projection_note": "Entries with \"projected\": true are scenario estimates under the hawkish path, not observations."
+ "meta": {
+  "name": "Credit Counterfeit Index",
+  "abbrev": "CCI",
+  "definition": "CCI = Monetary Bind (mean z of HY OAS, SLOOS C&I tightening, real fed funds, inverted real M2 growth) minus Real Bind (genuine physical scarcity intensity). Credit is the counterfeiter when CCI >= threshold: tight money manufacturing scarcity that is not physically real.",
+  "threshold": 1,
+  "as_of": "2026-08-15",
+  "sources": "Fed H.6 (M2, seasonally adjusted); Fed H.15 (effective federal funds rate); Fed Senior Loan Officer Opinion Survey, July 2026; BEA core PCE; ICE BofA US High Yield OAS. Real Bind is a published judgment series (Strait of Hormuz transit constraints, EIA Short-Term Energy Outlook). FRED is not reachable from the build environment; series are sourced from the issuing agencies directly.",
+  "projection_note": "Entries with \"projected\": true are scenario estimates under the hawkish path, not observations.",
+  "revision_note": "2026-08-15 reevaluation. 2026Q2 SLOOS revised from 8 to 3 to reflect the July 2026 survey, which reported C&I standards basically unchanged for firms of all sizes. 2026Q3 is now observed through mid-August rather than projected. Every monetary input came in looser than the July projection and the Real Bind did not fade, so the index moved away from the tipping point rather than toward it.",
+  "known_limitation": "The Monetary Bind is built from aggregate inputs and cannot see the distribution beneath them. The July 2026 SLOOS is the clearest illustration: banks eased loan rate spreads for large and middle-market firms while a net share tightened credit card standards, and the aggregate C&I reading was 'basically unchanged'. A distributional companion is proposed but not yet scored, because no consistent history exists back to 2006."
+ },
+ "quarters": [
+  {
+   "q": "2006Q1",
+   "hy_oas": 3.3,
+   "sloos": -5,
+   "real_ffr": 2.4,
+   "real_m2": 2.4,
+   "rb": 0,
+   "mb": 0.17,
+   "cci": 0.17
   },
-  "quarters": [
-    {
-      "q": "2006Q1",
-      "hy_oas": 3.3,
-      "sloos": -5,
-      "real_ffr": 2.4,
-      "real_m2": 2.4,
-      "rb": 0,
-      "mb": 0.17,
-      "cci": 0.17
-    },
-    {
-      "q": "2006Q2",
-      "hy_oas": 3.2,
-      "sloos": -10,
-      "real_ffr": 2.7,
-      "real_m2": 1.5,
-      "rb": 0,
-      "mb": 0.2,
-      "cci": 0.2
-    },
-    {
-      "q": "2006Q3",
-      "hy_oas": 3,
-      "sloos": -5,
-      "real_ffr": 2.85,
-      "real_m2": 1.6,
-      "rb": 0,
-      "mb": 0.24,
-      "cci": 0.24
-    },
-    {
-      "q": "2006Q4",
-      "hy_oas": 2.9,
-      "sloos": 0,
-      "real_ffr": 2.95,
-      "real_m2": 2.5,
-      "rb": 0,
-      "mb": 0.26,
-      "cci": 0.26
-    },
-    {
-      "q": "2007Q1",
-      "hy_oas": 2.8,
-      "sloos": -5,
-      "real_ffr": 2.85,
-      "real_m2": 3.1,
-      "rb": 0,
-      "mb": 0.16,
-      "cci": 0.16
-    },
-    {
-      "q": "2007Q2",
-      "hy_oas": 2.7,
-      "sloos": 0,
-      "real_ffr": 3.25,
-      "real_m2": 3.2,
-      "rb": 0,
-      "mb": 0.25,
-      "cci": 0.25
-    },
-    {
-      "q": "2007Q3",
-      "hy_oas": 3.5,
-      "sloos": 20,
-      "real_ffr": 3.1,
-      "real_m2": 3.5,
-      "rb": 0,
-      "mb": 0.5,
-      "cci": 0.5
-    },
-    {
-      "q": "2007Q4",
-      "hy_oas": 4.6,
-      "sloos": 35,
-      "real_ffr": 2.4,
-      "real_m2": 4.1,
-      "rb": 0,
-      "mb": 0.64,
-      "cci": 0.64
-    },
-    {
-      "q": "2008Q1",
-      "hy_oas": 6,
-      "sloos": 55,
-      "real_ffr": 1,
-      "real_m2": 3.3,
-      "rb": 1,
-      "mb": 0.82,
-      "cci": -0.18
-    },
-    {
-      "q": "2008Q2",
-      "hy_oas": 7,
-      "sloos": 60,
-      "real_ffr": -0.3,
-      "real_m2": 3,
-      "rb": 1.5,
-      "mb": 0.8,
-      "cci": -0.7
-    },
-    {
-      "q": "2008Q3",
-      "hy_oas": 8,
-      "sloos": 75,
-      "real_ffr": -0.3,
-      "real_m2": 3,
-      "rb": 0.8,
-      "mb": 1.05,
-      "cci": 0.25
-    },
-    {
-      "q": "2008Q4",
-      "hy_oas": 16.5,
-      "sloos": 80,
-      "real_ffr": -1.1,
-      "real_m2": 7.9,
-      "rb": 0.2,
-      "mb": 1.62,
-      "cci": 1.42
-    },
-    {
-      "q": "2009Q1",
-      "hy_oas": 17,
-      "sloos": 75,
-      "real_ffr": -1.3,
-      "real_m2": 9,
-      "rb": 0,
-      "mb": 1.54,
-      "cci": 1.54
-    },
-    {
-      "q": "2009Q2",
-      "hy_oas": 12,
-      "sloos": 40,
-      "real_ffr": -1.2,
-      "real_m2": 6.1,
-      "rb": 0,
-      "mb": 0.83,
-      "cci": 0.83
-    },
-    {
-      "q": "2009Q3",
-      "hy_oas": 8.5,
-      "sloos": 20,
-      "real_ffr": -1.2,
-      "real_m2": 5.1,
-      "rb": 0,
-      "mb": 0.31,
-      "cci": 0.31
-    },
-    {
-      "q": "2009Q4",
-      "hy_oas": 6.5,
-      "sloos": 5,
-      "real_ffr": -1.4,
-      "real_m2": 2,
-      "rb": 0,
-      "mb": 0.07,
-      "cci": 0.07
-    },
-    {
-      "q": "2010Q1",
-      "hy_oas": 6,
-      "sloos": 5,
-      "real_ffr": -1.2,
-      "real_m2": 0.5,
-      "rb": 0,
-      "mb": 0.12,
-      "cci": 0.12
-    },
-    {
-      "q": "2010Q2",
-      "hy_oas": 6.5,
-      "sloos": -5,
-      "real_ffr": -1.3,
-      "real_m2": 0.1,
-      "rb": 0,
-      "mb": 0.07,
-      "cci": 0.07
-    },
-    {
-      "q": "2010Q3",
-      "hy_oas": 5.8,
-      "sloos": -8,
-      "real_ffr": -1,
-      "real_m2": 1,
-      "rb": 0,
-      "mb": -0.03,
-      "cci": -0.03
-    },
-    {
-      "q": "2010Q4",
-      "hy_oas": 5,
-      "sloos": -10,
-      "real_ffr": -1,
-      "real_m2": 2.3,
-      "rb": 0,
-      "mb": -0.19,
-      "cci": -0.19
-    },
-    {
-      "q": "2011Q1",
-      "hy_oas": 4.8,
-      "sloos": -12,
-      "real_ffr": -1.1,
-      "real_m2": 4.3,
-      "rb": 0.5,
-      "mb": -0.33,
-      "cci": -0.83
-    },
-    {
-      "q": "2011Q2",
-      "hy_oas": 5,
-      "sloos": -12,
-      "real_ffr": -1.5,
-      "real_m2": 5.9,
-      "rb": 0.7,
-      "mb": -0.44,
-      "cci": -1.14
-    },
-    {
-      "q": "2011Q3",
-      "hy_oas": 6.5,
-      "sloos": 5,
-      "real_ffr": -1.7,
-      "real_m2": 8.2,
-      "rb": 0.4,
-      "mb": -0.25,
-      "cci": -0.65
-    },
-    {
-      "q": "2011Q4",
-      "hy_oas": 7,
-      "sloos": 5,
-      "real_ffr": -1.6,
-      "real_m2": 8.1,
-      "rb": 0.2,
-      "mb": -0.18,
-      "cci": -0.38
-    },
-    {
-      "q": "2012Q1",
-      "hy_oas": 6.5,
-      "sloos": -8,
-      "real_ffr": -1.7,
-      "real_m2": 7.2,
-      "rb": 0.2,
-      "mb": -0.34,
-      "cci": -0.54
-    },
-    {
-      "q": "2012Q2",
-      "hy_oas": 6.8,
-      "sloos": -10,
-      "real_ffr": -1.5,
-      "real_m2": 5.8,
-      "rb": 0.2,
-      "mb": -0.24,
-      "cci": -0.44
-    },
-    {
-      "q": "2012Q3",
-      "hy_oas": 5.8,
-      "sloos": -12,
-      "real_ffr": -1.6,
-      "real_m2": 4.8,
-      "rb": 0.1,
-      "mb": -0.33,
-      "cci": -0.43
-    },
-    {
-      "q": "2012Q4",
-      "hy_oas": 5.2,
-      "sloos": -15,
-      "real_ffr": -1.3,
-      "real_m2": 5.7,
-      "rb": 0.1,
-      "mb": -0.42,
-      "cci": -0.52
-    },
-    {
-      "q": "2013Q1",
-      "hy_oas": 4.8,
-      "sloos": -15,
-      "real_ffr": -1.15,
-      "real_m2": 6.2,
-      "rb": 0,
-      "mb": -0.46,
-      "cci": -0.46
-    },
-    {
-      "q": "2013Q2",
-      "hy_oas": 5.2,
-      "sloos": -12,
-      "real_ffr": -1.1,
-      "real_m2": 5.8,
-      "rb": 0,
-      "mb": -0.36,
-      "cci": -0.36
-    },
-    {
-      "q": "2013Q3",
-      "hy_oas": 4.6,
-      "sloos": -15,
-      "real_ffr": -1.2,
-      "real_m2": 5.2,
-      "rb": 0,
-      "mb": -0.44,
-      "cci": -0.44
-    },
-    {
-      "q": "2013Q4",
-      "hy_oas": 4.2,
-      "sloos": -18,
-      "real_ffr": -1.2,
-      "real_m2": 4.5,
-      "rb": 0,
-      "mb": -0.48,
-      "cci": -0.48
-    },
-    {
-      "q": "2014Q1",
-      "hy_oas": 4,
-      "sloos": -18,
-      "real_ffr": -1.2,
-      "real_m2": 4.5,
-      "rb": 0,
-      "mb": -0.5,
-      "cci": -0.5
-    },
-    {
-      "q": "2014Q2",
-      "hy_oas": 3.9,
-      "sloos": -20,
-      "real_ffr": -1.5,
-      "real_m2": 3.9,
-      "rb": 0,
-      "mb": -0.55,
-      "cci": -0.55
-    },
-    {
-      "q": "2014Q3",
-      "hy_oas": 4.2,
-      "sloos": -15,
-      "real_ffr": -1.4,
-      "real_m2": 4.3,
-      "rb": 0,
-      "mb": -0.47,
-      "cci": -0.47
-    },
-    {
-      "q": "2014Q4",
-      "hy_oas": 5,
-      "sloos": -10,
-      "real_ffr": -1.4,
-      "real_m2": 4,
-      "rb": 0.2,
-      "mb": -0.32,
-      "cci": -0.52
-    },
-    {
-      "q": "2015Q1",
-      "hy_oas": 5.2,
-      "sloos": -8,
-      "real_ffr": -1.2,
-      "real_m2": 4.5,
-      "rb": 0,
-      "mb": -0.28,
-      "cci": -0.28
-    },
-    {
-      "q": "2015Q2",
-      "hy_oas": 5.5,
-      "sloos": -5,
-      "real_ffr": -1.2,
-      "real_m2": 4.2,
-      "rb": 0,
-      "mb": -0.2,
-      "cci": -0.2
-    },
-    {
-      "q": "2015Q3",
-      "hy_oas": 6.5,
-      "sloos": 5,
-      "real_ffr": -1.2,
-      "real_m2": 3.7,
-      "rb": 0,
-      "mb": 0.02,
-      "cci": 0.02
-    },
-    {
-      "q": "2015Q4",
-      "hy_oas": 7.5,
-      "sloos": 10,
-      "real_ffr": -1,
-      "real_m2": 3.7,
-      "rb": 0,
-      "mb": 0.2,
-      "cci": 0.2
-    },
-    {
-      "q": "2016Q1",
-      "hy_oas": 8,
-      "sloos": 15,
-      "real_ffr": -1,
-      "real_m2": 4.4,
-      "rb": 0,
-      "mb": 0.27,
-      "cci": 0.27
-    },
-    {
-      "q": "2016Q2",
-      "hy_oas": 6.5,
-      "sloos": 10,
-      "real_ffr": -1.2,
-      "real_m2": 4.4,
-      "rb": 0,
-      "mb": 0.04,
-      "cci": 0.04
-    },
-    {
-      "q": "2016Q3",
-      "hy_oas": 5.5,
-      "sloos": 0,
-      "real_ffr": -1.3,
-      "real_m2": 5.3,
-      "rb": 0,
-      "mb": -0.21,
-      "cci": -0.21
-    },
-    {
-      "q": "2016Q4",
-      "hy_oas": 4.8,
-      "sloos": -5,
-      "real_ffr": -1.2,
-      "real_m2": 5.1,
-      "rb": 0,
-      "mb": -0.31,
-      "cci": -0.31
-    },
-    {
-      "q": "2017Q1",
-      "hy_oas": 4.2,
-      "sloos": -10,
-      "real_ffr": -1.1,
-      "real_m2": 4.2,
-      "rb": 0,
-      "mb": -0.37,
-      "cci": -0.37
-    },
-    {
-      "q": "2017Q2",
-      "hy_oas": 4,
-      "sloos": -15,
-      "real_ffr": -0.5,
-      "real_m2": 4.3,
-      "rb": 0,
-      "mb": -0.36,
-      "cci": -0.36
-    },
-    {
-      "q": "2017Q3",
-      "hy_oas": 3.8,
-      "sloos": -15,
-      "real_ffr": -0.3,
-      "real_m2": 3.5,
-      "rb": 0,
-      "mb": -0.31,
-      "cci": -0.31
-    },
-    {
-      "q": "2017Q4",
-      "hy_oas": 3.6,
-      "sloos": -18,
-      "real_ffr": -0.2,
-      "real_m2": 3.5,
-      "rb": 0,
-      "mb": -0.35,
-      "cci": -0.35
-    },
-    {
-      "q": "2018Q1",
-      "hy_oas": 3.6,
-      "sloos": -18,
-      "real_ffr": -0.3,
-      "real_m2": 2.2,
-      "rb": 0,
-      "mb": -0.31,
-      "cci": -0.31
-    },
-    {
-      "q": "2018Q2",
-      "hy_oas": 3.7,
-      "sloos": -20,
-      "real_ffr": -0.2,
-      "real_m2": 2,
-      "rb": 0,
-      "mb": -0.29,
-      "cci": -0.29
-    },
-    {
-      "q": "2018Q3",
-      "hy_oas": 3.4,
-      "sloos": -20,
-      "real_ffr": 0,
-      "real_m2": 1.5,
-      "rb": 0,
-      "mb": -0.27,
-      "cci": -0.27
-    },
-    {
-      "q": "2018Q4",
-      "hy_oas": 4.7,
-      "sloos": -10,
-      "real_ffr": 0.3,
-      "real_m2": 1.8,
-      "rb": 0,
-      "mb": -0.01,
-      "cci": -0.01
-    },
-    {
-      "q": "2019Q1",
-      "hy_oas": 4.5,
-      "sloos": -5,
-      "real_ffr": 0.8,
-      "real_m2": 2.7,
-      "rb": 0,
-      "mb": 0.05,
-      "cci": 0.05
-    },
-    {
-      "q": "2019Q2",
-      "hy_oas": 3.8,
-      "sloos": -8,
-      "real_ffr": 0.8,
-      "real_m2": 3.9,
-      "rb": 0,
-      "mb": -0.1,
-      "cci": -0.1
-    },
-    {
-      "q": "2019Q3",
-      "hy_oas": 3.8,
-      "sloos": 0,
-      "real_ffr": 0.5,
-      "real_m2": 3.8,
-      "rb": 0,
-      "mb": -0.06,
-      "cci": -0.06
-    },
-    {
-      "q": "2019Q4",
-      "hy_oas": 3.5,
-      "sloos": 0,
-      "real_ffr": 0.1,
-      "real_m2": 5.2,
-      "rb": 0,
-      "mb": -0.21,
-      "cci": -0.21
-    },
-    {
-      "q": "2020Q1",
-      "hy_oas": 7.5,
-      "sloos": 35,
-      "real_ffr": -0.7,
-      "real_m2": 8.7,
-      "rb": 0.8,
-      "mb": 0.28,
-      "cci": -0.52
-    },
-    {
-      "q": "2020Q2",
-      "hy_oas": 7.5,
-      "sloos": 70,
-      "real_ffr": -0.8,
-      "real_m2": 22.1,
-      "rb": 1.5,
-      "mb": 0.01,
-      "cci": -1.49
-    },
-    {
-      "q": "2020Q3",
-      "hy_oas": 5.5,
-      "sloos": 25,
-      "real_ffr": -1.3,
-      "real_m2": 22.6,
-      "rb": 0.8,
-      "mb": -0.74,
-      "cci": -1.54
-    },
-    {
-      "q": "2020Q4",
-      "hy_oas": 4.5,
-      "sloos": 5,
-      "real_ffr": -1.4,
-      "real_m2": 23.5,
-      "rb": 0.5,
-      "mb": -1.1,
-      "cci": -1.6
-    },
-    {
-      "q": "2021Q1",
-      "hy_oas": 3.8,
-      "sloos": -5,
-      "real_ffr": -1.7,
-      "real_m2": 24.2,
-      "rb": 1,
-      "mb": -1.35,
-      "cci": -2.35
-    },
-    {
-      "q": "2021Q2",
-      "hy_oas": 3.4,
-      "sloos": -18,
-      "real_ffr": -3.4,
-      "real_m2": 9.5,
-      "rb": 1.5,
-      "mb": -1.1,
-      "cci": -2.6
-    },
-    {
-      "q": "2021Q3",
-      "hy_oas": 3.2,
-      "sloos": -15,
-      "real_ffr": -3.9,
-      "real_m2": 7,
-      "rb": 1.5,
-      "mb": -1.05,
-      "cci": -2.55
-    },
-    {
-      "q": "2021Q4",
-      "hy_oas": 3.1,
-      "sloos": -18,
-      "real_ffr": -4.6,
-      "real_m2": 5,
-      "rb": 2,
-      "mb": -1.1,
-      "cci": -3.1
-    },
-    {
-      "q": "2022Q1",
-      "hy_oas": 3.4,
-      "sloos": -10,
-      "real_ffr": -4.9,
-      "real_m2": 2,
-      "rb": 1.8,
-      "mb": -0.9,
-      "cci": -2.7
-    },
-    {
-      "q": "2022Q2",
-      "hy_oas": 4.7,
-      "sloos": 0,
-      "real_ffr": -3.6,
-      "real_m2": -2,
-      "rb": 1.5,
-      "mb": -0.3,
-      "cci": -1.8
-    },
-    {
-      "q": "2022Q3",
-      "hy_oas": 4.9,
-      "sloos": 24,
-      "real_ffr": -2.6,
-      "real_m2": -4.5,
-      "rb": 1,
-      "mb": 0.22,
-      "cci": -0.78
-    },
-    {
-      "q": "2022Q4",
-      "hy_oas": 4.7,
-      "sloos": 39,
-      "real_ffr": -0.7,
-      "real_m2": -6.5,
-      "rb": 0.5,
-      "mb": 0.72,
-      "cci": 0.22
-    },
-    {
-      "q": "2023Q1",
-      "hy_oas": 4.6,
-      "sloos": 45,
-      "real_ffr": -0.1,
-      "real_m2": -8,
-      "rb": 0.2,
-      "mb": 0.92,
-      "cci": 0.72
-    },
-    {
-      "q": "2023Q2",
-      "hy_oas": 4.4,
-      "sloos": 46,
-      "real_ffr": 0.5,
-      "real_m2": -8.5,
-      "rb": 0,
-      "mb": 1.02,
-      "cci": 1.02
-    },
-    {
-      "q": "2023Q3",
-      "hy_oas": 3.9,
-      "sloos": 51,
-      "real_ffr": 1.4,
-      "real_m2": -6,
-      "rb": 0,
-      "mb": 1.04,
-      "cci": 1.04
-    },
-    {
-      "q": "2023Q4",
-      "hy_oas": 3.8,
-      "sloos": 34,
-      "real_ffr": 2.1,
-      "real_m2": -4,
-      "rb": 0,
-      "mb": 0.87,
-      "cci": 0.87
-    },
-    {
-      "q": "2024Q1",
-      "hy_oas": 3.2,
-      "sloos": 15,
-      "real_ffr": 2.4,
-      "real_m2": -2.5,
-      "rb": 0,
-      "mb": 0.59,
-      "cci": 0.59
-    },
-    {
-      "q": "2024Q2",
-      "hy_oas": 3.1,
-      "sloos": 8,
-      "real_ffr": 2.7,
-      "real_m2": -1,
-      "rb": 0,
-      "mb": 0.48,
-      "cci": 0.48
-    },
-    {
-      "q": "2024Q3",
-      "hy_oas": 3.2,
-      "sloos": 8,
-      "real_ffr": 2.5,
-      "real_m2": 0.5,
-      "rb": 0,
-      "mb": 0.4,
-      "cci": 0.4
-    },
-    {
-      "q": "2024Q4",
-      "hy_oas": 2.8,
-      "sloos": 0,
-      "real_ffr": 1.8,
-      "real_m2": 1.5,
-      "rb": 0,
-      "mb": 0.13,
-      "cci": 0.13
-    },
-    {
-      "q": "2025Q1",
-      "hy_oas": 2.9,
-      "sloos": 6,
-      "real_ffr": 1.6,
-      "real_m2": 1.5,
-      "rb": 0,
-      "mb": 0.17,
-      "cci": 0.17
-    },
-    {
-      "q": "2025Q2",
-      "hy_oas": 4,
-      "sloos": 9,
-      "real_ffr": 1.7,
-      "real_m2": 2,
-      "rb": 0.3,
-      "mb": 0.3,
-      "cci": 0
-    },
-    {
-      "q": "2025Q3",
-      "hy_oas": 3,
-      "sloos": 10,
-      "real_ffr": 1.2,
-      "real_m2": 2.5,
-      "rb": 0,
-      "mb": 0.12,
-      "cci": 0.12
-    },
-    {
-      "q": "2025Q4",
-      "hy_oas": 2.8,
-      "sloos": 12,
-      "real_ffr": 0.7,
-      "real_m2": 2.5,
-      "rb": 0,
-      "mb": 0.05,
-      "cci": 0.05
-    },
-    {
-      "q": "2026Q1",
-      "hy_oas": 3.1,
-      "sloos": 10,
-      "real_ffr": 0.5,
-      "real_m2": 2,
-      "rb": 1.2,
-      "mb": 0.05,
-      "cci": -1.15
-    },
-    {
-      "q": "2026Q2",
-      "hy_oas": 2.9,
-      "sloos": 8,
-      "real_ffr": 0.3,
-      "real_m2": 1.8,
-      "rb": 1.3,
-      "mb": -0.01,
-      "cci": -1.31
-    },
-    {
-      "q": "2026Q3",
-      "hy_oas": 2.7,
-      "sloos": 8,
-      "real_ffr": 0.45,
-      "real_m2": 1.5,
-      "rb": 0.6,
-      "mb": -0.06,
-      "cci": -0.66,
-      "projected": true
-    },
-    {
-      "q": "2026Q4",
-      "hy_oas": 2.9,
-      "sloos": 12,
-      "real_ffr": 0.9,
-      "real_m2": 1,
-      "rb": 0.2,
-      "mb": 0.19,
-      "cci": -0.01,
-      "projected": true
-    }
-  ]
+  {
+   "q": "2006Q2",
+   "hy_oas": 3.2,
+   "sloos": -10,
+   "real_ffr": 2.7,
+   "real_m2": 1.5,
+   "rb": 0,
+   "mb": 0.2,
+   "cci": 0.2
+  },
+  {
+   "q": "2006Q3",
+   "hy_oas": 3,
+   "sloos": -5,
+   "real_ffr": 2.85,
+   "real_m2": 1.6,
+   "rb": 0,
+   "mb": 0.24,
+   "cci": 0.24
+  },
+  {
+   "q": "2006Q4",
+   "hy_oas": 2.9,
+   "sloos": 0,
+   "real_ffr": 2.95,
+   "real_m2": 2.5,
+   "rb": 0,
+   "mb": 0.26,
+   "cci": 0.26
+  },
+  {
+   "q": "2007Q1",
+   "hy_oas": 2.8,
+   "sloos": -5,
+   "real_ffr": 2.85,
+   "real_m2": 3.1,
+   "rb": 0,
+   "mb": 0.16,
+   "cci": 0.16
+  },
+  {
+   "q": "2007Q2",
+   "hy_oas": 2.7,
+   "sloos": 0,
+   "real_ffr": 3.25,
+   "real_m2": 3.2,
+   "rb": 0,
+   "mb": 0.25,
+   "cci": 0.25
+  },
+  {
+   "q": "2007Q3",
+   "hy_oas": 3.5,
+   "sloos": 20,
+   "real_ffr": 3.1,
+   "real_m2": 3.5,
+   "rb": 0,
+   "mb": 0.5,
+   "cci": 0.5
+  },
+  {
+   "q": "2007Q4",
+   "hy_oas": 4.6,
+   "sloos": 35,
+   "real_ffr": 2.4,
+   "real_m2": 4.1,
+   "rb": 0,
+   "mb": 0.64,
+   "cci": 0.64
+  },
+  {
+   "q": "2008Q1",
+   "hy_oas": 6,
+   "sloos": 55,
+   "real_ffr": 1,
+   "real_m2": 3.3,
+   "rb": 1,
+   "mb": 0.82,
+   "cci": -0.18
+  },
+  {
+   "q": "2008Q2",
+   "hy_oas": 7,
+   "sloos": 60,
+   "real_ffr": -0.3,
+   "real_m2": 3,
+   "rb": 1.5,
+   "mb": 0.8,
+   "cci": -0.7
+  },
+  {
+   "q": "2008Q3",
+   "hy_oas": 8,
+   "sloos": 75,
+   "real_ffr": -0.3,
+   "real_m2": 3,
+   "rb": 0.8,
+   "mb": 1.05,
+   "cci": 0.25
+  },
+  {
+   "q": "2008Q4",
+   "hy_oas": 16.5,
+   "sloos": 80,
+   "real_ffr": -1.1,
+   "real_m2": 7.9,
+   "rb": 0.2,
+   "mb": 1.62,
+   "cci": 1.42
+  },
+  {
+   "q": "2009Q1",
+   "hy_oas": 17,
+   "sloos": 75,
+   "real_ffr": -1.3,
+   "real_m2": 9,
+   "rb": 0,
+   "mb": 1.54,
+   "cci": 1.54
+  },
+  {
+   "q": "2009Q2",
+   "hy_oas": 12,
+   "sloos": 40,
+   "real_ffr": -1.2,
+   "real_m2": 6.1,
+   "rb": 0,
+   "mb": 0.83,
+   "cci": 0.83
+  },
+  {
+   "q": "2009Q3",
+   "hy_oas": 8.5,
+   "sloos": 20,
+   "real_ffr": -1.2,
+   "real_m2": 5.1,
+   "rb": 0,
+   "mb": 0.31,
+   "cci": 0.31
+  },
+  {
+   "q": "2009Q4",
+   "hy_oas": 6.5,
+   "sloos": 5,
+   "real_ffr": -1.4,
+   "real_m2": 2,
+   "rb": 0,
+   "mb": 0.07,
+   "cci": 0.07
+  },
+  {
+   "q": "2010Q1",
+   "hy_oas": 6,
+   "sloos": 5,
+   "real_ffr": -1.2,
+   "real_m2": 0.5,
+   "rb": 0,
+   "mb": 0.12,
+   "cci": 0.12
+  },
+  {
+   "q": "2010Q2",
+   "hy_oas": 6.5,
+   "sloos": -5,
+   "real_ffr": -1.3,
+   "real_m2": 0.1,
+   "rb": 0,
+   "mb": 0.07,
+   "cci": 0.07
+  },
+  {
+   "q": "2010Q3",
+   "hy_oas": 5.8,
+   "sloos": -8,
+   "real_ffr": -1,
+   "real_m2": 1,
+   "rb": 0,
+   "mb": -0.03,
+   "cci": -0.03
+  },
+  {
+   "q": "2010Q4",
+   "hy_oas": 5,
+   "sloos": -10,
+   "real_ffr": -1,
+   "real_m2": 2.3,
+   "rb": 0,
+   "mb": -0.19,
+   "cci": -0.19
+  },
+  {
+   "q": "2011Q1",
+   "hy_oas": 4.8,
+   "sloos": -12,
+   "real_ffr": -1.1,
+   "real_m2": 4.3,
+   "rb": 0.5,
+   "mb": -0.33,
+   "cci": -0.83
+  },
+  {
+   "q": "2011Q2",
+   "hy_oas": 5,
+   "sloos": -12,
+   "real_ffr": -1.5,
+   "real_m2": 5.9,
+   "rb": 0.7,
+   "mb": -0.44,
+   "cci": -1.14
+  },
+  {
+   "q": "2011Q3",
+   "hy_oas": 6.5,
+   "sloos": 5,
+   "real_ffr": -1.7,
+   "real_m2": 8.2,
+   "rb": 0.4,
+   "mb": -0.25,
+   "cci": -0.65
+  },
+  {
+   "q": "2011Q4",
+   "hy_oas": 7,
+   "sloos": 5,
+   "real_ffr": -1.6,
+   "real_m2": 8.1,
+   "rb": 0.2,
+   "mb": -0.18,
+   "cci": -0.38
+  },
+  {
+   "q": "2012Q1",
+   "hy_oas": 6.5,
+   "sloos": -8,
+   "real_ffr": -1.7,
+   "real_m2": 7.2,
+   "rb": 0.2,
+   "mb": -0.34,
+   "cci": -0.54
+  },
+  {
+   "q": "2012Q2",
+   "hy_oas": 6.8,
+   "sloos": -10,
+   "real_ffr": -1.5,
+   "real_m2": 5.8,
+   "rb": 0.2,
+   "mb": -0.24,
+   "cci": -0.44
+  },
+  {
+   "q": "2012Q3",
+   "hy_oas": 5.8,
+   "sloos": -12,
+   "real_ffr": -1.6,
+   "real_m2": 4.8,
+   "rb": 0.1,
+   "mb": -0.33,
+   "cci": -0.43
+  },
+  {
+   "q": "2012Q4",
+   "hy_oas": 5.2,
+   "sloos": -15,
+   "real_ffr": -1.3,
+   "real_m2": 5.7,
+   "rb": 0.1,
+   "mb": -0.42,
+   "cci": -0.52
+  },
+  {
+   "q": "2013Q1",
+   "hy_oas": 4.8,
+   "sloos": -15,
+   "real_ffr": -1.15,
+   "real_m2": 6.2,
+   "rb": 0,
+   "mb": -0.46,
+   "cci": -0.46
+  },
+  {
+   "q": "2013Q2",
+   "hy_oas": 5.2,
+   "sloos": -12,
+   "real_ffr": -1.1,
+   "real_m2": 5.8,
+   "rb": 0,
+   "mb": -0.36,
+   "cci": -0.36
+  },
+  {
+   "q": "2013Q3",
+   "hy_oas": 4.6,
+   "sloos": -15,
+   "real_ffr": -1.2,
+   "real_m2": 5.2,
+   "rb": 0,
+   "mb": -0.44,
+   "cci": -0.44
+  },
+  {
+   "q": "2013Q4",
+   "hy_oas": 4.2,
+   "sloos": -18,
+   "real_ffr": -1.2,
+   "real_m2": 4.5,
+   "rb": 0,
+   "mb": -0.48,
+   "cci": -0.48
+  },
+  {
+   "q": "2014Q1",
+   "hy_oas": 4,
+   "sloos": -18,
+   "real_ffr": -1.2,
+   "real_m2": 4.5,
+   "rb": 0,
+   "mb": -0.5,
+   "cci": -0.5
+  },
+  {
+   "q": "2014Q2",
+   "hy_oas": 3.9,
+   "sloos": -20,
+   "real_ffr": -1.5,
+   "real_m2": 3.9,
+   "rb": 0,
+   "mb": -0.55,
+   "cci": -0.55
+  },
+  {
+   "q": "2014Q3",
+   "hy_oas": 4.2,
+   "sloos": -15,
+   "real_ffr": -1.4,
+   "real_m2": 4.3,
+   "rb": 0,
+   "mb": -0.47,
+   "cci": -0.47
+  },
+  {
+   "q": "2014Q4",
+   "hy_oas": 5,
+   "sloos": -10,
+   "real_ffr": -1.4,
+   "real_m2": 4,
+   "rb": 0.2,
+   "mb": -0.32,
+   "cci": -0.52
+  },
+  {
+   "q": "2015Q1",
+   "hy_oas": 5.2,
+   "sloos": -8,
+   "real_ffr": -1.2,
+   "real_m2": 4.5,
+   "rb": 0,
+   "mb": -0.28,
+   "cci": -0.28
+  },
+  {
+   "q": "2015Q2",
+   "hy_oas": 5.5,
+   "sloos": -5,
+   "real_ffr": -1.2,
+   "real_m2": 4.2,
+   "rb": 0,
+   "mb": -0.2,
+   "cci": -0.2
+  },
+  {
+   "q": "2015Q3",
+   "hy_oas": 6.5,
+   "sloos": 5,
+   "real_ffr": -1.2,
+   "real_m2": 3.7,
+   "rb": 0,
+   "mb": 0.02,
+   "cci": 0.02
+  },
+  {
+   "q": "2015Q4",
+   "hy_oas": 7.5,
+   "sloos": 10,
+   "real_ffr": -1,
+   "real_m2": 3.7,
+   "rb": 0,
+   "mb": 0.2,
+   "cci": 0.2
+  },
+  {
+   "q": "2016Q1",
+   "hy_oas": 8,
+   "sloos": 15,
+   "real_ffr": -1,
+   "real_m2": 4.4,
+   "rb": 0,
+   "mb": 0.27,
+   "cci": 0.27
+  },
+  {
+   "q": "2016Q2",
+   "hy_oas": 6.5,
+   "sloos": 10,
+   "real_ffr": -1.2,
+   "real_m2": 4.4,
+   "rb": 0,
+   "mb": 0.04,
+   "cci": 0.04
+  },
+  {
+   "q": "2016Q3",
+   "hy_oas": 5.5,
+   "sloos": 0,
+   "real_ffr": -1.3,
+   "real_m2": 5.3,
+   "rb": 0,
+   "mb": -0.21,
+   "cci": -0.21
+  },
+  {
+   "q": "2016Q4",
+   "hy_oas": 4.8,
+   "sloos": -5,
+   "real_ffr": -1.2,
+   "real_m2": 5.1,
+   "rb": 0,
+   "mb": -0.31,
+   "cci": -0.31
+  },
+  {
+   "q": "2017Q1",
+   "hy_oas": 4.2,
+   "sloos": -10,
+   "real_ffr": -1.1,
+   "real_m2": 4.2,
+   "rb": 0,
+   "mb": -0.37,
+   "cci": -0.37
+  },
+  {
+   "q": "2017Q2",
+   "hy_oas": 4,
+   "sloos": -15,
+   "real_ffr": -0.5,
+   "real_m2": 4.3,
+   "rb": 0,
+   "mb": -0.36,
+   "cci": -0.36
+  },
+  {
+   "q": "2017Q3",
+   "hy_oas": 3.8,
+   "sloos": -15,
+   "real_ffr": -0.3,
+   "real_m2": 3.5,
+   "rb": 0,
+   "mb": -0.31,
+   "cci": -0.31
+  },
+  {
+   "q": "2017Q4",
+   "hy_oas": 3.6,
+   "sloos": -18,
+   "real_ffr": -0.2,
+   "real_m2": 3.5,
+   "rb": 0,
+   "mb": -0.35,
+   "cci": -0.35
+  },
+  {
+   "q": "2018Q1",
+   "hy_oas": 3.6,
+   "sloos": -18,
+   "real_ffr": -0.3,
+   "real_m2": 2.2,
+   "rb": 0,
+   "mb": -0.31,
+   "cci": -0.31
+  },
+  {
+   "q": "2018Q2",
+   "hy_oas": 3.7,
+   "sloos": -20,
+   "real_ffr": -0.2,
+   "real_m2": 2,
+   "rb": 0,
+   "mb": -0.29,
+   "cci": -0.29
+  },
+  {
+   "q": "2018Q3",
+   "hy_oas": 3.4,
+   "sloos": -20,
+   "real_ffr": 0,
+   "real_m2": 1.5,
+   "rb": 0,
+   "mb": -0.27,
+   "cci": -0.27
+  },
+  {
+   "q": "2018Q4",
+   "hy_oas": 4.7,
+   "sloos": -10,
+   "real_ffr": 0.3,
+   "real_m2": 1.8,
+   "rb": 0,
+   "mb": -0.01,
+   "cci": -0.01
+  },
+  {
+   "q": "2019Q1",
+   "hy_oas": 4.5,
+   "sloos": -5,
+   "real_ffr": 0.8,
+   "real_m2": 2.7,
+   "rb": 0,
+   "mb": 0.05,
+   "cci": 0.05
+  },
+  {
+   "q": "2019Q2",
+   "hy_oas": 3.8,
+   "sloos": -8,
+   "real_ffr": 0.8,
+   "real_m2": 3.9,
+   "rb": 0,
+   "mb": -0.1,
+   "cci": -0.1
+  },
+  {
+   "q": "2019Q3",
+   "hy_oas": 3.8,
+   "sloos": 0,
+   "real_ffr": 0.5,
+   "real_m2": 3.8,
+   "rb": 0,
+   "mb": -0.06,
+   "cci": -0.06
+  },
+  {
+   "q": "2019Q4",
+   "hy_oas": 3.5,
+   "sloos": 0,
+   "real_ffr": 0.1,
+   "real_m2": 5.2,
+   "rb": 0,
+   "mb": -0.21,
+   "cci": -0.21
+  },
+  {
+   "q": "2020Q1",
+   "hy_oas": 7.5,
+   "sloos": 35,
+   "real_ffr": -0.7,
+   "real_m2": 8.7,
+   "rb": 0.8,
+   "mb": 0.28,
+   "cci": -0.52
+  },
+  {
+   "q": "2020Q2",
+   "hy_oas": 7.5,
+   "sloos": 70,
+   "real_ffr": -0.8,
+   "real_m2": 22.1,
+   "rb": 1.5,
+   "mb": 0.01,
+   "cci": -1.49
+  },
+  {
+   "q": "2020Q3",
+   "hy_oas": 5.5,
+   "sloos": 25,
+   "real_ffr": -1.3,
+   "real_m2": 22.6,
+   "rb": 0.8,
+   "mb": -0.74,
+   "cci": -1.54
+  },
+  {
+   "q": "2020Q4",
+   "hy_oas": 4.5,
+   "sloos": 5,
+   "real_ffr": -1.4,
+   "real_m2": 23.5,
+   "rb": 0.5,
+   "mb": -1.1,
+   "cci": -1.6
+  },
+  {
+   "q": "2021Q1",
+   "hy_oas": 3.8,
+   "sloos": -5,
+   "real_ffr": -1.7,
+   "real_m2": 24.2,
+   "rb": 1,
+   "mb": -1.35,
+   "cci": -2.35
+  },
+  {
+   "q": "2021Q2",
+   "hy_oas": 3.4,
+   "sloos": -18,
+   "real_ffr": -3.4,
+   "real_m2": 9.5,
+   "rb": 1.5,
+   "mb": -1.1,
+   "cci": -2.6
+  },
+  {
+   "q": "2021Q3",
+   "hy_oas": 3.2,
+   "sloos": -15,
+   "real_ffr": -3.9,
+   "real_m2": 7,
+   "rb": 1.5,
+   "mb": -1.05,
+   "cci": -2.55
+  },
+  {
+   "q": "2021Q4",
+   "hy_oas": 3.1,
+   "sloos": -18,
+   "real_ffr": -4.6,
+   "real_m2": 5,
+   "rb": 2,
+   "mb": -1.1,
+   "cci": -3.1
+  },
+  {
+   "q": "2022Q1",
+   "hy_oas": 3.4,
+   "sloos": -10,
+   "real_ffr": -4.9,
+   "real_m2": 2,
+   "rb": 1.8,
+   "mb": -0.9,
+   "cci": -2.7
+  },
+  {
+   "q": "2022Q2",
+   "hy_oas": 4.7,
+   "sloos": 0,
+   "real_ffr": -3.6,
+   "real_m2": -2,
+   "rb": 1.5,
+   "mb": -0.3,
+   "cci": -1.8
+  },
+  {
+   "q": "2022Q3",
+   "hy_oas": 4.9,
+   "sloos": 24,
+   "real_ffr": -2.6,
+   "real_m2": -4.5,
+   "rb": 1,
+   "mb": 0.22,
+   "cci": -0.78
+  },
+  {
+   "q": "2022Q4",
+   "hy_oas": 4.7,
+   "sloos": 39,
+   "real_ffr": -0.7,
+   "real_m2": -6.5,
+   "rb": 0.5,
+   "mb": 0.72,
+   "cci": 0.22
+  },
+  {
+   "q": "2023Q1",
+   "hy_oas": 4.6,
+   "sloos": 45,
+   "real_ffr": -0.1,
+   "real_m2": -8,
+   "rb": 0.2,
+   "mb": 0.92,
+   "cci": 0.72
+  },
+  {
+   "q": "2023Q2",
+   "hy_oas": 4.4,
+   "sloos": 46,
+   "real_ffr": 0.5,
+   "real_m2": -8.5,
+   "rb": 0,
+   "mb": 1.02,
+   "cci": 1.02
+  },
+  {
+   "q": "2023Q3",
+   "hy_oas": 3.9,
+   "sloos": 51,
+   "real_ffr": 1.4,
+   "real_m2": -6,
+   "rb": 0,
+   "mb": 1.04,
+   "cci": 1.04
+  },
+  {
+   "q": "2023Q4",
+   "hy_oas": 3.8,
+   "sloos": 34,
+   "real_ffr": 2.1,
+   "real_m2": -4,
+   "rb": 0,
+   "mb": 0.87,
+   "cci": 0.87
+  },
+  {
+   "q": "2024Q1",
+   "hy_oas": 3.2,
+   "sloos": 15,
+   "real_ffr": 2.4,
+   "real_m2": -2.5,
+   "rb": 0,
+   "mb": 0.59,
+   "cci": 0.59
+  },
+  {
+   "q": "2024Q2",
+   "hy_oas": 3.1,
+   "sloos": 8,
+   "real_ffr": 2.7,
+   "real_m2": -1,
+   "rb": 0,
+   "mb": 0.48,
+   "cci": 0.48
+  },
+  {
+   "q": "2024Q3",
+   "hy_oas": 3.2,
+   "sloos": 8,
+   "real_ffr": 2.5,
+   "real_m2": 0.5,
+   "rb": 0,
+   "mb": 0.4,
+   "cci": 0.4
+  },
+  {
+   "q": "2024Q4",
+   "hy_oas": 2.8,
+   "sloos": 0,
+   "real_ffr": 1.8,
+   "real_m2": 1.5,
+   "rb": 0,
+   "mb": 0.13,
+   "cci": 0.13
+  },
+  {
+   "q": "2025Q1",
+   "hy_oas": 2.9,
+   "sloos": 6,
+   "real_ffr": 1.6,
+   "real_m2": 1.5,
+   "rb": 0,
+   "mb": 0.17,
+   "cci": 0.17
+  },
+  {
+   "q": "2025Q2",
+   "hy_oas": 4,
+   "sloos": 9,
+   "real_ffr": 1.7,
+   "real_m2": 2,
+   "rb": 0.3,
+   "mb": 0.3,
+   "cci": 0
+  },
+  {
+   "q": "2025Q3",
+   "hy_oas": 3,
+   "sloos": 10,
+   "real_ffr": 1.2,
+   "real_m2": 2.5,
+   "rb": 0,
+   "mb": 0.12,
+   "cci": 0.12
+  },
+  {
+   "q": "2025Q4",
+   "hy_oas": 2.8,
+   "sloos": 12,
+   "real_ffr": 0.7,
+   "real_m2": 2.5,
+   "rb": 0,
+   "mb": 0.05,
+   "cci": 0.05
+  },
+  {
+   "q": "2026Q1",
+   "hy_oas": 3.1,
+   "sloos": 10,
+   "real_ffr": 0.5,
+   "real_m2": 2,
+   "rb": 1.2,
+   "mb": 0.05,
+   "cci": -1.15
+  },
+  {
+   "q": "2026Q2",
+   "hy_oas": 2.9,
+   "sloos": 3,
+   "real_ffr": 0.33,
+   "real_m2": 2.0,
+   "rb": 1.3,
+   "mb": -0.06,
+   "cci": -1.36
+  },
+  {
+   "q": "2026Q3",
+   "hy_oas": 2.75,
+   "sloos": 3,
+   "real_ffr": 0.33,
+   "real_m2": 2.1,
+   "rb": 1.0,
+   "mb": -0.08,
+   "cci": -1.08
+  },
+  {
+   "q": "2026Q4",
+   "hy_oas": 2.9,
+   "sloos": 5,
+   "real_ffr": 0.4,
+   "real_m2": 1.8,
+   "rb": 0.9,
+   "mb": -0.02,
+   "cci": -0.92,
+   "projected": true
+  }
+ ]
 }
