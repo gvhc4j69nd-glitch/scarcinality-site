@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shape of a Breach &middot; Scarcinality</title>
+<meta name="description" content="The Credit Counterfeit Index reads minus 1.08. This is the arithmetic of what has to happen for it to reach plus 1.0, which balance sheets break first when it does, in what order the damage arrives, and how you would know afterwards whether the shortage was ever real.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Shape of a Breach &middot; Scarcinality">
+<meta property="og:description" content="No single input can breach the gauge. The 2008 and 2023 breaches share almost no profile. And the energy constraint has to clear before a monetary breach can even become visible, which makes good news on oil the precondition rather than the relief.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-shape-of-a-breach">
+<meta property="og:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Shape of a Breach &middot; Scarcinality">
+<meta name="twitter:description" content="What has to happen for the gauge to cross, what freezes first when it does, and why a 2027 breach would start from a household sector already at its ceiling rather than a healthy one.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-shape-of-a-breach">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .fig{max-width:var(--measure);margin:1.8rem 0 .4rem;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .formula{max-width:var(--measure);margin:1.4rem 0;padding:1rem 1.15rem;background:var(--parchment-deep);
+   border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.8rem;line-height:1.75;color:var(--ink);}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:10rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.3rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Instrument &middot; as of 15 August 2026</p>
+    <h1>The Shape of a Breach</h1>
+    <p class="dek">The Credit Counterfeit Index reads minus 1.08 and is drifting toward its line for reasons that have nothing to do with money. This dispatch asks the forward question instead. What exactly has to happen for the gauge to cross, what breaks first when it does, in what order the damage arrives at firms and at households, and how anyone would know afterwards whether the shortage was ever real.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">A forward reading of <a href="/dispatch-counterfeiters-gauge">the Counterfeiter&rsquo;s Gauge</a> rather than a quarterly update to it. The scenarios below are arithmetic run through the published definition, not forecasts, and the index does not predict the Federal Reserve, the Strait, or the price of oil. Conditional, falsifiable, not investment advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">The gauge is a subtraction. Monetary Bind minus Real Bind, breach at plus 1.0. The Monetary Bind is the average of four standardised inputs, which means a breach with no real shortage present requires those four to sum to plus 4.00. Today they sum to minus 0.32. That gap of 4.32 is the whole subject, and the useful thing about an instrument with a published definition is that the gap can be decomposed rather than described.</p>
+
+    <h2>No single thing can do it</h2>
+
+    <p>Start by asking what each input would have to do on its own, holding the other three where they sit today. The answers are worth listing because they are all absurd, and the absurdity is the design working.</p>
+
+    <div class="formula">
+      To breach on one input alone, from today&rsquo;s levels:<br><br>
+      high-yield spread &nbsp;&nbsp;&nbsp;&nbsp;2.75%&nbsp; &rarr; &nbsp;13.5%<br>
+      banks tightening &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 net &rarr; &nbsp;108 net &nbsp;(the scale stops at 100)<br>
+      real policy rate &nbsp;&nbsp;&nbsp;0.33% &rarr; &nbsp;7.8%<br>
+      real money growth &nbsp;&nbsp;2.1% &rarr; &nbsp;minus 21.7%
+    </div>
+
+    <p>One of those is arithmetically impossible and the other three are outside anything seen in the modern series. That is deliberate. A gauge that could be tripped by one market misbehaving would have called the 2015 and 2016 energy credit stress, when high-yield spreads touched eight percent, and it correctly declined to. Counterfeiting is a claim about the whole ordering of money, so the instrument requires the whole ordering to be restrictive at once.</p>
+
+    <h2>The two breaches share almost nothing</h2>
+
+    <p>Here is the part that should change how anyone reads a warning. The gauge has breached twice in eighty-four quarters, and if you did not know they came from the same instrument you would not guess the two episodes were related.</p>
+
+
+  </article>
+
+  <figure class="fig">
+    <svg viewBox="0 0 720 372" role="img" aria-label="Z-score profiles of the 2008 and 2023 breach quarters against today, showing the four inputs must sum to plus four for a breach">
+      <text x="14" y="18" font-size="10.5" fill="#8a8073" font-family="IBM Plex Mono, monospace">TWO BREACHES, TWO DIFFERENT DISEASES, AND WHERE THE GAUGE SITS NOW</text>
+      <line x1="40" y1="250" x2="700" y2="250" stroke="#211d18" stroke-width="1"/>
+      <line x1="40" y1="213" x2="700" y2="213" stroke="#ddd3c2" stroke-width=".7" stroke-dasharray="2 3"/>
+      <text x="34" y="216" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">+1</text>
+      <line x1="40" y1="176" x2="700" y2="176" stroke="#ddd3c2" stroke-width=".7" stroke-dasharray="2 3"/>
+      <text x="34" y="179" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">+2</text>
+      <line x1="40" y1="139" x2="700" y2="139" stroke="#ddd3c2" stroke-width=".7" stroke-dasharray="2 3"/>
+      <text x="34" y="142" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">+3</text>
+      <line x1="40" y1="102" x2="700" y2="102" stroke="#ddd3c2" stroke-width=".7" stroke-dasharray="2 3"/>
+      <text x="34" y="105" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">+4</text>
+      <text x="34" y="253" text-anchor="end" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">0</text>
+      <rect x="88" y="79" width="30" height="171" fill="#8a3324" opacity="0.95"/>
+      <text x="103" y="75" text-anchor="middle" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">+4.6</text>
+      <rect x="124" y="138" width="30" height="112" fill="#7a5a18" opacity="0.95"/>
+      <text x="139" y="134" text-anchor="middle" font-size="8.5" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">+3.0</text>
+      <rect x="160" y="250" width="30" height="16" fill="#2f5670" opacity="0.95"/>
+      <text x="175" y="277" text-anchor="middle" font-size="8.5" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">-0.4</text>
+      <rect x="196" y="250" width="30" height="27" fill="#6d4a6a" opacity="0.95"/>
+      <text x="211" y="288" text-anchor="middle" font-size="8.5" fill="#6d4a6a" font-family="IBM Plex Mono, monospace" font-weight="600">-0.7</text>
+      <text x="160" y="310" text-anchor="middle" font-size="12" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">2008Q4</text>
+      <text x="160" y="324" text-anchor="middle" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">the price of credit</text>
+      <text x="160" y="340" text-anchor="middle" font-size="9.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">sum +6.51</text>
+      <rect x="298" y="250" width="30" height="9" fill="#8a3324" opacity="0.95"/>
+      <text x="313" y="270" text-anchor="middle" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">-0.3</text>
+      <rect x="334" y="190" width="30" height="60" fill="#7a5a18" opacity="0.95"/>
+      <text x="349" y="186" text-anchor="middle" font-size="8.5" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">+1.6</text>
+      <rect x="370" y="232" width="30" height="18" fill="#2f5670" opacity="0.95"/>
+      <text x="385" y="228" text-anchor="middle" font-size="8.5" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">+0.5</text>
+      <rect x="406" y="167" width="30" height="83" fill="#6d4a6a" opacity="0.95"/>
+      <text x="421" y="163" text-anchor="middle" font-size="8.5" fill="#6d4a6a" font-family="IBM Plex Mono, monospace" font-weight="600">+2.3</text>
+      <text x="370" y="310" text-anchor="middle" font-size="12" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">2023Q2</text>
+      <text x="370" y="324" text-anchor="middle" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">the quantity of money</text>
+      <text x="370" y="340" text-anchor="middle" font-size="9.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">sum +4.13</text>
+      <rect x="508" y="250" width="30" height="34" fill="#8a3324" opacity="0.45"/>
+      <text x="523" y="295" text-anchor="middle" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">-0.9</text>
+      <rect x="544" y="250" width="30" height="5" fill="#7a5a18" opacity="0.45"/>
+      <text x="559" y="266" text-anchor="middle" font-size="8.5" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">-0.1</text>
+      <rect x="580" y="235" width="30" height="15" fill="#2f5670" opacity="0.45"/>
+      <text x="595" y="231" text-anchor="middle" font-size="8.5" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">+0.4</text>
+      <rect x="616" y="238" width="30" height="12" fill="#6d4a6a" opacity="0.45"/>
+      <text x="631" y="234" text-anchor="middle" font-size="8.5" fill="#6d4a6a" font-family="IBM Plex Mono, monospace" font-weight="600">+0.3</text>
+      <text x="580" y="310" text-anchor="middle" font-size="12" fill="#211d18" font-family="EB Garamond, serif" font-weight="600">2026Q3</text>
+      <text x="580" y="324" text-anchor="middle" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">today</text>
+      <text x="580" y="340" text-anchor="middle" font-size="9.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">sum -0.32</text>
+      <text x="700" y="46" text-anchor="end" font-size="9.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">a breach needs the four to sum to +4.00</text>
+      <rect x="40" y="354" width="10" height="10" fill="#8a3324"/><text x="55" y="363" font-size="9" fill="#4a453c" font-family="IBM Plex Mono, monospace">HY spread</text>
+      <rect x="208" y="354" width="10" height="10" fill="#7a5a18"/><text x="223" y="363" font-size="9" fill="#4a453c" font-family="IBM Plex Mono, monospace">bank tightening</text>
+      <rect x="376" y="354" width="10" height="10" fill="#2f5670"/><text x="391" y="363" font-size="9" fill="#4a453c" font-family="IBM Plex Mono, monospace">real policy rate</text>
+      <rect x="544" y="354" width="10" height="10" fill="#6d4a6a"/><text x="559" y="363" font-size="9" fill="#4a453c" font-family="IBM Plex Mono, monospace">money contraction</text>
+    </svg>
+    <figcaption>Each bar is one input expressed in standard deviations from its 2006 to 2026 mean. In 2008 the high-yield spread alone contributed 4.63 while policy was easing and money was growing. In 2023 the spread was below its own average and the money contraction carried the reading. Same index, same threshold, opposite signatures. Sources: the published CCI series, inputs from ICE BofA, the Federal Reserve Senior Loan Officer Opinion Survey, Fed H.6 and H.15, and BEA core PCE.</figcaption>
+  </figure>
+
+  <article class="prose">
+
+    <p>In the fourth quarter of 2008 the high-yield spread sat 4.63 standard deviations above its mean and bank tightening 3.03 above. The real policy rate was <em>negative</em>, at minus 1.1 percent, and real money growth was <em>positive</em> at nearly 8 percent. The Federal Reserve was easing as hard as it could and flooding the system, and the index still breached, because the price of credit in the market had detached from anything the policy rate could reach.</p>
+
+    <p>In the second quarter of 2023 the high-yield spread was 0.25 standard deviations <em>below</em> its mean. Credit looked calm. What carried that breach was money contracting at 8.5 percent in real terms, a reading 2.25 deviations above the mean of that input, alongside banks tightening. Nothing in the credit market was screaming. The quantity of money was.</p>
+
+    <p class="pull">One breach was the price of credit with policy easing. The other was the quantity of money with spreads asleep. Anyone waiting for the next breach to look like the last one will be looking at the wrong instrument panel.</p>
+
+    <h2>The paths that actually reach the line</h2>
+
+    <p>Run plausible combinations through the same definition and three shapes emerge. These are illustrations of the arithmetic, not predictions, and each assumes the Real Bind has gone to zero.</p>
+
+    <div class="formula">
+      <strong>A credit event.</strong> HY 8.0, banks 45 net, real rate 1.5, real M2 minus 1.0<br>
+      &nbsp;&nbsp;&rarr; Monetary Bind +1.19 &nbsp;&nbsp;<strong>breach</strong><br><br>
+      <strong>A policy-led restriction.</strong> HY 5.5, banks 30 net, real rate 3.5, real M2 0<br>
+      &nbsp;&nbsp;&rarr; Monetary Bind +1.02 &nbsp;&nbsp;<strong>breach</strong><br><br>
+      <strong>A capital-expenditure unwind alone.</strong> HY 7.0, banks 40 net, real rate 1.0, real M2 +0.5<br>
+      &nbsp;&nbsp;&rarr; Monetary Bind +0.90 &nbsp;&nbsp;<em>falls short</em>
+    </div>
+
+    <p>The third one is the interesting failure. Take the most discussed tail risk in the market, an unwind of the data-centre financing stack, and give it a serious credit event: spreads at seven percent, four banks in ten tightening. On its own it does not breach, because the quantity of money keeps growing and the policy rate stays low. It needs a companion. Either the central bank is tightening into it, or money is contracting alongside it, or it is not a system-wide counterfeit by this instrument&rsquo;s definition. That is a useful discipline against reading every large credit accident as the same event.</p>
+
+    <h2>The precondition almost nobody would name</h2>
+
+    <p>Now add back the Real Bind, which currently reads 1.0 and is easing slowly as the Strait of Hormuz stays contested and the Energy Information Administration expects disrupted supply into 2027.</p>
+
+    <div class="formula">
+      With a residual Real Bind of 0.5, the same three paths read:<br><br>
+      &nbsp;&nbsp;credit event &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+0.69<br>
+      &nbsp;&nbsp;policy-led &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+0.52<br>
+      &nbsp;&nbsp;capex unwind &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+0.40<br><br>
+      None of them breach. The energy constraint has to clear first.
+    </div>
+
+    <p>This produces a conclusion the framework did not go looking for and should state plainly, because it inverts the ordinary reading of the news. While a genuine physical shortage is present, the gauge cannot register a counterfeit, and it should not, since a monetary bind during a real shortage is the system responding to reality. Which means the Strait reopening is the <em>precondition</em> for a visible breach, not the relief from one.</p>
+
+    <p class="pull">Good news on oil is what would make a monetary counterfeit legible. The framework&rsquo;s worst configuration is not a war. It is the quiet after one, with the money settings never having been loosened.</p>
+
+    <h2>What breaks, and in what order</h2>
+
+    <p>Section IX of the treatise ranks goods by their depth in the credit gradient, and the ordering it implies is also the ordering of a breach. The damage does not arrive everywhere at once. It arrives fastest where the transaction is most nearly a credit transaction.</p>
+
+    <p><strong>First, within weeks, the balance sheet that repriced most recently.</strong> In 2008 it was interbank funding and anything holding mortgage paper. In 2023 it was banks holding long duration bought at low yields, and three of them failed inside a system whose total deposits were ample. The 2026 candidate is not a secret: roughly $4.1 trillion of estimated financing behind the data-centre build-out, more than $800 billion of it circular, with vendors funding their own customers, and the Bank for International Settlements naming it among the three largest risks to global stability. Whatever repriced last is what breaks first, because it has had the least time to earn its way out.</p>
+
+    <p><strong>Second, within a quarter, the borrowers with no capital-market alternative.</strong> Large firms issue bonds. Small firms call a bank. When lending standards tighten, the second group is denied and the first group is merely repriced, which is why <a href="/profits-bankruptcies">the profits and failures divergence</a> widens in exactly these episodes with no aggregate able to explain it.</p>
+
+    <p><strong>Third, within two to three quarters, the transactions that are purchases of credit rather than purchases of goods.</strong> Housing first. The 2023 breach froze existing-home sales toward their lowest level since 1995 while the physical housing stock per person did not change at all. The setup for a repeat is already loaded: roughly 80 percent of outstanding mortgages sit below the market rate, and sales run near 4.09 million against a population that wants houses that already exist.</p>
+
+    <p><strong>Fourth, and this is the layer the previous breaches did not have to contend with, volume at the bottom of the distribution.</strong> <a href="/dispatch-toilet-paper-theory">The Toilet Paper Theory</a> says a household at its necessity ceiling cannot absorb a further squeeze by consuming less of something optional, because it has already done that. It absorbs by going without. And <a href="/dispatch-hours-ceiling">the hours ceiling</a> says it cannot absorb by working more either, since average weekly hours have not moved in twenty years.</p>
+
+    <h2>Why a 2027 breach would not resemble 2023</h2>
+
+    <p>The 2023 breach began from a household sector in decent condition. A breach from here would not, and this is the single most important difference between the last episode and the next one.</p>
+
+    <p>Subprime auto delinquency has already posted a thirty-two year record. In the second quarter of 2026 the share of auto loans entering serious delinquency rose to 3.0 percent and mortgages entering serious delinquency rose from 1.29 to 1.52 percent, an increase of nearly a fifth in relative terms, while the aggregate delinquency rate improved slightly. Households are carrying $18.8 trillion of debt. On top of that sits an effective tariff rate of 11.8 percent, the highest since the early 1940s, which is <a href="/dispatch-tariff-trap">a consumption tax on goods</a> that the bottom decile pays partly in foregone volume rather than in dollars.</p>
+
+    <p>So the starting condition is a household sector that has already spent its adjustment margin, in an economy where the instruments cannot see that it has. A breach arriving on that base would produce less visible aggregate damage and more invisible distributional damage than 2023 did, which is the fifth-instance problem stated as a forecast rather than as a retrospective.</p>
+
+    <h2>The tell that decides whether it was counterfeit</h2>
+
+    <p>Everything above is mechanism. The framework&rsquo;s actual claim is narrower and it is testable after the fact, which is the only reason to publish it in advance.</p>
+
+    <p>If the gauge breaches and the shortages that follow resolve when the money is reordered, with nothing having been built, then the shortage was counterfeit and the treatise is describing something real. That is what happened in 2023: bank funding stress eased and lending standards loosened as rates fell through 2024 and 2025, the housing lock-in unwound more slowly, and at no point was the relief produced by adding housing stock or capacity. It is also what happened in 2009.</p>
+
+    <p>If instead the shortages persist after the monetary bind releases, and only resolve when physical capacity is added, then the scarcity was real and the framework has misread it. <a href="/dispatch-appropriation-is-not-capacity">The munitions case</a> is what that looks like, and the framework got that one wrong on its default reading, which is the reason for stating the test rather than assuming the answer.</p>
+
+    <h2>The claims</h2>
+
+  </article>
+
+  <div class="statgrid">
+    <div><div class="sv" style="color:#8a3324;">4.32</div><div class="sl">The gap, in summed standard deviations, between today&rsquo;s four inputs and a breach with no real shortage present.</div></div>
+    <div><div class="sv" style="color:#2f5670;">+4.63 vs &minus;0.25</div><div class="sl">High-yield spread contribution in the 2008 breach against the 2023 breach. The same index, opposite signatures.</div></div>
+    <div><div class="sv" style="color:#7a5a18;">+0.90</div><div class="sl">A serious data-centre credit unwind, on its own, against a threshold of +1.0. It needs a monetary companion to breach.</div></div>
+    <div><div class="sv" style="color:#6d4a6a;">0.5</div><div class="sl">The residual Real Bind at which none of the three paths breach. The energy constraint has to clear before a counterfeit becomes visible.</div></div>
+  </div>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>Claim</th><th>Measured by</th><th>Falsified if</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">A breach requires broad restriction, not one stressed market</td>
+          <td class="r">The four inputs at any future breach quarter, read individually.</td>
+          <td class="r">The index breaches on a single input moving while the other three sit at or below their means.</td>
+          <td class="num">next breach</td>
+        </tr>
+        <tr>
+          <td class="k">The next breach need not resemble either prior one</td>
+          <td class="r">The z-score profile of the next breach against the 2008 and 2023 profiles.</td>
+          <td class="r">The next breach reproduces one of the two prior signatures closely, suggesting a single recurring mechanism.</td>
+          <td class="num">next breach</td>
+        </tr>
+        <tr>
+          <td class="k">A real bind suppresses the reading until it clears</td>
+          <td class="r">The Real Bind series against the index in the quarters before any breach.</td>
+          <td class="r">The index breaches while a genuine physical shortage of comparable intensity is still present.</td>
+          <td class="num">next breach</td>
+        </tr>
+        <tr>
+          <td class="k">Damage arrives in credit-gradient order</td>
+          <td class="r">Timing of stress across recently repriced balance sheets, small-firm credit, housing transactions, and necessity volume.</td>
+          <td class="r">Housing or necessity volume turns before the most recently repriced balance sheet shows stress.</td>
+          <td class="num">next breach</td>
+        </tr>
+        <tr>
+          <td class="k">A breach from here lands harder on the bottom than 2023 did</td>
+          <td class="r">Distributional stress measures against aggregate measures, compared with the same pair in 2023.</td>
+          <td class="r">Distributional and aggregate measures deteriorate together in similar proportion to 2023.</td>
+          <td class="num">next breach</td>
+        </tr>
+        <tr>
+          <td class="k">Resolution without construction proves the counterfeit</td>
+          <td class="r">Whether post-breach shortages ease on monetary reordering or only on added physical capacity.</td>
+          <td class="r">Shortages persist through a full monetary easing and resolve only when capacity is added.</td>
+          <td class="num">next cycle</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+
+    <p style="margin-top:1.6rem;">Three caveats, in descending order of how much they should bother a reader. The scenarios above are arithmetic, not probabilities: running a definition forward tells you what a breach would have to consist of, and says nothing whatever about whether one is coming. The Real Bind is a published judgment series rather than a measured one, so the claim that a residual bind of 0.5 blocks a breach is only as good as that judgment, and it is the input most open to challenge. And the gauge has breached twice in twenty years, which is a sample of two, so every statement here about what breaches have in common rests on a base too small to carry much weight.</p>
+
+    <p>What survives those caveats is the narrow thing. The index sits at minus 1.08, the distance to its line is 4.32 summed deviations, no single input can cover that distance, the last two crossings looked nothing alike, and the energy constraint currently holding the reading down is also the thing that would have to lift before a monetary counterfeit could be seen at all. None of that is a forecast. It is a map of what would have to be true, published before the fact so that if it happens, nobody has to take anyone&rsquo;s word for what was expected.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts, and not investment advice.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/like.js" defer></script>
+</body>
+</html>
