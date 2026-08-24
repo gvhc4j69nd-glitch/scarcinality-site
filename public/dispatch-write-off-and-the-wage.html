@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Write-Off and the Wage &middot; Scarcinality</title>
+<meta name="description" content="Most of what is called a hospital write-off is not a tax deduction, and a cash-basis physician gets no deduction at all. The real fiscal cost of medical debt is not in the write-off column. It is in the twenty percent earnings decline that follows a hospital admission, which no tax form records.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="The Write-Off and the Wage &middot; Scarcinality">
+<meta property="og:description" content="Twenty years of argument about what share of bankruptcies are medical, 62 percent against 4 percent, and both sides are counting bankruptcies. The same study that deflated the number found earnings down 20 percent and employment down 11 percent.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-write-off-and-the-wage">
+<meta property="og:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Write-Off and the Wage &middot; Scarcinality">
+<meta name="twitter:description" content="Emergency care is the one necessity delivered whether or not you can pay. So the shortfall does not show up as volume forgone. It shows up as a claim on the household, and then as a hole in the tax base.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/phaseplane.svg">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-write-off-and-the-wage">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .fig{max-width:var(--measure);margin:1.8rem 0 .4rem;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .formula{max-width:var(--measure);margin:1.4rem 0;padding:1rem 1.15rem;background:var(--parchment-deep);
+   border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.8rem;line-height:1.75;color:var(--ink);}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:10rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:15rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  .chan{max-width:var(--measure);margin:1.4rem 0;border:1px solid var(--rule);}
+  .chan div{padding:.75rem .95rem;border-bottom:1px solid var(--rule);}
+  .chan div:last-child{border-bottom:none;}
+  .chan .w{font-family:var(--serif);font-weight:600;font-size:1rem;color:var(--ink);}
+  .chan .t{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.55;margin-top:.2rem;display:block;}
+  .chan .c{font-family:var(--mono);font-size:.72rem;color:var(--oxblood);font-weight:600;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.3rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Themed reading &middot; as of 24 August 2026</p>
+    <h1>The Write-Off and the Wage</h1>
+    <p class="dek">The usual account of medical debt has hospitals writing off unpaid bills, deducting them, and passing the cost to the Treasury. Most of that is not what happens. A cash-basis physician deducts nothing, because there was never any income to deduct. What the write-off column does hide is a much larger number that appears on no tax form at all.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">A themed reading against the <a href="/treatise">treatise</a>, extending <a href="/dispatch-counterfeit-shortage-of-care">the counterfeit shortage of care</a> into the fiscal accounts and applying <a href="/dispatch-toilet-paper-theory">the Toilet Paper Theory</a> to the one necessity that is delivered whether or not the household can pay for it. Conditional, falsifiable, not tax or medical advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">Begin by correcting the mechanism, because the popular version of it is wrong in a way that matters. An unpaid medical bill does not travel down a single road with a tax deduction at the end of it. It travels down four, and the amount of federal revenue involved is different at the end of each one, and at the end of the first one it is nothing at all.</p>
+
+    <div class="chan">
+      <div><span class="w">A cash-basis physician practice</span>
+        <span class="t">Never recognized the income, so there is nothing to deduct. The unpaid bill is a loss to the practice and costs the Treasury exactly zero. This is the largest single misunderstanding in the popular account.</span>
+        <span class="c">Federal cost: none</span></div>
+      <div><span class="w">A for-profit hospital on accrual</span>
+        <span class="t">Since the 2014 revenue standard, most uncollectible patient balances are booked as an implicit price concession, which is a reduction of revenue rather than a bad-debt deduction. Taxable income is lower either way, but the state is declining to tax money that was never received rather than granting a subsidy.</span>
+        <span class="c">Federal cost: forgone tax on income never collected</span></div>
+      <div><span class="w">A nonprofit hospital</span>
+        <span class="t">Pays no income tax regardless, and counts financial assistance toward the community benefit that justifies the exemption. This is the one channel that is a genuine tax expenditure, and it is the one least often described as a write-off.</span>
+        <span class="c">Federal cost: $13.2 billion in 2022, about $28 billion including state and local</span></div>
+      <div><span class="w">Medicare bad debt</span>
+        <span class="t">Not a tax item at all. Medicare reimburses providers for unpaid deductibles and coinsurance on covered services, after a statutory reduction of 35 percent, which is to say it pays 65 cents of an allowable dollar in cash.</span>
+        <span class="c">Federal cost: a direct outlay, not a deduction</span></div>
+    </div>
+
+    <p>So the honest summary is that the write-off channel is real but small and largely misdescribed. The exemption is the genuine tax expenditure, and its size is contested: the hospital industry&rsquo;s own commissioned analysis puts federal revenue forgone at $13.2 billion in 2022 against $149 billion of claimed community benefit, a ratio of eleven to one, while the Lown Institute finds more than 1,900 nonprofit hospitals whose tax breaks exceed their community spending, a combined shortfall of $25.7 billion in 2021. Both numbers cannot be right and this dispatch does not adjudicate between them, because the argument they are having is not where the money is.</p>
+
+    <h2>Twenty years of counting the wrong thing</h2>
+
+    <p>The debate about medical bankruptcy is one of the most-cited disputes in health economics and one of the least useful, because both sides are measuring the same narrow quantity.</p>
+
+    <p>Himmelstein and colleagues, working from surveys of people who had already filed, put the medical share of personal bankruptcies at about 62 percent. Dobkin, Finkelstein, Kluender and Notowidigdo, working from California hospital records matched to credit reports and looking at what changed after an admission rather than what filers said afterward, put the share <em>caused</em> by hospitalization at about 4 percent among nonelderly adults. That is a fifteenfold disagreement, it has run for the better part of two decades, and the methodological criticism is largely right: asking bankrupt people why they went bankrupt does not establish causation.</p>
+
+    <p>None of which matters much, because the same 2018 paper that deflated the bankruptcy number contains a finding an order of magnitude more important, and almost nobody quotes it.</p>
+
+  </article>
+
+  <figure class="fig">
+    <svg viewBox="0 0 720 352" role="img" aria-label="Two panels contrasting the contested share of bankruptcies attributed to medical causes with the twenty percent earnings decline and eleven percent employment decline found after hospital admission">
+      <text x="14" y="18" font-size="10.5" fill="#8a8073" font-family="IBM Plex Mono, monospace">THE ARGUMENT IS ABOUT THE FIRST PANEL. THE MONEY IS IN THE SECOND.</text>
+      <text x="14" y="50" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">WHAT TWENTY YEARS OF DEBATE HAS COUNTED: SHARE OF BANKRUPTCIES CALLED MEDICAL</text>
+      <line x1="200" y1="128" x2="660" y2="128" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="190" y="76" text-anchor="end" font-size="10" fill="#211d18" font-family="EB Garamond, serif">Himmelstein 2009</text>
+      <rect x="200" y="64" width="285" height="17" fill="#8a3324" opacity=".45"/>
+      <text x="493" y="77" font-size="10" fill="#8a3324" font-family="IBM Plex Mono, monospace">62% by survey self-report</text>
+      <text x="190" y="110" text-anchor="end" font-size="10" fill="#211d18" font-family="EB Garamond, serif">Dobkin 2018</text>
+      <rect x="200" y="98" width="18" height="17" fill="#8a3324"/>
+      <text x="226" y="111" font-size="10" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">4% caused, by credit records</text>
+      <text x="200" y="148" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">A fifteenfold disagreement about one number, and both sides are counting bankruptcies.</text>
+      <text x="14" y="196" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">WHAT THE SAME 2018 STUDY ALSO FOUND, AGES 50 TO 59, AFTER ADMISSION</text>
+      <line x1="200" y1="284" x2="660" y2="284" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="190" y="228" text-anchor="end" font-size="10" fill="#211d18" font-family="EB Garamond, serif">earnings</text>
+      <rect x="200" y="216" width="368" height="17" fill="#2f5670"/>
+      <text x="576" y="229" font-size="10" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">down 20%</text>
+      <text x="190" y="262" text-anchor="end" font-size="10" fill="#211d18" font-family="EB Garamond, serif">employment</text>
+      <rect x="200" y="250" width="202" height="17" fill="#2f5670"/>
+      <text x="410" y="263" font-size="10" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">down 11%</text>
+      <text x="200" y="304" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Roughly 17 million adults aged 18 to 64 are hospitalized each year.</text>
+      <line x1="14" y1="322" x2="700" y2="322" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="14" y="340" font-size="9.5" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">Bankruptcy is the visible tail. The earnings loss is the distribution, and no tax form records it.</text>
+    </svg>
+    <figcaption>The bankruptcy share is contested by a factor of fifteen and is the smaller quantity either way. For adults aged 50 to 59, a hospital admission was followed by a 20 percent decline in earnings and an 11 percent decline in employment. Roughly 17 million adults aged 18 to 64 are hospitalized each year. Sources: Himmelstein et al. 2009; Dobkin, Finkelstein, Kluender and Notowidigdo, American Economic Review 2018 and NEJM 2018; HCUP.</figcaption>
+  </figure>
+
+  <article class="prose">
+
+    <p>Earnings down 20 percent. Employment down 11 percent. For people in their fifties, admitted once, insured. Bankruptcy is the visible tail of that distribution, which is precisely why it is the thing everyone counts: it generates a court filing. The earnings decline generates no document anywhere, and it is where nearly all of the economic damage lives.</p>
+
+    <div class="pull">A bankruptcy produces a record. A person who quietly earns a fifth less for the rest of their working life produces nothing but a smaller W-2, and there is no office anywhere in the federal government whose job is to notice that.</div>
+
+    <p>This is the sixth time this framework has run into the same defect, and the pattern is now the finding rather than an aside. The gauge could not see subprime. The aggregates could not reconcile profits with small-firm failure. The survey of who goes without is being discontinued. Unemployment cannot register a person holding two jobs to cover one rent. Tariff incidence tables report the smallest burden for households priced out entirely. And here the entire literature argues about the one medical-hardship outcome that files paperwork.</p>
+
+    <h2>What the earnings channel is worth to the Treasury</h2>
+
+    <p>The arithmetic below is this dispatch&rsquo;s own construction rather than a sourced figure, and it is offered as an order of magnitude with every input exposed so that a reader who dislikes an assumption can move it.</p>
+
+    <div class="formula">
+      17.0 million hospitalizations a year, adults 18 to 64<br>
+      &times; 60 percent employed before admission &nbsp;=&nbsp; 10.2 million<br>
+      &times; share with a sustained earnings effect &nbsp;(10 to 30 percent)<br>
+      &times; average earnings loss &nbsp;(5 to 20 percent of $62,000)<br>
+      &times; 25 percent federal income and payroll take<br><br>
+      &rarr; &nbsp;$0.8 billion to $9.5 billion a year, per annual cohort
+    </div>
+
+    <p>Two things about that range. It looks smaller than the $13.2 billion exemption, and on a single-year view it is. But it is a cohort figure, and the earnings effect persists for years after the admission, so each year adds a new cohort on top of the ones still impaired. If the average effect runs five years, the standing annual loss is roughly $4 billion to $47 billion, which brackets the entire exemption and may exceed it several times over.</p>
+
+    <p>And it is conservative in three ways that all run the same direction. It counts only federal income and payroll tax, not state income tax, not sales tax on the consumption that no longer happens. It excludes everyone over 64, where admissions are most frequent. And it excludes the household&rsquo;s unpaid caregivers, whose own earnings fall without any of them ever being admitted to anything.</p>
+
+    <h2>Why healthcare breaks the Toilet Paper Theory&rsquo;s usual pattern</h2>
+
+    <p>The Toilet Paper Theory says a household at its necessity ceiling absorbs a squeeze by going without, and that the going-without is invisible because a purchase that does not happen leaves no record. Healthcare is the one necessity where that is only half true, and the exception is instructive.</p>
+
+    <p>Two different things are being bought under one word. Preventive and elective care behaves exactly as the theory predicts: the household defers the physical, skips the specialist, splits the pills, and the volume simply falls. But emergency care is delivered by law regardless of ability to pay. The ambulance arrives, the operation happens, and the household consumes care it cannot possibly finance.</p>
+
+    <div class="formula">
+      Ordinary necessity: &nbsp;cannot pay &rarr; does not consume &rarr; volume falls, silently<br>
+      Emergency care: &nbsp;&nbsp;&nbsp;&nbsp;cannot pay &rarr; <em>consumes anyway</em> &rarr; a claim is created<br><br>
+      The shortfall does not vanish into forgone volume.<br>
+      It is converted into a debt, and the debt is attached to a person.
+    </div>
+
+    <p>That conversion is the whole subject of this dispatch. In every other necessity the household&rsquo;s inability to pay destroys demand. Here it manufactures a liability. Roughly 41 percent of American adults carry medical or dental debt, something on the order of 100 million people, against a total outstanding near $220 billion. That stock is not a measure of care consumed. It is a measure of the gap between care delivered and income available, crystallized into an instrument.</p>
+
+    <p>And because the deferred preventive care and the unavoidable emergency care are the same system, the first reliably produces the second. A household that skips the physical for four years does not avoid the cost. It moves the cost to a later, larger, more acute, and entirely uninsurable moment.</p>
+
+    <h2>The loop</h2>
+
+    <p>Section VII of the treatise is the engine of this dispatch, and here it closes into a circle that is worth setting out in order.</p>
+
+    <p>A monetary scarcity presses on a household. Because the treatise&rsquo;s counterfeit is a shortage of claims rather than of things, nothing real has run out: the hospital exists, the physicians exist, the drugs exist, and <a href="/dispatch-counterfeit-shortage-of-care">the earlier dispatch</a> found no physical shortage preventing universal coverage. The household consumes the care anyway because the law requires the care be given, and the shortfall becomes a debt. The debt, and the illness that caused it, cut the household&rsquo;s earnings by something like a fifth. The earnings cut reduces income and payroll tax receipts, permanently, which reduces the fiscal capacity of the state. And the reduced fiscal capacity of the state is the reason given, in the next budget cycle, for why universal coverage cannot be afforded.</p>
+
+    <div class="pull">The counterfeit shortage of money destroys the tax base that would have paid to end the counterfeit. That is not a metaphor about vicious cycles. It is an accounting identity with a lag.</div>
+
+    <p>The distributional signature is the one the framework keeps finding. The care is delivered to households at the bottom, the debt is attached to those households, the exemption benefits institutions whose surpluses accrue upward, and the fiscal loss is borne by everyone through a smaller tax base. Nobody in the chain behaves badly. The hospital is required to treat and cannot collect. The physician is out of pocket with no deduction. The patient consumed something they genuinely needed. And the aggregate result is a transfer that no participant chose and no statistic reports.</p>
+
+    <h2>The claims</h2>
+
+  </article>
+
+  <div class="statgrid">
+    <div><div class="sv" style="color:#2f5670;">20% and 11%</div><div class="sl">Decline in earnings and in employment following a hospital admission, ages 50 to 59, in the study best known for shrinking the bankruptcy number.</div></div>
+    <div><div class="sv" style="color:#8a3324;">62% vs 4%</div><div class="sl">The contested medical share of personal bankruptcies. A fifteenfold disagreement about the smaller quantity.</div></div>
+    <div><div class="sv" style="color:#7a5a18;">$13.2B</div><div class="sl">Federal tax revenue forgone through the nonprofit hospital exemption in 2022, about $28 billion including state and local.</div></div>
+    <div><div class="sv" style="color:#6d4a6a;">$220B</div><div class="sl">Total American medical debt outstanding, carried by roughly 41 percent of adults. A measure of the gap between care delivered and income available.</div></div>
+  </div>
+
+  <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>Claim</th><th>Measured by</th><th>Falsified if</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">The write-off channel is smaller than the earnings channel</td>
+          <td class="r">Forgone federal revenue from provider tax treatment against forgone income and payroll tax from post-admission earnings decline.</td>
+          <td class="r">A full accounting finds provider-side tax effects exceed the household earnings effect on a standing-stock basis.</td>
+          <td class="num">by 2031</td>
+        </tr>
+        <tr>
+          <td class="k">Emergency care converts inability to pay into debt rather than into forgone volume</td>
+          <td class="r">Emergency admission volumes by income decile against elective and preventive volumes by the same deciles.</td>
+          <td class="r">Emergency volumes fall with income in the same proportion as elective volumes, meaning the household is deterred equally from both.</td>
+          <td class="num">testable now</td>
+        </tr>
+        <tr>
+          <td class="k">Deferred prevention raises later acute cost rather than avoiding it</td>
+          <td class="r">Acute admission rates and costs among cohorts with documented gaps in preventive care.</td>
+          <td class="r">Cohorts that defer preventive care show no elevated acute cost once baseline health is controlled for.</td>
+          <td class="num">by 2031</td>
+        </tr>
+        <tr>
+          <td class="k">The fiscal loop is real: medical hardship shrinks the tax base</td>
+          <td class="r">Longitudinal tax receipts from cohorts with major medical events against matched cohorts without.</td>
+          <td class="r">Exposed cohorts converge on unexposed tax contribution within a few years of the event.</td>
+          <td class="num">generational</td>
+        </tr>
+        <tr>
+          <td class="k">The literature measures the outcome that files paperwork</td>
+          <td class="r">Volume of published research on medical bankruptcy against research on post-admission earnings trajectories.</td>
+          <td class="r">The earnings literature is comparable in size and prominence to the bankruptcy literature.</td>
+          <td class="num">standing</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="prose">
+
+    <p style="margin-top:1.6rem;">Three caveats, and the first is about this dispatch&rsquo;s own premise. The question that prompted it assumed that provider write-offs are the main fiscal channel, and the research does not support that. A cash-basis practice deducts nothing; an accrual hospital mostly records a revenue reduction rather than a deduction; the genuine tax expenditure is the exemption, which is a separate argument with its own contested numbers. Saying so plainly seemed better than writing the dispatch that had been expected.</p>
+
+    <p>Second, the Treasury arithmetic in the middle of this piece is a construction, not a measurement, and it is built on a persistence assumption that nobody has estimated cleanly. Treat the range as an argument about order of magnitude and about which column is larger, not as a number to quote. Third, the exemption figures come from parties with positions: the eleven-to-one ratio is from an analysis commissioned by the hospital industry, and the fair-share deficit is from an institute that campaigns on the issue. Both are cited here precisely because they disagree.</p>
+
+    <p>What survives all three is the ordering. The framework asks which shortage is real, and in American healthcare the answer has been consistent: the buildings stand, the staff are trained, the medicine exists, and the binding constraint is a claim. What this dispatch adds is that the claim does not stay put. It descends into the household, converts into a debt because the law will not let the care be refused, takes a fifth of the household&rsquo;s earnings with it, and returns to the public accounts as a permanently smaller tax base. The money was always the shortage. What is new is that the shortage is now manufacturing more of itself.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/like.js" defer></script>
+</body>
+</html>
