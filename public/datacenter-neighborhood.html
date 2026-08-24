@@ -168,7 +168,7 @@ gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
 
     <p>At the default settings the data center draws roughly seven hundred times the electrical load of the housing that would fit on the same ground, and somewhere between three and thirty times the water depending entirely on how it is cooled. Those two facts are not symmetrical, and the asymmetry is the point.</p>
 
-    <p>Water is a choice. The slider spans a factor of ninety because the industry actually spans a factor of ninety: legacy evaporative cooling near 1.8 litres per kilowatt hour, the current American average near 0.45, Meta reporting 0.20 on recent buildings, and closed-loop and air-cooled designs approaching zero. New builds are migrating fast, largely because the political cost of visible water use now exceeds the energy penalty of not using it. Set the slider to 0.02 and the data center uses less water than the houses.</p>
+    <p>Water is a choice. The slider spans a factor of ninety because the industry actually spans a factor of ninety: legacy evaporative cooling near 1.8 liters per kilowatt hour, the current American average near 0.45, Meta reporting 0.20 on recent buildings, and closed-loop and air-cooled designs approaching zero. New builds are migrating fast, largely because the political cost of visible water use now exceeds the energy penalty of not using it. Set the slider to 0.02 and the data center uses less water than the houses.</p>
 
     <p>Power is not a choice. There is no design that removes the load, because the load is the product. A site can improve its PUE from 1.5 to 1.1 and save a fifth of the overhead, and the IT draw underneath it does not move at all. Move the cooling slider all the way down and the electricity ratio does not change by a single percent.</p>
 
@@ -322,7 +322,7 @@ function update(){
   draw(m); table(m);
   document.getElementById('cap').textContent =
     'At '+fmt(m.itmw)+' MW of IT load on '+fmt(m.acres)+' acres, cooled at '+m.wue.toFixed(2)+
-    ' litres per kilowatt hour, against '+fmt(m.homes,0)+' homes at '+m.dens.toFixed(1)+
+    ' liters per kilowatt hour, against '+fmt(m.homes,0)+' homes at '+m.dens.toFixed(1)+
     ' per acre. Sources: EIA household electricity 2024, EPA household water, operator-reported water use effectiveness.';
 }
 update();

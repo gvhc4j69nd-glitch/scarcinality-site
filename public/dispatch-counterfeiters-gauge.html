@@ -326,7 +326,7 @@
       }
     });
     /* legend */
-    mk("text",{x:L,y:H-8,"font-size":10,fill:"#4A453C","font-family":"IBM Plex Mono, monospace"},"solid: CCI  \u00b7  dashed red: projected  \u00b7  dotted grey: monetary bind alone  \u00b7  circles: breach quarters");
+    mk("text",{x:L,y:H-8,"font-size":10,fill:"#4A453C","font-family":"IBM Plex Mono, monospace"},"solid: CCI  \u00b7  dashed red: projected  \u00b7  dotted gray: monetary bind alone  \u00b7  circles: breach quarters");
     var latest = qs[lastA];
     cap.textContent = "As of "+data.meta.as_of+": CCI "+latest.cci.toFixed(2)+" ("+latest.q+"), "+(thr-latest.cci).toFixed(2)+" below the tipping point. The 2023 breach quarters are circled. Reads live from /data/cci.json; updated quarterly.";
   }
