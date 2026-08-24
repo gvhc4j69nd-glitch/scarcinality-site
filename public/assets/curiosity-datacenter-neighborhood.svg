@@ -1,0 +1,18 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="14" y="18" font-size="8" fill="#8a8073">SAME 100 ACRES</text>
+
+  <text x="14" y="42" font-size="8.5" fill="#2f5670">DATA CENTRE</text>
+  <rect x="14" y="48" width="292" height="18" fill="#2f5670"/>
+  <text x="300" y="61" font-size="8" fill="#f6f2e9" text-anchor="end">300 MW</text>
+
+  <text x="14" y="88" font-size="8.5" fill="#8a3324">NEIGHBOURHOOD, 350 HOMES</text>
+  <rect x="14" y="94" width="2" height="18" fill="#8a3324"/>
+  <text x="22" y="107" font-size="8" fill="#8a3324">0.41 MW</text>
+
+  <line x1="14" y1="128" x2="306" y2="128" stroke="#ddd3c2" stroke-width="0.8"/>
+
+  <text x="160" y="152" font-size="20" fill="#8a3324" text-anchor="middle" font-weight="600">724x</text>
+  <text x="160" y="168" font-size="8" fill="#8a8073" text-anchor="middle">the electrical load, on the same land</text>
+  <text x="160" y="186" font-size="8" fill="#7a5a18" text-anchor="middle">and 0 residents against 875</text>
+</svg>

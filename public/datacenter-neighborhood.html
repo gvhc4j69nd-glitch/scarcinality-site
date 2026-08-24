@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Data Centre and a Neighbourhood &middot; Scarcinality</title>
+<meta name="description" content="Put a hyperscale data centre and a suburban neighbourhood on the same hundred acres and compare what each draws. Adjust site size, IT load, cooling efficiency and housing density, and watch the ratios recompute. The power gap is roughly 700 to 1. The water gap is 3 to 1, and closing.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="A Data Centre and a Neighbourhood &middot; Scarcinality">
+<meta property="og:description" content="One building on 100 acres draws the residential electricity of a city of 570,000 people. By water it equals only about 10,000 homes. The public argument is aimed at the smaller of the two numbers.">
+<meta property="og:url" content="https://www.scarcinality.com/datacenter-neighborhood">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-datacenter-neighborhood.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A Data Centre and a Neighbourhood &middot; Scarcinality">
+<meta name="twitter:description" content="Water is local, visible and fixable. Power is systemic, invisible at the fence line, and structural. Move the sliders and see which one is actually large.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-datacenter-neighborhood.svg">
+<link rel="canonical" href="https://www.scarcinality.com/datacenter-neighborhood">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .model-panel{background:var(--parchment-deep);border:1px solid var(--rule);
+    padding:1.6rem 1.8rem;margin:2rem 0;}
+  .model-panel h3{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 1.2rem;}
+  .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 2rem;}
+  @media(max-width:600px){.control-grid{grid-template-columns:1fr;}}
+  .control-row{display:flex;flex-direction:column;gap:.35rem;}
+  .control-row label{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);}
+  .control-row .val{font-family:var(--mono);font-size:1.05rem;font-weight:500;color:var(--oxblood);}
+  .control-row .note{font-family:var(--mono);font-size:.62rem;color:var(--ink-faint);line-height:1.4;}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;
+    background:var(--rule);outline:none;cursor:pointer;border-radius:0;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;background:var(--oxblood);border-radius:0;cursor:pointer;}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;background:var(--oxblood);
+    border-radius:0;cursor:pointer;border:none;}
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1px;
+    background:var(--rule);border:1px solid var(--rule);margin:2rem 0;}
+  .summary-tile{background:var(--parchment);padding:1.2rem 1.3rem;}
+  .summary-tile .label{font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 .4rem;}
+  .summary-tile .big{font-family:var(--mono);font-size:1.55rem;font-weight:500;color:var(--ink);line-height:1.1;}
+  .summary-tile .sub{font-size:.82rem;color:var(--ink-soft);margin:.25rem 0 0;font-family:var(--mono);line-height:1.45;}
+  figure.cmp{max-width:52rem;margin:2rem 0 .4rem;}
+  figure.cmp svg{width:100%;height:auto;display:block;}
+  figure.cmp figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);
+    margin-top:.6rem;line-height:1.5;}
+  table.cmp-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.8rem;margin:1.4rem 0;max-width:52rem;}
+  table.cmp-table th{text-align:left;padding:.5rem .7rem;font-size:.64rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-faint);border-bottom:2px solid var(--rule);white-space:nowrap;}
+  table.cmp-table td{padding:.55rem .7rem;border-bottom:1px solid var(--rule);}
+  table.cmp-table td.n{text-align:right;white-space:nowrap;}
+  table.cmp-table td.dc{color:#2f5670;}
+  table.cmp-table td.nb{color:#8a3324;}
+  table.cmp-table td.rat{text-align:right;color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .warnbox{max-width:52rem;margin:1rem 0;padding:.7rem .95rem;background:var(--parchment-deep);
+    border-left:3px solid #7a5a18;font-family:var(--mono);font-size:.7rem;line-height:1.5;color:var(--ink-soft);}
+  @media(max-width:640px){ body{font-size:19px;} .summary-tile .big{font-size:1.25rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Interactive comparison &middot; Land, power, water &middot; August 2026</p>
+    <h1>A Data Centre and a Neighbourhood</h1>
+    <p class="dek">Take the same piece of ground twice. Build a hyperscale data centre on it, then build houses on it, and compare what each one draws from the grid and the water main. The power answer is not close. The water answer is closer than the argument about it suggests, and it is getting closer every year.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this comparison';b.classList.remove('copied');},2000)})">Share this comparison</button>
+  </div>
+
+  <article class="prose" style="max-width:52rem;">
+
+    <p>Blue is the data centre. Oxblood is the neighbourhood. Every figure below is computed from the four inputs, and the formulas are stated at the bottom so the arithmetic can be checked rather than trusted. The companion reading is <a href="/dispatch-dark-fiber-power-bill">Dark Fiber With a Power Bill</a>, which argues that power, not capital, is the binding constraint on the build-out.</p>
+
+    <div class="model-panel">
+      <h3>Inputs</h3>
+      <div class="control-grid">
+        <div class="control-row">
+          <label>Site area</label>
+          <span class="val" id="v-acres">100 acres</span>
+          <input type="range" id="sl-acres" min="10" max="500" step="5" value="100" oninput="update()">
+          <span class="note">The same land is used for both.</span>
+        </div>
+        <div class="control-row">
+          <label>Critical IT load</label>
+          <span class="val" id="v-mw">250 MW</span>
+          <input type="range" id="sl-mw" min="20" max="600" step="10" value="250" oninput="update()">
+          <span class="note">2026 hyperscale runs 100 to 500 MW. Campuses are now planned in gigawatts.</span>
+        </div>
+        <div class="control-row">
+          <label>Cooling water efficiency</label>
+          <span class="val" id="v-wue">0.45 L/kWh</span>
+          <input type="range" id="sl-wue" min="0" max="200" step="1" value="45" oninput="update()">
+          <span class="note" id="n-wue">US average 2023. Legacy evaporative 1.8, best in class 0.20, closed loop near zero.</span>
+        </div>
+        <div class="control-row">
+          <label>Housing density</label>
+          <span class="val" id="v-dens">3.5 homes per acre</span>
+          <input type="range" id="sl-dens" min="5" max="200" step="1" value="35" oninput="update()">
+          <span class="note" id="n-dens">Typical US suburban subdivision, gross of roads and setbacks.</span>
+        </div>
+      </div>
+      <p class="note" style="font-family:var(--mono);font-size:.62rem;color:var(--ink-faint);margin:1.2rem 0 0;line-height:1.5;">
+        Held fixed: PUE 1.20, load factor 0.90, 2.5 people per household, 10,364 kWh per household per year (EIA 2024), 300 gallons per household per day (EPA).
+      </p>
+    </div>
+
+    <div class="warnbox" id="density-warn" style="display:none;"></div>
+
+    <div class="summary-grid">
+      <div class="summary-tile">
+        <p class="label">Electrical load</p>
+        <p class="big" id="t-pow">724x</p>
+        <p class="sub" id="t-pow-sub"></p>
+      </div>
+      <div class="summary-tile">
+        <p class="label">Water drawn</p>
+        <p class="big" id="t-wat">7.3x</p>
+        <p class="sub" id="t-wat-sub"></p>
+      </div>
+      <div class="summary-tile">
+        <p class="label">Equals, by electricity</p>
+        <p class="big" id="t-homes">228,000</p>
+        <p class="sub" id="t-homes-sub"></p>
+      </div>
+      <div class="summary-tile">
+        <p class="label">Residents housed</p>
+        <p class="big" id="t-res">0 vs 875</p>
+        <p class="sub">Nobody lives in the first one. That is the land-use trade being made.</p>
+      </div>
+    </div>
+
+  </article>
+
+  <figure class="cmp">
+    <svg id="chart" viewBox="0 0 720 330" role="img" aria-label="Comparison of electrical load and water use between a data centre and a neighbourhood on the same site"></svg>
+    <figcaption id="cap"></figcaption>
+  </figure>
+
+  <article class="prose" style="max-width:52rem;">
+
+    <h2 style="font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;">The full numbers</h2>
+
+    <table class="cmp-table">
+      <thead>
+        <tr><th>Measure</th><th style="text-align:right">Data centre</th><th style="text-align:right">Neighbourhood</th><th style="text-align:right">Ratio</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+
+    <h2 style="font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;">What the comparison shows</h2>
+
+    <p>At the default settings the data centre draws roughly seven hundred times the electrical load of the housing that would fit on the same ground, and somewhere between three and thirty times the water depending entirely on how it is cooled. Those two facts are not symmetrical, and the asymmetry is the point.</p>
+
+    <p>Water is a choice. The slider spans a factor of ninety because the industry actually spans a factor of ninety: legacy evaporative cooling near 1.8 litres per kilowatt hour, the current American average near 0.45, Meta reporting 0.20 on recent buildings, and closed-loop and air-cooled designs approaching zero. New builds are migrating fast, largely because the political cost of visible water use now exceeds the energy penalty of not using it. Set the slider to 0.02 and the data centre uses less water than the houses.</p>
+
+    <p>Power is not a choice. There is no design that removes the load, because the load is the product. A site can improve its PUE from 1.5 to 1.1 and save a fifth of the overhead, and the IT draw underneath it does not move at all. Move the cooling slider all the way down and the electricity ratio does not change by a single percent.</p>
+
+    <p>Which means the public argument is mostly aimed at the smaller of the two numbers. Water is local, visible, and engineerable. Power is systemic, invisible at the fence line, and structural. A community that negotiates hard on gallons and waves through megawatts has won the argument it could see.</p>
+
+    <h2 style="font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;">Formulas</h2>
+
+    <div class="model-panel" style="font-family:var(--mono);font-size:.74rem;line-height:1.9;">
+      facility load MW &nbsp;=&nbsp; IT load &times; PUE<br>
+      annual energy kWh &nbsp;=&nbsp; facility MW &times; 1000 &times; 8760 &times; load factor<br>
+      water gal/day &nbsp;=&nbsp; annual kWh &times; WUE &divide; 3.785 &divide; 365<br><br>
+      homes &nbsp;=&nbsp; acres &times; density<br>
+      neighbourhood MW &nbsp;=&nbsp; homes &times; 10,364 &divide; 8760 &divide; 1000<br>
+      neighbourhood gal/day &nbsp;=&nbsp; homes &times; 300
+    </div>
+
+    <h2 style="font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;">Sources and limits</h2>
+
+    <p>Footprint anchor: Microsoft operates a data centre of about one million square feet on roughly eighty-five acres outside Atlanta, and has built sites as large as three hundred and fifteen acres. Hyperscale is conventionally defined from forty megawatts upward; recent transactions include three hundred megawatts of critical IT load, and campuses are now planned in gigawatts. Household electricity is the EIA figure of 10,364 kWh a year for 2024. Household water is the EPA figure of more than three hundred gallons a day for the average family. Water use effectiveness figures are as reported by operators and by industry surveys.</p>
+
+    <p>Two limits worth stating. Reported water use effectiveness is self-reported and covers on-site consumption only, so it excludes the water consumed off site in generating the electricity; on a thermoelectric grid that indirect figure can exceed the direct one, which means both columns here understate water, and the data centre column understates it more. And the housing comparison assumes new suburban development at the stated density; at townhouse or apartment densities the neighbourhood column rises sharply and every ratio falls, which is why the density slider is there rather than baked in.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Curiosities are sourced comparisons, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script>
+var PUE=1.20, LF=0.90, PPH=2.5, KWH=10364, GPD=300, LGAL=3.785, NS="http://www.w3.org/2000/svg";
+var DC="#2f5670", NB="#8a3324", RULE="#ddd3c2", FAINT="#8a8073", INK="#211d18";
+
+function fmt(n,d){ d=(d===undefined)?0:d;
+  return n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function ratio(r){ return r>=100?fmt(r,0)+'x' : r>=10?fmt(r,1)+'x' : fmt(r,2)+'x'; }
+
+function model(){
+  var acres=+document.getElementById('sl-acres').value;
+  var itmw=+document.getElementById('sl-mw').value;
+  var wue=+document.getElementById('sl-wue').value/100;
+  var dens=+document.getElementById('sl-dens').value/10;
+  var facmw=itmw*PUE;
+  var kwh=facmw*1000*8760*LF;
+  var dcgal=kwh*wue/LGAL/365;
+  var homes=acres*dens, people=homes*PPH;
+  var nbkwh=homes*KWH, nbmw=nbkwh/8760/1000, nbgal=homes*GPD;
+  return {acres:acres,itmw:itmw,wue:wue,dens:dens,facmw:facmw,kwh:kwh,dcgal:dcgal,
+          homes:homes,people:people,nbkwh:nbkwh,nbmw:nbmw,nbgal:nbgal,
+          powR:nbmw>0?facmw/nbmw:0, watR:nbgal>0?dcgal/nbgal:0,
+          hePow:kwh/KWH, heWat:dcgal*365/(GPD*365), dens_mw:facmw/acres};
+}
+
+function draw(m){
+  var svg=document.getElementById('chart');
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  function el(t,a,txt){var e=document.createElementNS(NS,t);
+    for(var k in a) e.setAttribute(k,a[k]); if(txt!==undefined) e.textContent=txt;
+    svg.appendChild(e); return e;}
+  var X=170, W=440;
+  el('text',{x:14,y:18,'font-size':10.5,fill:FAINT,'font-family':'IBM Plex Mono, monospace'},
+     'THE SAME '+fmt(m.acres)+' ACRES, BUILT TWO WAYS');
+
+  // panel 1: power
+  el('text',{x:14,y:52,'font-size':10,fill:FAINT,'font-family':'IBM Plex Mono, monospace'},'AVERAGE ELECTRICAL LOAD');
+  var pmax=Math.max(m.facmw,m.nbmw)||1;
+  el('text',{x:X-10,y:79,'text-anchor':'end','font-size':10,fill:INK,'font-family':'EB Garamond, serif'},'data centre');
+  el('rect',{x:X,y:66,width:Math.max(2,W*m.facmw/pmax),height:18,fill:DC});
+  el('text',{x:X+Math.max(2,W*m.facmw/pmax)+8,y:80,'font-size':10,fill:DC,'font-family':'IBM Plex Mono, monospace','font-weight':600},fmt(m.facmw,0)+' MW');
+  el('text',{x:X-10,y:109,'text-anchor':'end','font-size':10,fill:INK,'font-family':'EB Garamond, serif'},'neighbourhood');
+  el('rect',{x:X,y:96,width:Math.max(2,W*m.nbmw/pmax),height:18,fill:NB});
+  el('text',{x:X+Math.max(2,W*m.nbmw/pmax)+8,y:110,'font-size':10,fill:NB,'font-family':'IBM Plex Mono, monospace','font-weight':600},fmt(m.nbmw,2)+' MW');
+  el('text',{x:X,y:132,'font-size':10.5,fill:'#7a5a18','font-family':'IBM Plex Mono, monospace','font-weight':600},
+     ratio(m.powR)+' the load');
+
+  // panel 2: water
+  el('text',{x:14,y:180,'font-size':10,fill:FAINT,'font-family':'IBM Plex Mono, monospace'},'WATER DRAWN PER DAY');
+  var wmax=Math.max(m.dcgal,m.nbgal)||1;
+  el('text',{x:X-10,y:207,'text-anchor':'end','font-size':10,fill:INK,'font-family':'EB Garamond, serif'},'data centre');
+  el('rect',{x:X,y:194,width:Math.max(2,W*m.dcgal/wmax),height:18,fill:DC});
+  el('text',{x:X+Math.max(2,W*m.dcgal/wmax)+8,y:208,'font-size':10,fill:DC,'font-family':'IBM Plex Mono, monospace','font-weight':600},fmt(m.dcgal,0)+' gal');
+  el('text',{x:X-10,y:237,'text-anchor':'end','font-size':10,fill:INK,'font-family':'EB Garamond, serif'},'neighbourhood');
+  el('rect',{x:X,y:224,width:Math.max(2,W*m.nbgal/wmax),height:18,fill:NB});
+  el('text',{x:X+Math.max(2,W*m.nbgal/wmax)+8,y:238,'font-size':10,fill:NB,'font-family':'IBM Plex Mono, monospace','font-weight':600},fmt(m.nbgal,0)+' gal');
+  el('text',{x:X,y:260,'font-size':10.5,fill:'#7a5a18','font-family':'IBM Plex Mono, monospace','font-weight':600},
+     m.watR>=1? ratio(m.watR)+' the water' : ratio(m.watR)+' the water, less than the houses');
+
+  el('line',{x1:14,y1:284,x2:700,y2:284,stroke:RULE,'stroke-width':1});
+  el('text',{x:14,y:302,'font-size':9.5,fill:INK,'font-family':'IBM Plex Mono, monospace'},
+     'Bars within each panel share a scale set by the larger value. The two panels do not share a scale.');
+  el('text',{x:14,y:318,'font-size':9.5,fill:'#8a3324','font-family':'IBM Plex Mono, monospace','font-weight':600},
+     'Residents: 0 against '+fmt(m.people,0)+'.');
+}
+
+function table(m){
+  var rows=[
+    ['Site area', fmt(m.acres)+' acres', fmt(m.acres)+' acres', ''],
+    ['What is on it', fmt(m.itmw)+' MW IT load', fmt(m.homes,0)+' homes', ''],
+    ['Residents', '0', fmt(m.people,0), ''],
+    ['Facility electrical load', fmt(m.facmw,1)+' MW', fmt(m.nbmw,2)+' MW', ratio(m.powR)],
+    ['Annual energy', fmt(m.kwh/1e9,2)+' TWh', fmt(m.nbkwh/1e6,2)+' GWh', ratio(m.kwh/m.nbkwh)],
+    ['Water per day', fmt(m.dcgal,0)+' gal', fmt(m.nbgal,0)+' gal', ratio(m.watR)],
+    ['Water per year', fmt(m.dcgal*365/1e6,1)+'M gal', fmt(m.nbgal*365/1e6,1)+'M gal', ratio(m.watR)],
+    ['Load per acre', fmt(m.facmw/m.acres,2)+' MW', fmt(m.nbmw/m.acres,4)+' MW', ratio(m.powR)]
+  ];
+  var h='';
+  for(var i=0;i<rows.length;i++){
+    h+='<tr><td>'+rows[i][0]+'</td><td class="n dc">'+rows[i][1]+'</td><td class="n nb">'+rows[i][2]+
+       '</td><td class="rat">'+rows[i][3]+'</td></tr>';
+  }
+  document.getElementById('tbody').innerHTML=h;
+}
+
+function update(){
+  var m=model();
+  document.getElementById('v-acres').textContent=fmt(m.acres)+' acres';
+  document.getElementById('v-mw').textContent=fmt(m.itmw)+' MW';
+  document.getElementById('v-wue').textContent=m.wue.toFixed(2)+' L/kWh';
+  document.getElementById('v-dens').textContent=m.dens.toFixed(1)+' homes per acre';
+
+  var wl = m.wue>=1.5?'Legacy evaporative cooling.' : m.wue>=0.8?'Older evaporative site.' :
+           m.wue>=0.35?'Around the current US average.' : m.wue>=0.15?'Best in class, as reported by Meta.' :
+           m.wue>0.05?'Closed loop or largely air cooled.' : 'Effectively no evaporative cooling.';
+  document.getElementById('n-wue').textContent=wl+' US average 0.45, legacy 1.8, best in class 0.20.';
+
+  var dl = m.dens<=2?'Large-lot rural.' : m.dens<=5?'Typical US suburban subdivision.' :
+           m.dens<=12?'Small lot or townhouse.' : 'Apartment or dense urban.';
+  document.getElementById('n-dens').textContent=dl+' Gross of roads and setbacks.';
+
+  document.getElementById('t-pow').textContent=ratio(m.powR);
+  document.getElementById('t-pow-sub').textContent=fmt(m.facmw,0)+' MW against '+fmt(m.nbmw,2)+' MW.';
+  document.getElementById('t-wat').textContent=ratio(m.watR);
+  document.getElementById('t-wat-sub').textContent=fmt(m.dcgal,0)+' gallons a day against '+fmt(m.nbgal,0)+'.';
+  document.getElementById('t-homes').textContent=fmt(m.hePow,0);
+  document.getElementById('t-homes-sub').textContent='homes, about '+fmt(m.hePow*PPH,0)+
+    ' people. By water it equals '+fmt(m.heWat,0)+' homes.';
+  document.getElementById('t-res').textContent='0 vs '+fmt(m.people,0);
+
+  var w=document.getElementById('density-warn');
+  if(m.dens_mw>8){
+    w.style.display='block';
+    w.textContent='At '+fmt(m.dens_mw,1)+' MW per acre this is denser than any site built to date. '+
+      'Current hyperscale runs roughly 1 to 4 MW per acre once substation, cooling and setback are included.';
+  } else { w.style.display='none'; }
+
+  draw(m); table(m);
+  document.getElementById('cap').textContent =
+    'At '+fmt(m.itmw)+' MW of IT load on '+fmt(m.acres)+' acres, cooled at '+m.wue.toFixed(2)+
+    ' litres per kilowatt hour, against '+fmt(m.homes,0)+' homes at '+m.dens.toFixed(1)+
+    ' per acre. Sources: EIA household electricity 2024, EPA household water, operator-reported water use effectiveness.';
+}
+update();
+</script>
+<script src="/assets/like.js" defer></script>
+</body>
+</html>
