@@ -29,6 +29,27 @@
   gtag('js', new Date());
   gtag('config', 'G-J3FY40KFSG');
 </script>
+<style>
+  /* ---- featured strip: two panes above the hero ---- */
+  .featured{max-width:64rem;margin:0 auto;padding:1.1rem 1.5rem 0;}
+  .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+    border-top:1px solid var(--rule);padding-top:1rem;}
+  .feat{display:block;text-decoration:none;border:none;min-width:0;}
+  .feat:hover .feat-title{color:var(--oxblood);}
+  .feat-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--oxblood);margin:0 0 .3rem;}
+  .feat-title{font-family:var(--serif);font-weight:600;font-size:1.02rem;line-height:1.2;
+    color:var(--ink);margin:0 0 .3rem;transition:color .15s;}
+  .feat-syn{font-family:var(--serif);font-size:.9rem;line-height:1.4;color:var(--ink-soft);margin:0 0 .55rem;}
+  .feat-thumb{display:block;width:100%;max-width:320px;height:auto;border:1px solid var(--rule);}
+  @media(max-width:640px){
+    .featured{padding:.8rem 1.1rem 0;}
+    .featured-grid{gap:.8rem;padding-top:.7rem;}
+    .feat-kicker{font-size:.52rem;letter-spacing:.1em;margin:0 0 .2rem;}
+    .feat-title{font-size:.78rem;line-height:1.18;margin:0 0 .2rem;}
+    .feat-syn{font-size:.7rem;line-height:1.32;margin:0 0 .35rem;}
+  }
+</style>
 </head>
 <body>
 <header class="site-header" style="align-items:flex-start;">
@@ -46,6 +67,30 @@
     <a id="cci-header-badge" class="cci-header-badge" href="/dispatch-counterfeiters-gauge" aria-label="Credit Counterfeit Index"></a>
   </div>
 </header>
+
+<section class="featured" aria-label="Featured reading">
+  <div class="featured-grid">
+
+    <a class="feat" href="/dispatch-which-immigration">
+      <p class="feat-kicker">Featured dispatch</p>
+      <p class="feat-title">Which Immigration</p>
+      <p class="feat-syn">Costs land on counties now. Revenue lands federally over decades. The mismatch, not the number, drives the politics.</p>
+      <img class="feat-thumb" src="/assets/featured-which-immigration.svg"
+           alt="Two bars showing costs landing on counties immediately and revenue landing federally over decades."
+           width="320" height="200" decoding="async">
+    </a>
+
+    <a class="feat" href="/aid-and-migration">
+      <p class="feat-kicker">Featured curiosity</p>
+      <p class="feat-title">Aid, Migration, and the Money That Goes Home</p>
+      <p class="feat-syn">Migrants send home eighteen times what US foreign aid disbursed this year. Nobody appropriated a dollar of it.</p>
+      <img class="feat-thumb" src="/assets/curiosity-aid-migration.svg"
+           alt="Bar comparison of 128 billion dollars in remittances against 7 billion dollars of US foreign aid disbursed."
+           width="320" height="200" decoding="async">
+    </a>
+
+  </div>
+</section>
 
 <section class="hero">
   <div class="hero-inner">
