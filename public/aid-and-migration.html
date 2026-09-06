@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aid, Migration, and the Money That Goes Home &middot; Scarcinality</title>
+<meta name="description" content="American foreign aid to poor countries, migration from those same countries, and what that migration costs or contributes at home. The three are usually argued separately. Put side by side, the largest of the three flows turns out to be the one nobody appropriates.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Aid, Migration, and the Money That Goes Home &middot; Scarcinality">
+<meta property="og:description" content="Migrants in the United States send home roughly eighteen times what the US government disbursed in foreign aid worldwide this year. Remittances to Guatemala alone are forty times the entire Central America root-causes budget.">
+<meta property="og:url" content="https://www.scarcinality.com/aid-and-migration">
+<meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-aid-migration.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aid, Migration, and the Money That Goes Home &middot; Scarcinality">
+<meta name="twitter:description" content="The fiscal answer flips on one accounting choice. Toggle it yourself and watch the sign change.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-aid-migration.svg">
+<link rel="canonical" href="https://www.scarcinality.com/aid-and-migration">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .model-panel{background:var(--parchment-deep);border:1px solid var(--rule);
+    padding:1.5rem 1.7rem;margin:2rem 0;max-width:52rem;}
+  .model-panel h3{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 1rem;}
+  .toggle-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 .2rem;}
+  .toggle-row button{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+    background:none;border:1px solid var(--rule);color:var(--ink-soft);padding:.4rem .8rem;cursor:pointer;
+    transition:all .15s;}
+  .toggle-row button:hover{border-color:var(--oxblood);color:var(--oxblood);}
+  .toggle-row button.on{background:var(--oxblood);border-color:var(--oxblood);color:var(--parchment);}
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1px;
+    background:var(--rule);border:1px solid var(--rule);margin:2rem 0;max-width:52rem;}
+  .summary-tile{background:var(--parchment);padding:1.1rem 1.2rem;}
+  .summary-tile .label{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 .4rem;}
+  .summary-tile .big{font-family:var(--mono);font-size:1.5rem;font-weight:500;color:var(--ink);line-height:1.1;}
+  .summary-tile .sub{font-size:.8rem;color:var(--ink-soft);margin:.25rem 0 0;font-family:var(--mono);line-height:1.45;}
+  figure.cmp{max-width:52rem;margin:1.6rem 0 .4rem;}
+  figure.cmp svg{width:100%;height:auto;display:block;}
+  figure.cmp figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);
+    margin-top:.6rem;line-height:1.5;}
+  table.ct{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.78rem;margin:1.2rem 0;max-width:52rem;}
+  table.ct th{text-align:left;padding:.5rem .65rem;font-size:.63rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-faint);border-bottom:2px solid var(--rule);white-space:nowrap;}
+  table.ct td{padding:.5rem .65rem;border-bottom:1px solid var(--rule);}
+  table.ct td.n{text-align:right;white-space:nowrap;color:#8a3324;font-weight:600;}
+  table.ct td.g{text-align:right;white-space:nowrap;color:#2f5670;}
+  table.ct td.note{color:var(--ink-faint);font-size:.68rem;}
+  .fiscal{max-width:52rem;margin:1.2rem 0;border:1px solid var(--rule);}
+  .fiscal div{padding:.85rem 1rem;border-bottom:1px solid var(--rule);}
+  .fiscal div:last-child{border-bottom:none;}
+  .fiscal .w{font-family:var(--serif);font-weight:600;font-size:1rem;}
+  .fiscal .t{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.55;margin-top:.2rem;display:block;}
+  .verdict{max-width:52rem;margin:1rem 0;padding:1rem 1.15rem;background:var(--parchment-deep);
+    border-left:3px solid var(--oxblood);font-family:var(--mono);font-size:.8rem;line-height:1.7;color:var(--ink);}
+  .verdict strong{color:var(--oxblood);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  @media(max-width:640px){ body{font-size:19px;} .summary-tile .big{font-size:1.2rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Interactive comparison &middot; Aid, migration, fiscal effect &middot; September 2026</p>
+    <h1>Aid, Migration, and the Money That Goes Home</h1>
+    <p class="dek">Three things are usually argued in three separate rooms: what America spends on aid to poor countries, who migrates from those countries, and what that migration costs or contributes once here. Put the three flows on one page and the striking part is not any of them individually. It is that the largest by a wide margin is the one no legislature ever voted on.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this comparison';b.classList.remove('copied');},2000)})">Share this comparison</button>
+  </div>
+
+  <article class="prose" style="max-width:52rem;">
+
+    <p>This page reports numbers and the disagreements between them. It does not recommend an immigration policy or an aid policy, and where the research genuinely conflicts, both sides are shown and the reader is handed the switch.</p>
+
+    <h2>One. What America sends</h2>
+
+    <p>Foreign aid occupies about one percent of the federal budget, a figure most Americans put many times higher when surveyed. In 2026 it also collapsed. Congress appropriated roughly $50 billion for the fiscal year, itself 16 percent below 2025, but USAID had been shut down, nearly all of its ten thousand staff terminated along with as many as 280,000 contracted workers, and its surviving programs moved to the State Department and Agriculture. As of 1 July, actual disbursements for the fiscal year stood just under $7 billion.</p>
+
+    <h2>Two. What migrants send</h2>
+
+    <p>Money moving in the same direction, from the same country, to the same places, on a completely different scale.</p>
+
+  </article>
+
+  <div class="model-panel">
+    <h3>Show the flows as</h3>
+    <div class="toggle-row">
+      <button id="m-abs" class="on" onclick="setMode('abs')">Billions of dollars</button>
+      <button id="m-gdp" onclick="setMode('gdp')">Share of receiving country GDP</button>
+    </div>
+  </div>
+
+  <figure class="cmp">
+    <svg id="chart" viewBox="0 0 720 300" role="img" aria-label="Comparison of remittance flows from the United States with total US foreign aid disbursed"></svg>
+    <figcaption id="cap"></figcaption>
+  </figure>
+
+  <article class="prose" style="max-width:52rem;">
+
+    <table class="ct">
+      <thead><tr><th>Corridor</th><th style="text-align:right">Remittances</th><th style="text-align:right">Of their GDP</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>United States to Mexico</td><td class="n">$65B</td><td class="g">3.6%</td><td class="note">US corridor. The largest bilateral remittance flow in the world.</td></tr>
+        <tr><td>United States to India</td><td class="n">$28B</td><td class="g">under 1%</td><td class="note">US corridor. Second largest.</td></tr>
+        <tr><td>Guatemala, all sources</td><td class="n">$25.5B</td><td class="g">21%</td><td class="note">Total inflows 2025, a record. The overwhelming majority originates in the US.</td></tr>
+        <tr><td>Honduras, all sources</td><td class="n">$10B</td><td class="g">27%</td><td class="note">Total inflows 2024. Again, mostly from the US.</td></tr>
+        <tr><td>El Salvador, all sources</td><td class="n">&mdash;</td><td class="g">24%</td><td class="note">Share of GDP; dollar total not stated here.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Two of those rows are corridor-specific and two are total inflows, which is a real inconsistency in the underlying sources rather than a rounding choice. It matters little for the comparison, because roughly nine in ten remittance dollars reaching Guatemala and Honduras come from the United States, but it is worth knowing which row is which.</p>
+
+    <div class="verdict">
+      Remittances to <strong>Guatemala alone</strong> run about <strong>forty times</strong> the entire annual budget once requested for the Central America root-causes strategy, the flagship American program for reducing the pressure to migrate.<br><br>
+      Globally the same shape holds. Remittances to low- and middle-income countries reached roughly <strong>$685 billion</strong> in 2025 against about <strong>$185 billion</strong> of official development assistance from all donors combined, a ratio near <strong>3.7 to 1</strong>, and they arrive as household income rather than as programs.
+    </div>
+
+    <h2>Three. What it costs, and earns, at home</h2>
+
+    <p>Here the evidence is genuinely contested, and the contest turns on an accounting choice most summaries never mention. The National Academies found that the sign of the long-run fiscal effect depends on how you assign the cost of public goods such as national defense and interest on the debt.</p>
+
+    <p>If each immigrant is charged an average share of those costs, immigration looks fiscally negative in both the short and long run. If they are charged the marginal cost, which is close to nothing, because another resident does not require another aircraft carrier, the long-run effect is positive. Same data, same researchers, opposite answer.</p>
+
+  </article>
+
+  <div class="model-panel">
+    <h3>Assign the cost of public goods at</h3>
+    <div class="toggle-row">
+      <button id="f-avg" class="on" onclick="setFisc('avg')">Average cost</button>
+      <button id="f-marg" onclick="setFisc('marg')">Marginal cost</button>
+    </div>
+    <p id="f-note" style="font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);line-height:1.6;margin:1rem 0 0;"></p>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-tile"><p class="label">Long-run fiscal sign</p><p class="big" id="t-sign">Negative</p><p class="sub" id="t-sign-sub"></p></div>
+    <div class="summary-tile"><p class="label">CBO, 2024 to 2034</p><p class="big" style="color:#2f6e3a;">&minus;$0.9T</p><p class="sub">Net reduction in deficits from the 2021 to 2026 surge population. Revenues up $1.2T, outlays up $0.3T.</p></div>
+    <div class="summary-tile"><p class="label">Taxes paid, surge population</p><p class="big">$788B</p><p class="sub">Over 2024 to 2034, chiefly individual income and payroll taxes.</p></div>
+    <div class="summary-tile"><p class="label">Strongest contributor</p><p class="big">2nd gen</p><p class="sub">Immigrants&rsquo; children have a more favorable net fiscal impact than either the first or the third-plus generation.</p></div>
+  </div>
+
+  <article class="prose" style="max-width:52rem;">
+
+    <div class="fiscal">
+      <div><span class="w">The generational split</span>
+        <span class="t">The first generation is on average more costly to government than the native-born, and the cost falls mainly on states and localities, because that is who runs schools and emergency rooms. The second generation is among the strongest fiscal contributors in the entire population. Whether immigration is a cost therefore depends heavily on where you stop the clock.</span></div>
+      <div><span class="w">The level-of-government split</span>
+        <span class="t">This is the part that explains why the argument is loudest locally. The costs are concentrated at state and local level and arrive immediately. The revenues are concentrated at federal level and arrive over decades. A school district and the Treasury are looking at the same person and correctly reaching opposite conclusions.</span></div>
+      <div><span class="w">The horizon split</span>
+        <span class="t">CBO scored the recent surge over ten years and found revenues exceeding outlays by $0.9 trillion. A one-year or three-year window on the same population would show the opposite, because settlement costs land before earnings do.</span></div>
+    </div>
+
+    <h2>What the three panels add up to</h2>
+
+    <p>Read together rather than separately, the flows describe something the separate arguments miss. American aid to poor countries is small, has just been cut hard, and is frequently justified as reducing the pressure to migrate. Migration from those same countries produces a private transfer back to them that is an order of magnitude larger than the aid, is spent by households rather than administered by agencies, and rises when the receiving country is in trouble rather than falling. And the fiscal effect of that migration inside the United States is negative or positive depending on an accounting convention, a generation, and a time horizon, which is why two honest people can read the same National Academies report and quote opposite conclusions.</p>
+
+    <p>None of that settles what policy should be. It does suggest that the three questions are one question, and that answering any of them while ignoring the other two produces a number that cannot be right.</p>
+
+    <h2>Sources and limits</h2>
+
+    <p>Aid figures: congressional appropriations for FY2026 and disbursement tracking through 1 July 2026. Remittances: World Bank and KNOMAD migration and development data, and central bank reporting for Guatemala and Honduras. Migration: DHS Office of Homeland Security Statistics, where Mexico remained the leading country of birth for both new and resident lawful permanent residents. Fiscal estimates: Congressional Budget Office, <em>Effects of the Immigration Surge on the Federal Budget and the Economy</em>, 2024; National Academies of Sciences, Engineering, and Medicine, <em>The Economic and Fiscal Consequences of Immigration</em>, 2016.</p>
+
+    <p>Four limits. Remittance data captures formal transfers and misses cash carried by hand, so the true flow is larger than shown. The corridor and total-inflow rows are not perfectly comparable, as noted above. Fiscal estimates depend on assumptions that advocacy organizations on both sides select to favour their conclusion, which is why only CBO and the National Academies are used here and why the assumption that flips the sign has been made into a switch rather than a footnote. And aid, migration and remittances influence each other in ways no table settles: the causal question of whether aid reduces migration remains genuinely open in the research literature.</p>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Curiosities are sourced comparisons, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script>
+var NS="http://www.w3.org/2000/svg", DC="#2f5670", NB="#8a3324", RULE="#ddd3c2", FAINT="#8a8073", INK="#211d18";
+var mode="abs", fisc="avg";
+
+var ABS=[["Mexico corridor",65,NB],["India corridor",28,NB],["Guatemala, all sources",25.5,NB],
+         ["Honduras, all sources",10,NB],["US foreign aid disbursed, FY2026",7,DC]];
+var GDP=[["Honduras",27,NB],["El Salvador",24,NB],["Guatemala",21,NB],["Mexico",3.6,NB]];
+
+function el(svg,t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);
+  if(txt!==undefined)e.textContent=txt;svg.appendChild(e);return e;}
+
+function draw(){
+  var svg=document.getElementById("chart");
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var rows = mode==="abs"?ABS:GDP;
+  var max=0; for(var i=0;i<rows.length;i++) max=Math.max(max,rows[i][1]);
+  var X=250, W=330, y=52;
+  el(svg,"text",{x:14,y:20,"font-size":10.5,fill:FAINT,"font-family":"IBM Plex Mono, monospace"},
+     mode==="abs"?"MONEY LEAVING THE UNITED STATES, BILLIONS PER YEAR"
+                 :"REMITTANCES AS A SHARE OF THE RECEIVING COUNTRY'S ECONOMY");
+  for(i=0;i<rows.length;i++){
+    var lbl=rows[i][0], v=rows[i][1], col=rows[i][2];
+    var w=Math.max(3,Math.round(W*v/max));
+    el(svg,"text",{x:X-10,y:y+13,"text-anchor":"end","font-size":10,fill:INK,"font-family":"EB Garamond, serif"},lbl);
+    el(svg,"rect",{x:X,y:y,width:w,height:17,fill:col});
+    el(svg,"text",{x:X+w+8,y:y+13,"font-size":10,fill:col,"font-family":"IBM Plex Mono, monospace","font-weight":600},
+       mode==="abs"?("$"+v+"B"):(v+"% of GDP"));
+    y+=30;
+  }
+  el(svg,"line",{x1:14,y1:y+10,x2:700,y2:y+10,stroke:RULE,"stroke-width":1});
+  el(svg,"text",{x:14,y:y+30,"font-size":9.5,fill:"#7a5a18","font-family":"IBM Plex Mono, monospace","font-weight":600},
+     mode==="abs"?"Four corridors total about $128B against $7B of aid actually disbursed. Roughly eighteen to one."
+                 :"For three of these countries, money sent home by migrants is a fifth to a quarter of the entire economy.");
+  document.getElementById("cap").textContent = mode==="abs"
+    ? "Remittance corridors against total US foreign aid disbursed in FY2026 through 1 July. Congress appropriated about $50 billion for the year; disbursement collapsed after USAID was shut down. Sources: World Bank and KNOMAD; congressional appropriations and disbursement tracking."
+    : "Remittances as a share of the receiving economy. Honduras, El Salvador and Guatemala are among the most remittance-dependent economies on earth. Sources: World Bank and KNOMAD; national central banks.";
+}
+
+function setMode(m){ mode=m;
+  document.getElementById("m-abs").className = m==="abs"?"on":"";
+  document.getElementById("m-gdp").className = m==="gdp"?"on":"";
+  draw();
+}
+
+function setFisc(f){ fisc=f;
+  document.getElementById("f-avg").className = f==="avg"?"on":"";
+  document.getElementById("f-marg").className = f==="marg"?"on":"";
+  var sign=document.getElementById("t-sign"), sub=document.getElementById("t-sign-sub"),
+      note=document.getElementById("f-note");
+  if(f==="avg"){
+    sign.textContent="Negative"; sign.style.color="#8a3324";
+    sub.textContent="Each immigrant is charged an average share of defense and interest, as though another resident required another aircraft carrier.";
+    note.textContent="Average cost. Every resident is assigned an equal share of public goods already being provided. On this convention the National Academies found immigration fiscally negative in both the short and the long run.";
+  } else {
+    sign.textContent="Positive"; sign.style.color="#2f6e3a";
+    sub.textContent="Each immigrant is charged only what their presence actually adds to the cost of public goods, which for defense and debt service is close to nothing.";
+    note.textContent="Marginal cost. Public goods are non-rival, so an additional resident adds little or nothing to what they cost. On this convention the same National Academies analysis found the long-run fiscal impact positive.";
+  }
+}
+
+draw(); setFisc("avg");
+</script>
+<script src="/assets/like.js" defer></script>
+</body>
+</html>
