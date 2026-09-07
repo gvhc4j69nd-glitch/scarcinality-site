@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ground Beef Price 2008–2026 · Scarcinality</title>
-<meta name="description" content="Annual average retail ground beef price per pound, 2008–2026. Annotated with the drought cycle, COVID meatpacking shutdowns, post-COVID inflation, and tariff-era compound scarcity.">
+<title>Ground Beef Price 2008 to 2026 · Scarcinality</title>
+<meta name="description" content="Annual average retail ground beef price per pound, 2008 to 2026. Annotated with the drought cycle, COVID meatpacking shutdowns, post-COVID inflation, and tariff-era compound scarcity.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Scarcinality">
-<meta property="og:title" content="Ground Beef Price 2008–2026 · Scarcinality">
-<meta property="og:description" content="Annual average retail ground beef price per pound, 2008–2026, annotated by scarcity type.">
+<meta property="og:title" content="Ground Beef Price 2008 to 2026 · Scarcinality">
+<meta property="og:description" content="Annual average retail ground beef price per pound, 2008 to 2026, annotated by scarcity type.">
 <meta property="og:url" content="https://www.scarcinality.com/beef-price-chart">
 <meta property="og:image" content="https://www.scarcinality.com/assets/curiosity-beef-chart.svg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ground Beef Price 2008–2026 · Scarcinality">
-<meta name="twitter:description" content="Annual average retail ground beef price per pound, 2008–2026, annotated by scarcity type.">
+<meta name="twitter:title" content="Ground Beef Price 2008 to 2026 · Scarcinality">
+<meta name="twitter:description" content="Annual average retail ground beef price per pound, 2008 to 2026, annotated by scarcity type.">
 <meta name="twitter:image" content="https://www.scarcinality.com/assets/curiosity-beef-chart.svg">
 <link rel="canonical" href="https://www.scarcinality.com/beef-price-chart">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,7 +104,7 @@
 </header>
 
 <div class="map-header">
-  <h1>Ground Beef Price, 2008–2026</h1>
+  <h1>Ground Beef Price, 2008 to 2026</h1>
   <span class="source-badge">BLS APU0000703112 · Annual averages · $/lb</span>
 </div>
 
@@ -159,9 +159,9 @@
   </div>
 
   <div class="prose-note">
-    <strong>Four layers, one price.</strong> The beef price chart does not tell a single story. The 2011–2015 rise was genuine physical scarcity: drought liquidated the cattle herd to a 70-year low, and prices rose because animals did not exist. The 2020 spike was different: cattle were abundant but meatpacking plants closed; four companies control 85% of slaughter capacity, so a pandemic disruption propagated directly to retail. The 2022–2026 compound surge stacks a real bind (herd now at 74-year low), a biological shock (New World screwworm cutting Mexican feeder cattle imports), and policy-manufactured scarcity (tariffs blocking imports that could ease the real bind). The full analysis separates these components and predicts which falls first.
+    <strong>Four layers, one price.</strong> The beef price chart does not tell a single story. The 2011 to 2015 rise was genuine physical scarcity: drought liquidated the cattle herd to a 70-year low, and prices rose because animals did not exist. The 2020 spike was different: cattle were abundant but meatpacking plants closed; four companies control 85% of slaughter capacity, so a pandemic disruption propagated directly to retail. The 2022 to 2026 compound surge stacks a real bind (herd now at 74-year low), a biological shock (New World screwworm cutting Mexican feeder cattle imports), and policy-manufactured scarcity (tariffs blocking imports that could ease the real bind). The full analysis separates these components and predicts which falls first.
     <br><br>
-    Sources: BLS Average Retail Prices, series APU0000703112 (100% ground beef, US city average); annual averages are approximate composites and may run above the narrowest BLS ground-beef series; 2008–2023 via in2013dollars.com; 2024–2026 computed from BLS monthly data. 2026 is a partial-year average (Jan–Jun). The 2020 annual average masks a spring retail spike above $6/lb in some markets.
+    Sources: BLS Average Retail Prices, series APU0000703112 (100% ground beef, US city average); annual averages are approximate composites and may run above the narrowest BLS ground-beef series; 2008 to 2023 via in2013dollars.com; 2024 to 2026 computed from BLS monthly data. 2026 is a partial-year average (Jan to Jun). The 2020 annual average masks a spring retail spike above $6/lb in some markets.
     <br>
     <a class="dispatch-link" href="/dispatch-beef-price-scarcity">Read the full scarcity analysis &rsaquo;</a>
   </div>
@@ -196,7 +196,7 @@
     { year: 2023, price: 5.43, note: null, event: null },
     { year: 2024, price: 5.48, note: "US herd falls to 74-year low (86.7M head, Jan 2025)", event: null },
     { year: 2025, price: 6.09, note: "Tariffs on imports; screwworm cuts Mexican feeder cattle; +14.8% YoY by April", event: { label: "Tariffs +\nscrewworm", type: "policy" } },
-    { year: 2026, price: 6.78, note: "Partial year avg (Jan–Jun); USDA projects +10% for full year", event: null, partial: true },
+    { year: 2026, price: 6.78, note: "Partial year avg (Jan to Jun); USDA projects +10% for full year", event: null, partial: true },
   ];
 
   var TYPE_COLOR = { real: "#2f5670", bottleneck: "#7a5a18", policy: "#8a3324" };
@@ -280,7 +280,7 @@
     var hw = iw / n;
     var hr = el("rect", { x: hx - hw / 2, y: T, width: hw, height: ih, fill: "transparent", style: "cursor:crosshair" });
     hr.addEventListener("mousemove", function(e) {
-      document.getElementById("tt-year").textContent = d.year + (d.partial ? " (Jan–Jun avg)" : "");
+      document.getElementById("tt-year").textContent = d.year + (d.partial ? " (Jan to Jun avg)" : "");
       document.getElementById("tt-price").textContent = "$" + d.price.toFixed(2) + " / lb";
       document.getElementById("tt-note").textContent = d.note || "";
       tip.style.display = "block";
