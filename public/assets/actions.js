@@ -33,7 +33,12 @@
     /* share */
     '.scarc-share:hover svg{transform:translateY(-1px);}' +
     '.scarc-share.done{color:#3f6b3a;border-color:#3f6b3a;background:#e9f0e6;}' +
-    '.scarc-share-wrap{position:relative;display:inline-flex;flex-shrink:0;}' +
+    /* inline-block, not inline-flex: the wrapper only anchors the menu, and
+       making it a flex container shrinks the button it holds to the width of
+       its longest word. All it needs is a positioning context. */
+    '.scarc-share-wrap{position:relative;display:inline-block;flex-shrink:0;' +
+    'vertical-align:top;}' +
+    '.scarc-share-wrap > .share-btn{white-space:nowrap;}' +
     '.scarc-menu{position:absolute;z-index:40;bottom:calc(100% + .4rem);right:0;' +
     'min-width:11rem;background:#fbf9f4;border:1px solid #ddd3c2;border-radius:2px;' +
     'box-shadow:0 6px 20px rgba(33,29,24,.13);padding:.25rem;' +
