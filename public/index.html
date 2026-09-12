@@ -155,31 +155,7 @@
     <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
   </div>
 </footer>
-<script>
-(function(){
-  var el = document.getElementById('cci-header-badge');
-  if (!el) return;
-  fetch('/data/cci.json').then(function(r){return r.json();}).then(function(data){
-    var actual = data.quarters.filter(function(q){return !q.projected;});
-    var latest = actual[actual.length-1];
-    var prev   = actual[actual.length-2];
-    var thr    = data.meta.threshold;
-    var delta  = latest.cci - prev.cci;
-    var dirWord, dirCls;
-    if (latest.cci >= thr)      { dirWord = 'breach';     dirCls = 'breach'; }
-    else if (delta >  0.05)     { dirWord = 'rising';     dirCls = 'warn';   }
-    else if (delta < -0.05)     { dirWord = 'retreating'; dirCls = 'clear';  }
-    else                        { dirWord = 'holding';    dirCls = 'clear';  }
-    var sign = latest.cci >= 0 ? '+' : '';
-    el.innerHTML =
-      '<span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);">CCI </span>' +
-      '<span class="cci-val">' + sign + latest.cci.toFixed(2) + '</span>' +
-      '<span class="cci-dir ' + dirCls + '">' + dirWord + '</span>';
-  }).catch(function(){
-    el.innerHTML = '<span class="cci-val">CCI</span>';
-  });
-})();
-</script>
 <script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
 </body>
 </html>
