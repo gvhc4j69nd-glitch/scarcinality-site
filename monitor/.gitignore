@@ -1,0 +1,6 @@
+# Generated each run. The corpus is derived from public/, the queue is working
+# state, and seen.json is a local de-duplication ledger. None of it belongs in
+# the repo.
+corpus.json
+queue/
+review.html

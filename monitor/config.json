@@ -1,0 +1,67 @@
+{
+  "_comment": "Edit this file. Everything else reads from it.",
+  "watchlist": [
+    {
+      "name": "Rebates and dividend checks",
+      "query": "tariff dividend OR rebate checks candidate"
+    },
+    {
+      "name": "Tariffs and prices",
+      "query": "tariffs grocery prices candidate congress"
+    },
+    {
+      "name": "Housing affordability",
+      "query": "housing shortage affordability candidate plan"
+    },
+    {
+      "name": "Healthcare costs",
+      "query": "medical debt OR healthcare costs candidate"
+    },
+    {
+      "name": "Immigration and the budget",
+      "query": "immigration cost taxpayers candidate"
+    },
+    {
+      "name": "Data centers and power",
+      "query": "data center electricity rates candidate"
+    },
+    {
+      "name": "Grocery and cost of living",
+      "query": "grocery prices cost of living campaign"
+    },
+    {
+      "name": "Defense production",
+      "query": "munitions production capacity appropriation"
+    }
+  ],
+  "federal_register_terms": [
+    "tariff",
+    "drug pricing",
+    "electricity",
+    "housing"
+  ],
+  "feeds": [
+    {
+      "label": "House Financial Services",
+      "url": "https://financialservices.house.gov/news/rss.aspx"
+    },
+    {
+      "label": "Senate Banking",
+      "url": "https://www.banking.senate.gov/rss/feeds/?type=press"
+    }
+  ],
+  "ad_library": {
+    "enabled": false,
+    "_note": "Set enabled true once FB_ADS_TOKEN is exported. Identity must be confirmed at facebook.com/ID first.",
+    "search_terms": [
+      "inflation",
+      "grocery prices",
+      "tariffs",
+      "cost of living"
+    ],
+    "page_ids": []
+  },
+  "window_days": 7,
+  "min_score": 0.45,
+  "max_drafts_per_run": 15
+}

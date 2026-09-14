@@ -1,0 +1,98 @@
+{
+  "_comment": "High-precision routing. Statistical matching is too weak on the 80-character summaries news feeds return, so these phrases carry the work. 'any' fires the rule; 'all' must also be satisfied where present. Add phrases as you publish.",
+
+  "rules": [
+    {
+      "slug": "dispatch-check-and-the-ceiling",
+      "any": ["dividend check", "$5,000 check", "5000 check", "rebate check", "tariff rebate",
+              "tariff dividend", "stimulus check", "doge dividend", "checks for americans",
+              "$2,000 check", "2000 check"]
+    },
+    {
+      "slug": "dispatch-tariff-trap",
+      "any": ["tariff", "customs duties", "import duties", "trade war"],
+      "not": ["tariff rebate", "tariff dividend"]
+    },
+    {
+      "slug": "dispatch-dark-fiber-power-bill",
+      "any": ["data center", "data centre", "ai buildout", "compute capacity", "server farm"]
+    },
+    {
+      "slug": "datacenter-neighborhood",
+      "any": ["data center water", "data center electricity", "data center power",
+              "electricity rates", "utility bills", "ratepayers", "grid strain", "moratorium on data"]
+    },
+    {
+      "slug": "dispatch-ceiling-that-isnt",
+      "any": ["housing shortage", "vacant homes", "homelessness", "affordable housing",
+              "housing supply", "build more housing", "zoning reform", "rent burden"]
+    },
+    {
+      "slug": "dispatch-hours-ceiling",
+      "any": ["work more hours", "second job", "overtime", "labor shortage", "workforce shortage",
+              "wage growth", "get a better job", "work harder"]
+    },
+    {
+      "slug": "dispatch-counterfeit-shortage-of-care",
+      "any": ["medical debt", "healthcare costs", "health care costs", "insurance premiums",
+              "medicaid cuts", "uninsured", "hospital closure", "obamacare", "aca subsidies"]
+    },
+    {
+      "slug": "dispatch-write-off-and-the-wage",
+      "any": ["medical bankruptcy", "charity care", "bad debt hospital", "surprise billing"]
+    },
+    {
+      "slug": "dispatch-which-immigration",
+      "any": ["immigration cost", "immigrants cost", "taxpayer cost immigration", "border spending",
+              "immigration reform", "visa", "deportation cost", "migrant"]
+    },
+    {
+      "slug": "aid-and-migration",
+      "any": ["foreign aid", "usaid", "development assistance", "remittances"]
+    },
+    {
+      "slug": "dispatch-appropriation-is-not-capacity",
+      "any": ["munitions", "artillery shells", "defense production", "defence production",
+              "replenish stockpile", "155mm", "tomahawk", "shipbuilding capacity"]
+    },
+    {
+      "slug": "dispatch-volume-tell",
+      "any": ["grocery prices", "shrinkflation", "store brands", "private label",
+              "cost of living groceries", "food prices", "consumers trading down", "dollar store"]
+    },
+    {
+      "slug": "dispatch-counterfeiters-gauge",
+      "any": ["credit conditions", "lending standards", "credit crunch", "rate cut",
+              "rate hike", "federal reserve", "fed chair", "monetary policy", "interest rates"]
+    },
+    {
+      "slug": "dispatch-seed-corn",
+      "any": ["research funding", "nih budget", "nsf budget", "science funding", "r&d spending"]
+    },
+    {
+      "slug": "dispatch-scarcity-cant-borrow-back",
+      "any": ["cdc cuts", "public health funding", "disease surveillance", "pandemic preparedness"]
+    },
+    {
+      "slug": "dispatch-money-is-not-the-question",
+      "any": ["school funding", "education spending", "per pupil", "school choice"]
+    },
+    {
+      "slug": "dispatch-abolish-financial-scarcity",
+      "any": ["fed independence", "central bank independence", "fire the fed chair",
+              "pressure the fed", "yield curve", "bond market"]
+    },
+    {
+      "slug": "dispatch-cryptos-two-flights",
+      "any": ["bitcoin", "crypto", "stablecoin", "digital asset reserve"]
+    },
+    {
+      "slug": "dispatch-beef-price-scarcity",
+      "any": ["beef prices", "cattle herd", "meat prices", "ranchers"]
+    },
+    {
+      "slug": "dispatch-commodity-chokepoints",
+      "any": ["supply chain", "chokepoint", "strait of hormuz", "shipping lane", "port congestion"]
+    }
+  ]
+}
