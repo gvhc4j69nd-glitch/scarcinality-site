@@ -24,8 +24,15 @@ PUB = os.path.join(REPO, 'public')
 TARGET = dict(avg=12.0, short=38.0, long=4.0)
 BEST = '11.0 w/sent, 45% short, 2% long'
 
+# Widened after 'behaviour', 'specialised' and 'millimetre' each survived an
+# earlier normalization pass and were only caught by running this across all
+# dispatches at once.
 BRITISH = r'\b(centre|centres|labour|colour|colours|programme|defence|favourable|' \
-          r'organisation|realise|analyse|behaviour|neighbourhood|artefact)\b'
+          r'organisation|organise[dsr]?|realise[dsr]?|analyse[dsr]?|behaviour|' \
+          r'neighbourhood|artefact|specialise[dsr]?|recognise[dsr]?|utilise[dsr]?|' \
+          r'minimise[dsr]?|maximise[dsr]?|normalise[dsr]?|categorise[dsr]?|' \
+          r'millimetre|centimetre|kilometre|metre|litre|tonne|sceptic|sceptical|' \
+          r'practise|licence|enquiry|whilst|amongst)\b'
 
 RESET = '\033[0m' if sys.stdout.isatty() else ''
 def c(code, s):
