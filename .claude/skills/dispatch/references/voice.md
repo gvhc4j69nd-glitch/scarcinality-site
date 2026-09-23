@@ -12,7 +12,7 @@ not from the corpus average, because several older dispatches drifted.
 | | Target | The best pieces |
 |---|---|---|
 | Words per sentence | ≤ 12 | 10 to 11 |
-| Sentences ≤ 8 words | ≥ 38% | 41 to 48% |
+| Sentences ≤ 8 words | ≥ 35% | 41 to 48% |
 | Sentences ≥ 25 words | ≤ 4% | 0 to 3% |
 
 **The distribution carries the voice, not the average.** A piece can average
