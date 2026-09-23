@@ -33,6 +33,14 @@ function send(res, status, body, type) {
 
 const CANONICAL_HOST = "www.scarcinality.com";
 
+/* Permanent redirects for pages that have been renamed. A slug is part of the
+ * public record once a link has been shared, so renaming one without a 301
+ * breaks every copy of the old address that is already out there. Keep old
+ * entries here indefinitely; they cost a map lookup. */
+const REDIRECTS = {
+  "/dispatch-the-other-shrinkage": "/dispatch-mega-no-more"
+};
+
 /* ------------------------------------------------------------------ *
  * Like counts.
  * Persisted to a Railway volume. DATA_DIR should point at the volume
@@ -122,6 +130,14 @@ const server = http.createServer((req, res) => {
     const host = (req.headers.host || "").split(":")[0].toLowerCase();
     if (host === "scarcinality.com") {
       res.writeHead(301, { Location: "https://" + CANONICAL_HOST + req.url });
+      return res.end();
+    }
+
+    // ---- Renamed pages ----------------------------------------------
+    const bare = req.url.split("?")[0].replace(/\.html$/, "").replace(/\/$/, "");
+    if (Object.prototype.hasOwnProperty.call(REDIRECTS, bare)) {
+      const qs = req.url.indexOf("?") >= 0 ? req.url.slice(req.url.indexOf("?")) : "";
+      res.writeHead(301, { Location: REDIRECTS[bare] + qs });
       return res.end();
     }
 
