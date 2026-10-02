@@ -224,6 +224,10 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--oxblood);outline-offs
   body{font-size:1.1rem;}
   .entry{grid-template-columns:2.4rem 1fr;gap:.8rem;}
   .site-header{position:static;}
+  /* The nav wraps to three lines at this width, so the header runs over
+     200px. Tightening its own padding keeps the opening of the page above
+     the fold on a 640px tall phone, which the sponsor strip now shares. */
+  .site-header{padding-top:1rem;padding-bottom:1rem;}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 
@@ -237,3 +241,17 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--oxblood);outline-offs
 .facts .fact{background:var(--parchment);padding:1rem 1.1rem;}
 .facts .fact .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:.3rem;}
 .facts .fact .v{font-size:1.05rem;line-height:1.35;}
+
+/* ---------- sponsor strip ---------- */
+.site-note{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+ gap:6px 10px;min-height:44px;padding:9px 16px;box-sizing:border-box;
+ background:#FFFAF5;border-bottom:1px solid rgba(42,36,64,.12);
+ font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;
+ color:#2A2440;text-decoration:none;text-align:center}
+.site-note:hover{background:#FFF3E8}
+.site-note-label{font-size:11px;font-weight:700;letter-spacing:.07em;
+ text-transform:uppercase;color:#8A8299}
+.site-note strong{color:#E8695E}
+.site-note-text{color:#5A5370}
+.site-note-go{color:#2FA8C4;font-weight:600;white-space:nowrap}
+@media(max-width:620px){.site-note-text{display:none}}

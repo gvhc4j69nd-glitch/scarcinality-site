@@ -225,6 +225,27 @@ body { font-family: var(--serif); background: var(--parchment); color: var(--ink
 </style>
 </head>
 <body>
+<style>
+.site-note{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+ gap:6px 10px;min-height:44px;padding:9px 16px;box-sizing:border-box;
+ background:#FFFAF5;border-bottom:1px solid rgba(42,36,64,.12);
+ font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;
+ color:#2A2440;text-decoration:none;text-align:center}
+.site-note:hover{background:#FFF3E8}
+.site-note-label{font-size:11px;font-weight:700;letter-spacing:.07em;
+ text-transform:uppercase;color:#8A8299}
+.site-note strong{color:#E8695E}
+.site-note-text{color:#5A5370}
+.site-note-go{color:#2FA8C4;font-weight:600;white-space:nowrap}
+@media(max-width:620px){.site-note-text{display:none}}
+</style>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+
 <header class="site-header">
   <a class="brand" href="/">Scarcinality</a>
   <nav class="site-nav">
