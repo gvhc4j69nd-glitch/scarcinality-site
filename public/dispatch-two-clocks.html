@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two Clocks &middot; Scarcinality</title>
+<meta name="description" content="Data center vacancy is 1.4 percent, a record low, and 80 percent of everything under construction is already leased. So the overbuilding worry is pointed the wrong way. A data center is two assets with different lifespans, and only one of them goes obsolete.">
+<meta property="og:image" content="https://www.scarcinality.com/assets/og/dispatch-two-clocks.png">
+<meta property="og:image:alt" content="Two Clocks. A Scarcinality card.">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Two Clocks &middot; Scarcinality">
+<meta property="og:description" content="The average rack drew 16 kilowatts last year and 27 this year. A Blackwell rack draws 130. The 2027 Rubin Ultra rack is specified at 600. Air cooling stops working at 35, which is why 68 percent of older data centers are already out of the game.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-two-clocks">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Two Clocks &middot; Scarcinality">
+<meta name="twitter:description" content="The thing that is scarce does not go obsolete. The thing that goes obsolete is not scarce. That nearly inverts the question of whether to pull back.">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-two-clocks">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .fig{max-width:var(--measure);margin:1.8rem 0 .4rem;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:8rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:12rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.3rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Live conditions &middot; as of 4 October 2026</p>
+    <h1>Two Clocks</h1>
+    <p class="dek">The worry about the data center build is that we end up with empty buildings. It is a reasonable worry and it is aimed at the wrong half of the thing. A data center is two assets with very different lifespans bolted together, and only one of them goes out of date.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">A sequel to <a href="/dispatch-dark-fiber-power-bill">Dark Fiber With a Power Bill</a>, which asked whether this build would strand like the fiber of 1999. Three claims: nothing is overbuilt on the current evidence, the obsolescence risk is real but lands on the older stock rather than the new, and pulling back is two decisions that get discussed as one. Conditional, falsifiable, not investment advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">Begin with the number that settles the first question. American data center vacancy in the first half of 2026 was 1.4 percent.</p>
+
+    <p>That is a record low. It is the third straight year near one percent.</p>
+
+    <p>More than 66 gigawatts are under construction across North America, and <strong>80.4 percent of it is already leased</strong>. Signed, before the concrete cured.</p>
+
+    <p>Across every primary market, under 1,500 megawatts remain available. At the rate space is being taken up, that is about six months of supply.</p>
+
+    <p>So whatever is happening here, nobody is sitting on empty halls.</p>
+
+    <h2>The worry is still right. It is just aimed badly</h2>
+
+    <p>Something in this build will go obsolete fast. That instinct is correct.</p>
+
+    <p>The mistake is assuming it is the building.</p>
+
+    <p>A data center is really two things in a trench coat. There is the shell, with its power feed, its grid connection, its cooling, its land and water rights. And there is the silicon racked inside it.</p>
+
+    <p>They run on completely different clocks.</p>
+
+    <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr><th>The two halves</th><th>How long it lasts</th><th>Is it scarce</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Shell, power, interconnect</td><td class="r">Twenty to thirty years. Concrete and copper do not improve.</td><td class="r"><strong>Severely.</strong> Roughly 8,200 projects wait in the grid queue. Large transformers run 24 to 36 months.</td></tr>
+        <tr><td class="k">The chips inside</td><td class="r">A one year product cycle. Economically stale for frontier work in two or three.</td><td class="r"><strong>Not at all.</strong> Nvidia will happily sell you more.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="pull">The thing that is scarce does not go obsolete. The thing that goes obsolete is not scarce. Almost every argument about overbuilding has those two swapped.</div>
+
+    <p>You cannot overbuild a grid connection in a country with 8,200 projects already standing in line for one. You can very easily overbuy graphics cards.</p>
+
+    <h2>The escalator</h2>
+
+    <p>Now the number that should actually worry a builder, and it has nothing to do with vacancy.</p>
+
+    <p>The average server rack drew about 16 kilowatts last year. This year it draws about 27. Forecasts put the average near 40 within a few years.</p>
+
+    <p>Then look at what the frontier systems draw.</p>
+
+    <p>A Blackwell NVL72 rack pulls roughly 130 kilowatts. The Rubin generation lands between 190 and 230. The Rubin Ultra rack planned for 2027, the one called Kyber, is specified at about 600.</p>
+
+    <p>And air cooling stops working somewhere around 35 kilowatts a rack. Not gets expensive. Stops working.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 720 330" role="img" aria-label="Power per server rack in kilowatts. Average rack 16 in 2025 and 27 in 2026. Blackwell NVL72 about 130. Rubin VR200 about 230. Rubin Ultra Kyber in 2027 about 600. Air cooling fails above about 35 kilowatts.">
+        <text x="60" y="24" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">KILOWATTS PER RACK</text>
+        <text x="60" y="38" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">what a single cabinet draws</text>
+
+        <g font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">
+          <line x1="86" y1="202.3" x2="690" y2="202.3" stroke="#ddd3c2" stroke-width="0.7"/>
+          <text x="80" y="205" text-anchor="end">200</text>
+          <line x1="86" y1="134.6" x2="690" y2="134.6" stroke="#ddd3c2" stroke-width="0.7"/>
+          <text x="80" y="137" text-anchor="end">400</text>
+          <line x1="86" y1="66.9" x2="690" y2="66.9" stroke="#ddd3c2" stroke-width="0.7"/>
+          <text x="80" y="70" text-anchor="end">600</text>
+          <line x1="86" y1="270" x2="690" y2="270" stroke="#b9ad99" stroke-width="1.2"/>
+          <text x="80" y="273" text-anchor="end">0</text>
+        </g>
+
+        <!-- air cooling ceiling -->
+        <line x1="86" y1="258.2" x2="690" y2="258.2" stroke="#3f6b3a" stroke-width="1.2" stroke-dasharray="5 3"/>
+        <text x="112" y="238" font-size="9" fill="#3f6b3a" font-family="IBM Plex Mono, monospace">air cooling fails above about 35 kW</text>
+        <line x1="118" y1="241" x2="118" y2="256" stroke="#3f6b3a" stroke-width="0.8"/>
+
+        <rect x="110" y="264.6" width="86" height="5.4" fill="#8a8073"/>
+        <text x="153" y="257" font-size="11" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle" font-weight="600">16</text>
+        <text x="153" y="290" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle">Average rack</text>
+        <text x="153" y="303" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">2025</text>
+
+        <rect x="222" y="260.9" width="86" height="9.1" fill="#8a8073"/>
+        <text x="265" y="253" font-size="11" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle" font-weight="600">27</text>
+        <text x="265" y="290" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle">Average rack</text>
+        <text x="265" y="303" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">2026</text>
+
+        <rect x="334" y="226" width="86" height="44" fill="#2f5670"/>
+        <text x="377" y="218" font-size="12" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle" font-weight="600">130</text>
+        <text x="377" y="290" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle">Blackwell</text>
+        <text x="377" y="303" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">NVL72, now</text>
+
+        <rect x="446" y="192.2" width="86" height="77.8" fill="#7a5a18"/>
+        <text x="489" y="184" font-size="12" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle" font-weight="600">230</text>
+        <text x="489" y="290" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle">Rubin</text>
+        <text x="489" y="303" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">VR200</text>
+
+        <rect x="558" y="66.9" width="86" height="203.1" fill="#8a3324"/>
+        <text x="601" y="59" font-size="14" fill="#8a3324" font-family="EB Garamond, serif" text-anchor="middle" font-weight="600">600</text>
+        <text x="601" y="290" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="middle">Rubin Ultra</text>
+        <text x="601" y="303" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">Kyber, 2027</text>
+
+        <text x="86" y="322" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Vendor rack specifications and operator density surveys, 2026.</text>
+      </svg>
+      <figcaption>The two bars on the left are the ordinary data center. The green line is the point where moving air stops being able to carry the heat away. Everything to the right of it requires liquid, plumbed in at the rack, and most of it did not exist three years ago.</figcaption>
+    </figure>
+
+    <p>Look at the left of that chart. The average rack, the one in the overwhelming majority of American data centers, is a sliver.</p>
+
+    <p>Now look at 2027.</p>
+
+    <h2>Which buildings actually go empty</h2>
+
+    <p>Here is the answer to the question, and it is not the new ones.</p>
+
+    <p>Sixty-eight percent of enterprise data centers built before 2015 cannot deliver the power density or the cooling AI work needs. They were designed around 10 kilowatt racks, in an era when that was generous.</p>
+
+    <p>Retrofitting them runs $50,000 to $100,000 per rack. That buys a path to somewhere between 40 and 70 kilowatts.</p>
+
+    <p>Which is still less than one Blackwell rack. The money does not get you to the starting line.</p>
+
+    <div class="pull">The empty buildings are already here. They are just not the ones anybody is watching, because a 2011 data center at full occupancy does not look stranded. It looks fine, right up until the tenant needs a rack it cannot host.</div>
+
+    <p>And here the escalator becomes a builder's problem rather than a historian's. A hall designed today around 130 kilowatt racks is state of the art. It may also be unable to take the 600 kilowatt racks shipping next year.</p>
+
+    <p>That is obsolescence inside a single capital cycle, and it is the real thing to engineer against.</p>
+
+    <h2>The number that moves on paper</h2>
+
+    <p>There is a second kind of stranding, and it shows up in an accounting line rather than in a parking lot.</p>
+
+    <p>Amazon, Microsoft and Google all stretched the assumed useful life of their servers from three or four years to six. On more than $300 billion of annual capital spending, that is worth roughly $18 billion a year in earnings.</p>
+
+    <p>Michael Burry put a figure on the gap. By his estimate the hyperscalers will understate depreciation by about $176 billion across 2026 to 2028.</p>
+
+    <p>The defense is real and worth stating. A chip too slow for frontier training is perfectly good for inference. And physical life genuinely does run past six years. The industry calls this the value cascade, and it is not a fiction.</p>
+
+    <p>But Nvidia now ships a new generation every year. Economic obsolescence for the hardest work arrives long before the silicon stops functioning.</p>
+
+    <p>If the cascade story is wrong, the loss does not appear as an empty building. It appears as a restatement.</p>
+
+    <div class="statgrid">
+      <div><div class="sv">1.4%</div><div class="sl">Vacancy, a record low, third year near one</div></div>
+      <div><div class="sv">80.4%</div><div class="sl">Of capacity under construction already leased</div></div>
+      <div><div class="sv">68%</div><div class="sl">Of pre-2015 data centers cannot host AI racks</div></div>
+      <div><div class="sv">$176B</div><div class="sl">Estimated understated depreciation, 2026 to 2028</div></div>
+    </div>
+
+    <h2>So should we pull back</h2>
+
+    <p>The question contains two decisions. They are almost always discussed as one, and they point in opposite directions.</p>
+
+    <p><strong>Do not pull back on shells, power and interconnect.</strong> This is the scarce half. It lasts thirty years. The lead times are long. Easing off now produces a shortage in 2029, not a saving in 2027. Capital spending is heading from about $785 billion this year toward a trillion next year. Most of what that buys on the physical side is the part least at risk.</p>
+
+    <p><strong>Do question the pace of silicon.</strong> This is the half with the one year cycle, the contested depreciation schedule and no scarcity behind it. Buying three years of chips in advance is a wager that frontier models will not get more efficient. Getting more efficient is the single most reliable thing they do.</p>
+
+    <p><strong>And build the shells for 600 kilowatts.</strong> Even while installing 130. Retrofit costs $50,000 to $100,000 a rack, and it tops out below where the roadmap already sits. The cheap moment to buy that headroom is while the slab is still being poured.</p>
+
+    <p>That last one is the recommendation this framework actually generates. It is unglamorous and it is the difference between a thirty year asset and a fifteen year one.</p>
+
+    <h2>What would prove this wrong</h2>
+
+    <p>Three markers, all public.</p>
+
+    <p>If vacancy crosses 5 percent, the absorption story has broken. Then the overbuilding worry becomes the correct one. One point four is not close.</p>
+
+    <p>If preleasing on new starts falls below 60 percent, builders are working on hope rather than signed tenants. That is the earliest honest warning available.</p>
+
+    <p>And if any hyperscaler <em>shortens</em> a depreciation schedule, take it seriously. Nobody does that voluntarily. It would be a confession that the cascade does not work, and it would arrive before the write-down.</p>
+
+    <p style="margin-top:1.6rem;">Two cautions. The vacancy and preleasing figures are a demand fact about today, not a forecast. The whole case rests on that demand holding. The fragile number remains the one from <a href="/dispatch-dark-fiber-power-bill">the earlier dispatch</a>: enormous capital spending against inference that sells for about eleven cents. And the 2027 rack specification is a vendor roadmap, not a shipped product. Treat 600 as a direction rather than a measurement.</p>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
+</body>
+</html>
