@@ -1,0 +1,24 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="14" y="18" font-size="7.5" fill="#8a8073">PERCEIVED CORRUPTION SCORE, 2012 TO 2025</text>
+
+  <line x1="14" y1="34" x2="306" y2="34" stroke="#ddd3c2" stroke-width="0.6"/>
+  <line x1="14" y1="62" x2="306" y2="62" stroke="#ddd3c2" stroke-width="0.6"/>
+  <line x1="14" y1="90" x2="306" y2="90" stroke="#b9ad99" stroke-width="0.8"/>
+
+  <polyline points="14,48 36,48 58,41 80,34 102,48 124,41 146,69 168,83 190,97 212,97 234,83 256,83 278,111 300,118"
+            fill="none" stroke="#8a3324" stroke-width="2"/>
+  <circle cx="80" cy="34" r="3" fill="#8a3324"/>
+  <circle cx="300" cy="118" r="3" fill="#8a3324"/>
+  <text x="80" y="28" font-size="7.5" fill="#211d18" text-anchor="middle" font-weight="600">76</text>
+  <text x="300" y="132" font-size="8" fill="#8a3324" text-anchor="end" font-weight="600">64</text>
+  <text x="300" y="142" font-size="6.5" fill="#8a8073" text-anchor="end">lowest ever</text>
+
+  <line x1="14" y1="152" x2="306" y2="152" stroke="#ddd3c2" stroke-width="0.8"/>
+
+  <text x="14" y="166" font-size="7.5" fill="#8a8073">THE UNIT THAT PROSECUTES IT</text>
+  <rect x="14" y="172" width="180" height="9" fill="#2f5670"/>
+  <text x="199" y="180" font-size="7" fill="#2f5670">40 staff</text>
+  <rect x="14" y="184" width="9" height="9" fill="#8a3324"/>
+  <text x="28" y="192" font-size="7" fill="#8a3324">2 today</text>
+</svg>

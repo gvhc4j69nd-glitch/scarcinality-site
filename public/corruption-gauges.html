@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measuring Corruption &middot; Scarcinality</title>
+<meta name="description" content="Two instruments for seeing public corruption in the United States, and what each one can and cannot show. The perception index on its only comparable series, 2012 to 2025, and the collapse in federal enforcement capacity.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="Measuring Corruption &middot; Scarcinality">
+<meta property="og:description" content="The US perception score fell from 76 in 2015 to 64 in 2025, its lowest ever. Meanwhile the federal unit that prosecutes public corruption went from about 40 staff to two, and from 175 open matters to twenty.">
+<meta property="og:url" content="https://www.scarcinality.com/corruption-gauges">
+<meta property="og:image" content="https://www.scarcinality.com/assets/og/corruption-gauges.png">
+<meta property="og:image:alt" content="Ground Beef Price, 2008 to 2026. A Scarcinality card.">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Measuring Corruption &middot; Scarcinality">
+<meta name="twitter:description" content="A falling conviction count is about to look like falling corruption. It is not. It is a falling ability to count.">
+<meta name="twitter:image" content="https://www.scarcinality.com/assets/og/corruption-gauges.png">
+<link rel="canonical" href="https://www.scarcinality.com/corruption-gauges">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+/* curio-switch group colors, from the phase-plane quadrant palette */
+.curio-switch a.g-health  { color:#3f6b3a; border-color:#c2cfbc; }
+.curio-switch a.g-comm    { color:#7a5a18; border-color:#d8cba8; }
+.curio-switch a.g-energy  { color:#2f5670; border-color:#bcc8d2; }
+.curio-switch a.g-pol     { color:#8a3324; border-color:#dbbfb8; }
+.curio-switch a.g-health[aria-current], .curio-switch a.g-health:hover { color:#2f5230; border-color:#3f6b3a; background:#e7ece4; }
+.curio-switch a.g-comm[aria-current],   .curio-switch a.g-comm:hover   { color:#5e4512; border-color:#7a5a18; background:#f0e9d8; }
+.curio-switch a.g-energy[aria-current], .curio-switch a.g-energy:hover { color:#234155; border-color:#2f5670; background:#e3e9ee; }
+.curio-switch a.g-pol[aria-current],    .curio-switch a.g-pol:hover    { color:#6f281c; border-color:#8a3324; background:#f2e4e0; }
+.curio-switch a[aria-current] { font-weight:500; }
+.curio-switch a.g-first { margin-left:.55rem; }
+
+.chart-wrap { max-width: 72rem; margin: 0 auto; padding: 2rem clamp(1.1rem,5vw,3rem) 3rem; }
+.chart-container { position: relative; width: 100%; }
+#beef-svg { width: 100%; height: auto; display: block; }
+
+.legend { display: flex; gap: 1.4rem; flex-wrap: wrap; margin: .8rem 0 1.6rem; align-items: center; }
+.legend-item { display: flex; align-items: center; gap: .45rem; font-family: var(--mono); font-size: .7rem; color: var(--ink-soft); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-line { width: 22px; height: 2.5px; flex-shrink: 0; }
+
+.prose-note { max-width: 52rem; font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+.dispatch-link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--oxblood); border-bottom: 1px solid var(--oxblood); text-decoration: none; }
+
+.tooltip-box {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--parchment-deep, #ECE7DA);
+  border: 1px solid var(--rule); border-left: 3px solid var(--oxblood);
+  padding: .55rem .75rem; font-family: var(--mono); font-size: .7rem;
+  line-height: 1.55; color: var(--ink); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(35,32,27,.1);
+}
+.tooltip-box .tt-year { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .2rem; }
+.tooltip-box .tt-price { color: var(--oxblood); font-weight: 600; font-size: .85rem; }
+.tooltip-box .tt-note { color: var(--ink-soft); font-size: .65rem; max-width: 18rem; white-space: normal; margin-top: .2rem; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  #beef-svg { height: 280px; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>Measuring Corruption</h1>
+  <span class="source-badge">Transparency International &middot; DOJ Public Integrity Section &middot; United States</span>
+</div>
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/profits-bankruptcies" class="g-comm">Profits &amp; Failures</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first">Education</a>
+  <a href="/international-students" class="g-pol">Intl Students</a>
+  <a href="/immigration-fiscal" class="g-pol">Immigration</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <a href="/corruption-gauges" class="g-pol" aria-current="page">Corruption</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+
+<div class="chart-wrap">
+
+  <div class="chart-container">
+    <svg viewBox="0 0 900 470" role="img" aria-label="United States Corruption Perceptions Index score from 2012 to 2025, falling from 73 to 64 with a peak of 76 in 2015. Scores before 2012 are on a different scale and are not comparable.">
+      <text x="86" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">PERCEIVED PUBLIC SECTOR CORRUPTION, UNITED STATES</text>
+      <text x="86" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Corruption Perceptions Index score. 100 is clean, 0 is wholly corrupt.</text>
+
+      <g font-family="IBM Plex Mono, monospace"><line x1="86" y1="270" x2="860" y2="270" stroke="#ddd3c2" stroke-width="0.7"/><text x="78" y="273" font-size="9.5" fill="#8a8073" text-anchor="end">65</text><line x1="86" y1="200" x2="860" y2="200" stroke="#ddd3c2" stroke-width="0.7"/><text x="78" y="203" font-size="9.5" fill="#8a8073" text-anchor="end">70</text><line x1="86" y1="130" x2="860" y2="130" stroke="#ddd3c2" stroke-width="0.7"/><text x="78" y="133" font-size="9.5" fill="#8a8073" text-anchor="end">75</text><line x1="86" y1="60" x2="860" y2="60" stroke="#ddd3c2" stroke-width="0.7"/><text x="78" y="63" font-size="9.5" fill="#8a8073" text-anchor="end">80</text></g>
+      <line x1="86" y1="340" x2="860" y2="340" stroke="#b9ad99" stroke-width="1.2"/>
+      <text x="78" y="343" font-size="9.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">60</text>
+
+      <polyline points="86.0,158.0 145.5,158.0 205.1,144.0 264.6,116.0 324.2,144.0 383.7,130.0 443.2,186.0 502.8,214.0 562.3,242.0 621.8,242.0 681.4,214.0 740.9,214.0 800.5,270.0 860.0,284.0" fill="none" stroke="#8a3324" stroke-width="2.2"/>
+      <circle cx="86.0" cy="158.0" r="3.4" fill="#8a3324"/><circle cx="145.5" cy="158.0" r="3.4" fill="#8a3324"/><circle cx="205.1" cy="144.0" r="3.4" fill="#8a3324"/><circle cx="264.6" cy="116.0" r="3.4" fill="#8a3324"/><circle cx="324.2" cy="144.0" r="3.4" fill="#8a3324"/><circle cx="383.7" cy="130.0" r="3.4" fill="#8a3324"/><circle cx="443.2" cy="186.0" r="3.4" fill="#8a3324"/><circle cx="502.8" cy="214.0" r="3.4" fill="#8a3324"/><circle cx="562.3" cy="242.0" r="3.4" fill="#8a3324"/><circle cx="621.8" cy="242.0" r="3.4" fill="#8a3324"/><circle cx="681.4" cy="214.0" r="3.4" fill="#8a3324"/><circle cx="740.9" cy="214.0" r="3.4" fill="#8a3324"/><circle cx="800.5" cy="270.0" r="3.4" fill="#8a3324"/><circle cx="860.0" cy="284.0" r="3.4" fill="#8a3324"/>
+      <g font-family="IBM Plex Mono, monospace"><text x="86.0" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">12</text><text x="145.5" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">13</text><text x="205.1" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">14</text><text x="264.6" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">15</text><text x="324.2" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">16</text><text x="383.7" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">17</text><text x="443.2" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">18</text><text x="502.8" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">19</text><text x="562.3" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">20</text><text x="621.8" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">21</text><text x="681.4" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">22</text><text x="740.9" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">23</text><text x="800.5" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">24</text><text x="860.0" y="362" font-size="9.5" fill="#8a8073" text-anchor="middle">25</text></g>
+
+      <text x="265" y="104" font-size="10.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle" font-weight="600">76</text>
+      <text x="265" y="92" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">peak, 2015</text>
+      <text x="860" y="304" font-size="10.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="end" font-weight="600">64</text>
+      <text x="860" y="316" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">lowest ever</text>
+
+      <line x1="86" y1="398" x2="860" y2="398" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="86" y="420" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace">BEFORE 2012 THE INDEX USED A DIFFERENT SCALE AND CANNOT BE COMPARED TO THIS LINE.</text>
+      <text x="86" y="436" font-size="9.5" fill="#8a8073" font-family="IBM Plex Mono, monospace">World rank is the only rough guide back: 15th in 1995, 14th in 2000, 16th in 2015, 29th in 2025.</text>
+      <text x="86" y="458" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Source: Transparency International, Corruption Perceptions Index.</text>
+    </svg>
+  </div>
+
+  <div class="chart-container" style="margin-top:1.6rem;">
+    <svg viewBox="0 0 900 300" role="img" aria-label="The federal Public Integrity Section went from about 40 full time staff in January 2025 to two full time attorneys, and from 175 to 200 open matters to about 20.">
+      <text x="86" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">THE UNIT THAT PROSECUTES IT</text>
+      <text x="86" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Justice Department Public Integrity Section, January 2025 against today.</text>
+
+      <text x="86" y="78" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">FULL TIME STAFF</text>
+      <rect x="86" y="86" width="420" height="22" fill="#2f5670"/>
+      <text x="498" y="102" font-size="11" fill="#f6f2e9" font-family="IBM Plex Mono, monospace" text-anchor="end">about 40</text>
+      <rect x="86" y="114" width="21" height="22" fill="#8a3324"/>
+      <text x="117" y="130" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace">2</text>
+
+      <text x="86" y="176" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">OPEN MATTERS, INVESTIGATIONS AND CHARGED CASES</text>
+      <rect x="86" y="184" width="420" height="22" fill="#2f5670"/>
+      <text x="498" y="200" font-size="11" fill="#f6f2e9" font-family="IBM Plex Mono, monospace" text-anchor="end">175 to 200</text>
+      <rect x="86" y="212" width="48" height="22" fill="#8a3324"/>
+      <text x="144" y="228" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace">about 20</text>
+
+      <line x1="86" y1="258" x2="860" y2="258" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="86" y="278" font-size="9.5" fill="#8a8073" font-family="IBM Plex Mono, monospace">Blue is January 2025. Red is the position reported in 2026. Staffing estimates vary by source; the direction does not.</text>
+      <text x="86" y="294" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Source: reporting on Justice Department staffing and caseload, 2025 to 2026.</text>
+    </svg>
+  </div>
+
+  <div class="prose-note">
+    <strong>Two instruments, and what each one actually sees.</strong>
+    The chart people reach for when they want a corruption trend is the Corruption Perceptions Index, and it
+    comes with a warning its users routinely ignore. Transparency International rebuilt the scale in 2012.
+    Scores before that year are not comparable to scores after it, which is why the line here starts in 2012
+    rather than running the full thirty years. The rough guide further back is world rank: the United States
+    placed 15th in 1995 and 14th in 2000, against 29th in 2025.
+    <br><br>
+    On the comparable series the direction is not ambiguous. The score peaked at 76 in 2015 and reached 64 in
+    2025, the lowest the United States has ever recorded, with the steepest falls after 2017 and again after
+    2023.
+    <br><br>
+    <strong>But the index measures perception, not corruption.</strong> It aggregates expert and business
+    surveys. It can move because behavior changed, or because coverage changed, or because people simply
+    became more willing to say so. A perception index is evidence about a mood as much as about conduct, and
+    anyone treating it as a count of crimes is using it for something it was never built to do.
+    <br><br>
+    The obvious correction is to look at prosecutions instead, on the theory that convictions are facts and
+    surveys are opinions. That is the second chart, and it is the reason this page exists. The federal unit
+    responsible for prosecuting public corruption went from roughly 40 full time staff at the start of 2025 to
+    two full time attorneys, and from 175 to 200 open matters down to about twenty.
+    <br><br>
+    <strong>The scarcinality reading.</strong> Over the next few years the federal corruption conviction count
+    will almost certainly fall, and that fall will be available to anyone who wants to argue that corruption
+    declined. It will not be evidence of that. A conviction count is a measure of enforcement capacity before
+    it is a measure of conduct, and the capacity was removed deliberately and recently. This is the same
+    defect <a href="/disease-map">the disease data</a> now has, and the same one the <a
+    href="/dispatch-counterfeiters-gauge">Credit Counterfeit Index</a> admits about its own monetary side: an
+    instrument built on aggregates reports whatever its inputs are still able to see.
+    <br><br>
+    What the two charts honestly support together is narrow and worth stating plainly. Perceived corruption in
+    the United States is at its recorded low, and the apparatus for establishing whether that perception is
+    correct has been substantially dismantled. Those are two separate facts. Neither one proves the level of
+    actual corruption, and the second one makes the first much harder to check.
+    <br><br>
+    <em>Corrections welcome.</em> Staffing figures for the Public Integrity Section vary between reports, from
+    two attorneys to five or six, and the pre-2012 index is genuinely not comparable rather than merely
+    inconvenient. Both are noted rather than smoothed over.
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
+</body>
+</html>

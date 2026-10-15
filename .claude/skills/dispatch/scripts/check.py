@@ -112,12 +112,9 @@ def house(r, t):
     b = set(m.group(0).lower() for m in re.finditer(BRITISH, t, re.I))
     if b:
         r.fail('British spelling: %s' % ', '.join(sorted(b)))
-    if re.search(r'[‘’“”]', t) is None and "'" in prose_of(t or '') or '':
-        pass  # curly quotes are fine either way; not worth failing on
-    if '!' in re.sub(r'<[^>]+>', '', t).replace('!important', ''):
-        x = prose_of(t)
-        if x and '!' in x:
-            r.warn('exclamation mark in prose')
+    x = prose_of(t)
+    if x and '!' in x:
+        r.warn('exclamation mark in prose')
 
 
 def structure(r, t):
