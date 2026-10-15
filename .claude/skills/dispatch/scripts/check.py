@@ -30,12 +30,38 @@ BEST = '11.0 w/sent, 45% short, 2% long'
 # Widened after 'behaviour', 'specialised' and 'millimetre' each survived an
 # earlier normalization pass and were only caught by running this across all
 # dispatches at once.
-BRITISH = r'\b(centre|centres|labour|colour|colours|programme|defence|favourable|' \
-          r'organisation|organise[dsr]?|realise[dsr]?|analyse[dsr]?|behaviour|' \
-          r'neighbourhood|artefact|specialise[dsr]?|recognise[dsr]?|utilise[dsr]?|' \
-          r'minimise[dsr]?|maximise[dsr]?|normalise[dsr]?|categorise[dsr]?|' \
-          r'millimetre|centimetre|kilometre|metre|litre|tonne|sceptic|sceptical|' \
-          r'practise|licence|enquiry|whilst|amongst)\b'
+# Shape detection does not work here: "treatise" is "treat" plus "ise", and
+# "exercise" is correct English. An explicit list of the -ise words that
+# actually occur in this kind of writing is finite and has no false positives.
+_ISE_STEMS = """realis organis recognis itemis normalis capitalis monetis criticis
+authoris materialis specialis prioritis utilis minimis maximis categoris summaris
+emphasis apologis characteris legitimis penalis privatis nationalis stabilis
+subsidis industrialis globalis institutionalis rationalis standardis centralis
+decentralis colonis modernis liberalis optimis sanitis scrutinis theoris""".split()
+
+BRITISH_WORDS = (r'\b(?:centre|centres|labour|colour|colours|programme|defence|'
+                 r'favourable|behaviour|behaviours|neighbourhood|artefact|artefacts|'
+                 r'millimetre|centimetre|kilometre|metre|metres|litre|litres|tonne|'
+                 r'tonnes|sceptic|sceptical|practise|licence|enquiry|whilst|amongst|'
+                 r'analyse|analysed|analyses|analysing|paralyse|paralysed)\b'
+                 r'|\b(?:' + '|'.join(_ISE_STEMS) + r')(?:e|ed|es|ing|able|ation|ations)\b')
+
+
+# Capitalised, these are proper nouns rather than spelling slips: the UK
+# Labour Party, the Centre for this or that. Only the lowercase form is an error.
+_PROPER_IF_CAPPED = {'labour', 'centre', 'defence', 'programme'}
+
+
+def _british(text):
+    """British spellings present in the page, excluding proper nouns."""
+    out = set()
+    for m in re.finditer(BRITISH_WORDS, text, re.I):
+        w = m.group(0)
+        if w[:1].isupper() and w.lower() in _PROPER_IF_CAPPED:
+            continue
+        out.add(w.lower())
+    return out
+
 
 RESET = '\033[0m' if sys.stdout.isatty() else ''
 def c(code, s):
@@ -109,7 +135,7 @@ def voice(r, t):
 def house(r, t):
     if '—' in t:
         r.fail('em dash present (%d). The site does not use them.' % t.count('—'))
-    b = set(m.group(0).lower() for m in re.finditer(BRITISH, t, re.I))
+    b = _british(t)
     if b:
         r.fail('British spelling: %s' % ', '.join(sorted(b)))
     x = prose_of(t)
