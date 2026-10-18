@@ -27,14 +27,42 @@ SKIP = {'_cover.html', '404.html'}
 
 
 def txt(s):
-    """Tag-strip and collapse, keeping HTML entities intact for re-embedding."""
-    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s)).strip()
+    """Tag-strip, decode entities, collapse whitespace.
+
+    Decoding matters. The result gets re-escaped on the way into the card, so
+    leaving entities encoded here yields '&amp;ndash;' and the card renders the
+    entity literally: "1940&ndash;2026".
+    """
+    return html.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s))).strip()
 
 
-def grab(t):
+_THUMBS = None
+
+
+def _curiosity_thumb(slug):
+    """The chart thumbnail for a curiosity, resolved from curiosities.html.
+
+    This used to be read out of the page's own og:image, which this script
+    then overwrote. That made the generator non-idempotent: a second run found
+    no curiosity SVG and silently rebuilt the card without its chart. The
+    listing page is not something this script edits, so it is a stable source.
+    """
+    global _THUMBS
+    if _THUMBS is None:
+        _THUMBS = {}
+        p = os.path.join(PUB, 'curiosities.html')
+        if os.path.exists(p):
+            _THUMBS = dict(re.findall(
+                r'<a class="curiosity-card" href="/([a-z0-9-]+)">.*?<img src="(/assets/[^"]+)"',
+                open(p, encoding='utf-8').read(), re.S))
+    return _THUMBS.get(slug)
+
+
+def grab(t, slug=''):
     """Pull title, kicker and artwork out of one page."""
     m = re.search(r'<h1[^>]*>(.*?)</h1>', t, re.S)
-    title = txt(m.group(1)) if m else ''
+    # a few h1s carry a subtitle span; it belongs in the page, not the card title
+    title = txt(re.sub(r'<span class="subtitle">.*?</span>', '', m.group(1), flags=re.S)) if m else ''
     if not title:
         # the full-viewport map pages carry their name in <title> only
         m = re.search(r'<title>(.*?)</title>', t, re.S)
@@ -56,12 +84,8 @@ def grab(t):
         art = m.group(1)
     else:
         m = re.search(r'<figure class="fig">\s*<img src="([^"]+)"', t)
-        if not m:
-            m = re.search(r'<meta property="og:image" content="[^"]*/(curiosity-[^"/]+\.svg)"', t)
-            if m:
-                m = re.match(r'(.*)', '/assets/' + m.group(1))
-        if m:
-            src = m.group(1)
+        src = m.group(1) if m else _curiosity_thumb(slug)
+        if src:
             p = os.path.join(PUB, src.lstrip('/'))
             if os.path.exists(p):
                 art = open(p, encoding='utf-8').read()
@@ -117,7 +141,7 @@ CARD = """<meta charset="utf-8">
 
 
 def build(slug, t):
-    title, kicker, art, pull = grab(t)
+    title, kicker, art, pull = grab(t, slug)
     if not title:
         return None
     n = len(title)
@@ -186,7 +210,7 @@ def main():
             print('  skip (no h1)   %s' % slug); continue
         png = os.path.join(OUT, slug + '.png')
         if render(card, png):
-            title = grab(t)[0]
+            title = grab(t, slug)[0]
             retag(path, t, slug, title)
             kb = os.path.getsize(png) // 1024
             print('  %-46s %4d KB' % (slug, kb)); ok += 1
