@@ -180,7 +180,12 @@ def retag(path, t, slug, title):
                       '<meta property="og:image" content="%s">\n<meta property="og:type"' % url, 1)
     for tag, val in (('og:image:width', str(W)), ('og:image:height', str(H)),
                      ('og:image:type', 'image/png'), ('og:image:alt', alt)):
-        if 'property="%s"' % tag not in t:
+        if 'property="%s"' % tag in t:
+            # update, do not just skip. These used to be add-only, so a bad
+            # alt written on the first run survived every rebuild after it.
+            t = re.sub(r'<meta property="%s" content="[^"]*"' % re.escape(tag),
+                       '<meta property="%s" content="%s"' % (tag, val), t, 1)
+        else:
             t = t.replace('<meta property="og:image" content="%s">' % url,
                           '<meta property="og:image" content="%s">\n<meta property="%s" content="%s">'
                           % (url, tag, val), 1)
