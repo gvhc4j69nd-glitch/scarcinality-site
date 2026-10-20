@@ -91,6 +91,30 @@ class Report:
         return not self.fails
 
 
+def _strip_block(b, cls):
+    """Remove every <div class="cls"> ... </div>, nesting included.
+
+    A non-greedy regex stops at the first </div>, which for these blocks is
+    the close of an inner cell rather than the block itself. That left the
+    remaining labels in the prose, where they read as one run-on sentence of
+    forty-odd words and quietly inflated every voice number.
+    """
+    open_re = re.compile(r'<div class="%s"[^>]*>' % re.escape(cls))
+    tag_re = re.compile(r'<(/?)div\b[^>]*>', re.I)
+    while True:
+        m = open_re.search(b)
+        if not m:
+            return b
+        depth, i = 1, m.end()
+        while depth:
+            t = tag_re.search(b, i)
+            if not t:
+                return b[:m.start()]          # unbalanced; drop the tail
+            depth += -1 if t.group(1) else 1
+            i = t.end()
+        b = b[:m.start()] + ' . ' + b[i:]
+
+
 def prose_of(t):
     """The body text a reader actually reads: no figures, no tables, no
     stat grids. Those contain unpunctuated labels that run together and
@@ -103,7 +127,7 @@ def prose_of(t):
     # .formula and .ledger-wrap hold label/value rows with no terminal
     # punctuation; left in, they read as one enormous sentence.
     for cls in ('statgrid', 'formula', 'ledger-wrap'):
-        b = re.sub(r'<div class="%s".*?</div>\s*(?=<)' % cls, '', b, flags=re.S)
+        b = _strip_block(b, cls)
     b = re.sub(r'<h2[^>]*>.*?</h2>', ' . ', b, flags=re.S)   # headings end a sentence
     return html.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', b))).strip()
 
