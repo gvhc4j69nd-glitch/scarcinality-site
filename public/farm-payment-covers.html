@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the Farm Payment Covers &middot; Scarcinality</title>
+<meta name="description" content="Diesel is up 69 percent in a year, nitrogen fertilizer 36 percent, and potash 2.4 percent. Set the per-acre cost against the per-acre government payment and corn comes out almost exactly even, while soybeans get two and a half times their cost increase. The payments are not compensating inputs at all.">
+<meta property="og:image" content="https://www.scarcinality.com/assets/og/farm-payment-covers.png">
+<meta property="og:image:alt" content="What the Farm Payment Covers. A Scarcinality card.">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="What the Farm Payment Covers &middot; Scarcinality">
+<meta property="og:description" content="Corn input costs rose about $42 an acre in 2026. The Bridge Assistance payment was $44.36 an acre. Soybean costs rose about $12 and the payment was $30.88, because the soybean problem was never the inputs.">
+<meta property="og:url" content="https://www.scarcinality.com/farm-payment-covers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What the Farm Payment Covers &middot; Scarcinality">
+<meta name="twitter:description" content="The assumption is that tariffs raised fertilizer prices. Canada supplies 79 percent of American potash and fertilizer was specifically excluded from the 2026 tariff rounds. Potash added about 80 cents an acre.">
+<link rel="canonical" href="https://www.scarcinality.com/farm-payment-covers">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+/* curio-switch group colors, from the phase-plane quadrant palette */
+.curio-switch a.g-health  { color:#3f6b3a; border-color:#c2cfbc; }
+.curio-switch a.g-comm    { color:#7a5a18; border-color:#d8cba8; }
+.curio-switch a.g-energy  { color:#2f5670; border-color:#bcc8d2; }
+.curio-switch a.g-pol     { color:#8a3324; border-color:#dbbfb8; }
+.curio-switch a.g-health[aria-current], .curio-switch a.g-health:hover { color:#2f5230; border-color:#3f6b3a; background:#e7ece4; }
+.curio-switch a.g-comm[aria-current],   .curio-switch a.g-comm:hover   { color:#5e4512; border-color:#7a5a18; background:#f0e9d8; }
+.curio-switch a.g-energy[aria-current], .curio-switch a.g-energy:hover { color:#234155; border-color:#2f5670; background:#e3e9ee; }
+.curio-switch a.g-pol[aria-current],    .curio-switch a.g-pol:hover    { color:#6f281c; border-color:#8a3324; background:#f2e4e0; }
+.curio-switch a[aria-current] { font-weight:500; }
+.curio-switch a.g-first { margin-left:.55rem; }
+
+.chart-wrap { max-width: 72rem; margin: 0 auto; padding: 2rem clamp(1.1rem,5vw,3rem) 3rem; }
+.chart-container { position: relative; width: 100%; }
+.chart-container svg { width: 100%; height: auto; display: block; }
+
+.prose-note { max-width: 52rem; font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+.dispatch-link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--oxblood); border-bottom: 1px solid var(--oxblood); text-decoration: none; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>What the Farm Payment Covers</h1>
+  <span class="source-badge">EIA &middot; farmdoc daily &middot; USDA FSA &middot; USGS &middot; 2026</span>
+</div>
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/profits-bankruptcies" class="g-comm">Profits &amp; Failures</a>
+  <a href="/farm-payment-covers" class="g-comm" aria-current="page">Farm Payment</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first">Education</a>
+  <a href="/international-students" class="g-pol">Intl Students</a>
+  <a href="/immigration-fiscal" class="g-pol">Immigration</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <a href="/corruption-gauges" class="g-pol">Corruption</a>
+  <a href="/unreported-economy" class="g-pol">Unreported</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <div class="chart-container">
+    <svg viewBox="0 0 900 340" role="img" aria-label="Per acre in 2026, corn input costs rose about $42.23 and the Bridge Assistance payment was $44.36. Soybean input costs rose about $12.16 and the payment was $30.88.">
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">THE COST RISE AND THE CHECK, PER ACRE</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">2026 increase in diesel and fertilizer, against the Farmer Bridge Assistance rate</text>
+
+      <text x="20" y="76" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">CORN</text>
+      <text x="190" y="102" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">2026 input cost rise</text>
+      <rect x="200" y="84" width="170.6" height="26" fill="#7a5a18"/>
+      <rect x="370.6" y="84" width="302.4" height="26" fill="#2f5670"/>
+      <text x="285.3" y="102" font-size="10" fill="#f6f2e9" font-family="IBM Plex Mono, monospace" text-anchor="middle">$15.23</text>
+      <text x="521.8" y="102" font-size="10" fill="#f6f2e9" font-family="IBM Plex Mono, monospace" text-anchor="middle">$27.00</text>
+      <text x="681" y="102" font-size="10.5" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">$42.23</text>
+
+      <text x="190" y="136" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Bridge Assistance payment</text>
+      <rect x="200" y="118" width="496.8" height="26" fill="#8a3324"/>
+      <text x="705" y="136" font-size="10.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">$44.36</text>
+
+      <text x="20" y="180" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">SOYBEANS</text>
+      <text x="190" y="206" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">2026 input cost rise</text>
+      <rect x="200" y="188" width="113.8" height="26" fill="#7a5a18"/>
+      <rect x="313.8" y="188" width="22.4" height="26" fill="#2f5670"/>
+      <text x="256.9" y="206" font-size="10" fill="#f6f2e9" font-family="IBM Plex Mono, monospace" text-anchor="middle">$10.16</text>
+      <text x="344" y="206" font-size="10.5" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">$12.16</text>
+
+      <text x="190" y="240" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Bridge Assistance payment</text>
+      <rect x="200" y="222" width="345.9" height="26" fill="#8a3324"/>
+      <text x="554" y="240" font-size="10.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">$30.88</text>
+
+      <g font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">
+        <line x1="200" y1="258" x2="760" y2="258" stroke="#b9ad99" stroke-width="1"/>
+        <line x1="200" y1="258" x2="200" y2="263" stroke="#b9ad99"/><text x="200" y="274" text-anchor="middle">$0</text>
+        <line x1="312" y1="258" x2="312" y2="263" stroke="#b9ad99"/><text x="312" y="274" text-anchor="middle">$10</text>
+        <line x1="424" y1="258" x2="424" y2="263" stroke="#b9ad99"/><text x="424" y="274" text-anchor="middle">$20</text>
+        <line x1="536" y1="258" x2="536" y2="263" stroke="#b9ad99"/><text x="536" y="274" text-anchor="middle">$30</text>
+        <line x1="648" y1="258" x2="648" y2="263" stroke="#b9ad99"/><text x="648" y="274" text-anchor="middle">$40</text>
+        <line x1="760" y1="258" x2="760" y2="263" stroke="#b9ad99"/><text x="760" y="274" text-anchor="middle">$50</text>
+      </g>
+
+      <rect x="20" y="294" width="11" height="11" fill="#7a5a18"/>
+      <text x="36" y="303" font-size="9" fill="#5c5247" font-family="IBM Plex Mono, monospace">Diesel</text>
+      <rect x="100" y="294" width="11" height="11" fill="#2f5670"/>
+      <text x="116" y="303" font-size="9" fill="#5c5247" font-family="IBM Plex Mono, monospace">Fertilizer, all nutrients</text>
+      <rect x="290" y="294" width="11" height="11" fill="#8a3324"/>
+      <text x="306" y="303" font-size="9" fill="#5c5247" font-family="IBM Plex Mono, monospace">Government payment</text>
+
+      <text x="20" y="328" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Diesel at 6 gallons an acre for corn and 4 for soybeans. Fertilizer from the Illinois budgets. Payment rates announced 31 December 2025.</text>
+    </svg>
+  </div>
+
+  <div class="chart-container" style="margin-top:1.8rem;">
+    <svg viewBox="0 0 900 295" role="img" aria-label="Input price changes in 2026: diesel up 69 percent, anhydrous ammonia up 35.6 percent, potash up 2.4 percent.">
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">WHAT ACTUALLY MOVED</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Price change, 2026. The three inputs usually blamed on the trade policy.</text>
+
+      <text x="190" y="84" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Diesel, per gallon</text>
+      <text x="190" y="97" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">$3.68 to $6.22, year on year</text>
+      <rect x="200" y="70" width="515.4" height="28" fill="#7a5a18"/>
+      <text x="723" y="89" font-size="11" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">+69.0%</text>
+
+      <text x="190" y="126" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Anhydrous ammonia, per ton</text>
+      <text x="190" y="139" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">$828 to $1,123</text>
+      <rect x="200" y="112" width="265.9" height="28" fill="#2f5670"/>
+      <text x="474" y="131" font-size="11" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">+35.6%</text>
+
+      <text x="190" y="168" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Potash, per ton</text>
+      <text x="190" y="181" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">$493 to $505</text>
+      <rect x="200" y="154" width="17.9" height="28" fill="#2f5670" opacity="0.5"/>
+      <text x="226" y="173" font-size="11" fill="#5c5247" font-family="IBM Plex Mono, monospace" font-weight="600">+2.4%</text>
+
+      <g font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">
+        <line x1="200" y1="200" x2="760" y2="200" stroke="#b9ad99" stroke-width="1"/>
+        <line x1="200" y1="200" x2="200" y2="205" stroke="#b9ad99"/><text x="200" y="216" text-anchor="middle">0</text>
+        <line x1="386.8" y1="200" x2="386.8" y2="205" stroke="#b9ad99"/><text x="386.8" y="216" text-anchor="middle">+25%</text>
+        <line x1="573.5" y1="200" x2="573.5" y2="205" stroke="#b9ad99"/><text x="573.5" y="216" text-anchor="middle">+50%</text>
+        <line x1="760" y1="200" x2="760" y2="205" stroke="#b9ad99"/><text x="760" y="216" text-anchor="middle">+75%</text>
+      </g>
+
+      <text x="20" y="240" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif">Potash carries no tariff. Canada supplies 79 percent of American potash and fertilizer was excluded from every 2026 round, including July&rsquo;s.</text>
+      <text x="20" y="256" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif">Diesel is the shock, and diesel is an oil story. The record of $6.53 a gallon was set the week of 21 September 2026.</text>
+      <text x="20" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Fertilizer: farmdoc daily, Illinois, pre-conflict average against spring 2026. Diesel: EIA weekly on-highway, October against October.</text>
+    </svg>
+  </div>
+
+  <div class="prose-note">
+    <strong>The corn line is almost a coincidence.</strong> Add up what an acre of corn costs more this year
+    and you get about <strong>$42</strong>. The Farmer Bridge Assistance payment for corn was
+    <strong>$44.36</strong> an acre. The check covers the cost increase and leaves about two dollars over.
+    <br><br>
+    Then look at soybeans, where the same arithmetic gives about <strong>$12</strong> of extra cost against a
+    <strong>$30.88</strong> payment. Two and a half times. If these payments were compensating input costs,
+    corn would get the larger one, because corn is where the costs went up.
+    <br><br>
+    <strong>They are not compensating inputs.</strong> They are compensating the other side of the ledger: the
+    export market, which is why soybeans, the crop that lost the most sales abroad, gets the better rate.
+    That is a defensible thing to do. It is just not the thing the payment is usually described as doing, and
+    the per-acre numbers make the difference visible.
+    <br><br>
+    <strong>Potash is the surprise.</strong> The common assumption is that the trade policy raised fertilizer
+    prices, and for potash specifically that is not what happened. Canada supplies <strong>79 percent</strong>
+    of American potash, and fertilizer has been carved out of every round of Canadian tariffs this year,
+    including the 50 percent round in July. Only potash that fails the CUSMA origin test pays anything, at 10
+    percent. Corn Belt retail potash went from $493 to $505 a ton across the spring. On a normal corn
+    application that is about <strong>80 cents an acre</strong>.
+    <br><br>
+    The global benchmark did move much harder, from about $358 a metric ton in January to $488 in March, its
+    highest since early 2023. Very little of that reached the Corn Belt, where the retail price was already
+    high. Two potash prices, two different stories, and the one farmers actually pay barely budged.
+    <br><br>
+    <strong>Diesel is the whole shock, and diesel is not a trade story either.</strong> It went from $3.68 a
+    gallon to $6.22, up 69 percent in a year, with a record $6.53 set the week of 21 September. That is the
+    oil disruption, the same one driving the <a href="/dispatch-cheap-and-heavy">freight numbers</a> and the
+    <a href="/dispatch-counterfeiters-gauge">index reading</a> elsewhere on this site. On 19 October the
+    administration announced a further <strong>$8 billion</strong> Harvest Fuel Relief Program, which names
+    the problem correctly in its title. Per-crop rates for it were still pending in November.
+    <br><br>
+    <strong>The totals.</strong> Government payments to farmers in 2026 are on course for about
+    <strong>$55.4 billion</strong>, against $45.6 billion in 2020, which had been the record. Roughly $12
+    billion of this year's total had already gone out under Bridge Assistance before the fuel program was
+    announced.
+    <br><br>
+    <strong>The scarcinality reading.</strong> This page sits at the join between the two kinds of shortage.
+    Nitrogen and potash are monetary problems: the plants exist, the ore exists, and what moved was price.
+    Diesel in 2026 is closer to a real one, because the constraint is physical and sits in the oil market
+    rather than in a ledger. That distinction decides what a payment can do. A check written against a
+    monetary shortage relieves it. A check written against a real shortage does not produce any diesel, it
+    just gives the holder a stronger bid for the diesel that exists. Eight billion dollars of fuel relief,
+    spread across a national fuel market that is genuinely tight, is a transfer rather than a remedy. That is
+    not an argument against sending it. It is an argument for knowing which one you are doing.
+    <br><br>
+    <em>How much to trust these numbers.</em> The per-acre figures are budget models, not receipts. Diesel use
+    swings enormously with tillage: a conventional corn system runs about 5 gallons an acre before harvest and
+    hauling, and a no-till system runs about 2, so the diesel bar here could reasonably be half or double what
+    is shown. Fertilizer costs come from the Illinois budgets and a farm in Georgia or North Dakota will not
+    match them. The payment rates are national and uniform, which is precisely why they fit nobody exactly.
+    And the comparison deliberately leaves out the output side, where the larger damage sits and where the
+    numbers are far harder to pin down. Arguments welcome.
+    <a class="dispatch-link" href="/dispatch-cheap-and-heavy">Read: Cheap and Heavy &rarr;</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
+</body>
+</html>
