@@ -230,8 +230,12 @@ def cci(r, t):
     d = json.load(open(p))
     live = [q for q in d['quarters'] if not q.get('projected')][-1]
     cur = abs(live['cci'])
+    # Strip svg path data and inline svg before scanning. The footer's Facebook
+    # glyph alone carries 1.24, 1.26, 1.63, 2.33 and 3.89 as path coordinates,
+    # which fired this warning on all 68 pages and would have masked a real one.
+    scan = re.sub(r'<svg.*?</svg>|\sd="[^"]*"', ' ', t, flags=re.S)
     quoted = set()
-    for m in re.finditer(r'(?:minus |&minus;|-)(\d\.\d\d)', t):
+    for m in re.finditer(r'(?:minus |&minus;|-)(\d\.\d\d)', scan):
         quoted.add(float(m.group(1)))
     stale = {q for q in quoted if abs(q - cur) > 0.001 and 0.3 < q < 5}
     if stale and cur not in quoted:
