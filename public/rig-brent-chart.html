@@ -130,7 +130,7 @@
     <span class="swatch-rig" aria-hidden="true"></span>
     Rig Count &amp; Brent Crude
   </h1>
-  <span class="source-badge">EIA · Baker Hughes · 2015 to June 2025</span>
+  <span class="source-badge">EIA · Baker Hughes · 2015 to September 2026</span>
 </div>
 
 <div class="curio-switch">
@@ -165,7 +165,7 @@
     </div>
     <div class="legend-item">
       <div class="legend-line" style="background:var(--rig-color);"></div>
-      US rig count (oil + gas), right axis
+      US rig count (total), right axis
     </div>
   </div>
 
@@ -179,7 +179,7 @@
   </div>
 
   <div class="prose-note">
-    <strong>Reading the chart.</strong> Brent (oxblood) and the US rig count (navy) track each other with a lag, drillers respond to price but capital cycles take six to twelve months to move. The 2015 to 16 collapse shows the lag clearly: rigs peaked in late 2014 and kept falling for eighteen months after Brent bottomed. The COVID crash in April 2020 was simultaneous, both fell together because demand destroyed price and financing in the same week. The 2022 Ukraine shock lifted Brent sharply while rigs rose only gradually, reflecting shale operators' new discipline of returning cash rather than chasing barrels. The divergence since 2023, price softening while rigs hold, was the open question when this series was last extended. It has since been answered, and the answer sits off the right edge of this chart. Brent traded near $117 in late October 2026 after the closure of the Strait of Hormuz, while the US rig count stood at 603 on 30 October, up 57 on the year. The lag is behaving exactly as it always has: the price moved in weeks and the rigs have barely moved at all. <strong>The plotted series ends in June 2025 and does not include the 2026 shock.</strong> Sources: EIA (Brent spot, $/barrel); Baker Hughes North America Rotary Rig Count (US total, oil + gas, monthly average).
+    <strong>Reading the chart.</strong> Brent (oxblood) and the US rig count (navy) track each other with a lag, drillers respond to price but capital cycles take six to twelve months to move. The 2015 to 16 collapse shows the lag clearly: rigs peaked in late 2014 and kept falling for eighteen months after Brent bottomed. The COVID crash in April 2020 was simultaneous, both fell together because demand destroyed price and financing in the same week. The 2022 Ukraine shock lifted Brent sharply while rigs rose only gradually, reflecting shale operators' new discipline of returning cash rather than chasing barrels. The 2026 shock is the cleanest illustration of the lag on the whole chart. Brent went from $70.89 in February to $103.13 in March and peaked at $117.29 in April, when the Strait of Hormuz closed. The rig count in April was 545, which is lower than it had been in January. Five months later it reached 593, a rise of under nine percent against a price that had at one point gone up sixty-five. <strong>Drillers are not chasing this barrel either</strong>, and the reason is the same discipline that showed up after 2022: shale operators are returning cash rather than adding rigs. The October rig count was 602, with the weekly reading at 603 on 30 October. Sources: EIA (Brent spot, $/barrel); Baker Hughes North America Rotary Rig Count (US total, monthly average of weekly counts).
     <a class="dispatch-link" href="/dispatch-when-the-shortage-is-real">Read: When the Shortage Is Real &rarr;</a>
   </div>
 </div>
@@ -204,6 +204,7 @@
     { p: "2018-10", label: "US shale\npeak cycle" },
     { p: "2020-04", label: "COVID\ndemand crash" },
     { p: "2022-03", label: "Ukraine\nshock" },
+    { p: "2026-03", label: "Hormuz\nclosure" },
   ];
 
   fetch("/data/rig-brent.json")
