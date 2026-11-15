@@ -1,0 +1,28 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="14" y="18" font-size="7.5" fill="#8a8073">PRIOR AUTHORIZATION, MEDICARE, 2024</text>
+
+  <text x="14" y="38" font-size="7" fill="#8a8073">DENIAL RATE</text>
+  <text x="14" y="52" font-size="7" fill="#2f5670">Traditional</text>
+  <rect x="78" y="44" width="172" height="11" fill="#2f5670"/>
+  <text x="256" y="53" font-size="8" fill="#2f5670" font-weight="600">22.9%</text>
+  <text x="14" y="68" font-size="7" fill="#8a3324">Advantage</text>
+  <rect x="78" y="60" width="58" height="11" fill="#8a3324"/>
+  <text x="142" y="69" font-size="8" fill="#8a3324" font-weight="600">7.7%</text>
+
+  <line x1="14" y1="84" x2="306" y2="84" stroke="#ddd3c2" stroke-width="0.8"/>
+
+  <text x="14" y="100" font-size="7" fill="#8a8073">DENIALS PER 1,000 ENROLLEES</text>
+  <text x="14" y="114" font-size="7" fill="#2f5670">Traditional</text>
+  <rect x="78" y="106" width="6" height="11" fill="#2f5670"/>
+  <text x="90" y="115" font-size="8" fill="#2f5670" font-weight="600">4.6</text>
+  <text x="14" y="130" font-size="7" fill="#8a3324">Advantage</text>
+  <rect x="78" y="122" width="172" height="11" fill="#8a3324"/>
+  <text x="256" y="131" font-size="8" fill="#8a3324" font-weight="600">131</text>
+
+  <line x1="14" y1="146" x2="306" y2="146" stroke="#ddd3c2" stroke-width="0.8"/>
+
+  <text x="160" y="166" font-size="12" fill="#211d18" text-anchor="middle" font-weight="600">The rate runs backwards</text>
+  <text x="160" y="182" font-size="7.5" fill="#8a8073" text-anchor="middle">traditional Medicare denies a larger share of a far smaller question</text>
+  <text x="160" y="194" font-size="7.5" fill="#7a5a18" text-anchor="middle">1.7 requests per enrollee against 0.02</text>
+</svg>

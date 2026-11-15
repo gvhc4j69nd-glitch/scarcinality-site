@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What a Denial Rate Hides &middot; Scarcinality</title>
+<meta name="description" content="Traditional Medicare denies 22.9 percent of the prior authorization requests it reviews. Medicare Advantage denies 7.7 percent. The rate says the government program is harsher, and it is exactly backwards, because Medicare Advantage asks the question 85 times more often. Per thousand enrollees the denials run 131 against 4.6.">
+<meta property="og:image" content="https://www.scarcinality.com/assets/og/denial-rates.png">
+<meta property="og:image:alt" content="What a Denial Rate Hides. A Scarcinality card.">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="What a Denial Rate Hides &middot; Scarcinality">
+<meta property="og:description" content="Medicare Advantage made 52.8 million prior authorization determinations in 2024. Traditional Medicare made 628,243. One denied 4.1 million people something a doctor had ordered. The other denied 143,705.">
+<meta property="og:url" content="https://www.scarcinality.com/denial-rates">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What a Denial Rate Hides &middot; Scarcinality">
+<meta name="twitter:description" content="UnitedHealth denies 17 percent in Medicare Advantage, 11 percent in Medicaid, and 21 percent in the Marketplace. Same company, same year, three referees. The market with automatic independent review denies least.">
+<link rel="canonical" href="https://www.scarcinality.com/denial-rates">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+.curio-switch a.g-health  { color:#3f6b3a; border-color:#c2cfbc; }
+.curio-switch a.g-comm    { color:#7a5a18; border-color:#d8cba8; }
+.curio-switch a.g-energy  { color:#2f5670; border-color:#bcc8d2; }
+.curio-switch a.g-pol     { color:#8a3324; border-color:#dbbfb8; }
+.curio-switch a.g-health[aria-current], .curio-switch a.g-health:hover { color:#2f5230; border-color:#3f6b3a; background:#e7ece4; }
+.curio-switch a.g-comm[aria-current],   .curio-switch a.g-comm:hover   { color:#5e4512; border-color:#7a5a18; background:#f0e9d8; }
+.curio-switch a.g-energy[aria-current], .curio-switch a.g-energy:hover { color:#234155; border-color:#2f5670; background:#e3e9ee; }
+.curio-switch a.g-pol[aria-current],    .curio-switch a.g-pol:hover    { color:#6f281c; border-color:#8a3324; background:#f2e4e0; }
+.curio-switch a[aria-current] { font-weight:500; }
+.curio-switch a.g-first { margin-left:.55rem; }
+
+.chart-wrap { max-width: 72rem; margin: 0 auto; padding: 2rem clamp(1.1rem,5vw,3rem) 3rem; }
+.chart-container { position: relative; width: 100%; }
+.chart-container svg { width: 100%; height: auto; display: block; }
+
+.prose-note { max-width: 52rem; font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+.dispatch-link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--oxblood); border-bottom: 1px solid var(--oxblood); text-decoration: none; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>What a Denial Rate Hides</h1>
+  <span class="source-badge">KFF &middot; CMS &middot; 2024 and 2025 filings</span>
+</div>
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/denial-rates" class="g-health" aria-current="page">Denials</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/profits-bankruptcies" class="g-comm">Profits &amp; Failures</a>
+  <a href="/farm-payment-covers" class="g-comm">Farm Payment</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first">Education</a>
+  <a href="/international-students" class="g-pol">Intl Students</a>
+  <a href="/immigration-fiscal" class="g-pol">Immigration</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <a href="/corruption-gauges" class="g-pol">Corruption</a>
+  <a href="/unreported-economy" class="g-pol">Unreported</a>
+  <button onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Share';},2000)})" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.28rem .6rem;border:1px solid #ddd3c2;border-radius:2px;color:#8a8073;background:none;cursor:pointer;flex-shrink:0;margin-left:auto;">Share</button>
+</div>
+
+<div class="chart-wrap">
+
+  <div class="chart-container">
+    <svg viewBox="0 0 900 350" role="img" aria-label="Prior authorization in Medicare, 2024. Traditional Medicare denied 22.9 percent of requests and Medicare Advantage denied 7.7 percent. Traditional Medicare received 0.02 requests per beneficiary and Medicare Advantage received 1.7. Denials per thousand enrollees were about 5 in traditional Medicare and about 131 in Medicare Advantage.">
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">TWO MEDICARES, SAME YEAR</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Prior authorization, 2024. Each row is scaled to its own maximum.</text>
+
+      <text x="20" y="76" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">DENIAL RATE</text>
+      <text x="250" y="100" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Traditional Medicare</text>
+      <rect x="260" y="84" width="458" height="22" fill="#2f5670"/>
+      <text x="726" y="100" font-size="11" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">22.9%</text>
+      <text x="250" y="128" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicare Advantage</text>
+      <rect x="260" y="112" width="154" height="22" fill="#8a3324"/>
+      <text x="422" y="128" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">7.7%</text>
+
+      <text x="20" y="166" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">REQUESTS PER ENROLLEE</text>
+      <text x="250" y="190" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Traditional Medicare</text>
+      <rect x="260" y="174" width="6" height="22" fill="#2f5670"/>
+      <text x="274" y="190" font-size="11" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">0.02</text>
+      <text x="250" y="218" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicare Advantage</text>
+      <rect x="260" y="202" width="472" height="22" fill="#8a3324"/>
+      <text x="740" y="218" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">1.7</text>
+
+      <text x="20" y="256" font-size="10" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">DENIALS PER 1,000 ENROLLEES</text>
+      <text x="250" y="280" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Traditional Medicare</text>
+      <rect x="260" y="264" width="16" height="22" fill="#2f5670"/>
+      <text x="284" y="280" font-size="11" fill="#2f5670" font-family="IBM Plex Mono, monospace" font-weight="600">4.6</text>
+      <text x="250" y="308" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicare Advantage</text>
+      <rect x="260" y="292" width="468" height="22" fill="#8a3324"/>
+      <text x="736" y="308" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">131</text>
+
+      <text x="20" y="340" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">52.8 million determinations against 628,243. Denials per thousand is requests per enrollee times the denial rate. KFF analysis of CMS data.</text>
+    </svg>
+  </div>
+
+  <div class="chart-container" style="margin-top:1.8rem;">
+    <svg viewBox="0 0 900 310" role="img" aria-label="Standard prior authorization denial rates in 2025 across fourteen large insurers. ACA Marketplace ranges from 3 percent at GuideWell to 25 percent at Centene with an 18 percent average. Medicaid managed care ranges from 2 percent at L.A. Care to 23 percent at Independence with a 14 percent average. Medicare Advantage ranges from 5 percent at Elevance to 17 percent at UnitedHealth with a 12 percent average. UnitedHealth denies 21 percent in the Marketplace, 11 percent in Medicaid and 17 percent in Medicare Advantage.">
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">THE SAME COMPANIES, THREE REFEREES</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Standard prior authorization denial rate, 2025, fourteen insurers with at least 2.5 percent share of their segment</text>
+
+      <text x="250" y="97" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">ACA Marketplace</text>
+      <rect x="317.7" y="84" width="423.1" height="18" fill="#8a3324" opacity="0.22"/>
+      <text x="317.7" y="117" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">3% GuideWell</text>
+      <text x="740.8" y="117" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">25% Centene</text>
+      <line x1="606.2" y1="80" x2="606.2" y2="106" stroke="#211d18" stroke-width="1.6"/>
+      <text x="606.2" y="74" font-size="9" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle" font-weight="600">18%</text>
+      <circle cx="663.8" cy="93" r="6.5" fill="#8a3324" stroke="#f6f2e9" stroke-width="1.6"/>
+
+      <text x="250" y="157" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicaid managed care</text>
+      <rect x="298.5" y="144" width="403.8" height="18" fill="#8a3324" opacity="0.22"/>
+      <text x="298.5" y="177" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">2% L.A. Care</text>
+      <text x="702.3" y="177" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">23% Independence</text>
+      <line x1="529.2" y1="140" x2="529.2" y2="166" stroke="#211d18" stroke-width="1.6"/>
+      <text x="529.2" y="134" font-size="9" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle" font-weight="600">14%</text>
+      <circle cx="471.5" cy="153" r="6.5" fill="#8a3324" stroke="#f6f2e9" stroke-width="1.6"/>
+
+      <text x="250" y="217" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicare Advantage</text>
+      <rect x="356.2" y="204" width="230.8" height="18" fill="#8a3324" opacity="0.22"/>
+      <text x="356.2" y="237" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">5% Elevance</text>
+      <text x="587" y="237" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">17% UnitedHealth</text>
+      <line x1="490.8" y1="200" x2="490.8" y2="226" stroke="#211d18" stroke-width="1.6"/>
+      <text x="490.8" y="194" font-size="9" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle" font-weight="600">12%</text>
+      <circle cx="587" cy="213" r="6.5" fill="#8a3324" stroke="#f6f2e9" stroke-width="1.6"/>
+
+      <g font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">
+        <line x1="260" y1="252" x2="760" y2="252" stroke="#b9ad99" stroke-width="1"/>
+        <line x1="260" y1="252" x2="260" y2="257" stroke="#b9ad99"/><text x="260" y="268" text-anchor="middle">0</text>
+        <line x1="356.2" y1="252" x2="356.2" y2="257" stroke="#b9ad99"/><text x="356.2" y="268" text-anchor="middle">5%</text>
+        <line x1="452.3" y1="252" x2="452.3" y2="257" stroke="#b9ad99"/><text x="452.3" y="268" text-anchor="middle">10%</text>
+        <line x1="548.5" y1="252" x2="548.5" y2="257" stroke="#b9ad99"/><text x="548.5" y="268" text-anchor="middle">15%</text>
+        <line x1="644.6" y1="252" x2="644.6" y2="257" stroke="#b9ad99"/><text x="644.6" y="268" text-anchor="middle">20%</text>
+        <line x1="740.8" y1="252" x2="740.8" y2="257" stroke="#b9ad99"/><text x="740.8" y="268" text-anchor="middle">25%</text>
+      </g>
+
+      <rect x="20" y="286" width="22" height="9" fill="#8a3324" opacity="0.22"/>
+      <text x="48" y="294" font-size="9" fill="#5c5247" font-family="IBM Plex Mono, monospace">Range across insurers</text>
+      <line x1="196" y1="283" x2="196" y2="298" stroke="#211d18" stroke-width="1.6"/>
+      <text x="206" y="294" font-size="9" fill="#5c5247" font-family="IBM Plex Mono, monospace">Market average</text>
+      <circle cx="326" cy="290.5" r="6" fill="#8a3324" stroke="#f6f2e9" stroke-width="1.4"/>
+      <text x="338" y="294" font-size="9" fill="#5c5247" font-family="IBM Plex Mono, monospace">UnitedHealth Group, the one insurer in all three</text>
+    </svg>
+  </div>
+
+  <div class="chart-container" style="margin-top:1.8rem;">
+    <svg viewBox="0 0 900 250" role="img" aria-label="Share of appealed standard prior authorization denials that were overturned in 2025. Medicare Advantage 67 percent, Medicaid managed care 47 percent, ACA Marketplace 43 percent.">
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">THE DENIALS THAT DO NOT SURVIVE A SECOND LOOK</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Share of appealed standard denials that were overturned, 2025</text>
+
+      <text x="250" y="86" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicare Advantage</text>
+      <rect x="260" y="70" width="478.6" height="24" fill="#3f6b3a"/>
+      <text x="748" y="87" font-size="11" fill="#3f6b3a" font-family="IBM Plex Mono, monospace" font-weight="600">67%</text>
+      <text x="250" y="124" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Medicaid managed care</text>
+      <rect x="260" y="108" width="335.7" height="24" fill="#7a5a18"/>
+      <text x="605" y="125" font-size="11" fill="#7a5a18" font-family="IBM Plex Mono, monospace" font-weight="600">47%</text>
+      <text x="250" y="162" font-size="10" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">ACA Marketplace</text>
+      <rect x="260" y="146" width="307.1" height="24" fill="#8a3324"/>
+      <text x="577" y="163" font-size="11" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">43%</text>
+
+      <g font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">
+        <line x1="260" y1="184" x2="760" y2="184" stroke="#b9ad99" stroke-width="1"/>
+        <line x1="260" y1="184" x2="260" y2="189" stroke="#b9ad99"/><text x="260" y="200" text-anchor="middle">0</text>
+        <line x1="403" y1="184" x2="403" y2="189" stroke="#b9ad99"/><text x="403" y="200" text-anchor="middle">20%</text>
+        <line x1="546" y1="184" x2="546" y2="189" stroke="#b9ad99"/><text x="546" y="200" text-anchor="middle">40%</text>
+        <line x1="689" y1="184" x2="689" y2="189" stroke="#b9ad99"/><text x="689" y="200" text-anchor="middle">60%</text>
+      </g>
+
+      <text x="20" y="224" font-size="9.5" fill="#211d18" font-family="EB Garamond, serif">Medicare Advantage denies the least and loses the most on appeal. It is the only one of the three where an upheld denial goes to independent review automatically.</text>
+      <text x="20" y="242" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">Appeals are rare in every market. In Medicare Advantage 11.5 percent of 2024 denials were appealed, and 80.7 percent of those were overturned in whole or part.</text>
+    </svg>
+  </div>
+
+  <div class="prose-note">
+    <strong>Start with the number that gets quoted.</strong> In 2024 traditional Medicare denied
+    <strong>22.9 percent</strong> of the prior authorization requests it reviewed. Medicare Advantage,
+    run by private insurers, denied <strong>7.7 percent</strong>. On the rate alone the government program
+    looks three times harsher than the companies.
+    <br><br>
+    The rate is correct and the conclusion is backwards, because a rate is a ratio and the denominator is
+    the policy. Traditional Medicare requires prior authorization for a short list: some outpatient
+    procedures like blepharoplasty and vein ablation, repetitive non-emergency ambulance trips, and about
+    seventy categories of durable medical equipment. That produced <strong>628,243</strong> reviews in the
+    whole fiscal year, roughly <strong>0.02 per beneficiary</strong>. Medicare Advantage produced
+    <strong>52.8 million</strong>, about <strong>1.7 per enrollee</strong>, and 99 percent of enrollees face
+    it on something.
+    <br><br>
+    <strong>Multiply it out and the ranking flips.</strong> Traditional Medicare generates about
+    <strong>4.6 denials per thousand beneficiaries</strong> a year. Medicare Advantage generates about
+    <strong>131</strong>. Same program, same entitlement, same year, and on the order of
+    <strong>thirty times</strong> the chance that something a doctor ordered gets stopped before it
+    happens.
+    <br><br>
+    <strong>Then the private markets against each other.</strong> KFF pulled 2025 filings from fourteen
+    insurers with real market share and found standard denial rates of <strong>12 percent</strong> in
+    Medicare Advantage, <strong>14 percent</strong> in Medicaid managed care and <strong>18 percent</strong>
+    in the ACA Marketplace. The spread inside each market is wider than the spread between them. Marketplace
+    insurers run from 3 percent at GuideWell to 25 percent at Centene.
+    <br><br>
+    The cleanest way to see what is driving it is to follow one company. UnitedHealth Group is the only
+    insurer in the analysis operating in all three markets. It denied <strong>17 percent</strong> in Medicare
+    Advantage, <strong>11 percent</strong> in Medicaid and <strong>21 percent</strong> in the Marketplace.
+    One underwriting department, one year, one actuarial staff. The number moves with the regulator.
+    <br><br>
+    <strong>The appeal data says the same thing from the other side.</strong> Medicare Advantage denies the
+    least and gets overturned the most, 67 percent of the time. The Marketplace denies the most and gets
+    overturned the least, 43 percent. That looks like a paradox until you notice that Medicare Advantage is
+    the only one of the three where a denial the insurer upholds goes to an independent reviewer
+    automatically. Where the referee is strongest the denial rate is lowest, and the denials that do get
+    made are the ones least likely to stand.
+    <br><br>
+    Almost nobody tests it. Enrollees appealed fewer than <strong>1 percent</strong> of denied in-network
+    Marketplace claims in 2024, and 66 percent of those appeals were upheld against them. In Medicare
+    Advantage 11.5 percent of denials were appealed and <strong>80.7 percent</strong> of those were
+    overturned in whole or in part. Four out of five. A denial that fails four times out of five on review,
+    and is reviewed one time in nine, is not functioning as a judgment about care. It is functioning as a
+    toll on persistence.
+    <br><br>
+    <strong>The claims side, separately.</strong> Prior authorization happens before the service. Denial of
+    a submitted claim happens after, and it is a different number. Marketplace insurers denied
+    <strong>19 percent</strong> of in-network claims in 2024, about 85 million out of 451 million, and
+    <strong>37 percent</strong> of out-of-network claims. Issuers ranged from 3 to 36 percent. Elevance had
+    the lowest parent-company average at 8 percent and Oscar the highest at 25.
+    <br><br>
+    The reason codes on those denials are worth a look. Medical necessity, the thing everyone argues about,
+    accounts for <strong>5 percent</strong>. Administrative reasons account for 25. The single largest
+    category, at <strong>36 percent</strong>, is "other," which is a federal reporting field that permits an
+    insurer to decline a claim without stating a classifiable reason. The most common reason for a denial in
+    the American individual market is no reason.
+    <br><br>
+    <strong>The scarcinality reading.</strong> This page is the framework's cleanest case, because nothing
+    is scarce anywhere in it. The surgeon exists. The scanner exists and has open slots. The drug is in the
+    pharmacy. The patient is insured and has paid the premium. Every physical input to the care is present,
+    and the care does not happen. What intervenes is a ledger entry, and the rate at which that entry gets
+    made is not set by medicine. It moves by twelve percentage points depending on which agency is reading
+    the filings. That is a <a href="/cornerstone">manufactured shortage</a> in the strictest sense the
+    theory allows: an interruption with no physical correlate at all, sitting one level above the thing it
+    interrupts.
+    <br><br>
+    It also explains why the cost argument never resolves. Prior authorization is defended as a brake on
+    unnecessary spending, and some of it certainly is. But a brake applied 52.8 million times a year, which
+    fails four appeals in five when anybody pushes back, is not being used only as a brake. The 11.5 percent
+    appeal rate is the operative statistic. The system works, financially, because most people stop.
+    <br><br>
+    <em>How much to trust these numbers.</em> The three panels use two different KFF analyses and should not
+    be read across. Panel one is 2024 federal data covering all of Medicare. Panels two and three are 2025
+    filings from fourteen insurers above a 2.5 percent share threshold, which is the first year
+    <a href="https://www.kff.org/patient-consumer-protections/prior-authorization-metrics-provide-new-insights-into-insurer-practices-but-gaps-remain/">this
+    reporting existed</a> and is thin: CVS and several Marketplace issuers could not be located at all, and
+    Medicaid fee-for-service is excluded because state reports are scattered and the populations are not
+    comparable. Denials per thousand is our arithmetic on KFF's published per-enrollee and rate figures,
+    not a figure KFF publishes, and it inherits their rounding. KFF gives traditional Medicare as "about
+    0.02" requests per beneficiary, so the multiple between the two programs is good to roughly twenty-five
+    to thirty rather than to a decimal place. The direction is not in doubt. The precision is. And the deepest limitation is one nobody can fix from filings: none of this says
+    whether a denial was right. A 22.9 percent rate on blepharoplasty and a 7.7 percent rate on skilled
+    nursing stays are not the same act, and no public data set grades them. Arguments welcome.
+    <a class="dispatch-link" href="/dispatch-counterfeit-shortage-of-care">Read: The Counterfeit Shortage of Care &rarr;</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
+</body>
+</html>

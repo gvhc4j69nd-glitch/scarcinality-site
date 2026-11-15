@@ -43,7 +43,11 @@ BRITISH_WORDS = (r'\b(?:centre|centres|labour|colour|colours|programme|defence|'
                  r'favourable|behaviour|behaviours|neighbourhood|artefact|artefacts|'
                  r'millimetre|centimetre|kilometre|metre|metres|litre|litres|tonne|'
                  r'tonnes|sceptic|sceptical|practise|licence|enquiry|whilst|amongst|'
-                 r'analyse|analysed|analyses|analysing|paralyse|paralysed)\b'
+                 # "analyses" is the ordinary US plural of "analysis" and is NOT
+                 # a British spelling. It is also the British third-person verb,
+                 # but the noun is overwhelmingly the usage here, so listing it
+                 # failed good pages. Only the unambiguous verb forms are flagged.
+                 r'analyse|analysed|analysing|paralyse|paralysed)\b'
                  r'|\b(?:' + '|'.join(_ISE_STEMS) + r')(?:e|ed|es|ing|able|ation|ations)\b')
 
 
