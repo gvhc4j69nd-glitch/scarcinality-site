@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You Can Audit a Liar &middot; Scarcinality</title>
+<meta name="description" content="A web scraper caught Argentina falsifying its inflation rate, and its credibility came from the four countries where it found nothing wrong. The same method cannot recover October 2025, because nobody collected it. Falsified data is the recoverable case.">
+<meta property="og:image" content="https://www.scarcinality.com/assets/og/dispatch-audit-a-liar.png">
+<meta property="og:image:alt" content="You Can Audit a Liar. A Scarcinality card.">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="You Can Audit a Liar &middot; Scarcinality">
+<meta property="og:description" content="Argentina's government understated inflation by 11.6 points a year. A scraper caught it. The United States has a month of price data that nobody collected, and no scraper can recover it. Treasury set the number by decree and will not replace it.">
+<meta property="og:url" content="https://www.scarcinality.com/dispatch-audit-a-liar">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="You Can Audit a Liar &middot; Scarcinality">
+<meta name="twitter:description" content="The official US price index shows a dash for October 2025. Treasury shows 325.604, final, unrevisable, with $2.16 trillion of debt indexed to it. Nobody decided this. That is what makes it permanent.">
+<link rel="canonical" href="https://www.scarcinality.com/dispatch-audit-a-liar">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+  .stamp{max-width:var(--measure);margin:1.4rem 0 0;padding:.9rem 1.05rem;
+   background:var(--parchment-deep);border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.78rem;line-height:1.55;color:var(--ink-soft);}
+  .prose h2{font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--oxblood);margin:2.6rem 0 .4rem;}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.06em .12em .02em 0;
+   color:var(--oxblood);font-weight:600;}
+  .pull{max-width:var(--measure);margin:2rem 0;padding:.2rem 0 .2rem 1.4rem;
+   border-left:3px solid var(--oxblood);font-style:italic;font-size:1.28rem;color:var(--ink);line-height:1.5;}
+  .fig{max-width:var(--measure);margin:1.8rem 0 .4rem;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-family:var(--mono);font-size:.67rem;color:var(--ink-faint);margin-top:.6rem;line-height:1.5;}
+  .formula{max-width:var(--measure);margin:1.4rem 0;padding:1rem 1.15rem;background:var(--parchment-deep);
+   border-left:3px solid var(--oxblood);
+   font-family:var(--mono);font-size:.8rem;line-height:1.75;color:var(--ink);}
+  .ledger-wrap{max-width:64rem;margin:1rem 0 0;overflow-x:auto;}
+  table.ledger{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.76rem;}
+  table.ledger th,table.ledger td{text-align:left;vertical-align:top;padding:.58rem .65rem;
+   border-bottom:1px solid var(--rule);}
+  table.ledger thead th{color:var(--oxblood);letter-spacing:.06em;text-transform:uppercase;
+   font-size:.66rem;border-bottom:1.5px solid var(--oxblood);}
+  table.ledger td.k{font-family:var(--serif);font-size:.98rem;font-weight:600;min-width:9rem;}
+  table.ledger td.r{font-family:var(--serif);font-size:.92rem;line-height:1.4;min-width:13rem;}
+  .num{font-family:var(--mono);color:var(--oxblood);font-weight:600;white-space:nowrap;}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1px;
+   background:var(--rule);border:1px solid var(--rule);margin:1.8rem 0;max-width:64rem;}
+  .statgrid div{background:var(--parchment);padding:.9rem 1rem;}
+  .statgrid .sv{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1;}
+  .statgrid .sl{font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);line-height:1.5;margin-top:.2rem;}
+  @media(max-width:640px){ body{font-size:19px;} .statgrid .sv{font-size:1.3rem;} }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-J3FY40KFSG');</script>
+</head>
+<body>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a><a href="/treatise">Treatise</a><a href="/theory">Theory</a>
+    <a href="/dispatches" aria-current="page">Dispatches</a><a href="/glossary">Glossary</a>
+    <a href="/curiosities">Curiosities</a><a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="post-head">
+    <p class="post-meta">Dispatch &middot; Live policy &middot; as of 15 November 2026</p>
+    <h1>You Can Audit a Liar</h1>
+    <p class="dek">A government falsified its inflation rate for eight years. A scraper caught it, and the catching worked because of the four countries where the scraper found nothing wrong. That method is the reason data wins. It also has a precondition, and the United States just failed it.</p>
+    <button class="share-btn" onclick="var b=this;navigator.clipboard.writeText('https://www.scarcinality.com'+window.location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'')).then(function(){b.textContent='Link copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Share this dispatch';b.classList.remove('copied');},2000)})">Share this dispatch</button>
+  </div>
+
+  <p class="stamp">A reading on the completeness of official data, built from the BLS price series, Treasury's TIPS reference tables, Cavallo (2013) in the Journal of Monetary Economics, and the American Statistical Association's September 2026 review. Three claims: deliberate falsification is the recoverable failure, uncollected data is the permanent one, and the cheapest method of erasure does the most lasting damage. One concession up front. The evidence here supports the case against hiding data and complicates the slogan that data sets you free. Conditional, falsifiable, not investment advice.</p>
+
+  <article class="prose">
+
+    <p class="lead">In 2008 an economist from Argentina, then at MIT, wrote a program that visited supermarket websites. It ran every day. It copied the price of condensed milk, and a few hundred thousand other things, into a database.</p>
+
+    <p>Alberto Cavallo was not founding a field. He was trying to learn what inflation in his own country was, because his country had stopped saying.</p>
+
+    <p>In early 2007 the Argentine government replaced the leadership of its statistics agency. The word used in Argentina was <em>intervened</em>. Before that, officials had been trying to find out which retailers were in the price sample, which is a strange thing for a government to want to know. Afterward, the published inflation rate went quiet and stayed low.</p>
+
+    <p>Cavallo put his numbers on a website. He called it inflacionverdadera.com. True inflation.</p>
+
+    <h2>Why anyone believed the scraper</h2>
+
+    <p>Here is the problem with that website. Anybody can publish a number that contradicts the government. Publishing it does not make it true.</p>
+
+    <p>A scraper has obvious defects. It sees online prices, not shelf prices. It oversamples supermarkets and misses rent, services, and anything you cannot buy on a web page. Each of those is a reason the number could be wrong by a lot, in either direction, for reasons that have nothing to do with anyone lying.</p>
+
+    <p>So Cavallo ran the same program on four other countries.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 720 340" role="img" aria-label="Paired bar chart of average annual inflation from 2007 to 2011 in five South American countries, comparing the official government consumer price index with an independent scraped online price index. Venezuela 27.4 percent official and 27.4 percent online. Brazil 5.3 official and 4.7 online. Colombia 3.8 official and 4.9 online. Chile 2.4 official and 3.0 online. Argentina 8.5 official and 20.1 online, a gap of 11.6 percentage points.">
+        <rect x="0" y="0" width="720" height="340" fill="#f6f2e9"/>
+        <text x="56" y="30" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#211d18" letter-spacing="0.06em">AVERAGE ANNUAL INFLATION, 2007&ndash;2011</text>
+        <text x="56" y="46" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b6256">percent per year</text>
+
+        <line x1="56" y1="62"  x2="704" y2="62"  stroke="#ddd3c2" stroke-width="1"/>
+        <line x1="56" y1="132" x2="704" y2="132" stroke="#ddd3c2" stroke-width="1"/>
+        <line x1="56" y1="202" x2="704" y2="202" stroke="#ddd3c2" stroke-width="1"/>
+        <line x1="56" y1="272" x2="704" y2="272" stroke="#211d18" stroke-width="1.5"/>
+        <text x="48" y="66"  text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b6256">30</text>
+        <text x="48" y="136" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b6256">20</text>
+        <text x="48" y="206" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b6256">10</text>
+        <text x="48" y="276" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b6256">0</text>
+
+        <rect x="180" y="92"  width="13" height="13" fill="#2f5670"/>
+        <text x="199" y="102" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#211d18">Official government CPI</text>
+        <rect x="180" y="113" width="13" height="13" fill="#8a3324"/>
+        <text x="199" y="123" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#211d18">Independent scraped index</text>
+
+        <rect x="78"  y="80.2"  width="26" height="191.8" fill="#2f5670"/>
+        <rect x="108" y="80.2"  width="26" height="191.8" fill="#8a3324"/>
+        <text x="91"  y="74" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2f5670">27.4</text>
+        <text x="121" y="74" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8a3324">27.4</text>
+        <text x="106" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#211d18">Venezuela</text>
+
+        <rect x="168" y="234.9" width="26" height="37.1" fill="#2f5670"/>
+        <rect x="198" y="239.1" width="26" height="32.9" fill="#8a3324"/>
+        <text x="181" y="229" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2f5670">5.3</text>
+        <text x="211" y="233" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8a3324">4.7</text>
+        <text x="196" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#211d18">Brazil</text>
+
+        <rect x="258" y="245.4" width="26" height="26.6" fill="#2f5670"/>
+        <rect x="288" y="237.7" width="26" height="34.3" fill="#8a3324"/>
+        <text x="271" y="239" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2f5670">3.8</text>
+        <text x="301" y="231" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8a3324">4.9</text>
+        <text x="286" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#211d18">Colombia</text>
+
+        <rect x="348" y="255.2" width="26" height="16.8" fill="#2f5670"/>
+        <rect x="378" y="251.0" width="26" height="21.0" fill="#8a3324"/>
+        <text x="361" y="249" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2f5670">2.4</text>
+        <text x="391" y="245" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8a3324">3.0</text>
+        <text x="376" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#211d18">Chile</text>
+
+        <line x1="455" y1="62" x2="455" y2="272" stroke="#b9ad99" stroke-width="1" stroke-dasharray="4 3"/>
+
+        <rect x="530" y="212.5" width="26" height="59.5"  fill="#2f5670"/>
+        <rect x="560" y="131.3" width="26" height="140.7" fill="#8a3324"/>
+        <text x="543" y="206" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2f5670">8.5</text>
+        <text x="573" y="125" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8a3324">20.1</text>
+        <text x="558" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="#8a3324">Argentina</text>
+
+        <line x1="604" y1="131.3" x2="604" y2="212.5" stroke="#8a3324" stroke-width="1"/>
+        <line x1="600" y1="131.3" x2="608" y2="131.3" stroke="#8a3324" stroke-width="1"/>
+        <line x1="600" y1="212.5" x2="608" y2="212.5" stroke="#8a3324" stroke-width="1"/>
+        <text x="614" y="167" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="#8a3324">11.6</text>
+        <text x="614" y="180" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8a3324">points</text>
+
+        <text x="56" y="310" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b6256">Same scraper. Same method. Four countries where it agreed, one where it did not.</text>
+      </svg>
+      <figcaption>Average annual inflation, 2007 to 2011, official consumer price index against an independent index built from scraped online retail prices. Source: Cavallo, &ldquo;Online and official price indexes: measuring Argentina's inflation,&rdquo; Journal of Monetary Economics, volume 60, 2013. Venezuela's two measures are identical at 27.4 percent.</figcaption>
+    </figure>
+
+    <p>In Brazil, Colombia, Chile, and Venezuela, the scraped index tracked the official one. The gaps run under one and a half points a year. In Venezuela the two figures are the same number to one decimal place, which is worth sitting with. Venezuela was reporting inflation of 27.4 percent and reporting it accurately.</p>
+
+    <p>In Argentina the official rate averaged 8.5 percent a year. The scraper said 20.1.</p>
+
+    <p>That is the whole proof. A measurement earns its authority in the places where it finds nothing. If the scraper were biased by its method, it would have been biased in five countries. It was biased in one.</p>
+
+    <div class="pull">An independent measurement is credible because of where it agrees, not where it disagrees. Agreement is what rules out the explanations that have nothing to do with lying.</div>
+
+    <p>Cavallo also noticed the shape of the thing. Across those years the official Argentine index behaved like the online index divided by three. Not a subtle adjustment. A scale factor.</p>
+
+    <h2>What the gap was worth</h2>
+
+    <p>An inflation rate is not only a description. It is frequently a contract term.</p>
+
+    <p>Argentina had roughly $50 billion of debt whose principal adjusted with the official price index. Economists cited by the Washington Post in 2009 put it at that. Every month the index came in low, bondholders were paid less, and the state paid less. The number was not merely describing the economy. It was setting a price.</p>
+
+    <p>There was a second effect, and it was arithmetic. Understating inflation overstates real growth, because growth is nominal output deflated by prices. Deflate by too little and the economy looks bigger than it is. When the International Monetary Fund issued its declaration of censure on 1 February 2013, the first such censure in its history, it named two series. The consumer price index for Greater Buenos Aires, and gross domestic product.</p>
+
+    <p>One falsified number had propagated into another, because the numbers were connected.</p>
+
+    <h2>The number found a way out</h2>
+
+    <p>Argentina then did what governments do. It went after the people publishing rival figures.</p>
+
+    <p>From 2011 the commerce secretary fined private consultancies for releasing their own inflation estimates. Accounts of how many firms were hit range from seven to more than a dozen. Fines of 500,000 pesos appear in a March 2011 timeline. In September 2013 an Argentine judge ruled against him, describing the campaign as an effort to silence experts.</p>
+
+    <p>What the economists did in the meantime is the part worth remembering. They handed their estimates to opposition legislators. The legislators read a monthly average into the record in Congress, where parliamentary speech is protected.</p>
+
+    <p>The number did not stop. It changed vehicles. It moved out of consultancy reports and into a web scraper, a website called True Inflation, and the floor of the legislature.</p>
+
+    <p>By November 2016 the Fund found Argentine statistics compliant again. PriceStats, which grew out of the same project, now publishes daily inflation for 23 countries at a three day lag.</p>
+
+    <p>That is the case for the proposition that data sets you free, and it is a strong one. It took eight years.</p>
+
+    <h2>The cheapest thing to keep</h2>
+
+    <p>Now the turn, because this is where the usual story about hidden data goes wrong.</p>
+
+    <p>A number costs something to produce once. After that it costs almost nothing to keep. Copying it is free. Storing it is close to free. Harvard's Library Innovation Lab archived more than 311,000 federal datasets from data.gov across 2024 and 2025. The whole thing is 16 terabytes. That is a disk you can hold.</p>
+
+    <p>So absence is never the resting state of data. Someone has to spend something to produce it. Deletion is work.</p>
+
+    <p>Which means that when a number is missing, the useful question is not whether somebody wanted it gone. It is what they had to spend to get that result. And the answer turns out to run opposite to the damage.</p>
+
+    <h2>Four ways to make a number disappear</h2>
+
+    <div class="ledger-wrap">
+    <table class="ledger">
+      <thead><tr>
+        <th>Method</th><th>Cost to whoever wants it gone</th><th>Can it be caught</th><th>Case</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Falsify it</td>
+          <td class="r">Highest. An agency has to publish a checkable false number every month, indefinitely, and keep the story straight.</td>
+          <td class="r"><strong>Yes.</strong> Reality keeps generating the true value. Any honest independent measurement finds it.</td>
+          <td class="r">Argentina's CPI, 2007 to 2015</td>
+        </tr>
+        <tr>
+          <td class="k">Withdraw it</td>
+          <td class="r">Moderate. The gap is conspicuous and dated, and somebody has to announce it.</td>
+          <td class="r"><strong>Usually.</strong> Past values survive. The stopping point is visible and the timing is evidence.</td>
+          <td class="r">China's youth unemployment, suspended 15 August 2023 after a record 21.3 percent</td>
+        </tr>
+        <tr>
+          <td class="k">Defund the collection</td>
+          <td class="r">Low. No announcement needed. Reads as a budget outcome rather than a decision about a number.</td>
+          <td class="r"><strong>Partly.</strong> You can watch the series thin. You cannot recover what the missing part would have shown.</td>
+          <td class="r">CPI sample suspensions in 2025, and 14 of 21 BLS restricted datasets closed to researchers</td>
+        </tr>
+        <tr>
+          <td class="k">Never collect it</td>
+          <td class="r">None. Nothing has to be suppressed, because nothing was ever written down.</td>
+          <td class="r"><strong>No.</strong> No measurement can recover a month nobody observed. There is no true value to compare against.</td>
+          <td class="r">The October 2025 United States consumer price index</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p>Read the two middle columns together. The cost falls as you go down. So does the chance of catching it. The cheapest method is the one that cannot be undone.</p>
+
+    <h2>The month nobody collected</h2>
+
+    <p>Appropriations lapsed on 1 October 2025. The Bureau of Labor Statistics suspended price collection and did not resume until 12 November. No October release was issued.</p>
+
+    <p>Pull the official price series today and you can see the result. This is the consumer price index for all urban consumers, not seasonally adjusted, as the Bureau publishes it now.</p>
+
+    <div class="formula">
+      Aug 2025 &nbsp;&nbsp;323.976<br>
+      Sep 2025 &nbsp;&nbsp;324.800<br>
+      <strong>Oct 2025 &nbsp;&nbsp;&mdash;</strong><br>
+      Nov 2025 &nbsp;&nbsp;324.122<br>
+      Dec 2025 &nbsp;&nbsp;324.054
+    </div>
+
+    <p>A dash. Not an estimate, not a footnote. The price level of the United States for one month in 2025 is not recorded, and cannot be, because nobody went and looked.</p>
+
+    <p>That hole then propagated forward exactly twelve months. On 10 November 2026, five days before this was written, the Bureau released the October 2026 index. It reported a monthly change of 0.4 percent for all items and 0.3 percent for core. In the column where the twelve month rate goes, there is a dash, for both. The release explains why in one sentence: the Bureau did not collect survey data for October 2025 because of a lapse in appropriations.</p>
+
+    <p>The United States cannot currently state its own official annual inflation rate.</p>
+
+    <h2>A number that cannot be wrong</h2>
+
+    <p>Except that there is a number, and this is the part that should bother you.</p>
+
+    <p>Treasury inflation protected securities adjust their principal using that index. There was $2,157,396 million of them outstanding on 31 October 2026. Those contracts needed an October 2025 figure, so Treasury invoked the index contingency provisions of its offering circular. On 26 November 2025 it set the value.</p>
+
+    <p>It set it at 325.604. And it stated that it will not replace that number even if the Bureau later reports an actual figure for October 2025.</p>
+
+    <p>Look at where it sits. September was measured at 324.800. November was measured at 324.122. The decreed October value is above both.</p>
+
+    <div class="formula">
+      Sep 2025 &nbsp;&nbsp;324.800 &nbsp;&nbsp;<span style="color:#6b6256">measured</span><br>
+      <strong>Oct 2025 &nbsp;&nbsp;325.604 &nbsp;&nbsp;<span style="color:#8a3324">set by decree, final</span></strong><br>
+      Nov 2025 &nbsp;&nbsp;324.122 &nbsp;&nbsp;<span style="color:#6b6256">measured</span><br><br>
+      implied October to November change &nbsp;&nbsp;<strong>&minus;0.455%</strong><br>
+      largest actual October to November fall, 2015&ndash;2024 &nbsp;&nbsp;&minus;0.335%
+    </div>
+
+    <p>If 325.604 were real, prices fell harder that November than in any November of the previous decade. Run the estimate the other way instead. Take the measured November and apply the ten year average seasonal change, and October lands near 324.34. The decree sits about four tenths of a percent above that.</p>
+
+    <p>Treasury is not the villain here. The rule is mechanical, it extrapolates from the last twelve month change available, and on 26 November the November data did not yet exist. Nobody was hiding anything. The contingency worked as designed.</p>
+
+    <p>That is the point. Run the decree forward from September using the normal seasonal pattern and you get 325.38. The decree is 325.60. It is a perfectly ordinary looking October.</p>
+
+    <div class="pull">Argentina's lie was catchable because it was crude and because the truth kept being generated next to it. This number is uncatchable because it is reasonable and because there is nothing beside it to check.</div>
+
+    <p>Three figures sit in Treasury's reference tables in one row, in the same format, to the same precision: 323.976, 324.800, 325.604. Two were observed. One was declared. Nothing on the page tells you which.</p>
+
+    <h2>And the ones that were decided</h2>
+
+    <p>None of which excuses the deliberate removals, and there have been plenty.</p>
+
+    <p>On 19 September 2025 the Department of Agriculture terminated the Food Security Supplement to the Current Population Survey. It had run since the 1990s, every December, and it was the only nationally representative measure of household food hardship detailed enough for state level estimates. The last collection was December 2024. The department described the data as redundant, costly, politicized, and extraneous.</p>
+
+    <p>Note the third word. The data were called politicized while being removed, which is a claim that answers itself.</p>
+
+    <p>Two Decembers have now passed with no collection. The timing is the tell: the series was ended as the largest cuts to food assistance in the program's history took effect. Neglect does not correlate with content. Suppression does.</p>
+
+    <p>In May 2025 the National Oceanic and Atmospheric Administration stopped updating its record of billion dollar weather disasters, with data published through 2024. Executive Order 14168 removed sexual orientation and gender identity questions from the National Crime Victimization Survey and the National Health Interview Survey. Somewhere between three thousand and thirty four hundred datasets came off data.gov in early 2025. The count is still contested. Many were later restored after litigation and complaint.</p>
+
+    <p>Those are the recoverable cases. The pages were archived. The series have endpoints. Somebody can put them back.</p>
+
+    <h2>Where this stands today</h2>
+
+    <p>The American Statistical Association published its review of the federal statistical system in September 2026. It is the best current accounting, and it is not an advocacy document.</p>
+
+    <div class="statgrid">
+      <div><p class="sv">13 of 13</p><p class="sl">principal federal statistical agencies that have lost staff since January 2025. Six lost at least a third. Two lost more than two thirds.</p></div>
+      <div><p class="sv">6 of 13</p><p class="sl">agencies with a permanent, non-acting head as of 1 July 2026</p></div>
+      <div><p class="sv">12</p><p class="sl">people at the National Center for Education Statistics, down from about 100. All but three were terminated in March 2025.</p></div>
+      <div><p class="sv">$2.16 tn</p><p class="sl">of Treasury debt whose principal is indexed to a price series containing one unmeasured, unrevisable month</p></div>
+    </div>
+
+    <p>Eight agencies have lost at least 18 percent of their purchasing power since 2009. The Agricultural Statistics Service is down roughly 40 percent of its staff while relocating to St. Louis. The research and statistics office at Social Security is down about 70 percent. The fiscal 2027 request proposes further reductions for most of these agencies.</p>
+
+    <p>Nobody voted for a missing month of price data. It was a residue.</p>
+
+    <h2>What the scrapers can and cannot do</h2>
+
+    <p>So the slogan needs a condition attached.</p>
+
+    <p>Independent measurement defeats falsification. That is demonstrated, repeatedly, and the Argentine case is as clean a demonstration as economics offers. A government that publishes a false number is in a losing position. The true number keeps being generated by the world. Anyone with a scraper and four control countries can go get it.</p>
+
+    <p>Independent measurement cannot defeat non collection. A private price index can tell you what October 2025 inflation probably was. It cannot tell you what the official index would have printed. That is the index that moves $2.16 trillion of principal, sets cost of living adjustments, and indexes tax brackets. For those purposes the number is not an estimate of something. It is the thing itself.</p>
+
+    <p>You can audit a liar. You cannot audit a blank.</p>
+
+    <h2>The case against this reading</h2>
+
+    <p>Three ways this is too dark.</p>
+
+    <p>The first comes from the same ASA report. The pace of change has slowed, seven agencies have resumed hiring, and apart from the education statistics center, the agencies are still releasing their products on schedule. The system is damaged, not broken, and the people in it have held it together through a bad eighteen months.</p>
+
+    <p>The second is that the measured effects are small. The Bureau simulated its 2025 collection suspensions back to 2018. The national twelve month figure moved by less than one hundredth of a percentage point on average, and matched the published figure in 52 of 77 months. The Bureau is also candid that it did not measure the effect on local and item level indexes, which is where the damage would be.</p>
+
+    <p>The third cuts against my framing of intent. Not every restriction is suppression. Statistical agencies withhold small cells to protect respondents, and that is a legal duty, not a cover story. China's new youth unemployment series excludes students, which is defensible on its own terms even though the timing was not. And the ASA flags new restrictions on the disclosure avoidance methods used by Census and the Bureau of Economic Analysis. That is pressure to release more raw data, not less. Not every fight about data has the sides you expect.</p>
+
+    <h2>What would prove this wrong</h2>
+
+    <p>If the Bureau publishes a measured October 2025 index, and Treasury replaces 325.604 with it, the central claim here fails. The hole was recoverable and I said it was not. Treasury has stated in writing that it will not do this.</p>
+
+    <p>Say an independent index reconstructs October 2025 to within a tenth of a point. Say markets and contracts then accept it in place of the official figure. Non collection would be recoverable after all, and the distinction this dispatch rests on collapses.</p>
+
+    <p>Say the Food Security Supplement is restored, with back collection covering 2025 and 2026. Then deliberate removal cost less than I claim. The asymmetry between the two failures narrows.</p>
+
+    <p>And say the fiscal 2027 appropriations raise statistical agency funding in real terms. Say staffing at the thirteen agencies climbs back above its January 2025 level by the end of 2027. Then the degradation reading was wrong. Watch the twelve regular bills. The stopgap expires on 11 December.</p>
+
+    <p style="margin-top:1.6rem;">One caution on the arithmetic. My estimate that the decreed October figure runs about four tenths of a percent high rests on ten years of seasonal averages applied to a measured November. That is a reasonable method and not a measurement. The honest statement is narrower. The decreed value lies above both measured months on either side of it. No method can establish the real figure, because the prices were never collected. That is the claim. It is not the kind that gets settled later.</p>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
+</body>
+</html>
