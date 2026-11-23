@@ -1,0 +1,28 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+  <rect width="320" height="200" fill="#f6f2e9"/>
+  <text x="14" y="20" font-size="7.5" fill="#8a8073">PEOPLE REPRESENTED PER SEAT, BY CHAMBER</text>
+  <text x="90" y="61" font-size="7.5" fill="#211d18" text-anchor="end">House seat</text>
+  <line x1="145.4" y1="58" x2="172.1" y2="58" stroke="#ddd3c2" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="145.4" cy="58" r="3.2" fill="#8a3324"/>
+  <circle cx="172.1" cy="58" r="3.2" fill="#2f5670"/>
+  <text x="158.7" y="50" font-size="8" font-weight="600" fill="#211d18" text-anchor="middle">1.9x</text>
+  <text x="90" y="101" font-size="7.5" fill="#211d18" text-anchor="end">Electoral vote</text>
+  <line x1="102.0" y1="98" x2="160.0" y2="98" stroke="#ddd3c2" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="102.0" cy="98" r="3.2" fill="#8a3324"/>
+  <circle cx="160.0" cy="98" r="3.2" fill="#2f5670"/>
+  <text x="131.0" y="90" font-size="8" font-weight="600" fill="#211d18" text-anchor="middle">4.0x</text>
+  <text x="90" y="141" font-size="7.5" fill="#211d18" text-anchor="end">Senate seat</text>
+  <line x1="118.8" y1="138" x2="293.5" y2="138" stroke="#ddd3c2" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="118.8" cy="138" r="3.2" fill="#8a3324"/>
+  <circle cx="293.5" cy="138" r="3.2" fill="#2f5670"/>
+  <text x="206.2" y="130" font-size="8" font-weight="600" fill="#211d18" text-anchor="middle">66.9x</text>
+  <line x1="102.8" y1="40" x2="102.8" y2="152" stroke="#ddd3c2" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <text x="102.8" y="163" font-size="6.5" fill="#8a8073" text-anchor="middle">200k</text>
+  <line x1="169.7" y1="40" x2="169.7" y2="152" stroke="#ddd3c2" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <text x="169.7" y="163" font-size="6.5" fill="#8a8073" text-anchor="middle">1m</text>
+  <line x1="236.6" y1="40" x2="236.6" y2="152" stroke="#ddd3c2" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <text x="236.6" y="163" font-size="6.5" fill="#8a8073" text-anchor="middle">5m</text>
+  <line x1="294.2" y1="40" x2="294.2" y2="152" stroke="#ddd3c2" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <text x="294.2" y="163" font-size="6.5" fill="#8a8073" text-anchor="middle">20m</text>
+  <text x="14" y="184" font-size="7" fill="#6b6256">Same country. The spread widens seventeenfold.</text>
+</svg>

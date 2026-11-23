@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What a Vote Weighs &middot; Scarcinality</title>
+<meta name="description" content="One electoral vote stands for 196,251 people in Wyoming and 792,746 in Texas. One Senate seat stands for 294,376 in Wyoming and 19,677,654 in California. The House spread is 1.90 to one, the electoral college 4.04, the Senate 66.85. Fifty-two senators can be elected by 17.5 percent of the country.">
+<meta property="og:image" content="https://www.scarcinality.com/assets/og/vote-weight.png">
+<meta property="og:image:alt" content="What a Vote Weighs. A Scarcinality card.">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Scarcinality">
+<meta property="og:title" content="What a Vote Weighs &middot; Scarcinality">
+<meta property="og:description" content="Three chambers, one country, three answers. Per House seat the spread is 1.90 to one. Per electoral vote, 4.04. Per Senate seat, 66.85. The two extra electors are worth exactly 3x to every single-district state and about 4 percent to California.">
+<meta property="og:url" content="https://www.scarcinality.com/vote-weight">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What a Vote Weighs &middot; Scarcinality">
+<meta name="twitter:description" content="A 0.6984 percent population gap between two districts in one state was unconstitutional in 1983. A 90 percent gap between two states is required by the Constitution.">
+<link rel="canonical" href="https://www.scarcinality.com/vote-weight">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.map-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem;
+  padding: .75rem clamp(1.1rem,5vw,3rem);
+  border-bottom: 1px solid var(--rule);
+  background: var(--parchment);
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.source-badge { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--ink-faint); text-transform: uppercase; }
+
+.curio-switch { display: flex; overflow-x: auto; gap: .4rem; padding: .45rem clamp(1.1rem,5vw,3rem); border-bottom: 1px solid var(--rule); background: var(--parchment); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.curio-switch::-webkit-scrollbar { display: none; }
+.curio-switch a { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-faint); text-decoration: none; flex-shrink: 0; }
+.curio-switch a[aria-current], .curio-switch a:hover { color: var(--ink); border-color: var(--ink-faint); background: var(--parchment-deep, #dfd5c4); }
+.curio-switch a.g-health  { color:#3f6b3a; border-color:#c2cfbc; }
+.curio-switch a.g-comm    { color:#7a5a18; border-color:#d8cba8; }
+.curio-switch a.g-energy  { color:#2f5670; border-color:#bcc8d2; }
+.curio-switch a.g-pol     { color:#8a3324; border-color:#dbbfb8; }
+.curio-switch a.g-health[aria-current], .curio-switch a.g-health:hover { color:#2f5230; border-color:#3f6b3a; background:#e7ece4; }
+.curio-switch a.g-comm[aria-current],   .curio-switch a.g-comm:hover   { color:#5e4512; border-color:#7a5a18; background:#f0e9d8; }
+.curio-switch a.g-energy[aria-current], .curio-switch a.g-energy:hover { color:#234155; border-color:#2f5670; background:#e3e9ee; }
+.curio-switch a.g-pol[aria-current],    .curio-switch a.g-pol:hover    { color:#6f281c; border-color:#8a3324; background:#f2e4e0; }
+.curio-switch a[aria-current] { font-weight:500; }
+.curio-switch a.g-first { margin-left:.55rem; }
+
+.chart-wrap { max-width: 72rem; margin: 0 auto; padding: 2rem clamp(1.1rem,5vw,3rem) 3rem; }
+.chart-container { position: relative; width: 100%; }
+.chart-container svg { width: 100%; height: auto; display: block; }
+.fig-note { font-family: var(--mono); font-size: .65rem; color: var(--ink-faint); line-height: 1.5; margin: .5rem 0 0; max-width: 52rem; }
+
+.prose-note { max-width: 52rem; font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); line-height: 1.6; margin-top: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+.prose-note strong { color: var(--ink); font-weight: 500; }
+.dispatch-link { display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--oxblood); border-bottom: 1px solid var(--oxblood); text-decoration: none; }
+
+.tbl-wrap { overflow-x: auto; margin: 1.2rem 0 0; }
+table.ledger { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: .72rem; min-width: 34rem; }
+table.ledger th, table.ledger td { text-align: left; vertical-align: top; padding: .45rem .6rem; border-bottom: 1px solid var(--rule); }
+table.ledger thead th { color: var(--oxblood); letter-spacing: .06em; text-transform: uppercase; font-size: .62rem; border-bottom: 1.5px solid var(--oxblood); }
+table.ledger td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.ledger td.k { font-family: var(--serif); font-size: .92rem; font-weight: 600; }
+
+@media (max-width: 580px) {
+  .site-header { padding: .8rem 1rem; }
+  .site-nav { display: flex; overflow-x: auto; flex-wrap: nowrap; gap: 1.2rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J3FY40KFSG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J3FY40KFSG');
+</script>
+</head>
+<body>
+<a class="site-note" href="https://vinboo.com/demo?from=partner" rel="sponsored noopener">
+  <span class="site-note-label">Sponsor</span>
+  <strong>Vinboo</strong>
+  <span class="site-note-text">Show photos or a PowerPoint on any screen with a browser, no app, no upload.</span>
+  <span class="site-note-go">See it live &rarr;</span>
+</a>
+
+<header class="site-header">
+  <a class="brand" href="/">Scarcinality</a>
+  <nav class="site-nav">
+    <a href="/cornerstone">Start</a>
+    <a href="/treatise">Treatise</a>
+    <a href="/theory">Theory</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/glossary">Glossary</a>
+    <a href="/curiosities" aria-current="page">Curiosities</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="map-header">
+  <h1>What a Vote Weighs</h1>
+  <span class="source-badge">Census apportionment 2020 &middot; Population estimates July 2025</span>
+</div>
+<div class="curio-switch">
+  <a href="/health-outcomes" class="g-health g-first">Health</a>
+  <a href="/disease-map" class="g-health">Disease</a>
+  <a href="/denial-rates" class="g-health">Denials</a>
+  <a href="/beef-price-chart" class="g-comm g-first">Beef Price</a>
+  <a href="/crop-map" class="g-comm">Crops</a>
+  <a href="/mine-map" class="g-comm">Mining</a>
+  <a href="/profits-bankruptcies" class="g-comm">Profits &amp; Failures</a>
+  <a href="/farm-payment-covers" class="g-comm">Farm Payment</a>
+  <a href="/energy-mix" class="g-energy g-first">Energy Mix</a>
+  <a href="/oil-cost-map" class="g-energy">Oil Cost</a>
+  <a href="/oil-timeline" class="g-energy">Oil Timeline</a>
+  <a href="/rig-brent-chart" class="g-energy">Rigs &amp; Brent</a>
+  <a href="/oil-map" class="g-energy">Oil</a>
+  <a href="/education-outcomes" class="g-pol g-first">Education</a>
+  <a href="/international-students" class="g-pol">Intl Students</a>
+  <a href="/immigration-fiscal" class="g-pol">Immigration</a>
+  <a href="/economy-party-chart" class="g-pol">Economy &amp; Party</a>
+  <a href="/fiscal-map" class="g-pol">Federal Budget</a>
+  <a href="/vote-weight" class="g-pol" aria-current="page">Vote Weight</a>
+  <a href="/political-spectrum" class="g-pol">Politics</a>
+  <a href="/corruption-gauges" class="g-pol">Corruption</a>
+  <a href="/unreported-economy" class="g-pol">Unreported</a>
+</div>
+
+<main>
+<div class="chart-wrap">
+
+  <div class="chart-container">
+    <svg viewBox="0 0 900 318" role="img" aria-label="Three horizontal strips on a logarithmic scale showing how many people each seat represents. A House seat ranges from 557,260 in Rhode Island to 1,059,952 in Delaware, a spread of 1.90 to one. An electoral vote ranges from 196,251 in Wyoming to 792,746 in Texas, a spread of 4.04 to one. A Senate seat ranges from 294,376 in Wyoming to 19,677,654 in California, a spread of 66.85 to one.">
+      <rect x="0" y="0" width="900" height="318" fill="#f6f2e9"/>
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">THE SAME COUNTRY, THREE YARDSTICKS</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">People represented per seat. Each dot is one state. Logarithmic scale.</text>
+      <text x="238" y="112" font-size="10.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Seat in the House</text>
+      <line x1="380.6" y1="108" x2="451.4" y2="108" stroke="#ddd3c2" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="412.1" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="411.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="426.7" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="417.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="414.3" cy="108" r="4.6" fill="#8a3324" opacity="1"/>
+      <circle cx="413.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="411.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="451.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="425.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="421.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="408.3" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="446.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="413.1" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="416.9" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="421.7" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="412.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="415.9" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="416.2" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="406.9" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="418.1" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="419.7" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="417.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="410.2" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="411.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="418.2" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="383.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="401.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="423.2" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="406.9" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="419.8" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="407.1" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="416.1" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="420.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="420.3" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="419.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="423.8" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="407.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="416.0" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="380.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="419.8" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="437.6" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="422.2" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="425.1" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="431.5" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="396.7" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="421.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="420.4" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="431.3" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="412.8" cy="108" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="386.7" cy="108" r="4.6" fill="#8a3324" opacity="1"/>
+      <text x="380.6" y="95" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">RI 557k</text>
+      <text x="451.4" y="95" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">DE 1.06m</text>
+      <text x="884" y="112" font-size="10" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600" text-anchor="end">1 to 1.90</text>
+      <text x="238" y="180" font-size="10.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Electoral vote</text>
+      <line x1="265.8" y1="176" x2="419.4" y2="176" stroke="#ddd3c2" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="384.5" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="290.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="404.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="372.8" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="410.2" cy="176" r="4.6" fill="#8a3324" opacity="1"/>
+      <circle cx="389.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="374.5" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="330.5" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="417.9" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="406.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="332.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="370.3" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="400.8" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="394.8" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="377.1" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="367.9" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="384.3" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="384.5" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="330.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="393.5" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="397.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="401.8" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="385.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="367.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="393.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="307.3" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="345.1" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="378.6" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="330.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="402.9" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="350.9" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="408.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="405.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="299.5" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="405.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="386.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="376.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="403.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="304.4" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="392.2" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="316.7" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="400.1" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="419.4" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="386.9" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="275.8" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="403.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="400.4" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="355.0" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="388.3" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="265.8" cy="176" r="4.6" fill="#8a3324" opacity="1"/>
+      <circle cx="283.8" cy="176" r="3" fill="#2f5670" opacity="0.5"/>
+      <text x="265.8" y="163" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">WY 196k</text>
+      <text x="419.4" y="163" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">TX 793k</text>
+      <text x="884" y="180" font-size="10" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600" text-anchor="end">1 to 4.04</text>
+      <text x="238" y="248" font-size="10.5" fill="#211d18" font-family="EB Garamond, serif" text-anchor="end">Seat in the Senate</text>
+      <line x1="310.4" y1="244" x2="772.8" y2="244" stroke="#ddd3c2" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="550.0" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="335.2" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="592.2" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="493.7" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="772.8" cy="244" r="4.6" fill="#8a3324" opacity="1"/>
+      <circle cx="566.1" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="512.3" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="375.1" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="715.9" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="635.6" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="408.3" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="446.6" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="648.5" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="582.4" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="498.0" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="488.8" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="536.8" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="537.1" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="406.9" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="570.6" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="585.2" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="623.5" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="562.7" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="487.9" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="570.7" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="383.6" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="446.0" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="499.5" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="406.9" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="617.0" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="451.7" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="698.4" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="634.5" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="344.1" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="641.2" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="524.6" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="528.5" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="651.4" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="380.6" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="557.7" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="361.3" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="587.7" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="749.1" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="507.8" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="320.4" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="609.0" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="597.5" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="431.3" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="565.4" cy="244" r="3" fill="#2f5670" opacity="0.5"/>
+      <circle cx="310.4" cy="244" r="4.6" fill="#8a3324" opacity="1"/>
+      <text x="310.4" y="231" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">WY 294k</text>
+      <text x="772.8" y="231" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">CA 19.68m</text>
+      <text x="884" y="248" font-size="10" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600" text-anchor="end">1 to 66.85</text>
+      <line x1="267.9" y1="68" x2="267.9" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="267.9" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">200k</text>
+      <line x1="368.7" y1="68" x2="368.7" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="368.7" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">500k</text>
+      <line x1="445.0" y1="68" x2="445.0" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="445.0" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">1m</text>
+      <line x1="521.3" y1="68" x2="521.3" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="521.3" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">2m</text>
+      <line x1="622.1" y1="68" x2="622.1" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="622.1" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">5m</text>
+      <line x1="698.3" y1="68" x2="698.3" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="698.3" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">10m</text>
+      <line x1="774.6" y1="68" x2="774.6" y2="268" stroke="#ddd3c2" stroke-width="1" stroke-dasharray="2 4"/>
+      <text x="774.6" y="284" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">20m</text>
+      <text x="884" y="78" font-size="8.5" fill="#8a8073" font-family="IBM Plex Mono, monospace" font-weight="600" text-anchor="end">SPREAD</text>
+      <text x="20" y="306" font-size="9" fill="#6b6256" font-family="IBM Plex Mono, monospace">Add two senators to each state and the spread quadruples. Drop the House seats and it multiplies by seventeen.</text>
+    </svg>
+  </div>
+  <p class="fig-note">Each chamber applies a different rule to the same population. The House divides 435 seats among the states by population and rounds. The electoral college takes those seats and adds two per state. The Senate skips population entirely.</p>
+
+  <div class="chart-container" style="margin-top:2.2rem;">
+    <svg viewBox="0 0 900 416" role="img" aria-label="Bar chart of all 51 units ranked by population per electoral vote, from Wyoming at 196,251 to Texas at 792,746. A dashed line marks 635,288, the figure if all 538 electoral votes were allocated by population. Thirty-five units fall below the line.">
+      <rect x="0" y="0" width="900" height="416" fill="#f6f2e9"/>
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">PEOPLE PER ELECTORAL VOTE</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">2025 population divided by the state&rsquo;s electoral votes. 51 units, 538 votes.</text>
+      <line x1="52" y1="285.6" x2="878" y2="285.6" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="289.1" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">200k</text>
+      <line x1="52" y1="219.3" x2="878" y2="219.3" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="222.8" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">400k</text>
+      <line x1="52" y1="152.9" x2="878" y2="152.9" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="156.4" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">600k</text>
+      <line x1="52" y1="86.6" x2="878" y2="86.6" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="90.1" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">800k</text>
+      <rect x="54.5" y="286.9" width="11.2" height="65.1" fill="#8a3324" opacity="1"/>
+      <text x="60.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WY</text>
+      <rect x="70.7" y="280.7" width="11.2" height="71.3" fill="#2f5670" opacity="0.78"/>
+      <text x="76.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">VT</text>
+      <rect x="86.9" y="275.3" width="11.2" height="76.7" fill="#211d18" opacity="1"/>
+      <text x="92.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">DC</text>
+      <rect x="103.1" y="270.5" width="11.2" height="81.5" fill="#2f5670" opacity="0.78"/>
+      <text x="108.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AK</text>
+      <rect x="119.3" y="263.6" width="11.2" height="88.4" fill="#2f5670" opacity="0.78"/>
+      <text x="124.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">ND</text>
+      <rect x="135.5" y="259.6" width="11.2" height="92.4" fill="#2f5670" opacity="0.78"/>
+      <text x="141.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">RI</text>
+      <rect x="151.7" y="257.1" width="11.2" height="94.9" fill="#2f5670" opacity="0.78"/>
+      <text x="157.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MT</text>
+      <rect x="167.9" y="248.6" width="11.2" height="103.4" fill="#2f5670" opacity="0.78"/>
+      <text x="173.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">SD</text>
+      <rect x="184.1" y="234.8" width="11.2" height="117.2" fill="#2f5670" opacity="0.78"/>
+      <text x="189.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">DE</text>
+      <rect x="200.3" y="234.6" width="11.2" height="117.4" fill="#2f5670" opacity="0.78"/>
+      <text x="205.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">ME</text>
+      <rect x="216.5" y="234.6" width="11.2" height="117.4" fill="#2f5670" opacity="0.78"/>
+      <text x="222.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NH</text>
+      <rect x="232.7" y="233.2" width="11.2" height="118.8" fill="#2f5670" opacity="0.78"/>
+      <text x="238.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">HI</text>
+      <rect x="248.9" y="218.1" width="11.2" height="133.9" fill="#2f5670" opacity="0.78"/>
+      <text x="254.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NE</text>
+      <rect x="265.0" y="211.0" width="11.2" height="141.0" fill="#2f5670" opacity="0.78"/>
+      <text x="270.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NM</text>
+      <rect x="281.2" y="205.5" width="11.2" height="146.5" fill="#2f5670" opacity="0.78"/>
+      <text x="286.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WV</text>
+      <rect x="297.4" y="188.7" width="11.2" height="163.3" fill="#2f5670" opacity="0.78"/>
+      <text x="303.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MS</text>
+      <rect x="313.6" y="187.4" width="11.2" height="164.6" fill="#2f5670" opacity="0.78"/>
+      <text x="319.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">KS</text>
+      <rect x="329.8" y="183.7" width="11.2" height="168.3" fill="#2f5670" opacity="0.78"/>
+      <text x="335.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">ID</text>
+      <rect x="346.0" y="179.8" width="11.2" height="172.2" fill="#2f5670" opacity="0.78"/>
+      <text x="351.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AR</text>
+      <rect x="362.2" y="177.2" width="11.2" height="174.8" fill="#2f5670" opacity="0.78"/>
+      <text x="367.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">CT</text>
+      <rect x="378.4" y="174.8" width="11.2" height="177.2" fill="#2f5670" opacity="0.78"/>
+      <text x="384.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">OR</text>
+      <rect x="394.6" y="172.9" width="11.2" height="179.1" fill="#2f5670" opacity="0.78"/>
+      <text x="400.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">IA</text>
+      <rect x="410.8" y="170.5" width="11.2" height="181.5" fill="#2f5670" opacity="0.78"/>
+      <text x="416.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NV</text>
+      <rect x="427.0" y="161.0" width="11.2" height="191.0" fill="#2f5670" opacity="0.78"/>
+      <text x="432.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">KY</text>
+      <rect x="443.2" y="160.6" width="11.2" height="191.4" fill="#2f5670" opacity="0.78"/>
+      <text x="448.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AL</text>
+      <rect x="459.4" y="160.5" width="11.2" height="191.5" fill="#2f5670" opacity="0.78"/>
+      <text x="465.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">LA</text>
+      <rect x="475.6" y="158.6" width="11.2" height="193.4" fill="#2f5670" opacity="0.78"/>
+      <text x="481.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MN</text>
+      <rect x="491.8" y="156.6" width="11.2" height="195.4" fill="#2f5670" opacity="0.78"/>
+      <text x="497.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">OK</text>
+      <rect x="508.0" y="156.3" width="11.2" height="195.7" fill="#2f5670" opacity="0.78"/>
+      <text x="513.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">UT</text>
+      <rect x="524.2" y="153.8" width="11.2" height="198.2" fill="#2f5670" opacity="0.78"/>
+      <text x="529.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WI</text>
+      <rect x="540.4" y="152.5" width="11.2" height="199.5" fill="#2f5670" opacity="0.78"/>
+      <text x="546.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">CO</text>
+      <rect x="556.6" y="146.7" width="11.2" height="205.3" fill="#2f5670" opacity="0.78"/>
+      <text x="562.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">SC</text>
+      <rect x="572.8" y="144.1" width="11.2" height="207.9" fill="#2f5670" opacity="0.78"/>
+      <text x="578.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MD</text>
+      <rect x="589.0" y="144.0" width="11.2" height="208.0" fill="#2f5670" opacity="0.78"/>
+      <text x="594.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MO</text>
+      <rect x="605.2" y="141.7" width="11.2" height="210.3" fill="#2f5670" opacity="0.78"/>
+      <text x="610.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">IN</text>
+      <rect x="621.4" y="136.2" width="11.2" height="215.8" fill="#2f5670" opacity="0.78"/>
+      <text x="627.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MA</text>
+      <rect x="637.6" y="131.4" width="11.2" height="220.6" fill="#2f5670" opacity="0.78"/>
+      <text x="643.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">TN</text>
+      <rect x="653.8" y="130.8" width="11.2" height="221.2" fill="#2f5670" opacity="0.78"/>
+      <text x="659.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WA</text>
+      <rect x="669.9" y="129.9" width="11.2" height="222.1" fill="#2f5670" opacity="0.78"/>
+      <text x="675.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">IL</text>
+      <rect x="686.1" y="128.0" width="11.2" height="224.0" fill="#2f5670" opacity="0.78"/>
+      <text x="691.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MI</text>
+      <rect x="702.3" y="125.7" width="11.2" height="226.3" fill="#2f5670" opacity="0.78"/>
+      <text x="707.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NJ</text>
+      <rect x="718.5" y="125.4" width="11.2" height="226.6" fill="#2f5670" opacity="0.78"/>
+      <text x="724.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">VA</text>
+      <rect x="734.7" y="124.0" width="11.2" height="228.0" fill="#2f5670" opacity="0.78"/>
+      <text x="740.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">PA</text>
+      <rect x="750.9" y="122.1" width="11.2" height="229.9" fill="#2f5670" opacity="0.78"/>
+      <text x="756.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AZ</text>
+      <rect x="767.1" y="119.8" width="11.2" height="232.2" fill="#2f5670" opacity="0.78"/>
+      <text x="772.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NC</text>
+      <rect x="783.3" y="119.8" width="11.2" height="232.2" fill="#2f5670" opacity="0.78"/>
+      <text x="788.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">OH</text>
+      <rect x="799.5" y="117.6" width="11.2" height="234.4" fill="#2f5670" opacity="0.78"/>
+      <text x="805.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">GA</text>
+      <rect x="815.7" y="115.0" width="11.2" height="237.0" fill="#2f5670" opacity="0.78"/>
+      <text x="821.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NY</text>
+      <rect x="831.9" y="110.2" width="11.2" height="241.8" fill="#2f5670" opacity="0.78"/>
+      <text x="837.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">CA</text>
+      <rect x="848.1" y="92.5" width="11.2" height="259.5" fill="#2f5670" opacity="0.78"/>
+      <text x="853.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">FL</text>
+      <rect x="864.3" y="89.0" width="11.2" height="263.0" fill="#8a3324" opacity="1"/>
+      <text x="869.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">TX</text>
+      <line x1="52" y1="352" x2="878" y2="352" stroke="#211d18" stroke-width="1.2"/>
+      <line x1="52" y1="141.2" x2="878" y2="141.2" stroke="#211d18" stroke-width="1" stroke-dasharray="5 3"/>
+      <text x="58" y="135.2" font-size="9" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">If every vote counted equally: 635,288</text>
+      <text x="60.1" y="279.9" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">196k</text>
+      <text x="869.9" y="82.0" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="end">793k</text>
+      <text x="20" y="384" font-size="9" fill="#6b6256" font-family="IBM Plex Mono, monospace">Thirty-five of the fifty-one are below the line. The sixteen above them hold more than half the country.</text>
+      <text x="20" y="400" font-size="9" fill="#6b6256" font-family="IBM Plex Mono, monospace">Texas is worst because it has gained about 2.5 million people since the census that set its share.</text>
+    </svg>
+  </div>
+  <p class="fig-note">Electoral votes come from the 2020 census and will not change until 2032. Population is the Census Bureau estimate for 1 July 2025. The District of Columbia is shown in black.</p>
+
+  <div class="chart-container" style="margin-top:2.2rem;">
+    <svg viewBox="0 0 900 416" role="img" aria-label="Bar chart of the 50 states ranked by population per Senate seat on a logarithmic scale, from Wyoming at 294,376 to California at 19,677,654. A dashed line marks 3,410,912, the figure if all 100 seats were allocated by population. Thirty-four states fall below it. The District of Columbia has 693,645 people and no Senate seat.">
+      <rect x="0" y="0" width="900" height="416" fill="#f6f2e9"/>
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">PEOPLE PER SENATE SEAT</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">2025 population divided by two. Logarithmic scale: each gridline is double the one below.</text>
+      <line x1="52" y1="340.4" x2="878" y2="340.4" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="343.9" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">312k</text>
+      <line x1="52" y1="296.7" x2="878" y2="296.7" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="300.2" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">625k</text>
+      <line x1="52" y1="252.9" x2="878" y2="252.9" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="256.4" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">1.25m</text>
+      <line x1="52" y1="209.2" x2="878" y2="209.2" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="212.7" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">2.5m</text>
+      <line x1="52" y1="165.5" x2="878" y2="165.5" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="169.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">5m</text>
+      <line x1="52" y1="121.7" x2="878" y2="121.7" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="125.2" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">10m</text>
+      <line x1="52" y1="78.0" x2="878" y2="78.0" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="46" y="81.5" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">20m</text>
+      <rect x="54.7" y="344.2" width="11.2" height="7.8" fill="#8a3324" opacity="1"/>
+      <text x="60.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WY</text>
+      <rect x="71.2" y="338.4" width="11.2" height="13.6" fill="#2f5670" opacity="0.78"/>
+      <text x="76.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">VT</text>
+      <rect x="87.7" y="330.0" width="11.2" height="22.0" fill="#2f5670" opacity="0.78"/>
+      <text x="93.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AK</text>
+      <rect x="104.2" y="324.9" width="11.2" height="27.1" fill="#2f5670" opacity="0.78"/>
+      <text x="109.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">ND</text>
+      <rect x="120.7" y="315.0" width="11.2" height="37.0" fill="#2f5670" opacity="0.78"/>
+      <text x="126.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">SD</text>
+      <rect x="137.3" y="307.1" width="11.2" height="44.9" fill="#2f5670" opacity="0.78"/>
+      <text x="142.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">DE</text>
+      <rect x="153.8" y="303.9" width="11.2" height="48.1" fill="#2f5670" opacity="0.78"/>
+      <text x="159.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">RI</text>
+      <rect x="170.3" y="302.2" width="11.2" height="49.8" fill="#2f5670" opacity="0.78"/>
+      <text x="175.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MT</text>
+      <rect x="186.8" y="288.8" width="11.2" height="63.2" fill="#2f5670" opacity="0.78"/>
+      <text x="192.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">ME</text>
+      <rect x="203.3" y="288.8" width="11.2" height="63.2" fill="#2f5670" opacity="0.78"/>
+      <text x="208.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NH</text>
+      <rect x="219.9" y="288.1" width="11.2" height="63.9" fill="#2f5670" opacity="0.78"/>
+      <text x="225.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">HI</text>
+      <rect x="236.4" y="274.9" width="11.2" height="77.1" fill="#2f5670" opacity="0.78"/>
+      <text x="242.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WV</text>
+      <rect x="252.9" y="266.4" width="11.2" height="85.6" fill="#2f5670" opacity="0.78"/>
+      <text x="258.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NE</text>
+      <rect x="269.4" y="266.1" width="11.2" height="85.9" fill="#2f5670" opacity="0.78"/>
+      <text x="275.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">ID</text>
+      <rect x="285.9" y="263.2" width="11.2" height="88.8" fill="#2f5670" opacity="0.78"/>
+      <text x="291.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NM</text>
+      <rect x="302.5" y="242.4" width="11.2" height="109.6" fill="#2f5670" opacity="0.78"/>
+      <text x="308.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MS</text>
+      <rect x="319.0" y="241.9" width="11.2" height="110.1" fill="#2f5670" opacity="0.78"/>
+      <text x="324.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">KS</text>
+      <rect x="335.5" y="239.1" width="11.2" height="112.9" fill="#2f5670" opacity="0.78"/>
+      <text x="341.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AR</text>
+      <rect x="352.0" y="236.6" width="11.2" height="115.4" fill="#2f5670" opacity="0.78"/>
+      <text x="357.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">IA</text>
+      <rect x="368.5" y="235.8" width="11.2" height="116.2" fill="#2f5670" opacity="0.78"/>
+      <text x="374.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NV</text>
+      <rect x="385.1" y="231.0" width="11.2" height="121.0" fill="#2f5670" opacity="0.78"/>
+      <text x="390.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">UT</text>
+      <rect x="401.6" y="228.4" width="11.2" height="123.6" fill="#2f5670" opacity="0.78"/>
+      <text x="407.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">CT</text>
+      <rect x="418.1" y="221.4" width="11.2" height="130.6" fill="#2f5670" opacity="0.78"/>
+      <text x="423.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">OK</text>
+      <rect x="434.6" y="219.1" width="11.2" height="132.9" fill="#2f5670" opacity="0.78"/>
+      <text x="440.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">OR</text>
+      <rect x="451.1" y="214.4" width="11.2" height="137.6" fill="#2f5670" opacity="0.78"/>
+      <text x="456.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">KY</text>
+      <rect x="467.7" y="214.2" width="11.2" height="137.8" fill="#2f5670" opacity="0.78"/>
+      <text x="473.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">LA</text>
+      <rect x="484.2" y="206.8" width="11.2" height="145.2" fill="#2f5670" opacity="0.78"/>
+      <text x="489.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AL</text>
+      <rect x="500.7" y="202.4" width="11.2" height="149.6" fill="#2f5670" opacity="0.78"/>
+      <text x="506.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">SC</text>
+      <rect x="517.2" y="199.5" width="11.2" height="152.5" fill="#2f5670" opacity="0.78"/>
+      <text x="522.8" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MN</text>
+      <rect x="533.7" y="198.0" width="11.2" height="154.0" fill="#2f5670" opacity="0.78"/>
+      <text x="539.3" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WI</text>
+      <rect x="550.3" y="197.6" width="11.2" height="154.4" fill="#2f5670" opacity="0.78"/>
+      <text x="555.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">CO</text>
+      <rect x="566.8" y="195.0" width="11.2" height="157.0" fill="#2f5670" opacity="0.78"/>
+      <text x="572.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MD</text>
+      <rect x="583.3" y="194.9" width="11.2" height="157.1" fill="#2f5670" opacity="0.78"/>
+      <text x="588.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MO</text>
+      <rect x="599.8" y="188.2" width="11.2" height="163.8" fill="#2f5670" opacity="0.78"/>
+      <text x="605.4" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">IN</text>
+      <rect x="616.3" y="186.6" width="11.2" height="165.4" fill="#2f5670" opacity="0.78"/>
+      <text x="621.9" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MA</text>
+      <rect x="632.9" y="185.2" width="11.2" height="166.8" fill="#2f5670" opacity="0.78"/>
+      <text x="638.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">TN</text>
+      <rect x="649.4" y="182.6" width="11.2" height="169.4" fill="#2f5670" opacity="0.78"/>
+      <text x="655.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">AZ</text>
+      <rect x="665.9" y="179.5" width="11.2" height="172.5" fill="#2f5670" opacity="0.78"/>
+      <text x="671.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">WA</text>
+      <rect x="682.4" y="173.0" width="11.2" height="179.0" fill="#2f5670" opacity="0.78"/>
+      <text x="688.0" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">VA</text>
+      <rect x="698.9" y="168.4" width="11.2" height="183.6" fill="#2f5670" opacity="0.78"/>
+      <text x="704.5" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NJ</text>
+      <rect x="715.5" y="164.7" width="11.2" height="187.3" fill="#2f5670" opacity="0.78"/>
+      <text x="721.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">MI</text>
+      <rect x="732.0" y="158.3" width="11.2" height="193.7" fill="#2f5670" opacity="0.78"/>
+      <text x="737.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NC</text>
+      <rect x="748.5" y="157.7" width="11.2" height="194.3" fill="#2f5670" opacity="0.78"/>
+      <text x="754.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">GA</text>
+      <rect x="765.0" y="154.5" width="11.2" height="197.5" fill="#2f5670" opacity="0.78"/>
+      <text x="770.6" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">OH</text>
+      <rect x="781.5" y="150.3" width="11.2" height="201.7" fill="#2f5670" opacity="0.78"/>
+      <text x="787.1" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">IL</text>
+      <rect x="798.1" y="148.6" width="11.2" height="203.4" fill="#2f5670" opacity="0.78"/>
+      <text x="803.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">PA</text>
+      <rect x="814.6" y="121.7" width="11.2" height="230.3" fill="#2f5670" opacity="0.78"/>
+      <text x="820.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">NY</text>
+      <rect x="831.1" y="111.7" width="11.2" height="240.3" fill="#2f5670" opacity="0.78"/>
+      <text x="836.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">FL</text>
+      <rect x="847.6" y="92.7" width="11.2" height="259.3" fill="#2f5670" opacity="0.78"/>
+      <text x="853.2" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">TX</text>
+      <rect x="864.1" y="79.0" width="11.2" height="273.0" fill="#8a3324" opacity="1"/>
+      <text x="869.7" y="365.0" font-size="7.5" fill="#211d18" font-family="IBM Plex Mono, monospace" text-anchor="middle">CA</text>
+      <line x1="52" y1="352" x2="878" y2="352" stroke="#211d18" stroke-width="1.2"/>
+      <line x1="52" y1="189.6" x2="878" y2="189.6" stroke="#211d18" stroke-width="1" stroke-dasharray="5 3"/>
+      <text x="58" y="183.6" font-size="9" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">If every seat counted equally: 3,410,912</text>
+      <text x="60.3" y="337.2" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="middle">294k</text>
+      <text x="869.7" y="72.0" font-size="8.5" fill="#8a3324" font-family="IBM Plex Mono, monospace" text-anchor="end">19.68m</text>
+      <text x="20" y="384" font-size="9" fill="#6b6256" font-family="IBM Plex Mono, monospace">Thirty-four states sit below the line of equal weight. Washington D.C., with 693,645 people, has no bar here at all.</text>
+      <text x="20" y="400" font-size="9" fill="#6b6256" font-family="IBM Plex Mono, monospace">A Wyoming resident holds 66.85 times the Senate representation of a Californian. Both hold one vote for president.</text>
+    </svg>
+  </div>
+  <p class="fig-note">The scale is logarithmic because a linear one makes forty states invisible. On a linear axis, Wyoming&rsquo;s bar would be 1.5 percent the height of California&rsquo;s.</p>
+
+  <div class="chart-container" style="margin-top:2.2rem;">
+    <svg viewBox="0 0 900 396" role="img" aria-label="A rising curve of Senate seats counted from the smallest states upward against the cumulative share of the national population behind them. Thirty-four seats represent 7.4 percent of the population, forty-two represent 11.2 percent, fifty-two represent 17.5 percent and sixty-eight represent 31.5 percent. A dashed diagonal shows where the curve would run if every seat carried equal population.">
+      <rect x="0" y="0" width="900" height="396" fill="#f6f2e9"/>
+      <text x="20" y="26" font-size="12" fill="#8a3324" font-family="IBM Plex Mono, monospace" font-weight="600">HOW LITTLE OF THE COUNTRY CAN DECIDE</text>
+      <text x="20" y="42" font-size="10" fill="#8a8073" font-family="IBM Plex Mono, monospace">Senate seats counted from the smallest states up, against the share of the population behind them.</text>
+      <line x1="66" y1="330.0" x2="640" y2="330.0" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="60" y="333.5" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">0%</text>
+      <line x1="66" y1="264.0" x2="640" y2="264.0" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="60" y="267.5" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">25%</text>
+      <line x1="66" y1="198.0" x2="640" y2="198.0" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="60" y="201.5" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">50%</text>
+      <line x1="66" y1="132.0" x2="640" y2="132.0" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="60" y="135.5" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">75%</text>
+      <line x1="66" y1="66.0" x2="640" y2="66.0" stroke="#ddd3c2" stroke-width="1"/>
+      <text x="60" y="69.5" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="end">100%</text>
+      <text x="66.0" y="345.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">0</text>
+      <text x="180.8" y="345.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">20</text>
+      <text x="295.6" y="345.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">40</text>
+      <text x="410.4" y="345.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">60</text>
+      <text x="525.2" y="345.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">80</text>
+      <text x="640.0" y="345.0" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace" text-anchor="middle">100</text>
+      <line x1="66" y1="330" x2="640" y2="330" stroke="#211d18" stroke-width="1.2"/>
+      <text x="353.0" y="362.0" font-size="9.5" fill="#6b6256" font-family="IBM Plex Mono, monospace" text-anchor="middle">SENATE SEATS</text>
+      <polyline points="66.0,330.0 77.5,329.5 89.0,329.0 100.4,328.5 111.9,327.9 123.4,327.1 134.9,326.3 146.4,325.5 157.8,324.6 169.3,323.5 180.8,322.4 192.3,321.3 203.8,319.9 215.2,318.4 226.7,316.8 238.2,315.1 249.7,312.9 261.2,310.6 272.6,308.2 284.1,305.7 295.6,303.1 307.1,300.4 318.6,297.5 330.0,294.4 341.5,291.1 353.0,287.5 364.5,283.9 376.0,279.9 387.4,275.6 398.9,271.1 410.4,266.5 421.9,261.9 433.4,257.0 444.8,252.2 456.3,246.8 467.8,241.3 479.3,235.6 490.8,229.7 502.2,223.5 513.7,216.7 525.2,209.3 536.7,201.5 548.2,192.8 559.6,184.1 571.1,174.9 582.6,165.1 594.1,155.0 605.6,139.6 617.0,121.4 628.5,96.9 640.0,66.5" fill="none" stroke="#2f5670" stroke-width="2"/>
+      <line x1="66" y1="330" x2="640" y2="66.0" stroke="#8a8073" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="490.8" y="124.1" font-size="9" fill="#8a8073" font-family="IBM Plex Mono, monospace">equal weight</text>
+      <circle cx="261.2" cy="310.6" r="4.5" fill="#8a3324"/>
+      <polyline points="261.2,310.6 650,310.6 664,300" fill="none" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <text x="670" y="297" font-size="9.5" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">7.4% of the country</text>
+      <text x="670" y="309" font-size="8.5" fill="#6b6256" font-family="IBM Plex Mono, monospace">34 seats: blocks any override</text>
+      <circle cx="307.1" cy="300.4" r="4.5" fill="#8a3324"/>
+      <polyline points="307.1,300.4 650,300.4 664,246" fill="none" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <text x="670" y="243" font-size="9.5" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">11.2% of the country</text>
+      <text x="670" y="255" font-size="8.5" fill="#6b6256" font-family="IBM Plex Mono, monospace">42 seats: holds a filibuster</text>
+      <circle cx="364.5" cy="283.9" r="4.5" fill="#8a3324"/>
+      <polyline points="364.5,283.9 650,283.9 664,192" fill="none" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <text x="670" y="189" font-size="9.5" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">17.5% of the country</text>
+      <text x="670" y="201" font-size="8.5" fill="#6b6256" font-family="IBM Plex Mono, monospace">52 seats: a working majority</text>
+      <circle cx="456.3" cy="246.8" r="4.5" fill="#8a3324"/>
+      <polyline points="456.3,246.8 650,246.8 664,138" fill="none" stroke="#8a3324" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <text x="670" y="135" font-size="9.5" fill="#211d18" font-family="IBM Plex Mono, monospace" font-weight="600">31.5% of the country</text>
+      <text x="670" y="147" font-size="8.5" fill="#6b6256" font-family="IBM Plex Mono, monospace">68 seats: overrides any veto</text>
+      <text x="20" y="372" font-size="9" fill="#6b6256" font-family="IBM Plex Mono, monospace">Fifty-two senators can be elected by 17.5 percent of the population. Sixty-eight, enough to override any veto, by 31.5 percent.</text>
+    </svg>
+  </div>
+  <p class="fig-note">The smallest states are unlikely to vote as a bloc, and in practice they do not. The curve is a floor on how little of the country a Senate outcome can rest on, not a prediction that it will.</p>
+
+  <div class="prose-note">
+    <strong>Start with one state and three rules.</strong> Wyoming had <strong>588,753</strong> residents in
+    July 2025. It gets one seat in the House, so that seat stands for 588,753 people. It gets three electoral
+    votes, so each stands for <strong>196,251</strong>. It gets two senators, so each stands for
+    <strong>294,376</strong>. Same state, same census, three answers.
+    <br><br>
+    Now California, with <strong>39,355,309</strong>. Each of its 52 House seats stands for 756,833 people.
+    Each of its 54 electoral votes stands for <strong>728,802</strong>. Each of its two Senate seats stands for
+    <strong>19,677,654</strong>.
+    <br><br>
+    <strong>The spread is the whole story.</strong> Across all the states, a House seat ranges over a factor of
+    <strong>1.90</strong>. An electoral vote ranges over <strong>4.04</strong>. A Senate seat ranges over
+    <strong>66.85</strong>. One country, one population, and the distortion grows seventeenfold as you move
+    from the first chamber to the third.
+    <br><br>
+    <strong>Where the electoral college gets its tilt.</strong> A state&rsquo;s electoral votes are its House
+    seats plus two. Those two are the Senate leaking into the presidential election. For every state with a
+    single House seat the bonus is worth exactly <strong>three times</strong>, because it turns one unit into
+    three. For California it is worth about <strong>4 percent</strong>, and for Texas about 5. The bonus is not
+    a thumb on the scale. It is a multiplier for the seven smallest states and a rounding error for the largest.
+    <br><br>
+    <strong>The House is not clean either.</strong> It is supposed to be proportional, and 1.90 to one is not
+    proportional. The cause is the cap. The Permanent Apportionment Act of 1929 fixed the House at 435 seats, so
+    every state&rsquo;s share has to be rounded to a whole number out of a fixed total. Rhode Island gets two
+    seats for 1,114,521 people, which is <strong>557,260</strong> each. Delaware gets one seat for
+    <strong>1,059,952</strong>. Montana and Idaho both have two seats, and Idaho has
+    <strong>77 percent</strong> more people per seat.
+    <br><br>
+    <strong>Which makes the legal position strange.</strong> In <em>Karcher v. Daggett</em>, decided in 1983,
+    the Supreme Court struck down New Jersey&rsquo;s congressional map. The largest district held 527,472 people
+    and the smallest 523,798. The gap was <strong>0.6984 percent</strong>, and the Court held there is no
+    deviation small enough to be excused without justification. Delaware&rsquo;s seat holds
+    <strong>90.2 percent</strong> more people than one of Rhode Island&rsquo;s. That gap is about
+    <strong>129 times</strong> the one struck down, and it is not merely permitted. It is required, because
+    district lines stop at the state border.
+    <br><br>
+    <strong>Texas is the worst-represented state, and that is an accident of timing.</strong> Each of its 40
+    electoral votes stands for 792,746 people, the highest in the country. Its 38 House seats were set by the
+    2020 census, when its apportionment population was 29,183,290. It has added about
+    <strong>2.5 million</strong> people since. Nothing adjusts until the 2030 census takes effect in 2032. A
+    growing state is underrepresented for a decade by construction.
+    <br><br>
+    <strong>Washington D.C. is the other direction.</strong> It has <strong>693,645</strong> residents, more
+    than Wyoming and more than Vermont. The Twenty-Third Amendment gives it three electoral votes, the same as
+    the smallest state. It has <strong>no senators and no voting representative</strong>. On the presidential
+    scale it is the third best represented unit in the country. On the Senate scale it does not appear.
+    <br><br>
+    <strong>So how much does the Senate bonus actually decide?</strong> Twice since 1888 a candidate has won the
+    presidency while losing the popular vote. The two cases answer differently, and the arithmetic is simple
+    enough to check by hand. Strip the two senatorial electors from every state and give the District nothing,
+    and 435 votes remain.
+    <br><br>
+    In <strong>2000</strong>, Bush carried 30 states and 271 pledged electors, Gore 20 states plus the District
+    and 267. Removing the bonus leaves <strong>Bush 211, Gore 224</strong>. Gore wins, and he had already won
+    the popular vote. The bonus decided that election.
+    <br><br>
+    In <strong>2016</strong>, Trump carried 30 states and 306 pledged electors, Clinton 20 states plus the
+    District and 232. Removing the bonus leaves <strong>Trump 246, Clinton 189</strong>. Trump still wins
+    comfortably, having lost the popular vote by 2.87 million. The bonus did not decide that one. Winner take
+    all did, by converting narrow state wins into whole blocs.
+    <br><br>
+    Both counts sum to 435, which is the check that the state tallies are right. The lesson is that the
+    electoral college has two separate distortions, and the famous one is the smaller one.
+    <br><br>
+    <strong>The Senate needs no such counterfactual.</strong> Rank the states from smallest to largest and add
+    up the people behind the seats. Thirty-four seats, enough to block a treaty or sustain any veto, sit behind
+    <strong>7.4 percent</strong> of the population. Forty-two seats, enough to hold a filibuster, sit behind
+    <strong>11.2 percent</strong>. A working majority of 52 sits behind <strong>17.5 percent</strong>.
+    Sixty-eight seats, enough to override any veto, sit behind <strong>31.5 percent</strong>.
+    <br><br>
+    Those are floors, not forecasts. The small states do not vote as a bloc and never have. The number says what
+    a Senate result can rest on, not what it does rest on.
+    <br><br>
+    <strong>What would change it.</strong> Enlarging the House is the only one of these that does not need an
+    amendment, since the 435 is a statute. Size the House so the average district matches the smallest state and
+    it grows to about 579 seats. That cuts the electoral college spread from 4.04 to <strong>2.91</strong>. It
+    does not touch the Senate, because the Senate is not a function of population at all. Article V protects it
+    twice over: equal suffrage in the Senate is the one clause the amendment process cannot reach without a
+    state&rsquo;s own consent.
+    <br><br>
+    <strong>Method.</strong> Electoral votes and House seats are from the Census Bureau&rsquo;s 2020
+    apportionment, in force for 2024 and 2028. Population is the Bureau&rsquo;s vintage 2025 estimate for 1 July
+    2025, which is why the ratios differ slightly from ones computed on census day. Apportionment population
+    includes overseas federal employees and resident population does not, so the 2020 and 2025 figures are not
+    quite the same quantity. The counterfactuals use pledged electors rather than the votes actually cast, which
+    is why 2016 reads 306 and 232 rather than 304 and 227.
+    <br><br>
+    <strong>A note on what this is not.</strong> None of this shows the design is wrong. The Senate was built to
+    weight states rather than people, and it was the condition on which the small states ratified anything at
+    all. The question worth asking is narrower. Each chamber claims a different answer to how much a person
+    counts, and only one of them is ever described as proportional.
+    <a class="dispatch-link" href="/dispatch-sixty-seventh-seat">Read: The Sixty-Seventh Seat &rarr;</a>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="ledger">
+      <thead>
+        <tr><th>Unit</th><th>Population, July 2025</th><th>Electoral votes</th><th>People per electoral vote</th><th>People per Senate seat</th></tr>
+      </thead>
+      <tbody>
+          <tr><td class="k">Wyoming</td><td class="n">588,753</td><td class="n">3</td><td class="n">196,251</td><td class="n">294,376</td></tr>
+          <tr><td class="k">Vermont</td><td class="n">644,663</td><td class="n">3</td><td class="n">214,888</td><td class="n">322,332</td></tr>
+          <tr><td class="k">District of Columbia</td><td class="n">693,645</td><td class="n">3</td><td class="n">231,215</td><td class="n">no senators</td></tr>
+          <tr><td class="k">Alaska</td><td class="n">737,270</td><td class="n">3</td><td class="n">245,757</td><td class="n">368,635</td></tr>
+          <tr><td class="k">North Dakota</td><td class="n">799,358</td><td class="n">3</td><td class="n">266,453</td><td class="n">399,679</td></tr>
+          <tr><td class="k">Rhode Island</td><td class="n">1,114,521</td><td class="n">4</td><td class="n">278,630</td><td class="n">557,260</td></tr>
+          <tr><td class="k">Montana</td><td class="n">1,144,694</td><td class="n">4</td><td class="n">286,174</td><td class="n">572,347</td></tr>
+          <tr><td class="k">South Dakota</td><td class="n">935,094</td><td class="n">3</td><td class="n">311,698</td><td class="n">467,547</td></tr>
+          <tr><td class="k">Delaware</td><td class="n">1,059,952</td><td class="n">3</td><td class="n">353,317</td><td class="n">529,976</td></tr>
+          <tr><td class="k">Maine</td><td class="n">1,414,874</td><td class="n">4</td><td class="n">353,718</td><td class="n">707,437</td></tr>
+          <tr><td class="k">New Hampshire</td><td class="n">1,415,342</td><td class="n">4</td><td class="n">353,836</td><td class="n">707,671</td></tr>
+          <tr><td class="k">Hawaii</td><td class="n">1,432,820</td><td class="n">4</td><td class="n">358,205</td><td class="n">716,410</td></tr>
+          <tr><td class="k">Nebraska</td><td class="n">2,018,006</td><td class="n">5</td><td class="n">403,601</td><td class="n">1,009,003</td></tr>
+          <tr><td class="k">New Mexico</td><td class="n">2,125,498</td><td class="n">5</td><td class="n">425,100</td><td class="n">1,062,749</td></tr>
+          <tr><td class="k">West Virginia</td><td class="n">1,766,147</td><td class="n">4</td><td class="n">441,537</td><td class="n">883,074</td></tr>
+          <tr><td class="k">Mississippi</td><td class="n">2,954,160</td><td class="n">6</td><td class="n">492,360</td><td class="n">1,477,080</td></tr>
+          <tr><td class="k">Kansas</td><td class="n">2,977,220</td><td class="n">6</td><td class="n">496,203</td><td class="n">1,488,610</td></tr>
+          <tr><td class="k">Idaho</td><td class="n">2,029,733</td><td class="n">4</td><td class="n">507,433</td><td class="n">1,014,866</td></tr>
+          <tr><td class="k">Arkansas</td><td class="n">3,114,791</td><td class="n">6</td><td class="n">519,132</td><td class="n">1,557,396</td></tr>
+          <tr><td class="k">Connecticut</td><td class="n">3,688,496</td><td class="n">7</td><td class="n">526,928</td><td class="n">1,844,248</td></tr>
+          <tr><td class="k">Oregon</td><td class="n">4,273,586</td><td class="n">8</td><td class="n">534,198</td><td class="n">2,136,793</td></tr>
+          <tr><td class="k">Iowa</td><td class="n">3,238,387</td><td class="n">6</td><td class="n">539,731</td><td class="n">1,619,194</td></tr>
+          <tr><td class="k">Nevada</td><td class="n">3,282,188</td><td class="n">6</td><td class="n">547,031</td><td class="n">1,641,094</td></tr>
+          <tr><td class="k">Kentucky</td><td class="n">4,606,864</td><td class="n">8</td><td class="n">575,858</td><td class="n">2,303,432</td></tr>
+          <tr><td class="k">Alabama</td><td class="n">5,193,088</td><td class="n">9</td><td class="n">577,010</td><td class="n">2,596,544</td></tr>
+          <tr><td class="k">Louisiana</td><td class="n">4,618,189</td><td class="n">8</td><td class="n">577,274</td><td class="n">2,309,094</td></tr>
+          <tr><td class="k">Minnesota</td><td class="n">5,830,405</td><td class="n">10</td><td class="n">583,040</td><td class="n">2,915,202</td></tr>
+          <tr><td class="k">Oklahoma</td><td class="n">4,123,288</td><td class="n">7</td><td class="n">589,041</td><td class="n">2,061,644</td></tr>
+          <tr><td class="k">Utah</td><td class="n">3,538,904</td><td class="n">6</td><td class="n">589,817</td><td class="n">1,769,452</td></tr>
+          <tr><td class="k">Wisconsin</td><td class="n">5,972,787</td><td class="n">10</td><td class="n">597,279</td><td class="n">2,986,394</td></tr>
+          <tr><td class="k">Colorado</td><td class="n">6,012,561</td><td class="n">10</td><td class="n">601,256</td><td class="n">3,006,280</td></tr>
+          <tr><td class="k">South Carolina</td><td class="n">5,570,274</td><td class="n">9</td><td class="n">618,919</td><td class="n">2,785,137</td></tr>
+          <tr><td class="k">Maryland</td><td class="n">6,265,347</td><td class="n">10</td><td class="n">626,535</td><td class="n">3,132,674</td></tr>
+          <tr><td class="k">Missouri</td><td class="n">6,270,541</td><td class="n">10</td><td class="n">627,054</td><td class="n">3,135,270</td></tr>
+          <tr><td class="k">Indiana</td><td class="n">6,973,333</td><td class="n">11</td><td class="n">633,939</td><td class="n">3,486,666</td></tr>
+          <tr><td class="k">Massachusetts</td><td class="n">7,154,084</td><td class="n">11</td><td class="n">650,371</td><td class="n">3,577,042</td></tr>
+          <tr><td class="k">Tennessee</td><td class="n">7,315,076</td><td class="n">11</td><td class="n">665,007</td><td class="n">3,657,538</td></tr>
+          <tr><td class="k">Washington</td><td class="n">8,001,020</td><td class="n">12</td><td class="n">666,752</td><td class="n">4,000,510</td></tr>
+          <tr><td class="k">Illinois</td><td class="n">12,719,141</td><td class="n">19</td><td class="n">669,428</td><td class="n">6,359,570</td></tr>
+          <tr><td class="k">Michigan</td><td class="n">10,127,884</td><td class="n">15</td><td class="n">675,192</td><td class="n">5,063,942</td></tr>
+          <tr><td class="k">New Jersey</td><td class="n">9,548,215</td><td class="n">14</td><td class="n">682,015</td><td class="n">4,774,108</td></tr>
+          <tr><td class="k">Virginia</td><td class="n">8,880,107</td><td class="n">13</td><td class="n">683,085</td><td class="n">4,440,054</td></tr>
+          <tr><td class="k">Pennsylvania</td><td class="n">13,059,432</td><td class="n">19</td><td class="n">687,339</td><td class="n">6,529,716</td></tr>
+          <tr><td class="k">Arizona</td><td class="n">7,623,818</td><td class="n">11</td><td class="n">693,074</td><td class="n">3,811,909</td></tr>
+          <tr><td class="k">North Carolina</td><td class="n">11,197,968</td><td class="n">16</td><td class="n">699,873</td><td class="n">5,598,984</td></tr>
+          <tr><td class="k">Ohio</td><td class="n">11,900,510</td><td class="n">17</td><td class="n">700,030</td><td class="n">5,950,255</td></tr>
+          <tr><td class="k">Georgia</td><td class="n">11,302,748</td><td class="n">16</td><td class="n">706,422</td><td class="n">5,651,374</td></tr>
+          <tr><td class="k">New York</td><td class="n">20,002,427</td><td class="n">28</td><td class="n">714,372</td><td class="n">10,001,214</td></tr>
+          <tr><td class="k">California</td><td class="n">39,355,309</td><td class="n">54</td><td class="n">728,802</td><td class="n">19,677,654</td></tr>
+          <tr><td class="k">Florida</td><td class="n">23,462,518</td><td class="n">30</td><td class="n">782,084</td><td class="n">11,731,259</td></tr>
+          <tr><td class="k">Texas</td><td class="n">31,709,821</td><td class="n">40</td><td class="n">792,746</td><td class="n">15,854,910</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fig-note">Ranked by people per electoral vote. Sources: U.S. Census Bureau, 2020 Census apportionment results, table 1; Annual Estimates of the Resident Population for the United States, Regions, States and the District of Columbia, vintage 2025 (NST-EST2025).</p>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p class="tagline">Scarcinality: a theory of which shortage is real.</p>
+    <p>Built on Fisher, Keynes, and Minsky. Dispatches are conditional readings, not forecasts.</p>
+    <p class="follow"><a class="fb-follow" href="https://www.facebook.com/share/18FwXSExnf/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.891.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>Follow on Facebook</a></p>
+  </div>
+</footer>
+
+<script src="/assets/actions.js" defer></script>
+<script src="/assets/cci-badge.js" defer></script>
+</body>
+</html>
